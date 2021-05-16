@@ -1,0 +1,463 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		934A21D726515EF300607821 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A21D626515EF300607821 /* APIService.swift */; };
+		93553A722647015D0027BA06 /* MessangelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A712647015D0027BA06 /* MessangelApp.swift */; };
+		93553A742647015D0027BA06 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A732647015D0027BA06 /* ContentView.swift */; };
+		93553A76264701600027BA06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93553A75264701600027BA06 /* Assets.xcassets */; };
+		93553A79264701600027BA06 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93553A78264701600027BA06 /* Preview Assets.xcassets */; };
+		93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A81264701C50027BA06 /* KeyboardResponder.swift */; };
+		93553A96264701E60027BA06 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A83264701E60027BA06 /* Styles.swift */; };
+		93553A97264701E60027BA06 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A85264701E60027BA06 /* StartView.swift */; };
+		93553A98264701E60027BA06 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A86264701E60027BA06 /* CustomViews.swift */; };
+		93553A99264701E60027BA06 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A87264701E60027BA06 /* LoginView.swift */; };
+		93553A9A264701E60027BA06 /* SignupGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A89264701E60027BA06 /* SignupGenderView.swift */; };
+		93553A9B264701E60027BA06 /* SignupBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8A264701E60027BA06 /* SignupBaseView.swift */; };
+		93553A9C264701E60027BA06 /* SignupTelIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8B264701E60027BA06 /* SignupTelIntroView.swift */; };
+		93553A9D264701E60027BA06 /* SignupPasswrdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8C264701E60027BA06 /* SignupPasswrdView.swift */; };
+		93553A9E264701E60027BA06 /* SignupDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8D264701E60027BA06 /* SignupDoneView.swift */; };
+		93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8E264701E60027BA06 /* SignupNameView.swift */; };
+		93553AA0264701E60027BA06 /* SignupCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8F264701E60027BA06 /* SignupCodeView.swift */; };
+		93553AA1264701E60027BA06 /* SignupPostcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A90264701E60027BA06 /* SignupPostcodeView.swift */; };
+		93553AA2264701E60027BA06 /* SignupEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A91264701E60027BA06 /* SignupEmailView.swift */; };
+		93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A92264701E60027BA06 /* SignupIntroView.swift */; };
+		93553AA4264701E60027BA06 /* SignupTelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A93264701E60027BA06 /* SignupTelView.swift */; };
+		93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A94264701E60027BA06 /* SignupBirthView.swift */; };
+		93553AA8264802A90027BA06 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AA7264802A90027BA06 /* Extensions.swift */; };
+		93553AAA264841780027BA06 /* SignupOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AA9264841780027BA06 /* SignupOTPView.swift */; };
+		93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AAB264845110027BA06 /* CustomNumberPad.swift */; };
+		93553AAE2648CD680027BA06 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AAD2648CD680027BA06 /* AuthState.swift */; };
+		93553AB2264A22DA0027BA06 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */; };
+		93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AB3264A992F0027BA06 /* TabBarView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		934A21D626515EF300607821 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		93553A6E2647015D0027BA06 /* Messangel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messangel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93553A712647015D0027BA06 /* MessangelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangelApp.swift; sourceTree = "<group>"; };
+		93553A732647015D0027BA06 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		93553A75264701600027BA06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		93553A78264701600027BA06 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		93553A7A264701600027BA06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93553A81264701C50027BA06 /* KeyboardResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		93553A83264701E60027BA06 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		93553A85264701E60027BA06 /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		93553A86264701E60027BA06 /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
+		93553A87264701E60027BA06 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		93553A89264701E60027BA06 /* SignupGenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupGenderView.swift; sourceTree = "<group>"; };
+		93553A8A264701E60027BA06 /* SignupBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupBaseView.swift; sourceTree = "<group>"; };
+		93553A8B264701E60027BA06 /* SignupTelIntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTelIntroView.swift; sourceTree = "<group>"; };
+		93553A8C264701E60027BA06 /* SignupPasswrdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupPasswrdView.swift; sourceTree = "<group>"; };
+		93553A8D264701E60027BA06 /* SignupDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupDoneView.swift; sourceTree = "<group>"; };
+		93553A8E264701E60027BA06 /* SignupNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupNameView.swift; sourceTree = "<group>"; };
+		93553A8F264701E60027BA06 /* SignupCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupCodeView.swift; sourceTree = "<group>"; };
+		93553A90264701E60027BA06 /* SignupPostcodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupPostcodeView.swift; sourceTree = "<group>"; };
+		93553A91264701E60027BA06 /* SignupEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupEmailView.swift; sourceTree = "<group>"; };
+		93553A92264701E60027BA06 /* SignupIntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupIntroView.swift; sourceTree = "<group>"; };
+		93553A93264701E60027BA06 /* SignupTelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupTelView.swift; sourceTree = "<group>"; };
+		93553A94264701E60027BA06 /* SignupBirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupBirthView.swift; sourceTree = "<group>"; };
+		93553AA7264802A90027BA06 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		93553AA9264841780027BA06 /* SignupOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupOTPView.swift; sourceTree = "<group>"; };
+		93553AAB264845110027BA06 /* CustomNumberPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNumberPad.swift; sourceTree = "<group>"; };
+		93553AAD2648CD680027BA06 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
+		93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		93553AB3264A992F0027BA06 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93553A6B2647015D0027BA06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		93553A652647015D0027BA06 = {
+			isa = PBXGroup;
+			children = (
+				93553A702647015D0027BA06 /* Messangel */,
+				93553A6F2647015D0027BA06 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		93553A6F2647015D0027BA06 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93553A6E2647015D0027BA06 /* Messangel.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93553A702647015D0027BA06 /* Messangel */ = {
+			isa = PBXGroup;
+			children = (
+				93553A712647015D0027BA06 /* MessangelApp.swift */,
+				93553A732647015D0027BA06 /* ContentView.swift */,
+				93553A83264701E60027BA06 /* Styles.swift */,
+				93553AAD2648CD680027BA06 /* AuthState.swift */,
+				93553A84264701E60027BA06 /* Views */,
+				93553A80264701C50027BA06 /* Helpers */,
+				93553A75264701600027BA06 /* Assets.xcassets */,
+				93553A7A264701600027BA06 /* Info.plist */,
+				93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */,
+				93553A77264701600027BA06 /* Preview Content */,
+			);
+			path = Messangel;
+			sourceTree = "<group>";
+		};
+		93553A77264701600027BA06 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				93553A78264701600027BA06 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		93553A80264701C50027BA06 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				934A21D626515EF300607821 /* APIService.swift */,
+				93553A81264701C50027BA06 /* KeyboardResponder.swift */,
+				93553AA7264802A90027BA06 /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		93553A84264701E60027BA06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				93553AB7264EC68C0027BA06 /* Custom */,
+				93553A85264701E60027BA06 /* StartView.swift */,
+				93553A87264701E60027BA06 /* LoginView.swift */,
+				93553AB3264A992F0027BA06 /* TabBarView.swift */,
+				93553A88264701E60027BA06 /* Signup */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		93553A88264701E60027BA06 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				93553A8A264701E60027BA06 /* SignupBaseView.swift */,
+				93553A92264701E60027BA06 /* SignupIntroView.swift */,
+				93553A8E264701E60027BA06 /* SignupNameView.swift */,
+				93553A94264701E60027BA06 /* SignupBirthView.swift */,
+				93553A90264701E60027BA06 /* SignupPostcodeView.swift */,
+				93553A89264701E60027BA06 /* SignupGenderView.swift */,
+				93553A91264701E60027BA06 /* SignupEmailView.swift */,
+				93553A8C264701E60027BA06 /* SignupPasswrdView.swift */,
+				93553A8B264701E60027BA06 /* SignupTelIntroView.swift */,
+				93553A93264701E60027BA06 /* SignupTelView.swift */,
+				93553A8F264701E60027BA06 /* SignupCodeView.swift */,
+				93553AA9264841780027BA06 /* SignupOTPView.swift */,
+				93553A8D264701E60027BA06 /* SignupDoneView.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		93553AB7264EC68C0027BA06 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				93553A86264701E60027BA06 /* CustomViews.swift */,
+				93553AAB264845110027BA06 /* CustomNumberPad.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		93553A6D2647015D0027BA06 /* Messangel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93553A7D264701600027BA06 /* Build configuration list for PBXNativeTarget "Messangel" */;
+			buildPhases = (
+				93553A6A2647015D0027BA06 /* Sources */,
+				93553A6B2647015D0027BA06 /* Frameworks */,
+				93553A6C2647015D0027BA06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Messangel;
+			productName = Messangel;
+			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		93553A662647015D0027BA06 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					93553A6D2647015D0027BA06 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = 93553A692647015D0027BA06 /* Build configuration list for PBXProject "Messangel" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 93553A652647015D0027BA06;
+			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				93553A6D2647015D0027BA06 /* Messangel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		93553A6C2647015D0027BA06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93553AB2264A22DA0027BA06 /* Launch Screen.storyboard in Resources */,
+				93553A79264701600027BA06 /* Preview Assets.xcassets in Resources */,
+				93553A76264701600027BA06 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93553A6A2647015D0027BA06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93553A9B264701E60027BA06 /* SignupBaseView.swift in Sources */,
+				934A21D726515EF300607821 /* APIService.swift in Sources */,
+				93553A742647015D0027BA06 /* ContentView.swift in Sources */,
+				93553AA1264701E60027BA06 /* SignupPostcodeView.swift in Sources */,
+				93553A9E264701E60027BA06 /* SignupDoneView.swift in Sources */,
+				93553A9D264701E60027BA06 /* SignupPasswrdView.swift in Sources */,
+				93553A99264701E60027BA06 /* LoginView.swift in Sources */,
+				93553AAE2648CD680027BA06 /* AuthState.swift in Sources */,
+				93553A97264701E60027BA06 /* StartView.swift in Sources */,
+				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
+				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
+				93553AA2264701E60027BA06 /* SignupEmailView.swift in Sources */,
+				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
+				93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */,
+				93553AA4264701E60027BA06 /* SignupTelView.swift in Sources */,
+				93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */,
+				93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */,
+				93553A96264701E60027BA06 /* Styles.swift in Sources */,
+				93553AA8264802A90027BA06 /* Extensions.swift in Sources */,
+				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
+				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
+				93553AA0264701E60027BA06 /* SignupCodeView.swift in Sources */,
+				93553A9A264701E60027BA06 /* SignupGenderView.swift in Sources */,
+				93553AAA264841780027BA06 /* SignupOTPView.swift in Sources */,
+				93553A9C264701E60027BA06 /* SignupTelIntroView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		93553A7B264701600027BA06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		93553A7C264701600027BA06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		93553A7E264701600027BA06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
+				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Messangel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.caansoft.Messangel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		93553A7F264701600027BA06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
+				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Messangel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.caansoft.Messangel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		93553A692647015D0027BA06 /* Build configuration list for PBXProject "Messangel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93553A7B264701600027BA06 /* Debug */,
+				93553A7C264701600027BA06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93553A7D264701600027BA06 /* Build configuration list for PBXNativeTarget "Messangel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93553A7E264701600027BA06 /* Debug */,
+				93553A7F264701600027BA06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 93553A662647015D0027BA06 /* Project object */;
+}
