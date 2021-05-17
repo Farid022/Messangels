@@ -9,13 +9,17 @@ import SwiftUI
 
 struct MyButtonStyle: ButtonStyle {
     var padding: CGFloat = 70.0
+    var maxWidth = true
+    var foregroundColor = Color.accentColor
+    var backgroundColor = Color.white
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(maxWidth: .infinity)
-            .foregroundColor(.accentColor)
+            .if(maxWidth) { $0.frame(maxWidth: .infinity) }
+            .foregroundColor(foregroundColor)
             .background(
-                Color.white.opacity(configuration.isPressed ? 0.5 : 1)
+                backgroundColor.opacity(configuration.isPressed ? 0.5 : 1)
             )
             .cornerRadius(20)
             .padding(.horizontal, padding)

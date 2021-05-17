@@ -1,8 +1,8 @@
 //
-//  TabBar.swift
-//  Salad
+//  TabBarView.swift
+//  Messangels
 //
-//  Created by Balaji on 13/11/20.
+//  Created by Saad Ibrahim on 15/05/21.
 //
 
 import SwiftUI
@@ -13,7 +13,6 @@ struct TabBarView: View {
     @State var onboardingStarted = false
     @State var onboardingCompleted = false
     @State var onboardingCancelled = false
-    @State var onboardingIndex = -1
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -22,12 +21,11 @@ struct TabBarView: View {
     }
     
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
             ZStack {
                 if onboardingShown {
                     TabView(selection: $selectedTab){
-                        Text("Accueil")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        HomeView()
                             .tag(tabs[0])
                         Text("Messages")
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -39,60 +37,17 @@ struct TabBarView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .tag(tabs[3])
                     }
-                } else if !(onboardingCompleted || onboardingCancelled) {
-                    Rectangle()
-                        .fill(Color("bg"))
-                        .frame(width: 270, height: 400)
-                        .cornerRadius(25)
-                        .zIndex(1.0)
-                        .overlay(
-                            VStack {
-                                TabView(selection: $onboardingIndex) {
-                                    ForEach(0 ..< tutorials.count - 1) { _ in
-                                        TutorialView(title: tutorials[onboardingIndex+1]["title"]!, image: tutorials[onboardingIndex+1]["image"]!, desc: tutorials[onboardingIndex+1]["desc"]!)
-                                            .gesture(DragGesture())
-                                    }
-                                }
-                                .disabled(!onboardingStarted)
-                                .tabViewStyle(PageTabViewStyle())
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.25))
-                                    .frame(height: 1)
-                                Button(action: {
-                                    withAnimation {
-                                        if onboardingIndex < tutorials.count - 2 {
-                                            onboardingStarted = true
-                                            onboardingIndex += 1
-                                            selectedTab = tabs[onboardingIndex]
-                                        } else {
-                                            onboardingCompleted = true
-                                        }
-                                    }
-                                }, label: {
-                                    Text(onboardingStarted ? "Continuer" : "Oui")
-                                        .font(.system(size: 17))
-                                        .fontWeight(.semibold)
-                                })
-                                    .padding(.vertical, 5)
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.25))
-                                    .frame(height: 1)
-                                Button(onboardingStarted ? "Quitter" :"Non, passer", action: {
-                                    withAnimation {
-                                        onboardingCancelled = true
-                                    }
-                                })
-                                    .accentColor(.black)
-                                    .padding(.top, 5)
-                                    .padding(.bottom, 15)
-                            }
-                        )
-
-                } else if onboardingCompleted {
-                    OnboardingFinishView(title: "Vous êtes prêt !")
-                    
-                } else if onboardingCancelled {
-                    OnboardingFinishView(title: "Guide Messangel")
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                    .zIndex(1)
+                }
+                else if !(onboardingCompleted || onboardingCancelled) {
+                    OnboardingView(onboardingStarted: $onboardingStarted, onboardingCompleted: $onboardingCompleted, onboardingCancelled: $onboardingCancelled, selectedTab: $selectedTab)
+                }
+                else if onboardingCompleted {
+                    OnboardingFinishView(title: "Vous êtes prêt !", selectedTab: $selectedTab)
+                }
+                else if onboardingCancelled {
+                    OnboardingFinishView(title: "Guide Messangel", selectedTab: $selectedTab)
                 }
                 VStack (spacing: 0) {
                     Color.accentColor
@@ -101,7 +56,6 @@ struct TabBarView: View {
                 .if(!onboardingShown) { $0.brightness(-0.2) }
                 .ignoresSafeArea()
             }
-
             BottomTabBar(onboardingShown: $onboardingShown, onboardingStarted: $onboardingStarted, selectedTab: $selectedTab)
                 .if(!onboardingShown && !onboardingStarted) { $0.brightness(-0.2) }
         }
@@ -159,9 +113,68 @@ struct TutorialView: View {
     }
 }
 
+struct OnboardingView: View {
+    @State var onboardingIndex = -1
+    @Binding var onboardingStarted: Bool
+    @Binding var onboardingCompleted: Bool
+    @Binding var onboardingCancelled: Bool
+    @Binding var selectedTab: String
+    
+    var body: some View {
+        Rectangle()
+            .fill(Color("bg"))
+            .frame(width: 270, height: 400)
+            .cornerRadius(25)
+            .zIndex(1.0)
+            .overlay(
+                VStack {
+                    TabView(selection: $onboardingIndex) {
+                        ForEach(0 ..< tutorials.count - 1) { _ in
+                            TutorialView(title: tutorials[onboardingIndex+1]["title"]!, image: tutorials[onboardingIndex+1]["image"]!, desc: tutorials[onboardingIndex+1]["desc"]!)
+                                .gesture(DragGesture())
+                        }
+                    }
+                    .disabled(!onboardingStarted)
+                    .tabViewStyle(PageTabViewStyle())
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.25))
+                        .frame(height: 1)
+                    Button(action: {
+                        withAnimation {
+                            if onboardingIndex < tutorials.count - 2 {
+                                onboardingStarted = true
+                                onboardingIndex += 1
+                                selectedTab = tabs[onboardingIndex]
+                            } else {
+                                onboardingCompleted = true
+                            }
+                        }
+                    }, label: {
+                        Text(onboardingStarted ? "Continuer" : "Oui")
+                            .font(.system(size: 17))
+                            .fontWeight(.semibold)
+                    })
+                    .padding(.vertical, 5)
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.25))
+                        .frame(height: 1)
+                    Button(onboardingStarted ? "Quitter" :"Non, passer", action: {
+                        withAnimation {
+                            onboardingCancelled = true
+                        }
+                    })
+                    .accentColor(.black)
+                    .padding(.top, 5)
+                    .padding(.bottom, 15)
+                }
+            )
+    }
+}
+
 struct OnboardingFinishView: View {
     @AppStorage("onboardingShown") var onboardingShown = false
     var title: String
+    @Binding var selectedTab: String
     
     var body: some View {
         Rectangle()
@@ -179,6 +192,7 @@ struct OnboardingFinishView: View {
                     Button(action: {
                         withAnimation {
                             onboardingShown = true
+                            selectedTab = "Accueil"
                         }
                     }, label: {
                         Text("Ok, démarrer")

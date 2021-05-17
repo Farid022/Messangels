@@ -35,6 +35,7 @@
 		93553AAE2648CD680027BA06 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AAD2648CD680027BA06 /* AuthState.swift */; };
 		93553AB2264A22DA0027BA06 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */; };
 		93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AB3264A992F0027BA06 /* TabBarView.swift */; };
+		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		93553AAD2648CD680027BA06 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93553AB3264A992F0027BA06 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				93553A85264701E60027BA06 /* StartView.swift */,
 				93553A87264701E60027BA06 /* LoginView.swift */,
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
+				937CA4AF26526539004A0227 /* HomeView.swift */,
 				93553A88264701E60027BA06 /* Signup */,
 			);
 			path = Views;
@@ -258,6 +261,7 @@
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
 				93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */,
 				93553AA4264701E60027BA06 /* SignupTelView.swift in Sources */,
+				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
 				93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */,
 				93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
