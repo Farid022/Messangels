@@ -36,6 +36,7 @@
 		93553AB2264A22DA0027BA06 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */; };
 		93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AB3264A992F0027BA06 /* TabBarView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
+		937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B126528FB7004A0227 /* SubscriptionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93553AB3264A992F0027BA06 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		937CA4B126528FB7004A0227 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				93553A87264701E60027BA06 /* LoginView.swift */,
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
 				937CA4AF26526539004A0227 /* HomeView.swift */,
+				937CA4B126528FB7004A0227 /* SubscriptionView.swift */,
 				93553A88264701E60027BA06 /* Signup */,
 			);
 			path = Views;
@@ -257,6 +260,7 @@
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
+				937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */,
 				93553AA2264701E60027BA06 /* SignupEmailView.swift in Sources */,
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
 				93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */,

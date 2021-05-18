@@ -12,6 +12,7 @@ struct MyButtonStyle: ButtonStyle {
     var maxWidth = true
     var foregroundColor = Color.accentColor
     var backgroundColor = Color.white
+    var cornerRadius: CGFloat = 20.0
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -21,7 +22,7 @@ struct MyButtonStyle: ButtonStyle {
             .background(
                 backgroundColor.opacity(configuration.isPressed ? 0.5 : 1)
             )
-            .cornerRadius(20)
+            .cornerRadius(cornerRadius)
             .padding(.horizontal, padding)
     }
 }

@@ -12,7 +12,6 @@ struct HomeView: View {
         VStack {
             HStack(alignment: .top) {
                 VStack(alignment: .leading) {
-                    Spacer().frame(height: 100)
                     Group {
                         Text("Bonjour,")
                             .font(.title)
@@ -32,18 +31,6 @@ struct HomeView: View {
                         .fontWeight(.bold)
                 }
                 Spacer()
-                HStack() {
-                    Button(action: {}, label: {
-                        Image("help")
-                            .padding(.horizontal, -30)
-                    })
-                    Button(action: {}, label: {
-                        Image("menu")
-                            .padding()
-                    })
-                    .padding(.bottom, 10)
-                }
-                .offset(y: -40)
             }
             .overlay(
                 Image("backgroundLogo")
@@ -63,13 +50,28 @@ struct HomeView: View {
                 .overlay(Image("add-user").opacity(0.5))
             Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
                 .padding(.bottom)
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            NavigationLink(destination: SubscriptionView()) {
                 Text("Je m’abonne (2€/mois)")
-            })
-            .buttonStyle(MyButtonStyle(maxWidth: false, foregroundColor: .white, backgroundColor: .accentColor))
+            }
             .padding()
+            .frame(maxWidth: .infinity)
+            .foregroundColor(.white)
+            .background(Color.accentColor)
+            .cornerRadius(20)
+            .padding(.horizontal, 70)
             Spacer()
         }
+        .navigationBarItems(trailing: HStack() {
+            Button(action: {}, label: {
+                Image("help")
+                    .padding(.horizontal, -30)
+            })
+            Button(action: {}, label: {
+                Image("menu")
+                    .padding()
+            })
+            .padding(.bottom, 10)
+        })
     }
 }
 

@@ -18,6 +18,7 @@ struct TabBarView: View {
         UITabBar.appearance().isHidden = true
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(.accentColor)
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
+        UINavigationBar.appearance().backgroundColor = UIColor(.accentColor)
     }
     
     var body: some View {
@@ -207,7 +208,6 @@ struct OnboardingFinishView: View {
 
 struct BottomTabBar: View {
     @Namespace var animation
-    @State var safeArea = UIApplication.shared.windows.first?.safeAreaInsets
     @Binding var onboardingShown: Bool
     @Binding var onboardingStarted: Bool
     @Binding var selectedTab: String
