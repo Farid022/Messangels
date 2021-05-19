@@ -9,15 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var auth: AuthState
-
+    
     var body: some View {
-        if auth.user {
-            TabBarView()
-                .environmentObject(auth)
-        } else {
-            StartView()
-                .environmentObject(auth)
+        NavigationView {
+            if auth.user {
+                TabBarView()
+            } else {
+                StartView()
+            }
         }
+        .environmentObject(auth)
     }
 }
 

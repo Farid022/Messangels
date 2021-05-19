@@ -36,15 +36,17 @@ struct NextButton: View {
 
 struct SignupProgressView: View {
     @Binding var progress: Double
+    var tintColor = Color.white
+    var progressMultiplier = 12.5
     
     var body: some View {
         ProgressView(value: progress, total: 100.0)
-            .progressViewStyle(LinearProgressViewStyle(tint: .white))
+            .progressViewStyle(LinearProgressViewStyle(tint: tintColor))
             .padding(.horizontal, -15)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     withAnimation {
-                        progress += 12.5
+                        progress += progressMultiplier
                     }
                 }
             }

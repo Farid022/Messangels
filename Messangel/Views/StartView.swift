@@ -17,40 +17,38 @@ struct StartView: View {
     
     var body: some View {
         GeometryReader { g in
-            NavigationView {
-                ZStack {
-                    Color.accentColor
-                        .ignoresSafeArea()
-                    VStack(spacing: 20) {
-                        Image("logo")
-                            .offset(y: logoOffset)
-                            .onAppear{
-                                DispatchQueue.main.async {
-                                    withAnimation {
-                                        logoOffset = -80
-                                    }
+            ZStack {
+                Color.accentColor
+                    .ignoresSafeArea()
+                VStack(spacing: 20) {
+                    Image("logo")
+                        .offset(y: logoOffset)
+                        .onAppear{
+                            DispatchQueue.main.async {
+                                withAnimation {
+                                    logoOffset = -80
                                 }
                             }
-                        Text(welcomeText)
-                            .multilineTextAlignment(.center)
-                            .padding(.bottom)
-                        NavigationLink(destination: SignupIntroView()) {
-                            Text("Créer un compte")
-                                .foregroundColor(.black)
                         }
-                        NavigationLink(destination: LoginView()) {
-                            Text("Se connecter")
-                        }
-                        Link(destination: URL(string: "https://www.google.com")!, label: {
-                            Text("Politique de confidentialité")
-                                .underline()
-                        })
-                        .buttonStyle(DefaultButtonStyle())
-                        .padding(.top, 100)
+                    Text(welcomeText)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+                    NavigationLink(destination: SignupIntroView()) {
+                        Text("Créer un compte")
+                            .foregroundColor(.black)
                     }
-                    .buttonStyle(MyButtonStyle())
-                    .foregroundColor(.white)
+                    NavigationLink(destination: LoginView()) {
+                        Text("Se connecter")
+                    }
+                    Link(destination: URL(string: "https://www.google.com")!, label: {
+                        Text("Politique de confidentialité")
+                            .underline()
+                    })
+                    .buttonStyle(DefaultButtonStyle())
+                    .padding(.top, 100)
                 }
+                .buttonStyle(MyButtonStyle())
+                .foregroundColor(.white)
             }
         }
     }

@@ -18,7 +18,7 @@ struct TabBarView: View {
         UITabBar.appearance().isHidden = true
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(.accentColor)
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
-        UINavigationBar.appearance().backgroundColor = UIColor(.accentColor)
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     var body: some View {

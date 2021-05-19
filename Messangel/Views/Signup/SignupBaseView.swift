@@ -22,8 +22,6 @@ struct SignupBaseView<Content: View>: View {
         self._valid = valid
         self.destination = destination
         self.footer = footer
-        UINavigationBar.appearance().backgroundColor = .yellow
-
     }
     
     var body: some View {

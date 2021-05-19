@@ -37,6 +37,16 @@
 		93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AB3264A992F0027BA06 /* TabBarView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
 		937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B126528FB7004A0227 /* SubscriptionView.swift */; };
+		937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */; };
+		937CA4B72653E7A3004A0227 /* GuardianFormBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B62653E7A3004A0227 /* GuardianFormBaseView.swift */; };
+		937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B82653EC0C004A0227 /* GuardianFormLastNameView.swift */; };
+		937CA4BB2653EC21004A0227 /* GuardianFormFirstNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4BA2653EC21004A0227 /* GuardianFormFirstNameView.swift */; };
+		937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4BC2654FAAD004A0227 /* GuardianFormEmailView.swift */; };
+		937CA4BF2654FB36004A0227 /* GuardianFormConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4BE2654FB36004A0227 /* GuardianFormConfirmEmailView.swift */; };
+		937CA4C12654FC5E004A0227 /* GuardianFormLegalAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C02654FC5E004A0227 /* GuardianFormLegalAgeView.swift */; };
+		937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */; };
+		937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */; };
+		937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +82,16 @@
 		93553AB3264A992F0027BA06 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		937CA4B126528FB7004A0227 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
+		937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormIntroView.swift; sourceTree = "<group>"; };
+		937CA4B62653E7A3004A0227 /* GuardianFormBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormBaseView.swift; sourceTree = "<group>"; };
+		937CA4B82653EC0C004A0227 /* GuardianFormLastNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormLastNameView.swift; sourceTree = "<group>"; };
+		937CA4BA2653EC21004A0227 /* GuardianFormFirstNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormFirstNameView.swift; sourceTree = "<group>"; };
+		937CA4BC2654FAAD004A0227 /* GuardianFormEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormEmailView.swift; sourceTree = "<group>"; };
+		937CA4BE2654FB36004A0227 /* GuardianFormConfirmEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormConfirmEmailView.swift; sourceTree = "<group>"; };
+		937CA4C02654FC5E004A0227 /* GuardianFormLegalAgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormLegalAgeView.swift; sourceTree = "<group>"; };
+		937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormNoteView.swift; sourceTree = "<group>"; };
+		937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormDoneView.swift; sourceTree = "<group>"; };
+		937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormConfirmSendView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +165,7 @@
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
 				937CA4AF26526539004A0227 /* HomeView.swift */,
 				937CA4B126528FB7004A0227 /* SubscriptionView.swift */,
+				937CA4B52653E724004A0227 /* GuardianForm */,
 				93553A88264701E60027BA06 /* Signup */,
 			);
 			path = Views;
@@ -177,6 +198,23 @@
 				93553AAB264845110027BA06 /* CustomNumberPad.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		937CA4B52653E724004A0227 /* GuardianForm */ = {
+			isa = PBXGroup;
+			children = (
+				937CA4B62653E7A3004A0227 /* GuardianFormBaseView.swift */,
+				937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */,
+				937CA4B82653EC0C004A0227 /* GuardianFormLastNameView.swift */,
+				937CA4BA2653EC21004A0227 /* GuardianFormFirstNameView.swift */,
+				937CA4BC2654FAAD004A0227 /* GuardianFormEmailView.swift */,
+				937CA4BE2654FB36004A0227 /* GuardianFormConfirmEmailView.swift */,
+				937CA4C02654FC5E004A0227 /* GuardianFormLegalAgeView.swift */,
+				937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */,
+				937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */,
+				937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */,
+			);
+			path = GuardianForm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,14 +288,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				93553A9B264701E60027BA06 /* SignupBaseView.swift in Sources */,
+				937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */,
+				937CA4BB2653EC21004A0227 /* GuardianFormFirstNameView.swift in Sources */,
 				934A21D726515EF300607821 /* APIService.swift in Sources */,
 				93553A742647015D0027BA06 /* ContentView.swift in Sources */,
+				937CA4B72653E7A3004A0227 /* GuardianFormBaseView.swift in Sources */,
+				937CA4C12654FC5E004A0227 /* GuardianFormLegalAgeView.swift in Sources */,
+				937CA4BF2654FB36004A0227 /* GuardianFormConfirmEmailView.swift in Sources */,
+				937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */,
 				93553AA1264701E60027BA06 /* SignupPostcodeView.swift in Sources */,
 				93553A9E264701E60027BA06 /* SignupDoneView.swift in Sources */,
 				93553A9D264701E60027BA06 /* SignupPasswrdView.swift in Sources */,
 				93553A99264701E60027BA06 /* LoginView.swift in Sources */,
 				93553AAE2648CD680027BA06 /* AuthState.swift in Sources */,
+				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
+				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
 				937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */,
@@ -266,9 +312,11 @@
 				93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */,
 				93553AA4264701E60027BA06 /* SignupTelView.swift in Sources */,
 				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
+				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
 				93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */,
 				93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
+				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
 				93553AA8264802A90027BA06 /* Extensions.swift in Sources */,
 				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,

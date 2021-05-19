@@ -11,7 +11,8 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @EnvironmentObject var auth: AuthState
+
     var body: some View {
         ZStack {
             Color.accentColor
@@ -29,7 +30,11 @@ struct LoginView: View {
                         .underline()
                 }
                 .padding(.bottom, 50)
-                Button("Connexion", action: {})
+                Button("Connexion", action: {
+                    withAnimation {
+                        self.auth.user = true
+                    }
+                })
                     .padding(.bottom, 50)
                 
                 Link(destination: URL(string: "https://www.google.com")!, label: {

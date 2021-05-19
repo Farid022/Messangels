@@ -47,9 +47,13 @@ struct HomeView: View {
                 .frame(width: 56, height: 56)
                 .cornerRadius(25)
                 .shadow(color: .gray.opacity(0.2), radius: 5)
-                .overlay(Image("add-user").opacity(0.5))
+                .overlay(NavigationLink(
+                            destination: GuardianFormIntroView()) {
+                                Image("add-user")
+                                    .opacity(0.5)
+                            })
             Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
-                .padding(.bottom)
+                .padding([.bottom, .horizontal])
             NavigationLink(destination: SubscriptionView()) {
                 Text("Je m’abonne (2€/mois)")
             }
