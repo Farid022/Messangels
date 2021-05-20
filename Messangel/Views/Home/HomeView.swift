@@ -77,10 +77,10 @@ struct HomeView: View {
                     Image("help")
                         .padding(.horizontal, -30)
                 })
-                Button(action: {}, label: {
+                NavigationLink(destination: MenuView()) {
                     Image("menu")
                         .padding()
-                })
+                }
                 .padding(.bottom, 10)
         })
         }
