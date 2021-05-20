@@ -34,7 +34,6 @@ struct SignupBaseView<Content: View>: View {
                             .resizable()
                             .frame(width: 128.33, height: 44)
                     }
-                    
                 }
             VStack(alignment: .leading, spacing: 20) {
                 Spacer()

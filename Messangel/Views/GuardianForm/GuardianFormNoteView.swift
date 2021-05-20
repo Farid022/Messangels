@@ -18,7 +18,6 @@ struct GuardianFormNoteView: View {
                 valid = true
             })
             .shadow(color: .gray.opacity(0.3), radius: 10)
-            .keyboardType(.emailAddress)
         }
     }
 }

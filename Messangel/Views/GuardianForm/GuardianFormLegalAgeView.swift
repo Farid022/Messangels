@@ -14,9 +14,10 @@ struct GuardianFormLegalAgeView: View {
     
     var body: some View {
         GuardianFormBaseView(title: "Confirmez que cette personne est majeure" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormNoteView())) {
-            TextField("Cette personne est majeure", text: $confirmEmail, onCommit:  {
-                valid = true
-            })
+            Button("Cette personne est majeure") {
+                valid.toggle()
+            }
+            .buttonStyle(MyButtonStyle(padding: 0, foregroundColor: valid ? .white : .black, backgroundColor: valid ? .accentColor : .white))
             .shadow(color: .gray.opacity(0.3), radius: 10)
             .keyboardType(.emailAddress)
         }

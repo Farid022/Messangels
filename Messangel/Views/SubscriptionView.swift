@@ -11,42 +11,52 @@ struct SubscriptionView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-            Color.accentColor
-                .ignoresSafeArea()
-            ScrollView {
-                VStack(alignment: .leading) {
-                    CreditCardView()
-                    SubscriptionDetailsView()
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+            VStack {
+                Color.accentColor
+                    .ignoresSafeArea()
+                    .frame(height: .zero)
+                ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            CreditCardView()
+                            SubscriptionDetailsView()
+                        }
+                        .padding()
+                        .textFieldStyle(MyTextFieldStyle())
+                    }
+                    HStack {
+                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Text("Valider mon paiement et accepter les CGU")
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                        })
+                        .buttonStyle(MyButtonStyle(padding: 60, foregroundColor: .white, backgroundColor: .gray, cornerRadius: 30))
+                        .padding(.vertical, 30)
+                    }
+                    
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        Color.white
+                            .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
+                    )
+                    .shadow(color: Color.gray.opacity(0.15), radius: 5, x: -5, y: -5)
+                }}
+                .edgesIgnoringSafeArea(.bottom)
+                .navigationBarBackButtonHidden(true)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("Souscription abonnement")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
                 }
-                .padding()
-                .textFieldStyle(MyTextFieldStyle())
-            }
-            .background(Color.white)
-            HStack {
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    Text("Valider mon paiement et accepter les CGU")
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
+                .navigationBarItems(leading: Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "chevron.backward").foregroundColor(.white)
                 })
-                .buttonStyle(MyButtonStyle(padding: 60, foregroundColor: .white, backgroundColor: .gray, cornerRadius: 30))
-                .padding(.vertical, 30)
-            }
-            
-            .frame(maxWidth: .infinity)
-            .background(
-                Color.white
-                    .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
-            )
-            .shadow(color: Color.gray.opacity(0.15), radius: 5, x: -5, y: -5)
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward").foregroundColor(.white)
-        })
     }
 }
 
