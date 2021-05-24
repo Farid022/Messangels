@@ -212,30 +212,20 @@ struct BottomTabBar: View {
     @Binding var onboardingStarted: Bool
     @Binding var selectedTab: String
     var body: some View {
-        HStack(){
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 0) {
-                    ForEach(tabs,id: \.self){tab in
-                        if onboardingShown {
-                            Spacer()
-                        }
-                        TabButton(currentTab: tab, selectedTab: $selectedTab, animation: animation)
-                            .if(!onboardingShown) { $0.padding([.horizontal, .bottom], 12) }
-                            .if(!onboardingShown && onboardingStarted) { $0.background(tab == selectedTab ? Color.clear : Color.black.opacity(0.2)) }
-                        if onboardingShown {
-                            Spacer()
-                        }
-                    }
-                }
+        HStack(spacing: 0) {
+            ForEach(tabs,id: \.self){tab in
+                TabButton(currentTab: tab, selectedTab: $selectedTab, animation: animation)
+                    .if(!onboardingShown && onboardingStarted) { $0.background(tab == selectedTab ? Color.clear : Color.black.opacity(0.2)) }
             }
         }
+        .padding(.leading, -10)
         .frame(maxWidth: .infinity)
-        .if(onboardingShown) { $0.padding(.horizontal) }
         .background(
             Color.white
                 .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
         )
         .shadow(color: Color.gray.opacity(0.15), radius: 5, x: -5, y: -5)
+        .if(!UIDevice.current.hasNotch) { $0.padding(.bottom, 15) }
     }
 }
 
@@ -267,7 +257,7 @@ struct TabButton: View {
                         Image(currentTab)
                             .resizable()
                             .renderingMode(.template)
-                            .frame(width: 20, height: 18, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .frame(width: 20, height: 18, alignment: .center)
                         
                         Text(currentTab)
                     }
@@ -275,13 +265,12 @@ struct TabButton: View {
                 }
             }
         }
+        .frame(width: (UIScreen.main.bounds.size.width - 20.0) / 4)
     }
 }
 
 struct TabBar_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            TabBarView()
-        }
+        TabBarView()
     }
 }

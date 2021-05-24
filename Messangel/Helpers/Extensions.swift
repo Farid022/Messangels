@@ -66,3 +66,11 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
+
+extension UIDevice {
+    var hasNotch: Bool {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+    }
+    
+}

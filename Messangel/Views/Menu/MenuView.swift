@@ -9,11 +9,12 @@ import SwiftUI
 
 struct MenuView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    let hasNotch = UIDevice.current.hasNotch
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
             Color.accentColor
-                .frame(height: 150)
+                .frame(height: hasNotch ? 150 : 100)
                 .edgesIgnoringSafeArea(.top)
             List(menuList) {menuItem in
                 ZStack {
@@ -48,7 +49,9 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView()
+        NavigationView {
+            MenuView()
+        }
     }
 }
 

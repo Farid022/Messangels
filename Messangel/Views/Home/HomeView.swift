@@ -31,7 +31,7 @@ struct HomeView: View {
                     }
                     Spacer()
                 }
-                .frame(height: g.size.height/2.7)
+                .frame(height: UIDevice.current.hasNotch ? g.size.height/2.7 : g.size.height/2.8)
                 .overlay(
                     Image("backgroundLogo")
                         .resizable()
