@@ -65,6 +65,47 @@ struct CustomCorner: Shape {
     }
 }
 
+struct MyDatePickerView: View {
+    @Binding var day: Int
+    @Binding var month: String
+    @Binding var year: Int
+    var months = ["JAN", "FEB", "MAR", "AVRIL"]
+    
+    var body: some View {
+        HStack {
+            Spacer().frame(width: 20)
+            Picker(selection: $day, label: HStack(alignment: .bottom) {
+                Image("updown")
+                Text("\(day)").font(.system(size: 20))
+            }) {
+                ForEach((1...31), id: \.self) {
+                    Text("\($0)")
+                }
+            }
+            Spacer()
+            Picker(selection: $month, label: HStack(alignment: .bottom) {
+                Image("updown")
+                Text("\(month)").font(.system(size: 20))
+            }) {
+                ForEach(months, id: \.self) {
+                    Text("\($0)")
+                }
+            }
+            Spacer()
+            Picker(selection: $year, label: HStack(alignment: .bottom) {
+                Image("updown")
+                Text(String(year)).font(.system(size: 20))
+            }) {
+                ForEach((1960...2001), id: \.self) {
+                    Text(String($0))
+                }
+            }
+            Spacer().frame(width: 20)
+        }
+        .padding().background(Color.white).cornerRadius(20).foregroundColor(.black).pickerStyle(MenuPickerStyle())
+    }
+}
+
 
 struct CustomTextField: UIViewRepresentable {
 

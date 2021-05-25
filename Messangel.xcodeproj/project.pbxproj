@@ -35,6 +35,16 @@
 		93553AAE2648CD680027BA06 /* AuthState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AAD2648CD680027BA06 /* AuthState.swift */; };
 		93553AB2264A22DA0027BA06 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */; };
 		93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AB3264A992F0027BA06 /* TabBarView.swift */; };
+		935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A5989265B6CA6005B0505 /* MenuBaseView.swift */; };
+		935A598C265BA3B0005B0505 /* AccessSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A598B265BA3B0005B0505 /* AccessSecurityView.swift */; };
+		935A598E265BAF8E005B0505 /* EditSubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A598D265BAF8E005B0505 /* EditSubscriptionView.swift */; };
+		935A5990265BAFA8005B0505 /* ContactsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A598F265BAFA8005B0505 /* ContactsListView.swift */; };
+		935A5992265BAFDD005B0505 /* SponsorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A5991265BAFDD005B0505 /* SponsorView.swift */; };
+		935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A5993265BAFF4005B0505 /* NotificationsView.swift */; };
+		935A5996265BB02B005B0505 /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A5995265BB02B005B0505 /* SuggestionsView.swift */; };
+		935A5998265BB040005B0505 /* FAQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A5997265BB040005B0505 /* FAQView.swift */; };
+		935A599A265BB074005B0505 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A5999265BB074005B0505 /* AboutView.swift */; };
+		935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A599B265CD91E005B0505 /* CreateContactView.swift */; };
 		9369D53E265639F100650AA7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D53D265639F100650AA7 /* MenuView.swift */; };
 		9369D54126563DED00650AA7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D54026563DED00650AA7 /* ProfileView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
@@ -82,6 +92,16 @@
 		93553AAD2648CD680027BA06 /* AuthState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthState.swift; sourceTree = "<group>"; };
 		93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		93553AB3264A992F0027BA06 /* TabBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		935A5989265B6CA6005B0505 /* MenuBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBaseView.swift; sourceTree = "<group>"; };
+		935A598B265BA3B0005B0505 /* AccessSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessSecurityView.swift; sourceTree = "<group>"; };
+		935A598D265BAF8E005B0505 /* EditSubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSubscriptionView.swift; sourceTree = "<group>"; };
+		935A598F265BAFA8005B0505 /* ContactsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListView.swift; sourceTree = "<group>"; };
+		935A5991265BAFDD005B0505 /* SponsorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorView.swift; sourceTree = "<group>"; };
+		935A5993265BAFF4005B0505 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		935A5995265BB02B005B0505 /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
+		935A5997265BB040005B0505 /* FAQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQView.swift; sourceTree = "<group>"; };
+		935A5999265BB074005B0505 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		935A599B265CD91E005B0505 /* CreateContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactView.swift; sourceTree = "<group>"; };
 		9369D53D265639F100650AA7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9369D54026563DED00650AA7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -217,7 +237,17 @@
 			isa = PBXGroup;
 			children = (
 				9369D53D265639F100650AA7 /* MenuView.swift */,
+				935A5989265B6CA6005B0505 /* MenuBaseView.swift */,
 				9369D54026563DED00650AA7 /* ProfileView.swift */,
+				935A598B265BA3B0005B0505 /* AccessSecurityView.swift */,
+				935A598D265BAF8E005B0505 /* EditSubscriptionView.swift */,
+				935A598F265BAFA8005B0505 /* ContactsListView.swift */,
+				935A599B265CD91E005B0505 /* CreateContactView.swift */,
+				935A5991265BAFDD005B0505 /* SponsorView.swift */,
+				935A5993265BAFF4005B0505 /* NotificationsView.swift */,
+				935A5995265BB02B005B0505 /* SuggestionsView.swift */,
+				935A5997265BB040005B0505 /* FAQView.swift */,
+				935A5999265BB074005B0505 /* AboutView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -311,10 +341,12 @@
 			files = (
 				93553A9B264701E60027BA06 /* SignupBaseView.swift in Sources */,
 				9369D54126563DED00650AA7 /* ProfileView.swift in Sources */,
+				935A598C265BA3B0005B0505 /* AccessSecurityView.swift in Sources */,
 				937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */,
 				937CA4BB2653EC21004A0227 /* GuardianFormFirstNameView.swift in Sources */,
 				9369D53E265639F100650AA7 /* MenuView.swift in Sources */,
 				934A21D726515EF300607821 /* APIService.swift in Sources */,
+				935A598E265BAF8E005B0505 /* EditSubscriptionView.swift in Sources */,
 				93553A742647015D0027BA06 /* ContentView.swift in Sources */,
 				937CA4B72653E7A3004A0227 /* GuardianFormBaseView.swift in Sources */,
 				937CA4C12654FC5E004A0227 /* GuardianFormLegalAgeView.swift in Sources */,
@@ -322,28 +354,36 @@
 				937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */,
 				93553AA1264701E60027BA06 /* SignupPostcodeView.swift in Sources */,
 				93553A9E264701E60027BA06 /* SignupDoneView.swift in Sources */,
+				935A5992265BAFDD005B0505 /* SponsorView.swift in Sources */,
+				935A599A265BB074005B0505 /* AboutView.swift in Sources */,
 				93553A9D264701E60027BA06 /* SignupPasswrdView.swift in Sources */,
 				93553A99264701E60027BA06 /* LoginView.swift in Sources */,
 				93553AAE2648CD680027BA06 /* AuthState.swift in Sources */,
+				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
 				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
 				937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */,
+				935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */,
 				93553AA2264701E60027BA06 /* SignupEmailView.swift in Sources */,
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
 				93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */,
+				935A5996265BB02B005B0505 /* SuggestionsView.swift in Sources */,
 				93553AA4264701E60027BA06 /* SignupTelView.swift in Sources */,
+				935A5990265BAFA8005B0505 /* ContactsListView.swift in Sources */,
 				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
 				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
 				93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */,
 				93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
+				935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */,
 				93553AA8264802A90027BA06 /* Extensions.swift in Sources */,
 				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
+				935A5998265BB040005B0505 /* FAQView.swift in Sources */,
 				93553AA0264701E60027BA06 /* SignupCodeView.swift in Sources */,
 				93553A9A264701E60027BA06 /* SignupGenderView.swift in Sources */,
 				93553AAA264841780027BA06 /* SignupOTPView.swift in Sources */,

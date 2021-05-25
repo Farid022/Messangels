@@ -28,8 +28,10 @@ struct MyButtonStyle: ButtonStyle {
 }
 
 struct MyTextFieldStyle: TextFieldStyle {
+    var editable = false
     func _body(configuration: TextField<Self._Label>) -> some View {
             configuration
+                .if(editable) { $0.modifier(TextFieldEditButton()) }
                 .foregroundColor(.black)
                 .padding()
                 .background(Color.white)
@@ -37,6 +39,23 @@ struct MyTextFieldStyle: TextFieldStyle {
                 .disableAutocorrection(true)
                 .autocapitalization(.none)
         }
+}
+
+struct TextFieldEditButton: ViewModifier {
+    @State private var disabled = true
+    
+    func body(content: Content) -> some View {
+        HStack {
+            content
+                .disabled(disabled)
+            Button(
+                action: { disabled.toggle() },
+                label: {
+                    Image("ic_edit")
+                }
+            )
+        }
+    }
 }
 
 struct CheckboxToggleStyle: ToggleStyle {
