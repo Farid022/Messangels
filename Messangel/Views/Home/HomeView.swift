@@ -61,15 +61,7 @@ struct HomeView: View {
                                 })
                 Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
                     .padding([.bottom, .horizontal])
-                NavigationLink(destination: SubscriptionView()) {
-                    Text("Je m’abonne (2€/mois)")
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .foregroundColor(.white)
-                .background(Color.accentColor)
-                .cornerRadius(20)
-                .padding(.horizontal, 70)
+                SubscribeButton()
                 Spacer()
             }
             .navigationBarItems(trailing: HStack() {
@@ -91,5 +83,19 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .background(Color.accentColor)
+    }
+}
+
+struct SubscribeButton: View {
+    var body: some View {
+        NavigationLink(destination: SubscriptionView()) {
+            Text("Je m’abonne (2€/mois)")
+        }
+        .padding()
+        .frame(maxWidth: .infinity, minHeight: 56)
+        .foregroundColor(.white)
+        .background(Color.accentColor)
+        .cornerRadius(25)
+        .padding(.horizontal, 70)
     }
 }
