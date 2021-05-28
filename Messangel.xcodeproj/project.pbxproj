@@ -47,6 +47,7 @@
 		935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A599B265CD91E005B0505 /* CreateContactView.swift */; };
 		935A59A1265E18EA005B0505 /* UnsubscribeConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */; };
 		935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */; };
+		935A59A5265F7029005B0505 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A4265F7029005B0505 /* MessagesView.swift */; };
 		9369D53E265639F100650AA7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D53D265639F100650AA7 /* MenuView.swift */; };
 		9369D54126563DED00650AA7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D54026563DED00650AA7 /* ProfileView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
@@ -61,6 +62,7 @@
 		937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */; };
 		937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */; };
 		937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */; };
+		93CC8A3C265FBEA200A28455 /* OnboardingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +108,7 @@
 		935A599B265CD91E005B0505 /* CreateContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactView.swift; sourceTree = "<group>"; };
 		935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeConfirmView.swift; sourceTree = "<group>"; };
 		935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeReasonView.swift; sourceTree = "<group>"; };
+		935A59A4265F7029005B0505 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		9369D53D265639F100650AA7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9369D54026563DED00650AA7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormNoteView.swift; sourceTree = "<group>"; };
 		937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormDoneView.swift; sourceTree = "<group>"; };
 		937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormConfirmSendView.swift; sourceTree = "<group>"; };
+		93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,10 +195,10 @@
 				93553A85264701E60027BA06 /* StartView.swift */,
 				93553A87264701E60027BA06 /* LoginView.swift */,
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
-				9369D53F265639FB00650AA7 /* Menu */,
-				9369D53C2656399500650AA7 /* Home */,
-				937CA4B52653E724004A0227 /* GuardianForm */,
+				93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */,
 				93553A88264701E60027BA06 /* Signup */,
+				9369D53C2656399500650AA7 /* Home */,
+				935A59A6265F7032005B0505 /* Messages */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,9 +232,19 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		935A59A6265F7032005B0505 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				935A59A4265F7029005B0505 /* MessagesView.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		9369D53C2656399500650AA7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9369D53F265639FB00650AA7 /* Menu */,
+				937CA4B52653E724004A0227 /* GuardianForm */,
 				937CA4AF26526539004A0227 /* HomeView.swift */,
 				937CA4B126528FB7004A0227 /* SubscriptionView.swift */,
 			);
@@ -373,6 +387,7 @@
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
+				935A59A5265F7029005B0505 /* MessagesView.swift in Sources */,
 				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
@@ -387,6 +402,7 @@
 				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
 				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
 				93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */,
+				93CC8A3C265FBEA200A28455 /* OnboardingViews.swift in Sources */,
 				93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
@@ -528,7 +544,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -551,7 +567,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
