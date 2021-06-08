@@ -27,8 +27,8 @@ struct SignupDoneView: View {
                     )
                     .scaleEffect(offset == 200 ? 0.5 : 1.0)
                 Text("Votre profil a été créé !")
-                    .font(.title2)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .font(.system(size: 22))
+                    .fontWeight(.bold)
                 Text(
                 """
                 Vous pouvez démarrer. Consultez votre adresse mail pour valider votre compte dès que possible.

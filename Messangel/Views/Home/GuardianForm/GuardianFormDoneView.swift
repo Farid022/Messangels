@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct GuardianFormDoneView: View {
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @EnvironmentObject var navigationModel: NavigationModel
     @State private var scale = false
     
     var body: some View {
@@ -28,7 +29,7 @@ struct GuardianFormDoneView: View {
                         scale.toggle()
                     }
                 Text("Demande envoyée")
-                    .font(.title2)
+                    .font(.system(size: 22))
                     .fontWeight(.bold)
                 Text(
                 """
@@ -36,11 +37,12 @@ struct GuardianFormDoneView: View {
                 marianne.milon@gmail.com.
                 """
                 )
+                .font(.system(size: 15))
                 .multilineTextAlignment(.center)
                 Spacer().frame(height: 10)
                 Button("Revenir à l’accueil", action: {
                     withAnimation {
-                        self.mode.wrappedValue.dismiss()
+                        navigationModel.popContent(TabBarView.id)
                     }
                 })
                     .buttonStyle(MyButtonStyle())

@@ -6,34 +6,45 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct GuardianFormConfirmSendView: View {
-    
+    @EnvironmentObject var navigationModel: NavigationModel
     var body: some View {
-        ZStack {
-            Color.accentColor
-                .ignoresSafeArea()
-            VStack(spacing: 20) {
-                Spacer()
-                Text("Confirmer l’envoi")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Text(
+        NavigationStackView("GuardianFormConfirmSendView") {
+            ZStack {
+                Color.accentColor
+                    .ignoresSafeArea()
+                VStack(spacing: 20) {
+                    HStack {
+                        BackButton()
+                        Spacer()
+                    }
+                    Spacer()
+                    Text("Confirmer l’envoi")
+                        .font(.system(size: 22))
+                        .fontWeight(.bold)
+                    Text(
+                        """
+                    Marianne recevra votre demande sur :
+                    marianne.milon@gmail.com.
                     """
-                Marianne recevra votre demande sur :
-                marianne.milon@gmail.com.
-                """
-                )
-                .multilineTextAlignment(.center)
-                Spacer().frame(height: 10)
-                NavigationLink("Envoyer ma demande", destination: TabBarView())
-                    .isDetailLink(false)
-                    .buttonStyle(MyButtonStyle())
-                    .accentColor(.black)
-                Spacer()
-            }.padding()
+                    )
+                    .font(.system(size: 15))
+                    .multilineTextAlignment(.center)
+                    Spacer().frame(height: 10)
+                    Button("Envoyer ma demande") {
+                        navigationModel.pushContent("GuardianFormConfirmSendView") {
+                            GuardianFormDoneView()
+                        }
+                    }
+                        .buttonStyle(MyButtonStyle())
+                        .accentColor(.black)
+                    Spacer()
+                }.padding()
+            }
+            .foregroundColor(.white)
         }
-        .foregroundColor(.white)
     }
 }
 

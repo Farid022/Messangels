@@ -14,15 +14,17 @@ struct SignupEmailView: View {
     @State private var accept = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupPasswrdView()), footer: AnyView(Text(""))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupPasswrdView()), currentView: "SignupEmailView", footer: AnyView(Text(""))) {
             Text("Mon e-mail")
-                .font(.title2)
+                .font(.system(size: 22))
                 .fontWeight(.bold)
             Text("Un e-mail sera envoyé à cette adresse pour la confirmer.")
+                .font(.system(size: 15))
             TextField("Mon adresse e-mail", text: $firstName, onCommit: {})
                 .keyboardType(.emailAddress)
             Toggle(isOn: $accept) {
                 Text("J’accepte les conditions générales d’utilisation de mes données en conformité avec les normes européennes RGPD en vigueur. Lire")
+                    .font(.system(size: 13))
             }
             .toggleStyle(CheckboxToggleStyle())
             .padding(.trailing, -10)

@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct SubscriptionView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
-            VStack {
+            VStack(spacing: 0.0) {
                 Color.accentColor
                     .ignoresSafeArea()
-                    .frame(height: .zero)
+                    .frame(height: 5)
+                NavBar()
+                    .overlay(HStack {
+                        BackButton()
+                        Spacer()
+                        Text("Souscription abonnement")
+                            .font(.system(size: 17))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                            .padding(.leading)
+                        Spacer()
+                        Button(action: {}, label: {
+                            Image("help")
+                                .padding(.horizontal, -30)
+                        })
+                    }
+                    .padding(.trailing, 5)
+                    .padding(.leading))
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                     ScrollView {
                         VStack(alignment: .leading) {
@@ -43,19 +59,6 @@ struct SubscriptionView: View {
                     .shadow(color: Color.gray.opacity(0.15), radius: 5, x: -5, y: -5)
                 }}
                 .edgesIgnoringSafeArea(.bottom)
-                .navigationBarBackButtonHidden(true)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text("Souscription abonnement")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                    }
-                }
-                .navigationBarItems(leading: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Image(systemName: "chevron.backward").foregroundColor(.white)
-                })
         }
     }
 }

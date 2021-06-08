@@ -13,9 +13,9 @@ struct SignupPostcodeView: View {
     @State private var valid = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupGenderView()), footer: AnyView(Text("Vous devez être majeur pour créer votre compte Messangel"))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupGenderView()), currentView: "SignupPostcodeView", footer: AnyView(Text("Vous devez être majeur pour créer votre compte Messangel").font(.system(size: 13)))) {
             Text("Indiquez votre code postal actuel")
-                .font(.title2)
+                .font(.system(size: 22))
                 .fontWeight(.bold)
             Spacer().frame(height: 50)
             TextField("", text: $postCode, onCommit:  {

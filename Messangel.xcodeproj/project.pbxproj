@@ -3,10 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		933AA30A2664B563000D6D48 /* PublicMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA3092664B563000D6D48 /* PublicMessagesView.swift */; };
+		933AA30C2664EBA1000D6D48 /* PhotosSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA30B2664EBA1000D6D48 /* PhotosSelectionView.swift */; };
+		933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA30F26674FD8000D6D48 /* ImagePicker.swift */; };
+		933AA312266754F0000D6D48 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA311266754F0000D6D48 /* PhotoPicker.swift */; };
+		933AA31426675B62000D6D48 /* CustomImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA31326675B62000D6D48 /* CustomImagePicker.swift */; };
+		933AA317266A661F000D6D48 /* NavigationStack in Frameworks */ = {isa = PBXBuildFile; productRef = 933AA316266A661F000D6D48 /* NavigationStack */; };
 		934A21D726515EF300607821 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A21D626515EF300607821 /* APIService.swift */; };
 		93553A722647015D0027BA06 /* MessangelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A712647015D0027BA06 /* MessangelApp.swift */; };
 		93553A742647015D0027BA06 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A732647015D0027BA06 /* ContentView.swift */; };
@@ -47,7 +53,7 @@
 		935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A599B265CD91E005B0505 /* CreateContactView.swift */; };
 		935A59A1265E18EA005B0505 /* UnsubscribeConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */; };
 		935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */; };
-		935A59A5265F7029005B0505 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A4265F7029005B0505 /* MessagesView.swift */; };
+		935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A4265F7029005B0505 /* MessagesBottomView.swift */; };
 		9369D53E265639F100650AA7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D53D265639F100650AA7 /* MenuView.swift */; };
 		9369D54126563DED00650AA7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D54026563DED00650AA7 /* ProfileView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
@@ -66,6 +72,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		933AA3092664B563000D6D48 /* PublicMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicMessagesView.swift; sourceTree = "<group>"; };
+		933AA30B2664EBA1000D6D48 /* PhotosSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosSelectionView.swift; sourceTree = "<group>"; };
+		933AA30F26674FD8000D6D48 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		933AA311266754F0000D6D48 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		933AA31326675B62000D6D48 /* CustomImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImagePicker.swift; sourceTree = "<group>"; };
 		934A21D626515EF300607821 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		93553A6E2647015D0027BA06 /* Messangel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messangel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93553A712647015D0027BA06 /* MessangelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangelApp.swift; sourceTree = "<group>"; };
@@ -108,7 +119,7 @@
 		935A599B265CD91E005B0505 /* CreateContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateContactView.swift; sourceTree = "<group>"; };
 		935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeConfirmView.swift; sourceTree = "<group>"; };
 		935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeReasonView.swift; sourceTree = "<group>"; };
-		935A59A4265F7029005B0505 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		935A59A4265F7029005B0505 /* MessagesBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesBottomView.swift; sourceTree = "<group>"; };
 		9369D53D265639F100650AA7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9369D54026563DED00650AA7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -131,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +196,9 @@
 				934A21D626515EF300607821 /* APIService.swift */,
 				93553A81264701C50027BA06 /* KeyboardResponder.swift */,
 				93553AA7264802A90027BA06 /* Extensions.swift */,
+				933AA30F26674FD8000D6D48 /* ImagePicker.swift */,
+				933AA311266754F0000D6D48 /* PhotoPicker.swift */,
+				933AA31326675B62000D6D48 /* CustomImagePicker.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -235,7 +250,9 @@
 		935A59A6265F7032005B0505 /* Messages */ = {
 			isa = PBXGroup;
 			children = (
-				935A59A4265F7029005B0505 /* MessagesView.swift */,
+				935A59A4265F7029005B0505 /* MessagesBottomView.swift */,
+				933AA3092664B563000D6D48 /* PublicMessagesView.swift */,
+				933AA30B2664EBA1000D6D48 /* PhotosSelectionView.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -306,6 +323,7 @@
 			);
 			name = Messangel;
 			packageProductDependencies = (
+				933AA316266A661F000D6D48 /* NavigationStack */,
 			);
 			productName = Messangel;
 			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
@@ -335,6 +353,7 @@
 			);
 			mainGroup = 93553A652647015D0027BA06;
 			packageReferences = (
+				933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */,
 			);
 			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
 			projectDirPath = "";
@@ -368,6 +387,7 @@
 				935A598C265BA3B0005B0505 /* AccessSecurityView.swift in Sources */,
 				937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */,
 				937CA4BB2653EC21004A0227 /* GuardianFormFirstNameView.swift in Sources */,
+				933AA30C2664EBA1000D6D48 /* PhotosSelectionView.swift in Sources */,
 				9369D53E265639F100650AA7 /* MenuView.swift in Sources */,
 				934A21D726515EF300607821 /* APIService.swift in Sources */,
 				935A598E265BAF8E005B0505 /* EditSubscriptionView.swift in Sources */,
@@ -379,15 +399,17 @@
 				937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */,
 				93553AA1264701E60027BA06 /* SignupPostcodeView.swift in Sources */,
 				93553A9E264701E60027BA06 /* SignupDoneView.swift in Sources */,
+				933AA31426675B62000D6D48 /* CustomImagePicker.swift in Sources */,
 				935A5992265BAFDD005B0505 /* SponsorView.swift in Sources */,
 				935A599A265BB074005B0505 /* AboutView.swift in Sources */,
 				93553A9D264701E60027BA06 /* SignupPasswrdView.swift in Sources */,
+				933AA30A2664B563000D6D48 /* PublicMessagesView.swift in Sources */,
 				93553A99264701E60027BA06 /* LoginView.swift in Sources */,
 				93553AAE2648CD680027BA06 /* AuthState.swift in Sources */,
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
-				935A59A5265F7029005B0505 /* MessagesView.swift in Sources */,
+				935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */,
 				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
@@ -405,6 +427,7 @@
 				93CC8A3C265FBEA200A28455 /* OnboardingViews.swift in Sources */,
 				93553AA5264701E60027BA06 /* SignupBirthView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
+				933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
 				935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */,
 				93553AA8264802A90027BA06 /* Extensions.swift in Sources */,
@@ -413,6 +436,7 @@
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
 				935A5998265BB040005B0505 /* FAQView.swift in Sources */,
 				93553AA0264701E60027BA06 /* SignupCodeView.swift in Sources */,
+				933AA312266754F0000D6D48 /* PhotoPicker.swift in Sources */,
 				93553A9A264701E60027BA06 /* SignupGenderView.swift in Sources */,
 				93553AAA264841780027BA06 /* SignupOTPView.swift in Sources */,
 				93553A9C264701E60027BA06 /* SignupTelIntroView.swift in Sources */,
@@ -544,7 +568,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -567,7 +591,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -606,6 +630,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/indieSoftware/NavigationStack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		933AA316266A661F000D6D48 /* NavigationStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */;
+			productName = NavigationStack;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93553A662647015D0027BA06 /* Project object */;
 }

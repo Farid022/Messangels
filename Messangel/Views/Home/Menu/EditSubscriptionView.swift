@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct EditSubscriptionView: View {
     var body: some View {
@@ -153,6 +154,7 @@ private struct StorageSpaceView: View {
 }
 
 private struct UnsubscribeSection: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     var body: some View {
         HStack {
             Text("Désabonnement")
@@ -160,8 +162,11 @@ private struct UnsubscribeSection: View {
             Spacer()
         }
         .padding(.bottom)
-        NavigationLink("Se désabonner", destination: UnsubscribeConfirmView())
-            .isDetailLink(false)
+        Button("Se désabonner") {
+            navigationModel.pushContent("EditSubscriptionView") {
+                UnsubscribeConfirmView()
+            }
+        }
             .shadow(color: .gray.opacity(0.2), radius: 10)
             .buttonStyle(MyButtonStyle(padding: 50, foregroundColor: .black))
             .padding(.bottom)
@@ -170,8 +175,6 @@ private struct UnsubscribeSection: View {
 
 struct EditSubscriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            EditSubscriptionView()
-        }
+        EditSubscriptionView()
     }
 }

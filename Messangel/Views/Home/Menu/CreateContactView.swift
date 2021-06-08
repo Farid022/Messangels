@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct CreateContactView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var navigationModel: NavigationModel
     @State private var lastName = ""
     @State private var firstName = ""
     @State private var mailAddress = ""
@@ -72,7 +73,7 @@ struct CreateContactView: View {
             }
             Button(action: {
                 if isValid {
-                    self.presentationMode.wrappedValue.dismiss()
+                    navigationModel.hideTopViewWithReverseAnimation()
                 }
             }){
                 HStack {
@@ -87,8 +88,8 @@ struct CreateContactView: View {
 
 struct AddContactView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        
             CreateContactView()
-        }
+        
     }
 }

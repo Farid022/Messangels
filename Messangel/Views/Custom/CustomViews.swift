@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct MyLink: View {
     var url: String
@@ -18,16 +19,22 @@ struct MyLink: View {
 }
 
 struct NextButton: View {
+    var source: String
     var destination: AnyView
     @Binding var active: Bool
-    
+    @EnvironmentObject private var navigationModel: NavigationModel
+
     var body: some View {
         Rectangle()
-            .frame(width: 50, height: 50)
-            .cornerRadius(20)
+            .frame(width: 56, height: 56)
+            .cornerRadius(25)
             .opacity(active ? 1 : 0.5)
             .overlay(
-                NavigationLink(destination: destination) {
+                Button(action: {
+                    navigationModel.pushContent(source) {
+                        destination
+                    }
+                }) {
                     Image(systemName: "chevron.right").foregroundColor(.accentColor)
                 }
             )
@@ -59,7 +66,7 @@ struct CustomCorner: Shape {
     
     func path(in rect: CGRect) -> Path {
         
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: 35, height: 35))
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: 25, height: 25))
         
         return Path(path.cgPath)
     }

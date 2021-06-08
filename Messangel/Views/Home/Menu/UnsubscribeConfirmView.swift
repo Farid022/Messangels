@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct UnsubscribeConfirmView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     var body: some View {
         MenuBaseView(title: "Désabonnement") {
             VStack(spacing: 30.0) {
@@ -17,8 +19,11 @@ struct UnsubscribeConfirmView: View {
                     Spacer()
                 }
                 Text(text)
-                NavigationLink("Oui, continuer", destination: UnsubscribeReasonView())
-                    .isDetailLink(false)
+                Button("Oui, continuer") {
+                    navigationModel.pushContent("UnsubscribeConfirmView") {
+                        UnsubscribeReasonView()
+                    }
+                }
                     .buttonStyle(MyButtonStyle(foregroundColor: .black))
                     .shadow(color: .gray.opacity(0.2), radius: 10)
             }
@@ -36,8 +41,6 @@ private let text = """
 
 struct UnsubscribeView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            UnsubscribeConfirmView()
-        }
+        UnsubscribeConfirmView()
     }
 }

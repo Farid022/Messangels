@@ -18,7 +18,6 @@ struct AccessSecurityView: View {
             AccessView(title: "Adresse mail associée au compte", subTitle: "sophie.carnero@gmail.com", action: {})
             AccessView(title: "Téléphone mobile associé au compte", subTitle: "06 00 00 00 00", action: {})
         }
-        .buttonStyle(MyButtonStyle(foregroundColor: .black))
     }
 }
 
@@ -44,13 +43,12 @@ private struct AccessView: View {
         }
         .shadow(color: .gray.opacity(0.2), radius: 10)
         .padding(.bottom, 30)
+        .buttonStyle(MyButtonStyle(foregroundColor: .black))
     }
 }
 
 struct AccessSecurityView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            AccessSecurityView()
-        }
+        AccessSecurityView()
     }
 }

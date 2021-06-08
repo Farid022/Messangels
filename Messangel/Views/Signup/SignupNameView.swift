@@ -16,9 +16,10 @@ struct SignupNameView: View {
     @State private var valid = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupBirthView()), footer: AnyView(Text("Veuillez saisir votre vrai nom, sans utiliser de pseudonyme."))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupBirthView()), currentView: "SignupNameView", footer: AnyView(Text("Veuillez saisir votre vrai nom, sans utiliser de pseudonyme.").font(.system(size: 13)))) {
             Text("Je m’appelle…")
-                .font(.headline)
+                .font(.system(size: 22))
+                .fontWeight(.bold)
             TextField("Sophie", text: $firstName)
             TextField("Nom", text: $lastName, onCommit:  {
                 valid = true
@@ -28,6 +29,7 @@ struct SignupNameView: View {
             } else {
                 Toggle(isOn: $referral) {
                     Text("J’ai un code filleul")
+                        .font(.system(size: 13))
                 }.toggleStyle(CheckboxToggleStyle())
             }
         }

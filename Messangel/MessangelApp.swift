@@ -19,7 +19,7 @@ struct MessangelApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(auth: AuthState())
+            ContentView()
         }
     }
 }

@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct GuardianFormBaseView<Content: View>: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var navigationModel: NavigationModel
     @Binding private var progress: Double
     @Binding private var valid: Bool
     private var title = ""
@@ -24,58 +25,79 @@ struct GuardianFormBaseView<Content: View>: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.accentColor
-                .edgesIgnoringSafeArea(.top)
-            VStack(alignment: .leading, spacing: 20) {
-                VStack {
+        NavigationStackView(title) {
+            ZStack(alignment:.top) {
+                Color.accentColor
+                    .frame(height:70)
+                    .edgesIgnoringSafeArea(.top)
+                VStack(alignment: .leading, spacing: 20) {
                     Color.accentColor
-                        .frame(height: 35)
-                    Color.white
-                        .frame(height: 15)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, -16)
-                .padding(.top, -16)
-                .overlay(HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(25)
-                        .shadow(color: .gray.opacity(0.2), radius: 10)
-                        .overlay(Image("info"))
-                })
-                Text(title)
-                    .fontWeight(.bold)
-                    .padding(.top)
-                Spacer()
-                content
-                Spacer()
-                HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(valid ? Color.accentColor : Color.gray.opacity(0.2))
-                        .frame(width: 50, height: 50)
-                        .cornerRadius(22)
+                        .frame(height:90)
+                        .padding(.horizontal, -20)
                         .overlay(
-                            NavigationLink(destination: destination) {
-                                Image(systemName: "chevron.right").foregroundColor(valid ? Color.white : Color.gray)
-                            }
-                        )
+                    HStack {
+                        BackButton()
+                        Text("Quitter")
+                            .font(.system(size: 15))
+                            .foregroundColor(.white)
+                        Spacer()
+                    }, alignment: .top)
+                    
+                    VStack {
+                        Color.accentColor
+                            .frame(height: 35)
+                            .overlay(Text("Ange-gardien")
+                                        .font(.system(size: 22))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding([.leading, .bottom])
+                                     ,
+                                     alignment: .leading)
+                        Color.white
+                            .frame(height: 15)
+                    }
+                    .frame(height: 50)
+                    .padding(.horizontal, -16)
+                    .padding(.top, -16)
+                    .overlay(HStack {
+                        Spacer()
+                        Rectangle()
+                            .fill(Color.white)
+                            .frame(width: 60, height: 60)
+                            .cornerRadius(25)
+                            .shadow(color: .gray.opacity(0.2), radius: 10)
+                            .overlay(Image("info"))
+                    })
+                    Text(title)
+                        .font(.system(size: 17))
+                        .fontWeight(.bold)
+                        .padding(.top)
+                    Spacer()
+                    content
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Rectangle()
+                            .fill(valid ? Color.accentColor : Color.gray.opacity(0.2))
+                            .frame(width: 56, height: 56)
+                            .cornerRadius(25)
+                            .overlay(
+                                Button(action: {
+                                    navigationModel.pushContent(title) {
+                                        destination
+                                    }
+                                }) {
+                                    Image(systemName: "chevron.right").foregroundColor(valid ? Color.white : Color.gray)
+                                }
+                            )
+                    }
+                    SignupProgressView(progress: $progress, tintColor: .accentColor, progressMultiplier: 100/7)
                 }
-                SignupProgressView(progress: $progress, tintColor: .accentColor, progressMultiplier: 100/7)
+                .padding()
+//                .background(Color.white)
             }
-            .padding()
-            .background(Color.white)
+            .textFieldStyle(MyTextFieldStyle())
+            .navigationTitle(Text("Ange-gardien"))
         }
-        .textFieldStyle(MyTextFieldStyle())
-        .navigationBarBackButtonHidden(true)
-        .navigationTitle(Text("Ange-gardien"))
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward").foregroundColor(.white)
-        })
     }
 }

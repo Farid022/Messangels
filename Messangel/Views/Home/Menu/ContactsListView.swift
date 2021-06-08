@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct ContactsListView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
@@ -31,7 +33,11 @@ struct ContactsListView: View {
                 RoundedRectangle(cornerRadius: 25.0)
                     .fill(Color.accentColor)
                     .frame(width: 56, height: 56)
-                    .overlay(NavigationLink(destination: CreateContactView()) {
+                    .overlay(Button(action: {
+                        navigationModel.pushContent("ContactsListView") {
+                            CreateContactView()
+                        }
+                    }) {
                         Image("ic_contact-add")
                     })
             }
@@ -91,8 +97,6 @@ struct ContactView: View {
 
 struct ContactsListView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ContactsListView()
-        }
+        ContactsListView()
     }
 }

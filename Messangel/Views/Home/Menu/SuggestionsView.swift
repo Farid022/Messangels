@@ -69,8 +69,8 @@ struct SuggestionsView: View {
 
 struct SuggestionsView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        
             SuggestionsView()
-        }
+        
     }
 }

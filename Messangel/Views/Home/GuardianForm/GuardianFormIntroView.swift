@@ -6,49 +6,37 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct GuardianFormIntroView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @EnvironmentObject private var navigationModel: NavigationModel
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            Color.accentColor
-                .ignoresSafeArea()
-            VStack(alignment: .leading) {
-                Spacer()
-                Text("Ajouter un Ange-gardien")
-                    .font(.system(size: 22))
-                    .fontWeight(.bold)
-                    .padding(.bottom)
-                Text("""
-                    Indiquez les coordonnées d’une personne à qui vous confierez votre Messangel.
-
-                    Cette personne devra accepter votre demande par mail.
-                    """)
-                    .font(.system(size: 15))
-//                    .offset(x:offset)
-//                    .onAppear{
-//                        DispatchQueue.main.async {
-//                            withAnimation {
-//                                offset = 0.0
-//                            }
-//                        }
-//                    }
-               
-                Spacer()
-                HStack {
+        NavigationStackView("GuardianFormIntroView") {
+            ZStack(alignment: .topLeading) {
+                Color.accentColor
+                    .ignoresSafeArea()
+                VStack(alignment: .leading) {
+                    BackButton()
                     Spacer()
-                    NextButton(destination: AnyView(GuardianFormLastNameView()), active: .constant(true))
-                }
-            }.padding()
+                    Text("Ajouter un Ange-gardien")
+                        .font(.system(size: 22))
+                        .fontWeight(.bold)
+                        .padding(.bottom)
+                    Text("""
+                        Indiquez les coordonnées d’une personne à qui vous confierez votre Messangel.
+
+                        Cette personne devra accepter votre demande par mail.
+                        """)
+                        .font(.system(size: 15))
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        NextButton(source: "GuardianFormIntroView", destination: AnyView(GuardianFormLastNameView()), active: .constant(true))
+                    }
+                }.padding()
+            }
+            .foregroundColor(.white)
         }
-        .foregroundColor(.white)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward").foregroundColor(.white)
-        })
     }
 }
 

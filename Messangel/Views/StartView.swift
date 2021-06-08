@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct StartView: View {
-    @State private var logoOffset: CGFloat = 0.0
+    static let id = String(describing: Self.self)
+    @EnvironmentObject var navigationModel: NavigationModel
+    
+    @State private var logoOffset: CGFloat = 50.0
     private var welcomeText = """
     Bienvenue.
     Inscrivez-vous ou connectez-vous
@@ -16,39 +20,53 @@ struct StartView: View {
     """
     
     var body: some View {
-        GeometryReader { g in
-            ZStack {
-                Color.accentColor
-                    .ignoresSafeArea()
-                VStack(spacing: 20) {
-                    Image("logo")
-                        .offset(y: logoOffset)
-                        .onAppear{
-                            DispatchQueue.main.async {
-                                withAnimation {
-                                    logoOffset = -80
+        NavigationStackView(StartView.id) {
+            GeometryReader { g in
+                ZStack {
+                    Color.accentColor
+                        .ignoresSafeArea()
+                    VStack(spacing: 20) {
+                        Spacer()
+                        Image("logo")
+                            .offset(y: logoOffset)
+                            .onAppear{
+                                DispatchQueue.main.async {
+                                    withAnimation {
+                                        logoOffset = -50
+                                    }
                                 }
                             }
+                        Text(welcomeText)
+                            .font(.system(size: 15))
+                            .multilineTextAlignment(.center)
+                            .padding(.bottom)
+                        Button(action: {
+                            navigationModel.pushContent(StartView.id) {
+                                SignupIntroView()
+                            }
+                        }) {
+                            Text("Créer un compte")
+                                .foregroundColor(.black)
                         }
-                    Text(welcomeText)
-                        .multilineTextAlignment(.center)
-                        .padding(.bottom)
-                    NavigationLink(destination: SignupIntroView()) {
-                        Text("Créer un compte")
-                            .foregroundColor(.black)
+                        Button(action: {
+                            navigationModel.pushContent(StartView.id) {
+                                LoginView()
+                            }
+                        }) {
+                            Text("Se connecter")
+                        }
+                        Link(destination: URL(string: "https://www.google.com")!, label: {
+                            Text("Politique de confidentialité")
+                                .font(.system(size: 15))
+                                .underline()
+                        })
+                        .buttonStyle(DefaultButtonStyle())
+                        .padding(.top, 100)
+                        Spacer()
                     }
-                    NavigationLink(destination: LoginView()) {
-                        Text("Se connecter")
-                    }
-                    Link(destination: URL(string: "https://www.google.com")!, label: {
-                        Text("Politique de confidentialité")
-                            .underline()
-                    })
-                    .buttonStyle(DefaultButtonStyle())
-                    .padding(.top, 100)
+                    .buttonStyle(MyButtonStyle())
+                    .foregroundColor(.white)
                 }
-                .buttonStyle(MyButtonStyle())
-                .foregroundColor(.white)
             }
         }
     }
@@ -61,5 +79,23 @@ struct StartView_Previews: PreviewProvider {
                 .ignoresSafeArea()
             StartView()
         }
+    }
+}
+
+struct BackButton: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
+    var viewId = ""
+    var body: some View {
+        Button(action: {
+            if viewId.isEmpty {
+                navigationModel.hideTopViewWithReverseAnimation()
+            } else {
+                navigationModel.popContent(viewId)
+            }
+        }) {
+            Image(systemName: "chevron.backward")
+                .foregroundColor(.white)
+        }
+        .frame(height: 44)
     }
 }

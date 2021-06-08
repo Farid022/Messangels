@@ -19,8 +19,8 @@ struct FAQView: View {
 
 struct FAQView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        
             FAQView()
-        }
+        
     }
 }

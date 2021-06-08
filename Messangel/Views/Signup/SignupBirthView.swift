@@ -16,12 +16,14 @@ struct SignupBirthView: View {
     @State private var valid = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupPostcodeView()), footer: AnyView(Text("Vous devez être majeur pour créer votre compte Messangel"))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupPostcodeView()), currentView: "SignupBirthView", footer: AnyView(Text("Vous devez être majeur pour créer votre compte Messangel").font(.system(size: 13)))) {
             Text("Je suis né(e) le…")
-                .font(.headline)
+                .font(.system(size: 22))
+                .fontWeight(.bold)
             MyDatePickerView(day: $dob_day, month: $dob_month, year: $dob_year)
             Text("Dans la ville de…")
-                .font(.headline)
+                .font(.system(size: 22))
+                .fontWeight(.bold)
             TextField("Ville", text: $city, onCommit:  {
                 valid = true
             })

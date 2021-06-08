@@ -13,9 +13,9 @@ struct SignupTelView: View {
     @State private var valid = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupOTPView()), footer: AnyView(MyLink(url: "https://www.google.com", text: "Politique de confidentialité"))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupOTPView()), currentView: "SignupTelView", footer: AnyView(MyLink(url: "https://www.google.com", text: "Politique de confidentialité"))) {
                 Text("Mon numéro de téléphone mobile")
-                    .font(.title2)
+                    .font(.system(size: 22))
                     .fontWeight(.bold)
                 Spacer().frame(height: 50)
                 TextField("Numéro de téléphone", text: $tel, onCommit:  {

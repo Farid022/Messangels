@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MenuBaseView<Content: View>: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let content: Content
     var title: String
     
@@ -17,29 +16,28 @@ struct MenuBaseView<Content: View>: View {
         self.title = title
     }
     var body: some View {
-        VStack {
+        VStack(spacing: 0.0) {
             Color.accentColor
                 .ignoresSafeArea()
-                .frame(height: .zero)
+                .frame(height: 105)
+                .overlay(HStack {
+                    BackButton()
+                        .padding(.leading)
+                    Spacer()
+                    Text(title)
+                        .foregroundColor(.white)
+                    Spacer()
+                    Image("help")
+                        .padding(.horizontal, -30)
+                }.padding(.bottom, -30), alignment: .bottom)
             ScrollView {
                 VStack {
                     content
                 }
                 .padding()
+                .padding(.bottom, 80)
             }
-        }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward").foregroundColor(.white)
-        })
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                Text(title)
-                    .font(.headline)
-                    .foregroundColor(.white)
-            }
+            .background(Color.white)
         }
     }
 }

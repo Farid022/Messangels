@@ -10,14 +10,18 @@ import SwiftUI
 struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var auth: AuthState
-
+    
     var body: some View {
         ZStack {
             Color.accentColor
                 .ignoresSafeArea()
             VStack(spacing: 20) {
+                HStack {
+                    BackButton(viewId: StartView.id)
+                    Spacer()
+                }
+                Spacer()
                 Image("logo")
                 Text("Connectez-vous")
                     .padding(.bottom)
@@ -35,25 +39,19 @@ struct LoginView: View {
                         self.auth.user = true
                     }
                 })
-                    .padding(.bottom, 50)
+                .buttonStyle(MyButtonStyle())
+                .padding(.bottom, 50)
                 
                 Link(destination: URL(string: "https://www.google.com")!, label: {
                     Text("Politique de confidentialité")
                         .underline()
                 })
-                .buttonStyle(DefaultButtonStyle())
+                Spacer()
             }
             .padding()
         }
         .textFieldStyle(MyTextFieldStyle())
-        .buttonStyle(MyButtonStyle())
         .foregroundColor(.white)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.backward").foregroundColor(.white)
-        })
     }
 }
 

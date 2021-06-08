@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct UnsubscribeReasonView: View {
     
@@ -58,7 +59,7 @@ struct ReasonCoice: View {
 }
 
 struct CustomAlert: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var navigationModel: NavigationModel
     
     @Binding var isPresented: Bool
     var title: String
@@ -77,7 +78,7 @@ struct CustomAlert: View {
                 .font(.system(size: 13))
             Divider()
             Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
+                navigationModel.hideTopViewWithReverseAnimation()
             }) {
                 Text(buttonText)
                     .foregroundColor(.accentColor)
@@ -131,8 +132,6 @@ struct ChoicesView: View {
 
 struct UnsubscribeReasonView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            UnsubscribeReasonView()
-        }
+        UnsubscribeReasonView()
     }
 }

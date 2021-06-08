@@ -14,11 +14,12 @@ struct SignupPasswrdView: View {
     @State private var valid = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupTelIntroView()), footer: AnyView(Text(""))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupTelIntroView()), currentView: "SignupPasswrdView", footer: AnyView(Text(""))) {
             Text("Mot de passe Messangel")
-                .font(.title2)
+                .font(.system(size: 22))
                 .fontWeight(.bold)
             Text("Créez votre mot de passe (8 caractères minimum, dont une majuscule et un chiffre)")
+                .font(.system(size: 15))
             SecureField("Mot de passe", text: $password) {
                 
             }
@@ -26,7 +27,7 @@ struct SignupPasswrdView: View {
                 valid = true
             }
             Text("Sécurité : Insuffisant")
-                .font(.caption)
+                .font(.system(size: 13))
                 .padding(.leading)
         }
     }

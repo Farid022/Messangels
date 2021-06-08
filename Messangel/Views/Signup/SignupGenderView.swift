@@ -15,9 +15,9 @@ struct SignupGenderView: View {
     @State private var valid = false
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupEmailView()), footer: AnyView(Text(""))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupEmailView()), currentView: "SignupGenderView", footer: AnyView(Text(""))) {
             Text("Je m’identifie comme…")
-                .font(.title2)
+                .font(.system(size: 22))
                 .fontWeight(.bold)
             Spacer().frame(height: 50)
             Group {

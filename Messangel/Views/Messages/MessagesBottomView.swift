@@ -6,26 +6,30 @@
 //
 
 import SwiftUI
+import NavigationStack
 
-struct MessagesView: View {
+struct MessagesBottomView: View {
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Créer un message")
-                .fontWeight(.bold)
-            HStack {
-                Spacer()
-                AddMessageView(text: "Vidéo", image: "ic_video")
-                AddMessageView(text: "Texte", image: "ic_text")
-                AddMessageView(text: "Audio", image: "ic_audio")
-                Spacer()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Text("Créer un message")
+                    .fontWeight(.bold)
+                HStack {
+                    Spacer()
+                    AddMessageView(text: "Vidéo", image: "ic_video")
+                    AddMessageView(text: "Texte", image: "ic_text")
+                    AddMessageView(text: "Audio", image: "ic_audio")
+                    Spacer()
+                }
+                Text("Destinataires")
+                    .fontWeight(.bold)
+                CreateGroupView()
+                PublicView()
+                Spacer().frame(height: 50)
             }
-            Text("Destinataires")
-                .fontWeight(.bold)
-            CreateGroupView()
-            PublicView()
+            .padding()
         }
-        .padding()
     }
 }
 
@@ -79,32 +83,39 @@ struct CreateGroupView: View {
 }
 
 struct PublicView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     var body: some View {
         RoundedRectangle(cornerRadius: 25.0)
             .foregroundColor(.white)
             .frame(height: 110)
             .shadow(color: .gray.opacity(0.2), radius: 10)
             .overlay(
-                HStack {
-                    RoundedRectangle(cornerRadius: 25.0)
-                        .frame(width: 56, height: 56)
-                        .foregroundColor(.gray)
-                        .overlay(Image("ic_public"))
-                    VStack(alignment: .leading, spacing: 7.0) {
-                        Text("Tout le monde (public)")
-                            .fontWeight(.bold)
-                        Text("Pour votre cérémonie et tout autre diffusion publique")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 13))
-                        HStack {
-                            Image("ic_public_media")
-                            Text("0 MÉDIA")
-                                .font(.system(size: 9))
-                                .foregroundColor(.secondary)
-                        }
+                Button(action: {
+                    navigationModel.pushContent("Messages") {
+                        PublicMessagesView()
                     }
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.gray)
+                }) {
+                    HStack {
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .frame(width: 56, height: 56)
+                            .foregroundColor(.gray)
+                            .overlay(Image("ic_public"))
+                        VStack(alignment: .leading, spacing: 7.0) {
+                            Text("Tout le monde (public)")
+                                .fontWeight(.bold)
+                            Text("Pour votre cérémonie et tout autre diffusion publique")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 13))
+                            HStack {
+                                Image("ic_public_media")
+                                Text("0 MÉDIA")
+                                    .font(.system(size: 9))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.gray)
+                    }
                 }
                 .padding(.horizontal, 20),
                 alignment: .leading
@@ -114,9 +125,6 @@ struct PublicView: View {
 
 struct MessagesView_Previews: PreviewProvider {
     static var previews: some View {
-        //        NavigationView {
-        MessagesView()
-            //        }
-            .previewDevice("iPhone 12 mini")
+        MessagesBottomView()
     }
 }

@@ -13,16 +13,19 @@ struct SignupCodeView: View {
     @State private var valid = false
     @State private var code: String = ""
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupDoneView()), footer: AnyView(HStack {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupDoneView()), currentView: "SignupCodeView", footer: AnyView(HStack {
             Spacer()
             VStack {
                 Text("Provient de message")
-                Text("0000").underline()
+                    .font(.system(size: 13))
+                Text("0000")
+                    .font(.system(size: 17))
+                    .underline()
             }
             Spacer()
         })) {
             Text("Inscrivez le code reçu par SMS")
-                .font(.title2)
+                .font(.system(size: 22))
                 .fontWeight(.bold)
             Spacer().frame(height: 50)
             
@@ -59,8 +62,8 @@ struct CodeView: View {
             ForEach(0..<4,id: \.self){index in
                 VStack {
                     Rectangle()
-                        .frame(width: 50,height: 50)
-                        .cornerRadius(23)
+                        .frame(width: 55,height: 55)
+                        .cornerRadius(25)
                         .overlay(
                             VStack {
                                 if code.count > index {
