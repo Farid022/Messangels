@@ -7,26 +7,27 @@
 
 import SwiftUI
 import NavigationStack
+import Combine
 
 struct PhotosSelectionView: View {
-    @State var selectedImages: [SelectedImages] = []
+    @ObservedObject var viewModel: AlbumViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     @State var showGallery = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if showGallery {
-                CustomImagePicker(selectedImages: $selectedImages)
+                CustomImagePicker(viewModel: viewModel)
             }
             else {
                 NavigationStackView("PhotosSelectionView") {
                     MenuBaseView(title: "Photos pour le groupe") {
-                        Text(selectedImages.count == 0 ? "0 Photo pour ce groupe" : "\(selectedImages.count) Photos dans cet album")
+                        Text(viewModel.albumImages.count == 0 ? "0 Photo pour ce groupe" : "\(viewModel.albumImages.count) Photos dans cet album")
                             .fontWeight(.medium)
-                        Spacer().frame(height: selectedImages.isEmpty ? 150 : 20)
+                        Spacer().frame(height: viewModel.albumImages.isEmpty ? 150 : 20)
                         Button(action: {
                             withAnimation {
-                                self.selectedImages.removeAll()
+                                self.viewModel.albumImages.removeAll()
                                 showGallery.toggle()
                             }
                         }, label: {
@@ -34,16 +35,16 @@ struct PhotosSelectionView: View {
                                 RoundedRectangle(cornerRadius: 30.0)
                                     .frame(width: 66, height: 66)
                                     .overlay(Image("ic_camera_plus"))
-                                if selectedImages.isEmpty {
+                                if viewModel.albumImages.isEmpty {
                                 Text("Sélectionner des photos dans mon appareil")
                                     .foregroundColor(.black)
                                 }
                             }
                         })
                         .padding(.bottom)
-                        if !selectedImages.isEmpty{
+                        if !viewModel.albumImages.isEmpty{
                             LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 3.0), count: 2), spacing: 3.0) {
-                                ForEach(selectedImages, id: \.self) { i in
+                                ForEach(viewModel.albumImages, id: \.self) { i in
                                     Image(uiImage: i.image)
                                         .resizable()
                                         .frame(width: (UIScreen.main.bounds.width-15)/2, height: 250)
@@ -57,7 +58,7 @@ struct PhotosSelectionView: View {
                 .padding(.top, -47)
             }
             if showGallery {
-                BottomView(selectedImages: $selectedImages, showGallery: $showGallery)
+                BottomView(viewModel: viewModel, showGallery: $showGallery)
             }
         }
         .edgesIgnoringSafeArea(.bottom)
@@ -66,7 +67,7 @@ struct PhotosSelectionView: View {
 
 struct BottomView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @Binding var selectedImages : [SelectedImages]
+    @ObservedObject var viewModel: AlbumViewModel
     @Binding var showGallery: Bool
     var body: some View {
         HStack(alignment: .top) {
@@ -85,7 +86,7 @@ struct BottomView: View {
             .background(Color.accentColor)
             .clipShape(Capsule())
             .padding(.bottom)
-            .disabled(self.selectedImages.count == 0 ? true : false)
+            .disabled(self.viewModel.albumImages.count == 0 ? true : false)
         }
         .frame(width: UIScreen.main.bounds.width, height: 120)
         .background(Color.white)
@@ -94,6 +95,6 @@ struct BottomView: View {
 
 struct PhotosSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosSelectionView()
+        PhotosSelectionView(viewModel: AlbumViewModel())
     }
 }

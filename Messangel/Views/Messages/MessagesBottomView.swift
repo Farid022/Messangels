@@ -9,7 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct MessagesBottomView: View {
-    
+    @EnvironmentObject var navigationModel: NavigationModel
+    @State private var loading = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -17,9 +18,37 @@ struct MessagesBottomView: View {
                     .fontWeight(.bold)
                 HStack {
                     Spacer()
-                    AddMessageView(text: "Vidéo", image: "ic_video")
-                    AddMessageView(text: "Texte", image: "ic_text")
-                    AddMessageView(text: "Audio", image: "ic_audio")
+                    Button(action: {
+                        navigationModel.pushContent(TabBarView.id) {
+                            VideoRecoderView()
+                        }
+                    }) {
+                        AddMessageView(text: "Vidéo", image: "ic_video")
+                    }
+                    Button(action: {
+//                        loading = true
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            let editor = RichEditorView(frame: .zero)
+//                            loading = false
+                             navigationModel.pushContent(TabBarView.id) {
+                                 TextEditorView()
+                             }
+//                        }
+                    }) {
+                        AddMessageView(text: "Texte", image: "ic_text")
+                    }
+                    .overlay(Group {
+                        if loading {
+                            Loader()
+                        }
+                    })
+                    Button(action: {
+                        navigationModel.pushContent(TabBarView.id) {
+                            AudioRecorderView()
+                        }
+                    }) {
+                        AddMessageView(text: "Audio", image: "ic_audio")
+                    }
                     Spacer()
                 }
                 Text("Destinataires")
@@ -48,6 +77,7 @@ struct AddMessageView: View {
                     .foregroundColor(.accentColor)
                     .overlay(Image(image))
                 Text(text)
+                    .foregroundColor(.black)
                 Spacer().frame(height: 30)
                 Image(systemName: "plus")
                     .foregroundColor(.accentColor)
@@ -92,7 +122,7 @@ struct PublicView: View {
             .overlay(
                 Button(action: {
                     navigationModel.pushContent("Messages") {
-                        PublicMessagesView()
+                        PublicMessagesView(viewModel: AlbumViewModel())
                     }
                 }) {
                     HStack {

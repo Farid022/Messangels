@@ -10,11 +10,23 @@ import NavigationStack
 
 struct PublicMessagesView: View {
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var viewModel: AlbumViewModel
 
     var body: some View {
         NavigationStackView("PublicMessagesView") {
             MenuBaseView(title: "Ma petite famille") {
-                GalleryPlaceHolder()
+                if viewModel.albumImages.count == 0 {
+                    GalleryPlaceHolder(viewModel: viewModel)
+                } else {
+                    if let image = viewModel.albumImages.first?.image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(height: 190)
+                            .padding(-16)
+                    } else {
+                        GalleryPlaceHolder(viewModel: viewModel)
+                    }
+                }
                 MiddleView()
                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: 2), spacing: 16.0) {
                     CreateMessageCard()
@@ -28,6 +40,7 @@ struct PublicMessagesView: View {
 
 struct GalleryPlaceHolder: View {
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var viewModel: AlbumViewModel
     var body: some View {
         Rectangle()
             .foregroundColor(.gray.opacity(0.5))
@@ -36,7 +49,7 @@ struct GalleryPlaceHolder: View {
             .overlay(
                 Button(action: {
                     navigationModel.pushContent(TabBarView.id) {
-                        PhotosSelectionView()
+                        PhotosSelectionView(viewModel: viewModel)
                     }
                 }) {
                     RoundedRectangle(cornerRadius: 30.0)
@@ -141,6 +154,6 @@ struct MessageCard: View {
 
 struct PublicMessagesView_Previews: PreviewProvider {
     static var previews: some View {
-        PublicMessagesView()
+        PublicMessagesView(viewModel: AlbumViewModel())
     }
 }

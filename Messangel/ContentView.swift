@@ -10,23 +10,24 @@ import NavigationStack
 
 struct ContentView: View {
     @ObservedObject var auth: AuthState
+    let editor: RichEditorView
     
     init() {
         self.auth = AuthState()
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.largeTitleTextAttributes = [
-            .font : UIFont.boldSystemFont(ofSize: 34),
-            NSAttributedString.Key.foregroundColor : UIColor.white
-        ]
-        appearance.titleTextAttributes = [
-            .font : UIFont.systemFont(ofSize: 17, weight: .semibold),
-            NSAttributedString.Key.foregroundColor : UIColor.white
-        ]
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().tintColor = .white
+        self.editor = RichEditorView(frame: .zero)
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithTransparentBackground()
+//        appearance.largeTitleTextAttributes = [
+//            .font : UIFont.boldSystemFont(ofSize: 34),
+//            NSAttributedString.Key.foregroundColor : UIColor.white
+//        ]
+//        appearance.titleTextAttributes = [
+//            .font : UIFont.systemFont(ofSize: 17, weight: .semibold),
+//            NSAttributedString.Key.foregroundColor : UIColor.white
+//        ]
+//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//        UINavigationBar.appearance().standardAppearance = appearance
+//        UINavigationBar.appearance().tintColor = .white
     }
     
     var body: some View {
@@ -39,6 +40,7 @@ struct ContentView: View {
         }
         .environmentObject(auth)
         .environmentObject(NavigationModel())
+        .environmentObject(editor)
     }
 }
 

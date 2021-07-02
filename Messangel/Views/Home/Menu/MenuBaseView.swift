@@ -10,16 +10,18 @@ import SwiftUI
 struct MenuBaseView<Content: View>: View {
     let content: Content
     var title: String
+    var height: CGFloat
     
-    init(title: String, @ViewBuilder content: () -> Content) {
+    init(height: CGFloat = 105, title: String, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.title = title
+        self.height = height
     }
     var body: some View {
         VStack(spacing: 0.0) {
             Color.accentColor
                 .ignoresSafeArea()
-                .frame(height: 105)
+                .frame(height: height)
                 .overlay(HStack {
                     BackButton()
                         .padding(.leading)
