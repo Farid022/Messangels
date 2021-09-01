@@ -83,7 +83,7 @@ struct ContactsListView: View {
                         }
                 }
             }
-            .onAppear() {
+            .onDidAppear() {
                 vm.getContacts(userId: auth.user.id ?? 0)
             }
         }

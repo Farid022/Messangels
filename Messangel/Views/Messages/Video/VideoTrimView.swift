@@ -92,7 +92,7 @@ struct VideoTrimView: View {
             playerManager.playing = false
             seekVideo(toPosition: CGFloat(slider.lowHandle.currentValue))
         }
-        .onAppear() {
+        .onDidAppear() {
             getVideoFrames()
         }
         .onChange(of: slider.lowHandle.currentValue) { value in

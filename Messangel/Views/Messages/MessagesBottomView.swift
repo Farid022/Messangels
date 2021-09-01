@@ -91,7 +91,7 @@ struct MessagesBottomView: View {
                 }
                 .padding()
             }
-            .onAppear() {
+            .onDidAppear() {
                 vm.getAll(userId: auth.user.id ?? 0)
             }
         }

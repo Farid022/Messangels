@@ -103,7 +103,7 @@ struct SignupOTPView: View {
         .alert(isPresented: $alert, content: {
             Alert(title: Text("Error"), message: Text(apiResponse.message))
         })
-        .onAppear {
+        .onDidAppear {
             APIService.shared.post(model: OTP(phone_number: userVM.user.phone_number), response: apiResponse, endpoint: "users/otp", token: false) { result in
                 switch result {
                 case .success(let res):

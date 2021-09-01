@@ -5,9 +5,9 @@
         "package": "NavigationStack",
         "repositoryURL": "https://github.com/indieSoftware/NavigationStack.git",
         "state": {
-          "branch": null,
-          "revision": "663528a8602cf3f80681ac4667018c0ecaf3d96f",
-          "version": "1.0.2"
+          "branch": "master",
+          "revision": "900b75924f218a68c2487ab8a9c3fc7c42130705",
+          "version": null
         }
       },
       {

@@ -90,7 +90,7 @@ struct ProfileView: View {
                     .font(.system(size: 11))
             })
         }
-        .onAppear() {
+        .onDidAppear() {
             self.userVM.profile = Profile(first_name: auth.user.first_name, last_name: auth.user.last_name, postal_code: auth.user.postal_code, gender: "1", image_url: auth.user.image_url)
 //            do {
 //                let imageData = try Data(contentsOf: profileImageUrl())

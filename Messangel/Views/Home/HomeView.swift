@@ -109,7 +109,7 @@ struct HomeBottomView: View {
                 Spacer().frame(height: 100)
             }
         }
-        .onAppear() {
+        .onDidAppear() {
             gVM.getGuardians(userId: auth.user.id ?? 0)
         }
     }

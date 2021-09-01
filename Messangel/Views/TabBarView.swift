@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct TabBarView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    static let id = String(describing: Self.self)
     @State var selectedTab = "Accueil"
     @AppStorage("onboardingShown") var onboardingShown = false
     @State var onboardingStarted = false
@@ -18,193 +21,52 @@ struct TabBarView: View {
         UITabBar.appearance().isHidden = true
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(.accentColor)
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
-        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
-            ZStack {
+        NavigationStackView(TabBarView.id) {
+            ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                 if onboardingShown {
-                    TabView(selection: $selectedTab){
-                        HomeView()
-                            .tag(tabs[0])
-                        Text("Messages")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .tag(tabs[1])
-                        Text("Mes choix")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .tag(tabs[2])
-                        Text("Vie digitale")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .tag(tabs[3])
+                    NavigationStackView(selectedTab) {
+                        TabView(selection: $selectedTab){
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
+                                .tag(tabs[0])
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDetail)), bottomContent: AnyView(MessagesBottomView()))
+                                .tag(tabs[1])
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(EmptyView()), bottomContent: AnyView(Text("Mes choix")))
+                                .tag(tabs[2])
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(EmptyView()), bottomContent: AnyView(Text("Vie digitale")))
+                                .tag(tabs[3])
+                        }
                     }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    .zIndex(1)
+                    //                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                } else {
+                    VStack {
+                        Color.accentColor
+                        Color.white
+                    }
+                    .overlay(Group {
+                        if !(onboardingCompleted || onboardingCancelled) {
+                            OnboardingView(onboardingStarted: $onboardingStarted, onboardingCompleted: $onboardingCompleted, onboardingCancelled: $onboardingCancelled, selectedTab: $selectedTab)
+                        }
+                        else if onboardingCompleted {
+                            OnboardingFinishView(title: "Vous êtes prêt !", selectedTab: $selectedTab)
+                        }
+                        else if onboardingCancelled {
+                            OnboardingFinishView(title: "Guide Messangel", selectedTab: $selectedTab)
+                        }
+                    })
                 }
-                else if !(onboardingCompleted || onboardingCancelled) {
-                    OnboardingView(onboardingStarted: $onboardingStarted, onboardingCompleted: $onboardingCompleted, onboardingCancelled: $onboardingCancelled, selectedTab: $selectedTab)
-                }
-                else if onboardingCompleted {
-                    OnboardingFinishView(title: "Vous êtes prêt !", selectedTab: $selectedTab)
-                }
-                else if onboardingCancelled {
-                    OnboardingFinishView(title: "Guide Messangel", selectedTab: $selectedTab)
-                }
-                VStack (spacing: 0) {
-                    Color.accentColor
-                    Color.white
-                }
-                .if(!onboardingShown) { $0.brightness(-0.2) }
-                .ignoresSafeArea()
+                BottomTabBar(onboardingShown: $onboardingShown, onboardingStarted: $onboardingStarted, selectedTab: $selectedTab)
+                    .if(!onboardingShown && !onboardingStarted) { $0.brightness(-0.2) }
             }
-            BottomTabBar(onboardingShown: $onboardingShown, onboardingStarted: $onboardingStarted, selectedTab: $selectedTab)
-                .if(!onboardingShown && !onboardingStarted) { $0.brightness(-0.2) }
+            .ignoresSafeArea()
         }
     }
 }
 
 var tabs = ["Accueil","Messages","Mes choix","Vie digitale"]
-var tutorials = [
-    ["title": "Voulez-vous suivre le tutoriel de démarrage ?",
-     "image": "Messangels",
-     "desc": "Ce tutoriel de 2 minutes vous permettra de vous familiariser avec les services proposés par Messangel."
-    ],
-    ["title": "Accueil : Mon Messangel",
-     "image": "Accueil",
-     "desc": "Accueil dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et"
-    ],
-    ["title": "Messages",
-     "image": "Messages",
-     "desc": "Messages dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et"
-    ],
-    ["title": "Mes choix",
-     "image": "Mes choix",
-     "desc": "Mes choix dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et"
-    ],
-    ["title": "Vie digitale",
-     "image": "Vie digitale",
-     "desc": "Vie digitale dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et"
-    ]
-]
-
-struct TutorialView: View {
-    var title: String
-    var image: String
-    var desc: String
-    
-    var body: some View {
-        VStack {
-            Text(title)
-                .font(.system(size: 17))
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
-                .padding()
-            Rectangle()
-                .fill(Color.white)
-                .frame(width: 80, height: 80)
-                .cornerRadius(35)
-                .shadow(color: .gray.opacity(0.2), radius: 5)
-                .overlay(Image(image))
-            Text(desc)
-                .font(.system(size: 13))
-                .multilineTextAlignment(.center)
-                .padding()
-        }
-        .padding(.bottom, 30)
-    }
-}
-
-struct OnboardingView: View {
-    @State var onboardingIndex = -1
-    @Binding var onboardingStarted: Bool
-    @Binding var onboardingCompleted: Bool
-    @Binding var onboardingCancelled: Bool
-    @Binding var selectedTab: String
-    
-    var body: some View {
-        Rectangle()
-            .fill(Color("bg"))
-            .frame(width: 270, height: 400)
-            .cornerRadius(25)
-            .zIndex(1.0)
-            .overlay(
-                VStack {
-                    TabView(selection: $onboardingIndex) {
-                        ForEach(0 ..< tutorials.count - 1) { _ in
-                            TutorialView(title: tutorials[onboardingIndex+1]["title"]!, image: tutorials[onboardingIndex+1]["image"]!, desc: tutorials[onboardingIndex+1]["desc"]!)
-                                .gesture(DragGesture())
-                        }
-                    }
-                    .disabled(!onboardingStarted)
-                    .tabViewStyle(PageTabViewStyle())
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.25))
-                        .frame(height: 1)
-                    Button(action: {
-                        withAnimation {
-                            if onboardingIndex < tutorials.count - 2 {
-                                onboardingStarted = true
-                                onboardingIndex += 1
-                                selectedTab = tabs[onboardingIndex]
-                            } else {
-                                onboardingCompleted = true
-                            }
-                        }
-                    }, label: {
-                        Text(onboardingStarted ? "Continuer" : "Oui")
-                            .font(.system(size: 17))
-                            .fontWeight(.semibold)
-                    })
-                    .padding(.vertical, 5)
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.25))
-                        .frame(height: 1)
-                    Button(onboardingStarted ? "Quitter" :"Non, passer", action: {
-                        withAnimation {
-                            onboardingCancelled = true
-                        }
-                    })
-                    .accentColor(.black)
-                    .padding(.top, 5)
-                    .padding(.bottom, 15)
-                }
-            )
-    }
-}
-
-struct OnboardingFinishView: View {
-    @AppStorage("onboardingShown") var onboardingShown = false
-    var title: String
-    @Binding var selectedTab: String
-    
-    var body: some View {
-        Rectangle()
-            .fill(Color("bg"))
-            .frame(width: 270, height: 300)
-            .cornerRadius(25)
-            .zIndex(1.0)
-            .overlay(
-                VStack {
-                    TutorialView(title: title, image: "info", desc: "Conseil : Servez-vous du guide Messangel pour vous aider dans vos choix si besoin.")
-                        .padding(.bottom, -40)
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.25))
-                        .frame(height: 1)
-                    Button(action: {
-                        withAnimation {
-                            onboardingShown = true
-                            selectedTab = "Accueil"
-                        }
-                    }, label: {
-                        Text("Ok, démarrer")
-                            .font(.system(size: 17))
-                            .fontWeight(.semibold)
-                    })
-                    .padding(.vertical, 5)
-                }
-            )
-    }
-}
+var messagesDetail = "Créez des messages vidéos, textes et audio pour une personne ou un groupe de destinataires."
 
 struct BottomTabBar: View {
     @Namespace var animation
@@ -225,7 +87,8 @@ struct BottomTabBar: View {
                 .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
         )
         .shadow(color: Color.gray.opacity(0.15), radius: 5, x: -5, y: -5)
-        .if(!UIDevice.current.hasNotch) { $0.padding(.bottom, 15) }
+        .padding(.bottom, 30)
+        .background(Color.white)
     }
 }
 
@@ -260,6 +123,8 @@ struct TabButton: View {
                             .frame(width: 20, height: 18, alignment: .center)
                         
                         Text(currentTab)
+                            .font(.system(size: 13))
+                            .fontWeight(.medium)
                     }
                     .foregroundColor(currentTab == selectedTab ? .accentColor : .gray)
                 }
@@ -272,5 +137,99 @@ struct TabButton: View {
 struct TabBar_Previews: PreviewProvider {
     static var previews: some View {
         TabBarView()
+            .previewDevice("iPhone 12")
+        TabBarView()
+            .previewDevice("iPhone 12 Pro Max")
+        TabBarView()
+            .previewDevice("iPhone 8")
+    }
+}
+
+struct NonHomeTopView: View {
+    var title: String
+    var detail: String
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text(title)
+                .font(.system(size: 34))
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+            Text(detail)
+                .font(.caption)
+                .fixedSize(horizontal: false, vertical: true)
+                .foregroundColor(.white)
+                .padding(.trailing, 100)
+        }
+        .padding(.horizontal, 15)
+        VStack {
+            Color.accentColor
+                .frame(height: 25)
+            Color.white
+                .frame(height: 25)
+        }
+        .frame(height: 50)
+        .overlay(
+            HStack {
+                Spacer()
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 56, height: 56)
+                    .cornerRadius(25)
+                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .overlay(Image("info"))
+                    .padding(.trailing)
+            })
+    }
+}
+
+struct NonHomeNavBar: View {
+    var body: some View {
+        HStack {
+            Spacer()
+            Button(action: {}, label: {
+                Image("help")
+                    .padding(.horizontal, -30)
+            })
+        }
+    }
+}
+
+struct NavBar: View {
+    var body: some View {
+        Color.accentColor
+            .ignoresSafeArea()
+            .frame(height: 50)
+    }
+}
+
+struct TopSection: View {
+    @Binding var selectedTab: String
+    var body: some View {
+        Color.accentColor
+            .frame(height: selectedTab == "Accueil" ? 300 : 200)
+    }
+}
+
+struct BottomSection: View {
+    var body: some View {
+        Color.white
+    }
+}
+
+struct TabContent: View {
+    @Binding var selectedTab: String
+    var navBarContent: AnyView
+    var topContent: AnyView
+    var bottomContent: AnyView
+    
+    var body: some View {
+        VStack(spacing: 0.0) {
+            NavBar()
+                .overlay(navBarContent)
+            TopSection(selectedTab: $selectedTab)
+                .overlay(topContent, alignment: .bottom)
+            BottomSection()
+                .overlay(bottomContent.padding(.top))
+        }
     }
 }

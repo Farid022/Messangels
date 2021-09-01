@@ -94,7 +94,7 @@ struct AudioRecorderView: View {
                 
                 Alert(title: Text("Error"), message: Text("Enable Acess"))
             })
-            .onAppear {
+            .onDidAppear {
                 
                 do{
                     
