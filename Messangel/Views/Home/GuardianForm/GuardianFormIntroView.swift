@@ -10,6 +10,7 @@ import NavigationStack
 
 struct GuardianFormIntroView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @ObservedObject var vm: GuardianViewModel
     var body: some View {
         NavigationStackView("GuardianFormIntroView") {
             ZStack(alignment: .topLeading) {
@@ -31,7 +32,7 @@ struct GuardianFormIntroView: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "GuardianFormIntroView", destination: AnyView(GuardianFormLastNameView()), active: .constant(true))
+                        NextButton(source: "GuardianFormIntroView", destination: AnyView(GuardianFormLastNameView(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
@@ -40,8 +41,8 @@ struct GuardianFormIntroView: View {
     }
 }
 
-struct GuardianFormView_Previews: PreviewProvider {
-    static var previews: some View {
-        GuardianFormIntroView()
-    }
-}
+//struct GuardianFormView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GuardianFormIntroView()
+//    }
+//}

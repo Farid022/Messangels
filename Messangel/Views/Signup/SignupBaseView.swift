@@ -5,7 +5,7 @@
 //  Created by Saad on 5/8/21.
 //
 
-import SwiftUI
+import SwiftUIX
 import NavigationStack
 
 struct SignupBaseView<Content: View>: View {
@@ -13,18 +13,20 @@ struct SignupBaseView<Content: View>: View {
     @ObservedObject private var keyboardResponder = KeyboardResponder()
     @Binding private var progress: Double
     @Binding private var valid: Bool
+    @Binding private var editing: Bool
     private let content: Content
     private let destination: AnyView
     private let currentView: String
     private let footer: AnyView
     
-    init(progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, currentView: String, footer: AnyView, @ViewBuilder content: () -> Content) {
+    init(editing: Binding<Bool>, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, currentView: String, footer: AnyView, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._progress = progress
         self._valid = valid
         self.destination = destination
         self.currentView = currentView
         self.footer = footer
+        self._editing = editing
     }
     
     var body: some View {
@@ -41,9 +43,10 @@ struct SignupBaseView<Content: View>: View {
                             .frame(width: 139.67, height: 47.89)
                         Spacer()
                     }
+                    
                     Spacer()
                     content
-                    if keyboardResponder.currentHeight == 0 {
+                    if (Keyboard.main.isShowing && !editing) || currentView == "SignupGenderView" {
                         Spacer()
                     }
                     HStack {
@@ -53,9 +56,9 @@ struct SignupBaseView<Content: View>: View {
                     }
                     SignupProgressView(progress: $progress)
                 }.padding()
-                .offset(y: -keyboardResponder.currentHeight*0.85)
+//                .offset(y: -keyboardResponder.currentHeight*0.85)
             }
-            .ignoresSafeArea(.keyboard)
+//            .ignoresSafeArea(.keyboard)
             .foregroundColor(.white)
             .textFieldStyle(MyTextFieldStyle())
         }

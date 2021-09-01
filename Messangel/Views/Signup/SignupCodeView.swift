@@ -8,50 +8,50 @@
 import SwiftUI
 import Combine
 
-struct SignupCodeView: View {
-    @State private var progress = 12.5 * 7
-    @State private var valid = false
-    @State private var code: String = ""
-    var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupDoneView()), currentView: "SignupCodeView", footer: AnyView(HStack {
-            Spacer()
-            VStack {
-                Text("Provient de message")
-                    .font(.system(size: 13))
-                Text("0000")
-                    .font(.system(size: 17))
-                    .underline()
-            }
-            Spacer()
-        })) {
-            Text("Inscrivez le code reçu par SMS")
-                .font(.system(size: 22))
-                .fontWeight(.bold)
-            Spacer().frame(height: 50)
-            
-            CodeView(code: $code)
-                .overlay(
-                    TextField("", text: $code)
-                        .textFieldStyle(DefaultTextFieldStyle())
-                        .keyboardType(.numberPad)
-                        .textContentType(.oneTimeCode)
-                        .accentColor(.white)
-                        .opacity(0.1)
-                        .padding(.horizontal, 50)
-                        .onReceive(Just(code)) { inputValue in
-                            if inputValue.count > 4 {
-                                code.removeLast()
-                            }
-                        })
-        }
-    }
-}
-
-struct SignupCodeView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupCodeView()
-    }
-}
+//struct SignupCodeView: View {
+//    @State private var progress = 12.5 * 7
+//    @State private var valid = false
+//    @State private var code: String = ""
+//    var body: some View {
+//        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupDoneView(userVM: us)), currentView: "SignupCodeView", footer: AnyView(HStack {
+//            Spacer()
+//            VStack {
+//                Text("Provient de message")
+//                    .font(.system(size: 13))
+//                Text("0000")
+//                    .font(.system(size: 17))
+//                    .underline()
+//            }
+//            Spacer()
+//        })) {
+//            Text("Inscrivez le code reçu par SMS")
+//                .font(.system(size: 22))
+//                .fontWeight(.bold)
+//            Spacer().frame(height: 50)
+//            
+//            CodeView(code: $code)
+//                .overlay(
+//                    TextField("", text: $code)
+//                        .textFieldStyle(DefaultTextFieldStyle())
+//                        .keyboardType(.numberPad)
+//                        .textContentType(.oneTimeCode)
+//                        .accentColor(.white)
+//                        .opacity(0.1)
+//                        .padding(.horizontal, 50)
+//                        .onReceive(Just(code)) { inputValue in
+//                            if inputValue.count > 4 {
+//                                code.removeLast()
+//                            }
+//                        })
+//        }
+//    }
+//}
+//
+//struct SignupCodeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignupCodeView()
+//    }
+//}
 
 struct CodeView: View {
     @Binding var code: String

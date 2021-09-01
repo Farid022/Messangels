@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct SignupDoneView: View {
-    @EnvironmentObject var auth: AuthState
+    @EnvironmentObject var auth: Auth
     @State private var offset: CGFloat = 200
-    
+    @ObservedObject var userVM: UserViewModel
+
     var body: some View {
         ZStack {
             Color.accentColor
@@ -37,7 +38,7 @@ struct SignupDoneView: View {
                 Spacer()
                 Button("Démarrer", action: {
                     withAnimation {
-                        self.auth.user = true
+                        self.auth.user = userVM.user
                     }
                 })
                     .buttonStyle(MyButtonStyle())
@@ -53,8 +54,8 @@ struct SignupDoneView: View {
     }
 }
 
-struct SignupDoneView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupDoneView()
-    }
-}
+//struct SignupDoneView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignupDoneView()
+//    }
+//}

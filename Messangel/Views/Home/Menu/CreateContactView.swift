@@ -10,13 +10,11 @@ import NavigationStack
 
 struct CreateContactView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @State private var lastName = ""
-    @State private var firstName = ""
-    @State private var mailAddress = ""
-    @State private var mobile = ""
-    @State private var legalAge = false
+    @EnvironmentObject private var auth: Auth
+    @ObservedObject var vm: ContactViewModel
     @State private var minorAge = false
     @State private var isValid = false
+    @State private var alert = false
     
     @State private var dob_day = 1
     @State private var dob_month = "AVRIL"
@@ -31,10 +29,12 @@ struct CreateContactView: View {
             }
             .padding(.bottom, 20)
             Group {
-                TextField("Prénom", text: $lastName)
-                TextField("Nom", text: $firstName)
-                TextField("Adresse mail", text: $mailAddress)
-                TextField("Numéro de téléphone mobile", text: $mobile)
+                TextField("Prénom", text: $vm.contact.last_name)
+                TextField("Nom", text: $vm.contact.first_name)
+                TextField("Adresse mail", text: $vm.contact.email)
+                    .keyboardType(.emailAddress)
+                TextField("Numéro de téléphone mobile", text: $vm.contact.phone_number)
+                    .keyboardType(.phonePad)
             }
             .textFieldStyle(MyTextFieldStyle())
             .shadow(color: .gray.opacity(0.2), radius: 10)
@@ -43,9 +43,9 @@ struct CreateContactView: View {
             HStack {
                 VStack {
                     Group {
-                        Toggle("Cette personne est majeure", isOn: $legalAge)
-                            .onChange(of: legalAge) { value in
-                                isValid = legalAge
+                        Toggle("Cette personne est majeure", isOn: $vm.contact.legal_age)
+                            .onChange(of: vm.contact.legal_age) { value in
+                                isValid = vm.contact.legal_age
                             }
                         Toggle("Cette personne est mineure", isOn: $minorAge)
                             .onChange(of: minorAge) { value in
@@ -73,7 +73,15 @@ struct CreateContactView: View {
             }
             Button(action: {
                 if isValid {
-                    navigationModel.hideTopViewWithReverseAnimation()
+                    vm.contact.user = auth.user.id ?? 0
+                    vm.contact.dob = "\(dob_year)-\((months.firstIndex(of: dob_month) ?? 0) + 1)-\(dob_day)"
+                    vm.createContact { success in
+                        if success {
+                            navigationModel.hideTopViewWithReverseAnimation()
+                        } else {
+                            alert.toggle()
+                        }
+                    }
                 }
             }){
                 HStack {
@@ -83,13 +91,14 @@ struct CreateContactView: View {
             }
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
         }
+        .alert(isPresented: $alert, content: {
+            Alert(title: Text(vm.apiError.error), message: Text(vm.apiError.error_description))
+        })
     }
 }
 
-struct AddContactView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-            CreateContactView()
-        
-    }
-}
+//struct AddContactView_Previews: PreviewProvider {
+//    static var previews: some View {
+//            CreateContactView()
+//    }
+//}

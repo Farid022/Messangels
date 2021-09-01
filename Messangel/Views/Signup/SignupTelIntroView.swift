@@ -10,7 +10,7 @@ import NavigationStack
 
 struct SignupTelIntroView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-
+    @ObservedObject var userVM: UserViewModel
     static let id = String(describing: Self.self)
     @State private var offset: CGFloat = 1000.0
     @State private var valid = true
@@ -52,7 +52,7 @@ struct SignupTelIntroView: View {
                         })
                         .buttonStyle(DefaultButtonStyle())
                         Spacer()
-                        NextButton(source: "SignupTelIntroView", destination: AnyView(SignupTelView()), active: $valid)
+                        NextButton(source: "SignupTelIntroView", destination: AnyView(SignupTelView(userVM: userVM)), active: $valid)
                     }
                     Spacer()
                 }.padding()
@@ -62,8 +62,8 @@ struct SignupTelIntroView: View {
     }
 }
 
-struct SignupTelIntroView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupTelIntroView()
-    }
-}
+//struct SignupTelIntroView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignupTelIntroView()
+//    }
+//}

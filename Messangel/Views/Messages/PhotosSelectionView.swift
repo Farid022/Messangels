@@ -10,14 +10,14 @@ import NavigationStack
 import Combine
 
 struct PhotosSelectionView: View {
-    @ObservedObject var viewModel: AlbumViewModel
+    @EnvironmentObject var viewModel: AlbumViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     @State var showGallery = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if showGallery {
-                CustomImagePicker(viewModel: viewModel)
+                CustomImagePicker()
             }
             else {
                 NavigationStackView("PhotosSelectionView") {
@@ -90,11 +90,5 @@ struct BottomView: View {
         }
         .frame(width: UIScreen.main.bounds.width, height: 120)
         .background(Color.white)
-    }
-}
-
-struct PhotosSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        PhotosSelectionView(viewModel: AlbumViewModel())
     }
 }

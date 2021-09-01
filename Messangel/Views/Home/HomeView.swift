@@ -31,6 +31,7 @@ struct HomeNavBar: View {
 }
 
 struct HomeTopView: View {
+    @EnvironmentObject var auth: Auth
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -39,7 +40,7 @@ struct HomeTopView: View {
                         .font(.system(size: 34))
                         .fontWeight(.bold)
                         .padding(.bottom, 5)
-                    Text("Sophie")
+                    Text(auth.user.first_name)
                         .font(.system(size: 20))
                         .fontWeight(.light)
                         .padding(.bottom, 30)
@@ -64,7 +65,10 @@ struct HomeTopView: View {
 }
 
 struct HomeBottomView: View {
+    @EnvironmentObject var auth: Auth
     @EnvironmentObject var navigationModel: NavigationModel
+    @StateObject private var gVM = GuardianViewModel()
+    @State var subscribed = false
     var body: some View {
         ScrollView {
             VStack {
@@ -75,26 +79,38 @@ struct HomeBottomView: View {
                         .padding(.leading)
                     Spacer()
                 }
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 56, height: 56)
-                    .cornerRadius(25)
-                    .shadow(color: .gray.opacity(0.2), radius: 5)
-                    .overlay(
-                        Button(action: {
-                            navigationModel.pushContent(TabBarView.id) {
-                                GuardianFormIntroView()
+                .padding(.bottom)
+                if subscribed {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(gVM.guardians, id: \.self) { guardian in
+                                GuardianCard(last_name: guardian.last_name, first_name: guardian.first_name)
                             }
-                        }) {
-                        Image("add-user")
-                            .opacity(0.5)
-                    })
-                Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
-                    .font(.system(size: 13))
-                    .padding([.bottom, .horizontal])
-                SubscribeButton()
+                            AddGuardianView(gVM: gVM)
+                            Spacer()
+                        }
+                        .padding()
+                    }
+                } else {
+                    Rectangle()
+                        .fill(Color.white)
+                        .frame(width: 56, height: 56)
+                        .cornerRadius(25)
+                        .shadow(color: .gray.opacity(0.2), radius: 5)
+                        .overlay(
+                            Image("add-user")
+                                .opacity(0.5)
+                        )
+                    Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
+                        .font(.system(size: 13))
+                        .padding([.bottom, .horizontal])
+                    SubscribeButton()
+                }
                 Spacer().frame(height: 100)
             }
+        }
+        .onAppear() {
+            gVM.getGuardians(userId: auth.user.id ?? 0)
         }
     }
 }
@@ -129,5 +145,73 @@ struct HomeView_Previews: PreviewProvider {
             HomeBottomView()
         }
         .previewLayout(.sizeThatFits)
+    }
+}
+
+struct AddGuardianView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var gVM: GuardianViewModel
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .fill(Color.white)
+            .frame(width: 166, height: 180)
+            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .overlay(VStack {
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 56, height: 56)
+                    .cornerRadius(25)
+                    .shadow(color: .gray.opacity(0.2), radius: 5)
+                    .overlay(
+                        Button(action: {
+                            navigationModel.pushContent(TabBarView.id) {
+                                GuardianFormIntroView(vm: gVM)
+                            }
+                        }) {
+                            Image("add-user")
+                                .opacity(0.5)
+                        })
+                Text("""
+Ajouter un
+Ange-gardien
+""")
+                    .font(.system(size: 13))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            })
+    }
+}
+
+struct GuardianCard: View {
+    var last_name: String
+    var first_name: String
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .fill(Color.white)
+            .frame(width: 166, height: 180)
+            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .overlay(VStack {
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 56, height: 56)
+                    .cornerRadius(25)
+                    .shadow(color: .gray.opacity(0.2), radius: 5)
+                    .overlay(
+                        Button(action: {
+//                            navigationModel.pushContent(TabBarView.id) {
+//
+//                            }
+                        }) {
+                            Image("gallery_preview")
+                        })
+                VStack {
+                    Text(last_name)
+                        .font(.system(size: 13))
+                    Text(first_name)
+                        .font(.system(size: 13), weight: .semibold)
+                }
+            })
     }
 }

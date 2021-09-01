@@ -11,9 +11,9 @@ struct GuardianFormLegalAgeView: View {
     @State private var progress = (100/7)*5.0
     @State private var valid = false
     @State private var confirmEmail = ""
-    
+    @ObservedObject var vm: GuardianViewModel
     var body: some View {
-        GuardianFormBaseView(title: "Confirmez que cette personne est majeure" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormNoteView())) {
+        GuardianFormBaseView(title: "Confirmez que cette personne est majeure" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormNoteView(vm: vm))) {
             Button("Cette personne est majeure") {
                 valid.toggle()
             }
@@ -24,8 +24,8 @@ struct GuardianFormLegalAgeView: View {
     }
 }
 
-struct GuardianFormLegalAgeView_Previews: PreviewProvider {
-    static var previews: some View {
-        GuardianFormLegalAgeView()
-    }
-}
+//struct GuardianFormLegalAgeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GuardianFormLegalAgeView()
+//    }
+//}

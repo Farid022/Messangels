@@ -69,3 +69,15 @@ struct CheckboxToggleStyle: ToggleStyle {
         }
     }
 }
+
+struct XTextField: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(.black)
+            .padding()
+            .background(Color.white)
+            .cornerRadius(20)
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
+    }
+}

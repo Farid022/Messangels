@@ -72,15 +72,15 @@ struct StartView: View {
     }
 }
 
-struct StartView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color.accentColor
-                .ignoresSafeArea()
-            StartView()
-        }
-    }
-}
+//struct StartView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZStack {
+//            Color.accentColor
+//                .ignoresSafeArea()
+//            StartView()
+//        }
+//    }
+//}
 
 struct BackButton: View {
     @EnvironmentObject private var navigationModel: NavigationModel

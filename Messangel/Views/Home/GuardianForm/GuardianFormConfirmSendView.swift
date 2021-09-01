@@ -10,6 +10,7 @@ import NavigationStack
 
 struct GuardianFormConfirmSendView: View {
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: GuardianViewModel
     var body: some View {
         NavigationStackView("GuardianFormConfirmSendView") {
             ZStack {
@@ -27,15 +28,25 @@ struct GuardianFormConfirmSendView: View {
                     Text(
                         """
                     Marianne recevra votre demande sur :
-                    marianne.milon@gmail.com.
+                    \(vm.guardian.email)
                     """
                     )
                     .font(.system(size: 15))
                     .multilineTextAlignment(.center)
                     Spacer().frame(height: 10)
                     Button("Envoyer ma demande") {
-                        navigationModel.pushContent("GuardianFormConfirmSendView") {
-                            GuardianFormDoneView()
+                        APIService.shared.post(model: vm.guardian, response: vm.guardian, endpoint: "users/guardian") { result in
+                            switch result {
+                            case .success(let guardian):
+                                DispatchQueue.main.async {
+                                    print(guardian.id)
+                                    navigationModel.pushContent("GuardianFormConfirmSendView") {
+                                        GuardianFormDoneView(vm: vm)
+                                    }
+                                }
+                            case .failure(let error):
+                                print(error.error_description)
+                            }
                         }
                     }
                         .buttonStyle(MyButtonStyle())
@@ -48,8 +59,8 @@ struct GuardianFormConfirmSendView: View {
     }
 }
 
-struct GuardianFormConfirmSendView_Previews: PreviewProvider {
-    static var previews: some View {
-        GuardianFormConfirmSendView()
-    }
-}
+//struct GuardianFormConfirmSendView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GuardianFormConfirmSendView()
+//    }
+//}

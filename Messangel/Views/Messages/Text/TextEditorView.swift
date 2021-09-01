@@ -16,6 +16,7 @@ struct TextEditorView: View {
     @State private var selectedFont = "Arial"
     @EnvironmentObject var editor: RichEditorView
     @EnvironmentObject var navigationModel: NavigationModel
+    @EnvironmentObject var groupVM: GroupViewModel
 
     private let fontFamilies = ["Arial", "Verdana", "Helvetica", "Tahoma"]
     
@@ -36,10 +37,12 @@ struct TextEditorView: View {
                         Button(action: {
                             editor.getHtml { html in
                                 let finalHtml = "<div style='padding: 20px;'>" + html + "</div>"
-                                writeHtmlString(html: finalHtml)
-                                createPDF(html: finalHtml)
-                                navigationModel.pushContent("TextEditorView") {
-                                    DocThemeView()
+                                let file = writeHtmlString(html: finalHtml)
+                                let htmlAtrributedString = (html.htmlToAttributedString?.setFontSize(fontSize: 3))!
+                                DispatchQueue.main.async {
+                                    navigationModel.pushContent("TextEditorView") {
+                                        DocThemeView(htmlString: htmlAtrributedString, filename: file)
+                                    }
                                 }
                             }
                         }, label: {
@@ -117,6 +120,16 @@ struct TextEditorView: View {
         }
         }
     }
+    
+    private func writeHtmlString(html: String) -> URL {
+        let filename = getDocumentsDirectory().appendingPathComponent("text_\(Date()).html")
+        do {
+            try html.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+        } catch {
+            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
+        }
+        return filename
+    }
 }
 
 
@@ -136,7 +149,7 @@ struct MyRichTextEditor: UIViewRepresentable {
     }
     
     func richEditorLostFocus(_ editor: RichEditorView) {
-      parent.isEditingRichText = false
+//      parent.isEditingRichText = false
     }
     
     func richEditor(_ editor: RichEditorView, contentDidChange content: String) {
@@ -171,47 +184,9 @@ struct MyRichTextEditor: UIViewRepresentable {
   }
 }
 
-private func writeHtmlString(html: String) -> String {
-    let filename = getDocumentsDirectory().appendingPathComponent("text_\(Date()).html")
-    do {
-        try html.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
-    } catch {
-        // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
-    }
-    return filename.absoluteString
-}
-
 func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     return paths[0]
-}
-
-func createPDF(html: String) {
-    let fmt = UIMarkupTextPrintFormatter(markupText: html)
-    // 2. Assign print formatter to UIPrintPageRenderer
-    let render = UIPrintPageRenderer()
-    render.addPrintFormatter(fmt, startingAtPageAt: 0)
-    // 3. Assign paperRect and printableRect
-    let page = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4, 72 dpi
-    let printable = page.insetBy(dx: 0, dy: 0)
-    render.setValue(NSValue(cgRect: page), forKey: "paperRect")
-    render.setValue(NSValue(cgRect: printable), forKey: "printableRect")
-    // 4. Create PDF context and draw
-    let pdfData = NSMutableData()
-    UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
-    for i in 1...render.numberOfPages {
-        UIGraphicsBeginPDFPage();
-        let bounds = UIGraphicsGetPDFContextBounds()
-        render.drawPage(at: i - 1, in: bounds)
-    }
-    UIGraphicsEndPDFContext();
-    // 5. Save PDF file
-    guard let outputURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("output").appendingPathExtension("pdf")
-        else { fatalError("Destination URL not created") }
-    let result = pdfData.write(to: outputURL, atomically: true)
-    if result {
-        print("\(getDocumentsDirectory())/output.pdf")
-    }
 }
 
  

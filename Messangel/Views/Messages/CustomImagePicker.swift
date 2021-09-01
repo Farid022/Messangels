@@ -13,7 +13,7 @@ struct CustomImagePicker : View {
 //    @EnvironmentObject var navigationModel: NavigationModel
     @State private var gridImages: [ImageData] = []
     @State private var disabled = false
-    @ObservedObject var viewModel: AlbumViewModel
+    @EnvironmentObject var viewModel: AlbumViewModel
     
     var body: some View {
         MenuBaseView(title: "Sélectionner des photos") {
@@ -104,9 +104,10 @@ struct CustomImagePicker : View {
 }
 
 struct Loader : View {
+    var tintColor = Color.accentColor
     var body: some View{
         ProgressView()
-            .progressViewStyle(CircularProgressViewStyle(tint: .accentColor))
+            .progressViewStyle(CircularProgressViewStyle(tint: tintColor))
     }
 }
 

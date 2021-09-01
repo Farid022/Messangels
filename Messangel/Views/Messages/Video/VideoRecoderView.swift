@@ -8,36 +8,41 @@
 import SwiftUI
 import AVKit
 import Photos
+import NavigationStack
 
 struct VideoRecoderView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     @State private var onComplete = false
     @State private var isRecording = false
     @StateObject var cameraController = CameraController()
     @StateObject var stopWatch = StopWatchManager()
+
     
     var body: some View {
-        ZStack {
-            CameraPreview(cameraController: cameraController)
-                .ignoresSafeArea()
-            VStack {
-                Rectangle()
-                    .foregroundColor(.black.opacity(0.01))
-                    .frame(height: 60)
-                    .overlay(
-                        HStack {
-                            BackButton()
-                                .padding(.leading)
-                            Spacer()
-                            Text(stopWatch.stopWatchTime)
-                                .foregroundColor(.white)
-                                .font(.system(size: 17))
-                                .fontWeight(.semibold)
-                                .padding(.leading, -16)
-                            Spacer()
-                        }
-                    )
-                Spacer()
-                RecordingView(isRecording: $isRecording, cameraController: cameraController, stopWatch: stopWatch)
+        NavigationStackView("VideoRecoderView") {
+            ZStack {
+                CameraPreview(cameraController: cameraController)
+                    .ignoresSafeArea()
+                VStack {
+                    Rectangle()
+                        .foregroundColor(.black.opacity(0.01))
+                        .frame(height: 60)
+                        .overlay(
+                            HStack {
+                                BackButton()
+                                    .padding(.leading)
+                                Spacer()
+                                Text(stopWatch.stopWatchTime)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 17))
+                                    .fontWeight(.semibold)
+                                    .padding(.leading, -16)
+                                Spacer()
+                            }
+                        )
+                    Spacer()
+                    RecordingView(navigationModel: navigationModel, isRecording: $isRecording, cameraController: cameraController, stopWatch: stopWatch)
+                }
             }
         }
     }
@@ -63,9 +68,11 @@ struct CameraPreview: UIViewRepresentable {
 }
 
 struct RecordingView: View {
+    var navigationModel: NavigationModel
     @Binding var isRecording:Bool
     @ObservedObject var cameraController: CameraController
     @ObservedObject var stopWatch: StopWatchManager
+    
     var body: some View {
         Text("APPUYEZ POUR VOUS ENREGISTRER")
             .foregroundColor(.white)
@@ -88,6 +95,11 @@ struct RecordingView: View {
                             print(url.absoluteString)
                             try? PHPhotoLibrary.shared().performChangesAndWait {
                                 PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+                            }
+                            let asset = AVURLAsset(url: url, options: nil)
+                            let playermanager = PlayerManager(videoUrl: url)
+                            navigationModel.pushContent("VideoRecoderView") {
+                                VideoTrimView(videoUrl: url, asset: asset, finishedObserver: PlayerFinishedObserver(player: playermanager.player), playerManager: playermanager, slider: CustomSlider(start: 1, end: asset.duration.seconds))
                             }
                         }
                     }

@@ -5,7 +5,7 @@
 //  Created by Saad on 4/30/21.
 //
 
-import SwiftUI
+import SwiftUIX
 import NavigationStack
 
 struct MyLink: View {
@@ -23,7 +23,7 @@ struct NextButton: View {
     var destination: AnyView
     @Binding var active: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
-
+    
     var body: some View {
         Rectangle()
             .frame(width: 56, height: 56)
@@ -31,8 +31,10 @@ struct NextButton: View {
             .opacity(active ? 1 : 0.5)
             .overlay(
                 Button(action: {
-                    navigationModel.pushContent(source) {
-                        destination
+                    if active {
+                        navigationModel.pushContent(source) {
+                            destination
+                        }
                     }
                 }) {
                     Image(systemName: "chevron.right").foregroundColor(.accentColor)
@@ -61,22 +63,24 @@ struct SignupProgressView: View {
 }
 
 struct CustomCorner: Shape {
-
+    
     var corners: UIRectCorner
+    var radius = 25.0
     
     func path(in rect: CGRect) -> Path {
         
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: 25, height: 25))
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         
         return Path(path.cgPath)
     }
 }
 
+var months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
+
 struct MyDatePickerView: View {
     @Binding var day: Int
     @Binding var month: String
     @Binding var year: Int
-    var months = ["JAN", "FEB", "MAR", "AVRIL"]
     
     var body: some View {
         HStack {
@@ -103,7 +107,7 @@ struct MyDatePickerView: View {
                 Image("updown")
                 Text(String(year)).font(.system(size: 20))
             }) {
-                ForEach((1960...2001), id: \.self) {
+                ForEach((1930...2010), id: \.self) {
                     Text(String($0))
                 }
             }
@@ -115,40 +119,98 @@ struct MyDatePickerView: View {
 
 
 struct CustomTextField: UIViewRepresentable {
-
+    
     class Coordinator: NSObject, UITextFieldDelegate {
-
+        
         @Binding var text: String
         var didBecomeFirstResponder = false
-
+        
         init(text: Binding<String>) {
             _text = text
         }
-
+        
         func textFieldDidChangeSelection(_ textField: UITextField) {
             text = textField.text ?? ""
         }
-
+        
     }
-
+    
     @Binding var text: String
     var isFirstResponder: Bool = false
-
+    
     func makeUIView(context: UIViewRepresentableContext<CustomTextField>) -> UITextField {
         let textField = UITextField(frame: .zero)
         textField.delegate = context.coordinator
         return textField
     }
-
+    
     func makeCoordinator() -> CustomTextField.Coordinator {
         return Coordinator(text: $text)
     }
-
+    
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CustomTextField>) {
         uiView.text = text
         if isFirstResponder && !context.coordinator.didBecomeFirstResponder  {
             uiView.becomeFirstResponder()
             context.coordinator.didBecomeFirstResponder = true
         }
+    }
+}
+
+struct InputAlert: View {
+    @State private var inputText = ""
+    var title: String
+    var message: String
+    var placeholder = ""
+    var ok = "Valider"
+    var cancel = "Cancel"
+    var action: (String?) -> Void
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 22.0)
+            .foregroundColor(.white)
+            .frame(width: 270, height: 188)
+            .shadow(color: .gray.opacity(0.2), radius: 5)
+            .overlay(
+                VStack {
+                    Text(title)
+                        .font(.system(size: 17), weight: .semibold)
+                        .padding(.bottom, 5)
+                    Text(message)
+                        .font(.system(size: 13))
+                        .multilineTextAlignment(.center)
+                    CocoaTextField(placeholder, text: $inputText)
+                        .isInitialFirstResponder(true)
+                        .borderStyle(.roundedRect)
+                        .padding(.bottom, 5)
+                    Divider()
+                        .padding(.horizontal, -15)
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            action(nil)
+                        }) {
+                            Text(cancel)
+                                .font(.system(size: 17))
+                                .foregroundColor(.black)
+                        }
+                        Spacer()
+                        Divider()
+                            .padding(.top, -3)
+                        Spacer()
+                        Button(action: {
+                            action(inputText)
+                        }) {
+                            Text(ok)
+                                .font(.system(size: 17), weight: .semibold)
+                                .foregroundColor(.accentColor)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical, -5)
+                }
+                .padding(.horizontal)
+                .padding(.top, 25)
+            )
     }
 }

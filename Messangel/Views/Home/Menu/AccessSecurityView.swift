@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct AccessSecurityView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    @EnvironmentObject var auth: Auth
     var body: some View {
-        MenuBaseView(title: "Accès et sécurité") {
-            Text("Ces informations garantissent votre accès et la transmission de votre Messangel à vos anges-gardiens. Ne les modifiez qu’en cas de nécessité.")
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-                .padding()
-            AccessView(title: "Mot de passe Messangel", subTitle: "************", action: {})
-            AccessView(title: "Adresse mail associée au compte", subTitle: "sophie.carnero@gmail.com", action: {})
-            AccessView(title: "Téléphone mobile associé au compte", subTitle: "06 00 00 00 00", action: {})
+        NavigationStackView("AccessSecurityView") {
+            MenuBaseView(title: "Accès et sécurité") {
+                AccessSecurityHeader()
+                AccessView(title: "Mot de passe Messangel", subTitle: "************", action: {
+                    navigationModel.pushContent("AccessSecurityView") {
+                        ModifyPasswordView()
+                    }
+                })
+                AccessView(title: "Adresse mail associée au compte", subTitle: auth.user.email, action: {})
+                AccessView(title: "Téléphone mobile associé au compte", subTitle: auth.user.phone_number, action: {})
+            }
         }
     }
 }
@@ -50,5 +56,14 @@ private struct AccessView: View {
 struct AccessSecurityView_Previews: PreviewProvider {
     static var previews: some View {
         AccessSecurityView()
+    }
+}
+
+struct AccessSecurityHeader: View {
+    var body: some View {
+        Text("Ces informations garantissent votre accès et la transmission de votre Messangel à vos anges-gardiens. Ne les modifiez qu’en cas de nécessité.")
+            .multilineTextAlignment(.center)
+            .foregroundColor(.secondary)
+            .padding()
     }
 }

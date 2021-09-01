@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import NavigationStack
 
 struct AudioRecorderView: View {
     @State var isRecording = false
@@ -38,13 +39,6 @@ struct AudioRecorderView: View {
                             Spacer()
                         }
                     )
-                
-                //                    List(audios,id: \.self){i in
-                //
-                //                        // printing only file name...
-                //
-                //                        Text(i.relativeString)
-                //                    }
                 Spacer()
                 Image("Audio_Waves")
                 Spacer().frame(height: 100)

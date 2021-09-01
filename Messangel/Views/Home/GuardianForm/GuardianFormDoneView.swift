@@ -11,6 +11,7 @@ import NavigationStack
 struct GuardianFormDoneView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var scale = false
+    @ObservedObject var vm: GuardianViewModel
     
     var body: some View {
         ZStack {
@@ -34,7 +35,7 @@ struct GuardianFormDoneView: View {
                 Text(
                 """
                 Marianne recevra votre demande sur :
-                marianne.milon@gmail.com.
+                \(vm.guardian.email)
                 """
                 )
                 .font(.system(size: 15))
@@ -54,8 +55,8 @@ struct GuardianFormDoneView: View {
     }
 }
 
-struct GuardianFormDoneView_Previews: PreviewProvider {
-    static var previews: some View {
-        GuardianFormDoneView()
-    }
-}
+//struct GuardianFormDoneView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        GuardianFormDoneView()
+//    }
+//}

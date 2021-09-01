@@ -8,50 +8,43 @@
 import SwiftUI
 
 struct SignupGenderView: View {
-    @State private var male = true
-    @State private var female = true
-    @State private var other = true
     @State private var progress = 12.5 * 3
     @State private var valid = false
+    @State private var editing = false
+    @ObservedObject var userVM: UserViewModel
     
     var body: some View {
-        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupEmailView()), currentView: "SignupGenderView", footer: AnyView(Text(""))) {
+        SignupBaseView(editing: $editing, progress: $progress, valid: $valid, destination: AnyView(SignupEmailView(userVM: userVM)), currentView: "SignupGenderView", footer: AnyView(Text(""))) {
             Text("Je m’identifie comme…")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
             Spacer().frame(height: 50)
             Group {
                 Button("Masculin", action: {
-                    male = true
-                    female = false
-                    other = false
+                    userVM.user.gender = "1"
                     valid = true
                 })
-                .opacity(male ? 1 : 0.5)
+                .opacity(userVM.user.gender == "1" ? 1 : 0.5)
                 .accentColor(.black)
                 Button("Féminin", action: {
-                    male = false
-                    female = true
-                    other = false
+                    userVM.user.gender = "2"
                     valid = true
                 })
-                .opacity(female ? 1 : 0.5)
+                .opacity(userVM.user.gender == "2" ? 1 : 0.5)
                 .accentColor(.black)
                 Button("Autre", action: {
-                    male = false
-                    female = false
-                    other = true
+                    userVM.user.gender = "3"
                     valid = true
                 })
-                .opacity(other ? 1 : 0.5)
+                .opacity(userVM.user.gender == "3" ? 1 : 0.5)
                 .accentColor(.black)
             }.buttonStyle(MyButtonStyle(padding: 0))
         }
     }
 }
 
-struct SignupGenderView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupGenderView()
-    }
-}
+//struct SignupGenderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignupGenderView()
+//    }
+//}

@@ -34,6 +34,7 @@ struct MembershipView: View {
 }
 
 private struct StatusView: View {
+    @EnvironmentObject var auth: Auth
     var body: some View {
         HStack {
             Text("Statut(s)")
@@ -42,12 +43,12 @@ private struct StatusView: View {
         }
         HStack {
             Image("ic_member")
-            Text("Membre depuis le 06 juin 2020")
+            Text("Membre depuis le \(strToDate(auth.user.registration_date ?? ""))")
                 .font(.system(size: 13))
             Spacer()
         }
         .padding(.bottom)
-        MembershipView(text: "Membre depuis le 06 juin 2020")
+        MembershipView(text: "Membre depuis le \(strToDate(auth.user.registration_date ?? ""))")
         MembershipView(text: "Abonné")
         MembershipView(text: "Ange-gardien")
         MembershipView(text: "Invité (Actif jusqu’au : 8/04/2021)")
@@ -55,6 +56,17 @@ private struct StatusView: View {
         SubscribeButton()
             .padding(.horizontal, -25)
         Spacer().frame(height: 20)
+    }
+}
+
+func strToDate(_ dateStr: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.dateStyle = .long
+        return dateFormatter.string(from: date)
+    } else {
+        return ""
     }
 }
 

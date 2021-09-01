@@ -1,5 +1,5 @@
 //
-//  PublicMessagesView.swift
+//  MessagesGroupView.swift
 //  Messangel
 //
 //  Created by Saad on 5/31/21.
@@ -8,26 +8,41 @@
 import SwiftUI
 import NavigationStack
 
-struct PublicMessagesView: View {
+struct MessagesGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @ObservedObject var viewModel: AlbumViewModel
+    @EnvironmentObject var albumVM: AlbumViewModel
+    var group: MsgGroup
+    @State private var currentIndex: Int = 0
+    private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    @State private var fadeOut = false
 
     var body: some View {
-        NavigationStackView("PublicMessagesView") {
-            MenuBaseView(title: "Ma petite famille") {
-                if viewModel.albumImages.count == 0 {
-                    GalleryPlaceHolder(viewModel: viewModel)
+        NavigationStackView("MessagesGroupView") {
+            MenuBaseView(title: group.name) {
+                if albumVM.albumImages.count == 0 {
+                    GalleryPlaceHolder()
                 } else {
-                    if let image = viewModel.albumImages.first?.image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .frame(height: 190)
-                            .padding(-16)
-                    } else {
-                        GalleryPlaceHolder(viewModel: viewModel)
-                    }
+                    Image(uiImage: albumVM.albumImages[currentIndex].image)
+                        .resizable()
+                        .animation(.spring())
+                        .frame(height: 190)
+                        .padding(.horizontal, -16)
+                        .padding(.top, -16)
+                        .opacity(fadeOut ? 0.5 : 1)
+                        .animation(.easeInOut(duration: 0.5))
+                        .onReceive(timer) { _ in
+                            if currentIndex < albumVM.albumImages.count - 1 {
+                                fadeOut.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation {
+                                        currentIndex += 1
+                                        self.fadeOut.toggle()
+                                    }
+                                }
+                            }
+                        }
                 }
-                MiddleView()
+                MiddleView(groupName: group.name)
                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: 2), spacing: 16.0) {
                     CreateMessageCard()
                     MessageCard(image: "ic_contacts", name: "Éternel", icon: "ic_video")
@@ -40,7 +55,7 @@ struct PublicMessagesView: View {
 
 struct GalleryPlaceHolder: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @ObservedObject var viewModel: AlbumViewModel
+    @EnvironmentObject var viewModel: AlbumViewModel
     var body: some View {
         Rectangle()
             .foregroundColor(.gray.opacity(0.5))
@@ -49,7 +64,8 @@ struct GalleryPlaceHolder: View {
             .overlay(
                 Button(action: {
                     navigationModel.pushContent(TabBarView.id) {
-                        PhotosSelectionView(viewModel: viewModel)
+                        PhotosSelectionView()
+                            .environmentObject(viewModel)
                     }
                 }) {
                     RoundedRectangle(cornerRadius: 30.0)
@@ -63,10 +79,11 @@ struct GalleryPlaceHolder: View {
 }
 
 struct MiddleView: View {
+    var groupName: String
     var body: some View {
         HStack {
             HStack {
-                Text("Ma petite famille")
+                Text(groupName)
                     .fontWeight(.bold)
                 Spacer()
             }
@@ -149,11 +166,5 @@ struct MessageCard: View {
                     .padding(5)
                     .padding(.bottom, 10)
             })
-    }
-}
-
-struct PublicMessagesView_Previews: PreviewProvider {
-    static var previews: some View {
-        PublicMessagesView(viewModel: AlbumViewModel())
     }
 }

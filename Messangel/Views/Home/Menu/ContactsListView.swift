@@ -10,66 +10,82 @@ import NavigationStack
 
 struct ContactsListView: View {
     @EnvironmentObject var navigationModel: NavigationModel
+    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
+    @StateObject private var vm = ContactViewModel()
     
     var body: some View {
-        MenuBaseView(title: "Liste de contacts") {
-            HStack {
-                TextField(placeholder, text: $searchString)
-                    .textFieldStyle(MyTextFieldStyle())
-                    .onTapGesture {
-                        isEditing = true
-                        placeholder = ""
-                    }
-                    .if(!isEditing) {$0.overlay(
-                        HStack {
-                            Image("ic_search")
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 8)
+        NavigationStackView("ContactsListView") {
+            MenuBaseView(title: "Liste de contacts") {
+                HStack {
+                    TextField(placeholder, text: $searchString)
+                        .textFieldStyle(MyTextFieldStyle())
+                        .onTapGesture {
+                            isEditing = true
+                            placeholder = ""
                         }
-                    )}
-                RoundedRectangle(cornerRadius: 25.0)
-                    .fill(Color.accentColor)
-                    .frame(width: 56, height: 56)
-                    .overlay(Button(action: {
-                        navigationModel.pushContent("ContactsListView") {
-                            CreateContactView()
-                        }
+                        .if(!isEditing) {$0.overlay(
+                            HStack {
+                                Image("ic_search")
+                                    .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 8)
+                            }
+                        )}
+                    RoundedRectangle(cornerRadius: 25.0)
+                        .fill(Color.accentColor)
+                        .frame(width: 56, height: 56)
+                        .overlay(Button(action: {
+                            navigationModel.pushContent("ContactsListView") {
+                                CreateContactView(vm: vm)
+                            }
+                        }) {
+                            Image("ic_contact-add")
+                        })
+                }
+                .padding()
+                .background(Color.gray.opacity(0.5))
+                .padding(-16)
+                Spacer().frame(height: 15)
+                HStack(spacing: 2) {
+                    Image(systemName: "arrow.up.arrow.down")
+                        .foregroundColor(.white)
+                        .padding(.trailing, 5)
+                    Button(action: {
+                        vm.contacts.sort(by: { $0.first_name < $1.first_name })
                     }) {
-                        Image("ic_contact-add")
-                    })
-            }
-            .padding()
-            .background(Color.gray.opacity(0.5))
-            .padding(-16)
-            Spacer().frame(height: 15)
-            HStack(spacing: 2) {
-                Image(systemName: "arrow.up.arrow.down")
-                    .foregroundColor(.white)
-                    .padding(.trailing, 5)
-                Button(action: {}) {
-                    Text("Prénom")
+                        Text("Prénom")
+                            .foregroundColor(.white)
+                            .underline()
+                    }
+                    Text("|")
                         .foregroundColor(.white)
-                        .underline()
+                    Button(action: {
+                        vm.contacts.sort(by: { $0.last_name < $1.last_name })
+                    }) {
+                        Text("Nom")
+                            .foregroundColor(.white)
+                            .underline()
+                    }
+                    Spacer()
                 }
-                Text("|")
-                    .foregroundColor(.white)
-                Button(action: {}) {
-                    Text("Nom")
-                        .foregroundColor(.white)
-                        .underline()
+                .padding()
+                .background(Color.gray)
+                .padding(.horizontal, -16)
+                Spacer().frame(height: 30)
+                ForEach(vm.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
+                    ContactView(lastName: contact.last_name, firstName: contact.first_name)
+                        .onTapGesture {
+                            navigationModel.pushContent("ContactsListView") {
+                                ContactEditView(vm: vm, contact: .constant(contact))
+                            }
+                        }
                 }
-                Spacer()
             }
-            .padding()
-            .background(Color.gray)
-            .padding(.horizontal, -16)
-            Spacer().frame(height: 30)
-            ContactView(lastName: "Lucie", firstName: "Carnero")
-            ContactView(lastName: "Marianne", firstName: "Milon")
-            ContactView(lastName: "Mourad", firstName: "Essafi")
+            .onAppear() {
+                vm.getContacts(userId: auth.user.id ?? 0)
+            }
         }
     }
 }

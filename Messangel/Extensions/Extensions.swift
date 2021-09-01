@@ -8,6 +8,21 @@
 import Foundation
 import SwiftUI
 
+extension NSAttributedString {
+    func setFontSize(fontSize: CGFloat) -> NSMutableAttributedString {
+        let newStr = self.mutableCopy() as! NSMutableAttributedString
+        newStr.beginEditing()
+        newStr.enumerateAttribute(.font, in: NSRange(location: 0, length: newStr.string.utf16.count)) { (value, range, stop) in
+            if let oldFont = value as? UIFont {
+                let newFont = oldFont.withSize(fontSize)
+                newStr.addAttribute(.font, value: newFont, range: range)
+            }
+        }
+        newStr.endEditing()
+        return newStr
+    }
+}
+
 extension StringProtocol {
     subscript(offset: Int) -> Character {
         self[index(startIndex, offsetBy: offset)]
@@ -15,7 +30,16 @@ extension StringProtocol {
 }
 
 public extension String {
-    
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return nil }
+        do {            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return nil
+        }
+    }
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
+    }
     //right is the first encountered string after left
     func between(_ left: String, _ right: String) -> String? {
         guard
@@ -110,6 +134,12 @@ extension View {
       elseTransform(self)
     }
   }
+}
+
+extension View {
+    func xTextFieldStyle() -> some View {
+        self.modifier(XTextField())
+    }
 }
 
 extension UIApplication {

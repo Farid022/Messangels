@@ -7,14 +7,14 @@
 
 import UIKit
 import SwiftUI
-import NavigationStack
+//import NavigationStack
 
 struct ImagePicker: UIViewControllerRepresentable {
     
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     
     @Binding var selectedImage: UIImage
-    @EnvironmentObject var navigationModel: NavigationModel
+    @Environment(\.presentationMode) private var presentationMode
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         
@@ -48,7 +48,7 @@ struct ImagePicker: UIViewControllerRepresentable {
                 parent.selectedImage = image
             }
             
-            parent.navigationModel.hideTopViewWithReverseAnimation()
+            parent.presentationMode.wrappedValue.dismiss()
         }
     }
 }

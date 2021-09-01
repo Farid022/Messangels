@@ -10,7 +10,7 @@ import NavigationStack
 
 struct MenuView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-
+    @EnvironmentObject var auth: Auth
     var body: some View {
         NavigationStackView("MenuView") {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
@@ -25,8 +25,20 @@ struct MenuView: View {
                         ZStack {
 //                            Button("") {}
                             Button(action: {
-                                navigationModel.pushContent("MenuView") {
-                                    menuItem.destination
+                                if menuItem.ic == "ic_profile" {
+                                    navigationModel.pushContent("MenuView") {
+                                        ProfileView(imageLoader: ImageLoader(urlString: auth.user.image_url ?? ""))
+                                    }
+                                }
+                                else if menuItem.ic == "ic_logout" {
+                                    auth.removeUser()
+                                    navigationModel.pushContent(TabBarView.id) {
+                                        StartView()
+                                    }
+                                } else {
+                                    navigationModel.pushContent("MenuView") {
+                                        menuItem.destination
+                                    }
                                 }
                             }) {
                                 HStack {
@@ -55,7 +67,7 @@ private struct MainMenu: Identifiable {
 }
 
 private let menuList: [MainMenu] = [
-    MainMenu(id: "Profil", ic: "ic_profile", destination: AnyView(ProfileView())),
+    MainMenu(id: "Profil", ic: "ic_profile", destination: AnyView(EmptyView())),
     MainMenu(id: "Accès et sécurité", ic: "ic_lock", destination: AnyView(AccessSecurityView())),
     MainMenu(id: "Abonnement", ic: "ic_card", destination: AnyView(EditSubscriptionView())),
     MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),
@@ -64,7 +76,7 @@ private let menuList: [MainMenu] = [
     MainMenu(id: "Propositions d’améliorations", ic: "ic_bulb", destination: AnyView(SuggestionsView())),
     MainMenu(id: "Support/F.A.Q", ic: "ic_wheel", destination: AnyView(FAQView())),
     MainMenu(id: "À propos de Messangel", ic: "ic_info", destination: AnyView(AboutView())),
-    MainMenu(id: "Se déconnecter", ic: "ic_logout", destination: AnyView(ProfileView()))
+    MainMenu(id: "Se déconnecter", ic: "ic_logout", destination: AnyView(StartView()))
 ]
 
 struct TopBar: View {
