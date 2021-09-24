@@ -19,6 +19,7 @@
 		9313BA8B2689A467008F566C /* RichEditorToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA7E2689A467008F566C /* RichEditorToolbar.swift */; };
 		9313BA8C2689A467008F566C /* RichEditorOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA7F2689A467008F566C /* RichEditorOptionItem.swift */; };
 		9313BA93268ED05F008F566C /* DocThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA91268E1A4E008F566C /* DocThemeView.swift */; };
+		93279FC826EF0F110063A673 /* SoundRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93279FC726EF0F110063A673 /* SoundRecorder.swift */; };
 		932FF8B126C1309300DE52F9 /* VideoTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FF8B026C1309300DE52F9 /* VideoTitleView.swift */; };
 		932FF8B326C130CC00DE52F9 /* VideoGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FF8B226C130CC00DE52F9 /* VideoGroupView.swift */; };
 		932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FF8B726C1367400DE52F9 /* AudioTitleView.swift */; };
@@ -88,6 +89,7 @@
 		937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */; };
 		937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */; };
 		937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */; };
+		937F465826FC202D00128F9E /* SignupCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8F264701E60027BA06 /* SignupCodeView.swift */; };
 		93816BA32692D21D0060DC0C /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93816BA12692D21D0060DC0C /* PDF.swift */; };
 		93816BA42692D21D0060DC0C /* HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93816BA22692D21D0060DC0C /* HTML.swift */; };
 		938313932671E46E00C71C98 /* PHAssetCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938313902671E46E00C71C98 /* PHAssetCollection.swift */; };
@@ -117,10 +119,9 @@
 		93EFE7E926A15D9700F50894 /* SignupPasswrdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8C264701E60027BA06 /* SignupPasswrdView.swift */; };
 		93EFE7EA26A15D9700F50894 /* SignupTelIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8B264701E60027BA06 /* SignupTelIntroView.swift */; };
 		93EFE7EB26A15D9700F50894 /* SignupTelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A93264701E60027BA06 /* SignupTelView.swift */; };
-		93EFE7EC26A15D9700F50894 /* SignupOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553AA9264841780027BA06 /* SignupOTPView.swift */; };
 		93EFE7ED26A15D9700F50894 /* SignupDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8D264701E60027BA06 /* SignupDoneView.swift */; };
 		93EFE7EE26A15D9700F50894 /* SignupGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A89264701E60027BA06 /* SignupGenderView.swift */; };
-		93EFE7EF26A15DA800F50894 /* SignupCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8F264701E60027BA06 /* SignupCodeView.swift */; };
+		93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */ = {isa = PBXBuildFile; productRef = 93F08DBC26FD8F1000CC3030 /* Peppermint */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,7 @@
 		9313BA7E2689A467008F566C /* RichEditorToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichEditorToolbar.swift; sourceTree = "<group>"; };
 		9313BA7F2689A467008F566C /* RichEditorOptionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichEditorOptionItem.swift; sourceTree = "<group>"; };
 		9313BA91268E1A4E008F566C /* DocThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocThemeView.swift; sourceTree = "<group>"; };
+		93279FC726EF0F110063A673 /* SoundRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundRecorder.swift; sourceTree = "<group>"; };
 		932FF8B026C1309300DE52F9 /* VideoTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoTitleView.swift; sourceTree = "<group>"; };
 		932FF8B226C130CC00DE52F9 /* VideoGroupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoGroupView.swift; sourceTree = "<group>"; };
 		932FF8B726C1367400DE52F9 /* AudioTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTitleView.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			files = (
 				93EFE7DF26A06C1C00F50894 /* SwiftUIX in Frameworks */,
 				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
+				93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +380,7 @@
 				93816BA12692D21D0060DC0C /* PDF.swift */,
 				9354046926C0C8B4004BE5B9 /* TextAlert.swift */,
 				932FF8C226D3779100DE52F9 /* RangeSlider.swift */,
+				93279FC726EF0F110063A673 /* SoundRecorder.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -568,6 +572,7 @@
 			packageProductDependencies = (
 				933AA316266A661F000D6D48 /* NavigationStack */,
 				93EFE7DE26A06C1C00F50894 /* SwiftUIX */,
+				93F08DBC26FD8F1000CC3030 /* Peppermint */,
 			);
 			productName = Messangel;
 			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
@@ -599,6 +604,7 @@
 			packageReferences = (
 				933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */,
 				93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
+				93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */,
 			);
 			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
 			projectDirPath = "";
@@ -658,12 +664,13 @@
 				934B0E1726B28FEC0008DCE5 /* TextViewModel.swift in Sources */,
 				937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */,
 				9313BA93268ED05F008F566C /* DocThemeView.swift in Sources */,
+				93279FC826EF0F110063A673 /* SoundRecorder.swift in Sources */,
 				938313992678966C00C71C98 /* VideoRecoderView.swift in Sources */,
 				934B0E0F26AECDE50008DCE5 /* ContactViewModel.swift in Sources */,
-				93EFE7EF26A15DA800F50894 /* SignupCodeView.swift in Sources */,
 				933AA31426675B62000D6D48 /* CustomImagePicker.swift in Sources */,
 				935A5992265BAFDD005B0505 /* SponsorView.swift in Sources */,
 				935A599A265BB074005B0505 /* AboutView.swift in Sources */,
+				937F465826FC202D00128F9E /* SignupCodeView.swift in Sources */,
 				93ADF5AF2679D75100BB9F14 /* CameraController.swift in Sources */,
 				93EFE7D326971D8200F50894 /* DocTitleView.swift in Sources */,
 				93EFE7D5269BD73500F50894 /* DocGroupView.swift in Sources */,
@@ -673,7 +680,6 @@
 				9313BA8B2689A467008F566C /* RichEditorToolbar.swift in Sources */,
 				93EFE7D12695EA3700F50894 /* TextViewWrapper+NSTextView.swift in Sources */,
 				93553AAE2648CD680027BA06 /* Auth.swift in Sources */,
-				93EFE7EC26A15D9700F50894 /* SignupOTPView.swift in Sources */,
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
@@ -864,7 +870,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -887,7 +893,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -944,6 +950,14 @@
 				kind = branch;
 			};
 		};
+		93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nsagora/peppermint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -956,6 +970,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
+		};
+		93F08DBC26FD8F1000CC3030 /* Peppermint */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */;
+			productName = Peppermint;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -5,7 +5,8 @@
 //  Created by Saad on 5/9/21.
 //
 
-import SwiftUI
+import SwiftUIX
+import Combine
 import NavigationStack
 
 struct SignupOTPView: View {
@@ -16,7 +17,6 @@ struct SignupOTPView: View {
     @State private var loading = false
     @State private var alert = false
     @State private var apiResponse = APIService.APIResponse(message: "")
-    
     @ObservedObject var userVM: UserViewModel
     
     var body: some View {
@@ -25,29 +25,24 @@ struct SignupOTPView: View {
                 ZStack(alignment: .topLeading) {
                     Color.accentColor
                         .ignoresSafeArea()
-                    VStack(alignment: .leading) {
-                        BackButton()
-                        Spacer()
+                    VStack(alignment: .leading, spacing: 20) {
+                        HStack {
+                            BackButton()
+                            Spacer()
+                            Image("logo_only")
+                                .resizable()
+                                .frame(width: 139.67, height: 35.1)
+                            Spacer()
+                        }
+                        Spacer().frame(height: 15)
                         Text("Inscrivez le code reçu par SMS")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                        Spacer().frame(height: 50)
-                        CodeView(code: $code)
-                            .overlay(Group {
-                                if loading {
-                                    Loader()
-                                }
-                            })
+                        OTPTextFieldView(code: $code)
+                        Loader(tintColor: .white)
+                            .opacity(loading ? 1 : 0)
                         Spacer()
                         HStack {
-                            Spacer()
-                            VStack {
-                                Text("Provient de message")
-                                    .font(.system(size: 13))
-                                Text("0000")
-                                    .font(.system(size: 17))
-                                    .underline()
-                            }
                             Spacer()
                             Rectangle()
                                 .frame(width: 56, height: 56)
@@ -96,22 +91,26 @@ struct SignupOTPView: View {
                     }.padding(.horizontal)
                 }
                 .foregroundColor(.white)
-                CustomNumberPad(value: $code, valid: $valid)
             }
             .background(Color("bg").ignoresSafeArea(.all, edges: .bottom))
         }
         .alert(isPresented: $alert, content: {
             Alert(title: Text("Error"), message: Text(apiResponse.message))
         })
+        .onChange(of: code) { value in
+            valid = value.count == 4
+        }
         .onDidAppear {
-            APIService.shared.post(model: OTP(phone_number: userVM.user.phone_number), response: apiResponse, endpoint: "users/otp", token: false) { result in
-                switch result {
-                case .success(let res):
-                    DispatchQueue.main.async {
-                        self.apiResponse = res
+            if code.isEmpty {
+                APIService.shared.post(model: OTP(phone_number: userVM.user.phone_number), response: apiResponse, endpoint: "users/otp", token: false) { result in
+                    switch result {
+                    case .success(let res):
+                        DispatchQueue.main.async {
+                            self.apiResponse = res
+                        }
+                    case .failure(let err):
+                        print(err)
                     }
-                case .failure(let err):
-                    print(err)
                 }
             }
         }

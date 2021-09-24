@@ -17,7 +17,7 @@ struct GuardianFormFirstNameView: View {
             CocoaTextField("Prénom", text: $vm.guardian.first_name, onCommit:  {
                 valid = true
             })
-            .isFirstResponder(true)
+//            .isFirstResponder(true)
             .xTextFieldStyle()
             .shadow(color: .gray.opacity(0.3), radius: 10)
         }

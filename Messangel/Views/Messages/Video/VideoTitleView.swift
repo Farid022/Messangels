@@ -12,10 +12,10 @@ import AVFoundation
 struct VideoTitleView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var groupVM: GroupViewModel
+    @StateObject private var videoVM = VideoViewModel()
 
     var filename: URL
     var selectedFilter: Color
-    @State var title = ""
     @State var valid = false
     
     var body: some View {
@@ -34,8 +34,8 @@ struct VideoTitleView: View {
                     .fontWeight(.bold)
                     .padding(.bottom)
                     .padding(.top, -20)
-                TextField("Titre de la vidéo", text: $title, onCommit: {
-                    valid = !title.isEmpty
+                TextField("Titre de la vidéo", text: $videoVM.video.name, onCommit: {
+                    valid = !videoVM.video.name.isEmpty
                 })
                     .textFieldStyle(MyTextFieldStyle())
                     .shadow(color: .gray.opacity(0.2), radius: 10)
@@ -49,7 +49,7 @@ struct VideoTitleView: View {
                         .overlay(
                             Button(action: {
                                 navigationModel.pushContent("VideoTitleView") {
-                                    VideoGroupView(filename: filename, selectedFilter: selectedFilter)
+                                    VideoGroupView(filename: filename, selectedFilter: selectedFilter, vm: videoVM)
                                 }
                             }) {
                                 Image(systemName: "chevron.right").foregroundColor(Color.white)

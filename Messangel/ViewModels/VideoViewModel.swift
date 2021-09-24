@@ -9,13 +9,15 @@ import Foundation
 
 struct MsgVideo: Codable, Hashable {
     var id: Int
+    var name: String
     var video_link: String
     var size: String?
     var group: Int
+    var created_at: String?
 }
 
 class VideoViewModel: ObservableObject {
-    @Published var video = MsgVideo(id: 0, video_link: "", group: 0)
+    @Published var video = MsgVideo(id: 0, name: "", video_link: "", group: 0)
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     @Published var uploadResponse = UploadResponse(files: [UploadedFile]())

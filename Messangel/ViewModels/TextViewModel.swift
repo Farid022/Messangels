@@ -9,13 +9,15 @@ import Foundation
 
 struct MsgText: Codable, Hashable {
     var id: Int
+    var name: String
     var message: String
     var size: String?
     var group: Int
+    var created_at: String?
 }
 
 class TextViewModel: ObservableObject {
-    @Published var text = MsgText(id: 0, message: "", size: "", group: 0)
+    @Published var text = MsgText(id: 0, name: "", message: "", size: "", group: 0)
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     @Published var uploadResponse = UploadResponse(files: [UploadedFile]())

@@ -57,6 +57,7 @@ struct ContentView: View {
                 TabBarView()
             } else {
                 StartView()
+                    .background(Color.accentColor.ignoresSafeArea())
             }
         }
         .environmentObject(auth)

@@ -21,6 +21,9 @@ struct MyLink: View {
 struct NextButton: View {
     var source: String
     var destination: AnyView
+    var customAction: () -> Void = {}
+    var isCustomAction = false
+    
     @Binding var active: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
     
@@ -31,7 +34,10 @@ struct NextButton: View {
             .opacity(active ? 1 : 0.5)
             .overlay(
                 Button(action: {
-                    if active {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    if active && isCustomAction {
+                        customAction()
+                    } else if active {
                         navigationModel.pushContent(source) {
                             destination
                         }

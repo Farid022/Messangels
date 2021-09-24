@@ -14,11 +14,11 @@ struct SignupGenderView: View {
     @ObservedObject var userVM: UserViewModel
     
     var body: some View {
-        SignupBaseView(editing: $editing, progress: $progress, valid: $valid, destination: AnyView(SignupEmailView(userVM: userVM)), currentView: "SignupGenderView", footer: AnyView(Text(""))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupEmailView(userVM: userVM)), currentView: "SignupGenderView", footer: AnyView(Spacer())) {
             Text("Je m’identifie comme…")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            Spacer().frame(height: 50)
+//            Spacer().frame(height: 50)
             Group {
                 Button("Masculin", action: {
                     userVM.user.gender = "1"
@@ -39,6 +39,9 @@ struct SignupGenderView: View {
                 .opacity(userVM.user.gender == "3" ? 1 : 0.5)
                 .accentColor(.black)
             }.buttonStyle(MyButtonStyle(padding: 0))
+        }
+        .onAppear() {
+            valid = !userVM.user.gender.isEmpty
         }
     }
 }

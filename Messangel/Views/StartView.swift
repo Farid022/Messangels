@@ -21,7 +21,6 @@ struct StartView: View {
     
     var body: some View {
         NavigationStackView(StartView.id) {
-            GeometryReader { g in
                 ZStack {
                     Color.accentColor
                         .ignoresSafeArea()
@@ -67,7 +66,6 @@ struct StartView: View {
                     .buttonStyle(MyButtonStyle())
                     .foregroundColor(.white)
                 }
-            }
         }
     }
 }

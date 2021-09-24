@@ -13,20 +13,24 @@ struct SignupBaseView<Content: View>: View {
     @ObservedObject private var keyboardResponder = KeyboardResponder()
     @Binding private var progress: Double
     @Binding private var valid: Bool
-    @Binding private var editing: Bool
+//    @Binding private var editing: Bool
     private let content: Content
     private let destination: AnyView
     private let currentView: String
     private let footer: AnyView
+    private let isCustomAction: Bool
+    private let customAction: () -> Void
     
-    init(editing: Binding<Bool>, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, currentView: String, footer: AnyView, @ViewBuilder content: () -> Content) {
+    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, currentView: String, footer: AnyView, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._progress = progress
         self._valid = valid
         self.destination = destination
         self.currentView = currentView
         self.footer = footer
-        self._editing = editing
+//        self._editing = editing
+        self.isCustomAction = isCustomAction
+        self.customAction = customAction
     }
     
     var body: some View {
@@ -38,21 +42,25 @@ struct SignupBaseView<Content: View>: View {
                     HStack {
                         BackButton()
                         Spacer()
-                        Image("logo")
+                        Image("logo_only")
                             .resizable()
-                            .frame(width: 139.67, height: 47.89)
+                            .frame(width: 139.67, height: 35.1)
                         Spacer()
                     }
                     
-                    Spacer()
+                    Spacer().frame(height: 15)
                     content
-                    if (Keyboard.main.isShowing && !editing) || currentView == "SignupGenderView" {
+//                    if (Keyboard.main.isShowing && !editing) || currentView == "SignupGenderView" || currentView == "SignupPostcodeView" {
                         Spacer()
-                    }
+//                    }
                     HStack {
                         footer
                         Spacer()
-                        NextButton(source: currentView, destination: destination, active: $valid)
+                        if !isCustomAction {
+                            NextButton(source: currentView, destination: destination, active: $valid)
+                        } else {
+                            NextButton(source: currentView, destination: destination, customAction: customAction, isCustomAction: isCustomAction, active: $valid)
+                        }
                     }
                     SignupProgressView(progress: $progress)
                 }.padding()

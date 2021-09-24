@@ -16,7 +16,7 @@ struct VideoGroupView: View {
     @State private var valid = false
     @State private var loading = false
     @State private var showNewGroupBox = false
-    @StateObject private var vm = VideoViewModel()
+    @ObservedObject var vm: VideoViewModel
     @EnvironmentObject var groupVM: GroupViewModel
     @EnvironmentObject var auth: Auth
     

@@ -9,13 +9,15 @@ import Foundation
 
 struct MsgAudio: Codable, Hashable {
     var id: Int
+    var name: String
     var audio_link: String
     var size: String?
     var group: Int
+    var created_at: String?
 }
 
 class AudioViewModel: ObservableObject {
-    @Published var audio = MsgAudio(id: 0, audio_link: "", group: 0)
+    @Published var audio = MsgAudio(id: 0, name: "", audio_link: "", group: 0)
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     @Published var uploadResponse = UploadResponse(files: [UploadedFile]())

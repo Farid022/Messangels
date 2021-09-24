@@ -55,3 +55,7 @@ struct OTPVerify: Codable {
     let phone_number: String
     let otp: String
 }
+
+struct EmailVerify: Codable {
+    let email: String
+}

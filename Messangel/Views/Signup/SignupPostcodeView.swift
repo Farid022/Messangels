@@ -6,29 +6,41 @@
 //
 
 import SwiftUIX
+import Combine
 
 struct SignupPostcodeView: View {
     @State private var progress = 12.5 * 2
     @State private var valid = false
-    @State private var editing = true
     @ObservedObject var userVM: UserViewModel
     
     var body: some View {
-        SignupBaseView(editing: $editing, progress: $progress, valid: $valid, destination: AnyView(SignupGenderView(userVM: userVM)), currentView: "SignupPostcodeView", footer: AnyView(Text("Vous devez être majeur pour créer votre compte Messangel").font(.system(size: 13)))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupGenderView(userVM: userVM)), currentView: "SignupPostcodeView", footer: AnyView(MyLink(url: "https://www.google.com", text: "Politique de confidentialité"))) {
             Text("Indiquez votre code postal actuel")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            Spacer().frame(height: 50)
-            CocoaTextField("", text: $userVM.user.postal_code) { isEditing in
-                self.editing = isEditing
-            } onCommit:  {
-            }
-            .keyboardType(.numberPad)
-            .textContentType(.postalCode)
-            .isFirstResponder(true)
-            .xTextFieldStyle()
+            CocoaTextField("", text: $userVM.user.postal_code)
+                .keyboardType(.numberPad)
+                .isInitialFirstResponder(true)
+                .textContentType(.postalCode)
+                .xTextFieldStyle()
+                .overlay(HStack {
+                    Spacer()
+                    Image("ic_checkmark")
+                        .foregroundColor(.accentColor)
+                        .padding(.trailing, 20)
+                        .opacity(valid ? 1 : 0)
+                        .animation(.default)
+                })
+                .onReceive(Just(userVM.user.postal_code)) { inputValue in
+                    if inputValue.count > 5 {
+                        userVM.user.postal_code.removeLast()
+                    }
+                }
         }
         .onChange(of: userVM.user.postal_code) { value in
+            self.validate()
+        }
+        .onAppear() {
             self.validate()
         }
     }

@@ -18,7 +18,7 @@ struct SignupDoneView: View {
                 .ignoresSafeArea()
             VStack(spacing: 20) {
                 Spacer().frame(height: 50)
-                Image("logo")
+                Image("logo_only")
                 Spacer().frame(height: 50)
                 Rectangle()
                     .frame(width: 60, height: 60)

@@ -17,7 +17,7 @@ struct DocGroupView: View {
     @State private var valid = false
     @State private var loading = false
     @State private var showNewGroupBox = false
-    @StateObject private var vm = TextViewModel()
+    @ObservedObject var vm:TextViewModel
     @EnvironmentObject var groupVM: GroupViewModel
     @EnvironmentObject var auth: Auth
     

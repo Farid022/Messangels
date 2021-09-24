@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Peppermint",
+        "repositoryURL": "https://github.com/nsagora/peppermint",
+        "state": {
+          "branch": null,
+          "revision": "7be58b26ef1f1d990833fa439437cc7d3ccd35f4",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "SwiftUIX",
         "repositoryURL": "https://github.com/SwiftUIX/SwiftUIX",
         "state": {

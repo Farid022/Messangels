@@ -16,29 +16,21 @@ struct SignupNameView: View {
     @State private var editing = true
     
     var body: some View {
-        SignupBaseView(editing: $editing, progress: $progress, valid: $valid, destination: AnyView(SignupBirthView(userVM: userVM)), currentView: "SignupNameView", footer: AnyView(Text("Veuillez saisir votre vrai nom, sans utiliser de pseudonyme.").font(.system(size: 13)))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupBirthView(userVM: userVM)), currentView: "SignupNameView", footer: AnyView(Text("Veuillez saisir votre vrai nom, sans utiliser\nde pseudonyme.").font(.system(size: 13)))) {
             Text("Je m’appelle…")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            CocoaTextField("Sophie", text: $userVM.user.first_name) { isEditing in
-                self.editing = isEditing
-            } onCommit:  {
-                self.editing = false
-            }
-            .isInitialFirstResponder(true)
-            .xTextFieldStyle()
-            TextField("Nom", text: $userVM.user.last_name) { isEditing in
-                self.editing = isEditing
-            } onCommit:  {
-                self.editing = false
-            }
+            CocoaTextField("Prénom", text: $userVM.user.first_name)
+                .isInitialFirstResponder(true)
+                .xTextFieldStyle()
+            CocoaTextField("Nom", text: $userVM.user.last_name) 
+                .xTextFieldStyle()
+            Toggle(isOn: $referral) {
+                Text("J’ai un code filleul")
+                    .font(.system(size: 13))
+            }.toggleStyle(CheckboxToggleStyle())
             if referral {
                 TextField("Code filleul", text: $referralCode)
-            } else {
-                Toggle(isOn: $referral) {
-                    Text("J’ai un code filleul")
-                        .font(.system(size: 13))
-                }.toggleStyle(CheckboxToggleStyle())
             }
         }
         .onChange(of: userVM.user.first_name) { value in
@@ -54,8 +46,8 @@ struct SignupNameView: View {
     }
 }
 
-//struct SignupNameView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupNameView()
-//    }
-//}
+struct SignupNameView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignupNameView()
+    }
+}

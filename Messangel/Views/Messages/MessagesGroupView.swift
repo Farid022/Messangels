@@ -43,12 +43,40 @@ struct MessagesGroupView: View {
                         }
                 }
                 MiddleView(groupName: group.name)
-                LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: 2), spacing: 16.0) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: mediaCount() + 1), spacing: 16.0) {
                     CreateMessageCard()
-                    MessageCard(image: "ic_contacts", name: "Éternel", icon: "ic_video")
+                    if let groupTexts = group.texts {
+                        ForEach(groupTexts, id: \.self) { text in
+                            MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg")
+                        }
+                    }
+                    if let groupAudios = group.audios {
+                        ForEach(groupAudios, id: \.self) { audio in
+                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_video")
+                        }
+                    }
+                    if let groupVideos = group.videos {
+                        ForEach(groupVideos, id: \.self) { video in
+                            MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video")
+                        }
+                    }
                 }
             }
         }
+    }
+    
+    func mediaCount() -> Int {
+        var mediaCount = 0
+        if let texts = group.texts {
+            mediaCount += texts.count
+        }
+        if let audios = group.audios {
+            mediaCount += audios.count
+        }
+        if let videos = group.videos {
+            mediaCount += videos.count
+        }
+        return mediaCount
     }
 }
 

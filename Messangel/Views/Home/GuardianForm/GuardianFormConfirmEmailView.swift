@@ -16,7 +16,7 @@ struct GuardianFormConfirmEmailView: View {
     var body: some View {
         GuardianFormBaseView(title: "Confirmez l’adresse mail" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormLegalAgeView(vm: vm))) {
             CocoaTextField("Confirmer mail", text: $confirmEmail)
-            .isFirstResponder(true)
+//            .isFirstResponder(true)
             .xTextFieldStyle()
             .shadow(color: .gray.opacity(0.3), radius: 10)
             .keyboardType(.emailAddress)

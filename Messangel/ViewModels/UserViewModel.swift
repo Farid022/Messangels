@@ -12,4 +12,7 @@ class UserViewModel: ObservableObject {
     
     @Published var profile = Profile(first_name: "", last_name: "", postal_code: "", gender: "", image_url: nil)
     
+    @Published var apiResponse = APIService.APIResponse(message: "")
+
+    
 }

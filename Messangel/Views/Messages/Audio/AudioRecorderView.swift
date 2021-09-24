@@ -9,14 +9,20 @@ import SwiftUI
 import AVKit
 import NavigationStack
 
+let numberOfSamples: Int = 30
+
 struct AudioRecorderView: View {
     @State var isRecording = false
-    // creating instance for recroding...
-    @State var session : AVAudioSession!
-    @State var recorder : AVAudioRecorder!
     @State var alert = false
     @State var audios : [URL] = []
     @StateObject var stopWatch = StopWatchManager()
+    @ObservedObject private var recorder = SoundRecorder(numberOfSamples: numberOfSamples)
+    
+    private func normalizeSoundLevel(level: Float) -> CGFloat {
+        let level = max(0.2, CGFloat(level) + 50) / 2 // between 0.1 and 25
+        
+        return CGFloat(level * (60 / 25)) // scaled to max at 60 (our height of our bar)
+    }
     
     var body: some View{
         ZStack {
@@ -40,50 +46,34 @@ struct AudioRecorderView: View {
                         }
                     )
                 Spacer()
-                Image("Audio_Waves")
+//                GeometryReader { reader in
+                        Image("Audio_Waves")
+                            .offset(x: isRecording ? -(UIScreen.main.bounds.size.width+400) : UIScreen.main.bounds.size.width)
+                            .animation(Animation.linear(duration: 5).repeatForever(autoreverses: false))
+//                }
+//                HStack(spacing: 8) {
+//                    ForEach(recorder.soundSamples, id: \.self) { level in
+//                        BarView(value: self.normalizeSoundLevel(level: level))
+//                    }
+//                }
                 Spacer().frame(height: 100)
                 Text("APPUYEZ POUR VOUS ENREGISTRER")
                     .foregroundColor(.white)
                     .font(.system(size: 13))
                     .fontWeight(.semibold)
                 Button(action: {
-                    do {
                         if isRecording {
                             stopWatch.stop()
-                            recorder.stop()
+                            recorder.stopRecording()
                             isRecording.toggle()
-                            // updating data for every rcd...
-                            getAudios()
+
                             return
                         } else {
                             stopWatch.start()
                         }
                         
-                        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                        
-                        // same file name...
-                        // so were updating based on audio count...
-                        let filName = url.appendingPathComponent("myRcd\(audios.count + 1).m4a")
-                        
-                        let settings = [
-                            
-                            AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
-                            AVSampleRateKey : 12000,
-                            AVNumberOfChannelsKey : 1,
-                            AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue
-                            
-                        ]
-                        
-                        recorder = try AVAudioRecorder(url: filName, settings: settings)
-                        recorder.record()
+                        recorder.startRecording()
                         isRecording.toggle()
-                    }
-                    catch{
-                        
-                        print(error.localizedDescription)
-                    }
-                    
-                    
                 }) {
                     
                     RecordButtonView(isRecording: $isRecording)
@@ -94,64 +84,6 @@ struct AudioRecorderView: View {
                 
                 Alert(title: Text("Error"), message: Text("Enable Acess"))
             })
-            .onDidAppear {
-                
-                do{
-                    
-                    // Intializing...
-                    
-                    session = AVAudioSession.sharedInstance()
-                    try session.setCategory(.playAndRecord)
-                    
-                    // requesting permission
-                    // for this we require microphone usage description in info.plist...
-                    session.requestRecordPermission { (status) in
-                        
-                        if !status{
-                            
-                            // error msg...
-                            alert.toggle()
-                        }
-                        else{
-                            
-                            // if permission granted means fetching all data...
-                            
-                            getAudios()
-                        }
-                    }
-                    
-                    
-                }
-                catch{
-                    
-                    print(error.localizedDescription)
-                }
-            }
-        }
-    }
-    
-    func getAudios(){
-        
-        do{
-            
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            
-            // fetch all data from document directory...
-            
-            let result = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .producesRelativePathURLs)
-            
-            // updated means remove all old data..
-            
-            audios.removeAll()
-            
-            for i in result{
-                
-                audios.append(i)
-            }
-        }
-        catch{
-            
-            print(error.localizedDescription)
         }
     }
 }
@@ -160,6 +92,19 @@ struct AudioRecorderView: View {
 struct AudioRecorderView_Previews: PreviewProvider {
     static var previews: some View {
         AudioRecorderView()
+    }
+}
+
+struct BarView: View {
+    var value: CGFloat
+
+    var body: some View {
+        ZStack {
+            Capsule()
+                .fill(Color(hexadecimal: "D6D5D5"))
+                .frame(width: 2.5, height: value)
+//                .frame(width: (UIScreen.main.bounds.width - CGFloat(numberOfSamples) * 4) / CGFloat(numberOfSamples), height: value)
+        }
     }
 }
 

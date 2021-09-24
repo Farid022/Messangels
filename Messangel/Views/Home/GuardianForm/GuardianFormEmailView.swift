@@ -17,7 +17,7 @@ struct GuardianFormEmailView: View {
             CocoaTextField("Mail", text: $vm.guardian.email, onCommit:  {
                 valid = true
             })
-            .isFirstResponder(true)
+//            .isFirstResponder(true)
             .xTextFieldStyle()
             .shadow(color: .gray.opacity(0.3), radius: 10)
             .keyboardType(.emailAddress)

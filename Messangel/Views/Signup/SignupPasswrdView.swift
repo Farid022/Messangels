@@ -15,7 +15,7 @@ struct SignupPasswrdView: View {
     @State private var editing = true
     
     var body: some View {
-        SignupBaseView(editing: $editing, progress: $progress, valid: $valid, destination: AnyView(SignupTelIntroView(userVM: userVM)), currentView: "SignupPasswrdView", footer: AnyView(Text(""))) {
+        SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupTelIntroView(userVM: userVM)), currentView: "SignupPasswrdView", footer: AnyView(Spacer())) {
             Text("Mot de passe Messangel")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
@@ -24,10 +24,10 @@ struct SignupPasswrdView: View {
             CocoaTextField("Mot de passe", text: $userVM.user.password) { isEditing in
                 self.editing = isEditing
             }
-            .isInitialFirstResponder(true)
+//            .isInitialFirstResponder(true)
             .secureTextEntry(true)
             .xTextFieldStyle()
-            CocoaTextField("Mot de passe", text: $conformPassword) { isEditing in
+            CocoaTextField("Confirmez mot de passe", text: $conformPassword) { isEditing in
                 self.editing = isEditing
             }
             .secureTextEntry(true)
