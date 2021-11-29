@@ -62,7 +62,7 @@ struct SuggestionsView: View {
             }
             .buttonStyle(MyButtonStyle(foregroundColor: .black))
             .padding(.bottom)
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
         }
     }
 }

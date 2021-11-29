@@ -23,6 +23,31 @@ extension NSAttributedString {
     }
 }
 
+extension Optional where Wrapped == String {
+    var _bound: String? {
+        get {
+            return self
+        }
+        set {
+            self = newValue
+        }
+    }
+    public var bound: String {
+        get {
+            return _bound ?? ""
+        }
+        set {
+            _bound = newValue.isEmpty ? nil : newValue
+        }
+    }
+}
+
+extension String {
+    func separate(every stride: Int = 2, with separator: Character = " ") -> String {
+        return String(enumerated().map { $0 > 0 && $0 % stride == 0 ? [separator, $1] : [$1]}.joined())
+    }
+}
+
 extension StringProtocol {
     subscript(offset: Int) -> Character {
         self[index(startIndex, offsetBy: offset)]
@@ -139,6 +164,12 @@ extension View {
 extension View {
     func xTextFieldStyle() -> some View {
         self.modifier(XTextField())
+    }
+    func thinShadow() -> some View {
+        self.modifier(ThinShadow())
+    }
+    func normalShadow() -> some View {
+        self.modifier(NormalShadow())
     }
 }
 

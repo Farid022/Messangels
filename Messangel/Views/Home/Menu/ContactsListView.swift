@@ -98,7 +98,7 @@ struct ContactView: View {
         Capsule()
             .fill(Color.white)
             .frame(height: 56)
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .overlay(HStack{
                 Image(systemName: "person.fill")
                     .padding(.leading)

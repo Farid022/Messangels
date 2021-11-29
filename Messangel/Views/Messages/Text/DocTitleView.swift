@@ -33,7 +33,7 @@ struct DocTitleView: View {
                     valid = !textVM.text.name.isEmpty
                 })
                     .textFieldStyle(MyTextFieldStyle())
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
                     .padding(.bottom)
                 HStack {
                     Spacer()

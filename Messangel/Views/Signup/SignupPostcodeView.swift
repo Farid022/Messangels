@@ -23,14 +23,14 @@ struct SignupPostcodeView: View {
                 .isInitialFirstResponder(true)
                 .textContentType(.postalCode)
                 .xTextFieldStyle()
-                .overlay(HStack {
-                    Spacer()
-                    Image("ic_checkmark")
-                        .foregroundColor(.accentColor)
-                        .padding(.trailing, 20)
-                        .opacity(valid ? 1 : 0)
-                        .animation(.default)
-                })
+//                .overlay(HStack {
+//                    Spacer()
+//                    Image("ic_checkmark")
+//                        .foregroundColor(.accentColor)
+//                        .padding(.trailing, 20)
+//                        .opacity(valid ? 1 : 0)
+//                        .animation(.default)
+//                })
                 .onReceive(Just(userVM.user.postal_code)) { inputValue in
                     if inputValue.count > 5 {
                         userVM.user.postal_code.removeLast()

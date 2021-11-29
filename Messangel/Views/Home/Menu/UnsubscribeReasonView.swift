@@ -29,7 +29,7 @@ struct UnsubscribeReasonView: View {
                         }
                     }
                     .buttonStyle(MyButtonStyle(padding: 50,foregroundColor: .white, backgroundColor: .black))
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
                 }
             }
             if showAlert {
@@ -126,7 +126,7 @@ struct ChoicesView: View {
             .padding()
             .background(Color.white)
             .cornerRadius(20)
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
     }
 }
 

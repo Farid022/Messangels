@@ -36,7 +36,7 @@ struct ModifyPasswordView: View {
             }
             .secureTextEntry(true)
             .xTextFieldStyle()
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom, 30)
             HStack {
                 Text("Nouveau mot de passe")
@@ -50,7 +50,7 @@ struct ModifyPasswordView: View {
             }
             .secureTextEntry(true)
             .xTextFieldStyle()
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom, 30)
             HStack {
                 Text("Confirmer mot de passe")
@@ -64,7 +64,7 @@ struct ModifyPasswordView: View {
             }
             .secureTextEntry(true)
             .xTextFieldStyle()
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom, 50)
             Button(action: {
                 if !valid {
@@ -102,17 +102,11 @@ struct ModifyPasswordView: View {
             self.validate()
         }
         .alert(isPresented: $alert, content: {
-            Alert(title: Text(apiResponse.message.isEmpty ? apiError.error : "Modifier mot de passe"), message: Text(apiResponse.message.isEmpty ? apiError.error_description : apiResponse.message))
+            Alert(title: Text(apiResponse.message.isEmpty ? apiError.error : "Modifier mot de passe"), message: Text(apiResponse.message.isEmpty ? apiError.error_description : "Vous pourrez utiliser votre nouveau mot de passe dès votre prochaine connexion."))
         })
     }
     
     private func validate() {
         self.valid = new_password.count >= 8 && new_password == confirm_password
-    }
-}
-
-struct ModifyPasswordView_Previews: PreviewProvider {
-    static var previews: some View {
-        ModifyPasswordView()
     }
 }

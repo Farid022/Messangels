@@ -115,7 +115,7 @@ struct TutorialView: View {
                 .fill(Color.white)
                 .frame(width: 80, height: 80)
                 .cornerRadius(35)
-                .shadow(color: .gray.opacity(0.2), radius: 5)
+                .thinShadow()
                 .overlay(Image(image))
             Text(desc)
                 .font(.system(size: 13))

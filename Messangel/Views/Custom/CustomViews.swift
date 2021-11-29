@@ -11,9 +11,12 @@ import NavigationStack
 struct MyLink: View {
     var url: String
     var text: String
+    var fontSize: CGFloat = 13
     var body: some View {
         Link(destination: URL(string: url)!, label: {
-            Text(text).underline()
+            Text(text)
+                .font(.system(size: fontSize))
+                .underline()
         })
     }
 }
@@ -176,7 +179,7 @@ struct InputAlert: View {
         RoundedRectangle(cornerRadius: 22.0)
             .foregroundColor(.white)
             .frame(width: 270, height: 188)
-            .shadow(color: .gray.opacity(0.2), radius: 5)
+            .thinShadow()
             .overlay(
                 VStack {
                     Text(title)
@@ -218,5 +221,26 @@ struct InputAlert: View {
                 .padding(.horizontal)
                 .padding(.top, 25)
             )
+    }
+}
+
+struct ListItemView: View {
+    var name = ""
+    var image = "ic_company"
+    
+    var body: some View {
+        Capsule()
+            .fill(Color.white)
+            .frame(height: 56)
+            .normalShadow()
+            .overlay(HStack{
+                Image(image)
+                    .padding(.leading)
+                Text(name)
+                Spacer()
+                Image("ic_add_circle")
+                    .padding(.trailing)
+            })
+            .padding(.bottom)
     }
 }

@@ -56,7 +56,6 @@ struct SignupEmailView: View {
             Text("Un e-mail sera envoyé à cette adresse pour la confirmer.")
                 .font(.system(size: 15))
             CocoaTextField("Mon adresse e-mail", text: $userVM.user.email)
-//                .isFirstResponder(true)
                 .autocapitalization(.none)
                 .keyboardType(.emailAddress)
                 .xTextFieldStyle()

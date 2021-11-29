@@ -6,8 +6,10 @@
 //
 
 import SwiftUIX
+import NavigationStack
 
 struct SignupBirthView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     @State private var dob = Calendar.current.date(byAdding: .year, value: -18, to: Date())!
     @State private var progress = 12.5
     @State private var valid = false
@@ -19,7 +21,7 @@ struct SignupBirthView: View {
     var body: some View {
         ZStack {
             SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupPostcodeView(userVM: userVM)), currentView: "SignupBirthView", footer: AnyView(Text("Vous devez être majeur pour créer votre compte Messangel").font(.system(size: 13)))) {
-                Text("Je suis né(e) le…")
+                Text("Je suis né(e) le")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                 Button {
@@ -29,15 +31,23 @@ struct SignupBirthView: View {
                 } label: {
                     HStack {
                         Text(!userVM.user.dob.isEmpty ? dateToStr(dob, dateFormat: "dd/MM/yyyy") : "Date de naissance")
-                        .foregroundColor(.black)
+                            .foregroundColor(userVM.user.dob.isEmpty ? .placeholderText : .primary)
+                            .font(.system(size: 17))
                         Spacer()
                     }
                 }
                 .buttonStyle(MyButtonStyle(padding: 0))
-                Text("Dans la ville de…")
+                Text("Dans la ville de")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
-                CocoaTextField("Ville", text: $userVM.user.city)
+                CocoaTextField("Ville", text: $userVM.user.city, onCommit:  {
+                    if valid {
+                        navigationModel.pushContent("SignupBirthView") {
+                            SignupPostcodeView(userVM: userVM)
+                        }
+                    }
+                })
+                .font(.systemFont(ofSize: 17))
                 .xTextFieldStyle()
             }
             VStack {

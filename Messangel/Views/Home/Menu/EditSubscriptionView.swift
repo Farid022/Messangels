@@ -90,7 +90,7 @@ private struct RateView: View {
         Button("Mes factures") {
             
         }
-        .shadow(color: .gray.opacity(0.2), radius: 10)
+        .normalShadow()
         .buttonStyle(MyButtonStyle(padding: 50, foregroundColor: .black))
         .padding(.bottom)
     }
@@ -121,7 +121,7 @@ private struct PaymentView: View {
         Button("Modifier") {
             
         }
-        .shadow(color: .gray.opacity(0.2), radius: 10)
+        .normalShadow()
         .buttonStyle(MyButtonStyle(padding: 50, foregroundColor: .black))
         .padding(.bottom)
     }
@@ -148,7 +148,7 @@ private struct StorageSpaceView: View {
                 .foregroundColor(.white)
                 .padding(.leading)
         }
-        .shadow(color: .gray.opacity(0.2), radius: 10)
+        .normalShadow()
         .padding(.bottom)
         HStack {
             Text("Il vous reste 100Mo soit l’équivalent de 10 minutes de vidéo.")
@@ -159,7 +159,7 @@ private struct StorageSpaceView: View {
         Button("Augmenter mon espace") {
             
         }
-        .shadow(color: .gray.opacity(0.2), radius: 10)
+        .normalShadow()
         .buttonStyle(MyButtonStyle(padding: 50,foregroundColor: .black))
         .padding(.bottom)
     }
@@ -179,7 +179,7 @@ private struct UnsubscribeSection: View {
                 UnsubscribeConfirmView()
             }
         }
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .buttonStyle(MyButtonStyle(padding: 50, foregroundColor: .black))
             .padding(.bottom)
     }

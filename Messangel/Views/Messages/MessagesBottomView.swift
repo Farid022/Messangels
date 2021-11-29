@@ -107,7 +107,7 @@ struct AddMessageView: View {
         RoundedRectangle(cornerRadius: 25.0)
             .foregroundColor(.white)
             .frame(width: 108, height: 180)
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .overlay(VStack {
                 RoundedRectangle(cornerRadius: 25.0)
                     .frame(width: 56, height: 56)
@@ -131,7 +131,7 @@ struct CreateGroupView: View {
             .foregroundColor(.white)
             .if(width > 0) {$0.frame(width: 340, height: 110)}
             .if(width == 0) {$0.frame(height: 110)}
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .overlay(
                     HStack {
                         RoundedRectangle(cornerRadius: 25.0)
@@ -167,7 +167,7 @@ struct GroupCapsule: View {
             .foregroundColor(.white)
             .if(width > 0) {$0.frame(width: 340, height: 110)}
             .if(width == 0) {$0.frame(height: 110)}
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .overlay(
                 Group {
                     if tappable {

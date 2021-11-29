@@ -38,7 +38,7 @@ struct VideoTitleView: View {
                     valid = !videoVM.video.name.isEmpty
                 })
                     .textFieldStyle(MyTextFieldStyle())
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
                     .padding(.bottom)
                 HStack {
                     Spacer()

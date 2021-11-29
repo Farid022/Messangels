@@ -6,29 +6,42 @@
 //
 
 import SwiftUIX
+import NavigationStack
 
 struct SignupNameView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var userVM = UserViewModel()
     @State private var referralCode: String = ""
     @State private var referral = false
+    @State private var lastNameActive = false
     @State private var progress = 1.0
     @State private var valid = false
-    @State private var editing = true
     
     var body: some View {
         SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupBirthView(userVM: userVM)), currentView: "SignupNameView", footer: AnyView(Text("Veuillez saisir votre vrai nom, sans utiliser\nde pseudonyme.").font(.system(size: 13)))) {
-            Text("Je m’appelle…")
+            Text("Je m'appelle")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            CocoaTextField("Prénom", text: $userVM.user.first_name)
+            CocoaTextField("Prénom", text: $userVM.user.first_name, onCommit:  {
+                lastNameActive = true
+            })
                 .isInitialFirstResponder(true)
                 .xTextFieldStyle()
-            CocoaTextField("Nom", text: $userVM.user.last_name) 
+            CocoaTextField("Nom", text: $userVM.user.last_name)
+//                           , onCommit:  {
+//                if valid {
+//                    navigationModel.pushContent("SignupNameView") {
+//                        SignupBirthView(userVM: userVM)
+//                    }
+//                }
+//            })
+            .isFirstResponder(lastNameActive)
                 .xTextFieldStyle()
             Toggle(isOn: $referral) {
                 Text("J’ai un code filleul")
                     .font(.system(size: 13))
-            }.toggleStyle(CheckboxToggleStyle())
+            }
+            .toggleStyle(CheckboxToggleStyle())
             if referral {
                 TextField("Code filleul", text: $referralCode)
             }

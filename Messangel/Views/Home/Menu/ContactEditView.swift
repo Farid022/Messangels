@@ -29,7 +29,7 @@ struct ContactEditView: View {
                 TextField("", text: $contact.phone_number)
             }
             .textFieldStyle(MyTextFieldStyle(editable: true))
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom)
             Text("Si cette personne est encore mineure au moment de votre décès, vos messages seront envoyés à vos Anges-gardiens.")
                 .font(.system(size: 13))

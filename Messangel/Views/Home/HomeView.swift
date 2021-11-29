@@ -68,7 +68,7 @@ struct HomeBottomView: View {
     @EnvironmentObject var auth: Auth
     @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var gVM = GuardianViewModel()
-    @State var subscribed = false
+    @State var subscribed = true
     var body: some View {
         ScrollView {
             VStack {
@@ -84,7 +84,7 @@ struct HomeBottomView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(gVM.guardians, id: \.self) { guardian in
-                                GuardianCard(last_name: guardian.last_name, first_name: guardian.first_name)
+                                GuardianCard(vm: gVM, guardian: guardian)
                             }
                             AddGuardianView(gVM: gVM)
                             Spacer()
@@ -96,7 +96,7 @@ struct HomeBottomView: View {
                         .fill(Color.white)
                         .frame(width: 56, height: 56)
                         .cornerRadius(25)
-                        .shadow(color: .gray.opacity(0.2), radius: 5)
+                        .thinShadow()
                         .overlay(
                             Image("add-user")
                                 .opacity(0.5)
@@ -109,7 +109,7 @@ struct HomeBottomView: View {
                 Spacer().frame(height: 100)
             }
         }
-        .onDidAppear() {
+        .onAppear() {
             gVM.getGuardians(userId: auth.user.id ?? 0)
         }
     }
@@ -156,13 +156,13 @@ struct AddGuardianView: View {
         RoundedRectangle(cornerRadius: 25)
             .fill(Color.white)
             .frame(width: 166, height: 180)
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .overlay(VStack {
                 Rectangle()
                     .fill(Color.white)
                     .frame(width: 56, height: 56)
                     .cornerRadius(25)
-                    .shadow(color: .gray.opacity(0.2), radius: 5)
+                    .thinShadow()
                     .overlay(
                         Button(action: {
                             navigationModel.pushContent(TabBarView.id) {
@@ -184,32 +184,33 @@ Ange-gardien
 }
 
 struct GuardianCard: View {
-    var last_name: String
-    var first_name: String
+    @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: GuardianViewModel
+    var guardian: Guardian
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25)
             .fill(Color.white)
             .frame(width: 166, height: 180)
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .overlay(VStack {
                 Rectangle()
                     .fill(Color.white)
                     .frame(width: 56, height: 56)
                     .cornerRadius(25)
-                    .shadow(color: .gray.opacity(0.2), radius: 5)
+                    .thinShadow()
                     .overlay(
                         Button(action: {
-//                            navigationModel.pushContent(TabBarView.id) {
-//
-//                            }
+                            navigationModel.pushContent("Accueil") {
+                                GuardianView(vm:vm, guardian: guardian)
+                            }
                         }) {
                             Image("gallery_preview")
                         })
                 VStack {
-                    Text(last_name)
+                    Text(guardian.last_name)
                         .font(.system(size: 13))
-                    Text(first_name)
+                    Text(guardian.first_name)
                         .font(.system(size: 13), weight: .semibold)
                 }
             })

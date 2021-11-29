@@ -65,7 +65,7 @@ struct GuardianFormBaseView<Content: View>: View {
                             .fill(Color.white)
                             .frame(width: 60, height: 60)
                             .cornerRadius(25)
-                            .shadow(color: .gray.opacity(0.2), radius: 10)
+                            .normalShadow()
                             .overlay(Image("info"))
                     })
                     Text(title)
@@ -97,7 +97,6 @@ struct GuardianFormBaseView<Content: View>: View {
 //                .background(Color.white)
             }
             .textFieldStyle(MyTextFieldStyle())
-            .navigationTitle(Text("Ange-gardien"))
         }
     }
 }

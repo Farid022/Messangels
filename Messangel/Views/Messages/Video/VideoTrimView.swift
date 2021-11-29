@@ -44,7 +44,7 @@ struct VideoTrimView: View {
                         RoundedRectangle(cornerRadius: 22.0)
                             .foregroundColor(.white)
                             .frame(width: 55, height: 52)
-                            .shadow(color: .gray.opacity(0.2), radius: 5)
+                            .thinShadow()
                             .overlay(Image(systemName: playerManager.playing ? "pause.fill" : "play.fill").foregroundColor(.accentColor))
                     })
                     Spacer().frame(height: 50)

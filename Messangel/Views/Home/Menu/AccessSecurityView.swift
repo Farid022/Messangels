@@ -20,8 +20,16 @@ struct AccessSecurityView: View {
                         ModifyPasswordView()
                     }
                 })
-                AccessView(title: "Adresse mail associée au compte", subTitle: auth.user.email, action: {})
-                AccessView(title: "Téléphone mobile associé au compte", subTitle: auth.user.phone_number, action: {})
+                AccessView(title: "Adresse mail associée au compte", subTitle: auth.user.email, action: {
+                    navigationModel.pushContent("AccessSecurityView") {
+                        ModifyEmailView()
+                    }
+                })
+                AccessView(title: "Téléphone mobile associé au compte", subTitle: auth.user.phone_number.separate(), action: {
+                    navigationModel.pushContent("AccessSecurityView") {
+                        ModifyMobileView()
+                    }
+                })
             }
         }
     }
@@ -47,7 +55,7 @@ private struct AccessView: View {
         Button("Modifier") {
             action()
         }
-        .shadow(color: .gray.opacity(0.2), radius: 10)
+        .normalShadow()
         .padding(.bottom, 30)
         .buttonStyle(MyButtonStyle(foregroundColor: .black))
     }
@@ -62,6 +70,7 @@ struct AccessSecurityView_Previews: PreviewProvider {
 struct AccessSecurityHeader: View {
     var body: some View {
         Text("Ces informations garantissent votre accès et la transmission de votre Messangel à vos anges-gardiens. Ne les modifiez qu’en cas de nécessité.")
+            .font(.system(size: 13))
             .multilineTextAlignment(.center)
             .foregroundColor(.secondary)
             .padding()

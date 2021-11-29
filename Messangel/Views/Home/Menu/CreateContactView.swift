@@ -37,7 +37,7 @@ struct CreateContactView: View {
                     .keyboardType(.phonePad)
             }
             .textFieldStyle(MyTextFieldStyle())
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom)
             Spacer().frame(height: 20)
             HStack {
@@ -68,7 +68,7 @@ struct CreateContactView: View {
                     Spacer()
                 }
                 MyDatePickerView(day: $dob_day, month: $dob_month, year: $dob_year)
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
                     .padding(.bottom, 20)
             }
             Button(action: {

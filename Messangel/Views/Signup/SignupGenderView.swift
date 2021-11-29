@@ -15,7 +15,7 @@ struct SignupGenderView: View {
     
     var body: some View {
         SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupEmailView(userVM: userVM)), currentView: "SignupGenderView", footer: AnyView(Spacer())) {
-            Text("Je m’identifie comme…")
+            Text("Je m’identifie comme")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
 //            Spacer().frame(height: 50)

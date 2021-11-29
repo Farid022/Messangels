@@ -31,9 +31,9 @@ struct TabBarView: View {
                         TabView(selection: $selectedTab){
                             TabContent(selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
                                 .tag(tabs[0])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDetail)), bottomContent: AnyView(MessagesBottomView()))
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
                                 .tag(tabs[1])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(EmptyView()), bottomContent: AnyView(Text("Mes choix")))
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesBottomView()))
                                 .tag(tabs[2])
                             TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(EmptyView()), bottomContent: AnyView(Text("Vie digitale")))
                                 .tag(tabs[3])
@@ -65,8 +65,9 @@ struct TabBarView: View {
     }
 }
 
-var tabs = ["Accueil","Messages","Mes choix","Vie digitale"]
-var messagesDetail = "Créez des messages vidéos, textes et audio pour une personne ou un groupe de destinataires."
+var tabs = ["Accueil","Volontés","Messages","Vie digitale"]
+var messagesDiscription = "Créez des messages vidéos, textes et audio pour une personne ou un groupe de destinataires."
+var wishesDiscription = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy."
 
 struct BottomTabBar: View {
     @Namespace var animation
@@ -175,7 +176,7 @@ struct NonHomeTopView: View {
                     .fill(Color.white)
                     .frame(width: 56, height: 56)
                     .cornerRadius(25)
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
                     .overlay(Image("info"))
                     .padding(.trailing)
             })

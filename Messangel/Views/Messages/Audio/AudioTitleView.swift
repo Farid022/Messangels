@@ -31,7 +31,7 @@ struct AudioTitleView: View {
                     valid = !title.isEmpty
                 })
                     .textFieldStyle(MyTextFieldStyle())
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
                     .padding(.bottom)
                 HStack {
                     Spacer()

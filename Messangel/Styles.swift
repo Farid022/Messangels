@@ -81,3 +81,17 @@ struct XTextField: ViewModifier {
             .autocapitalization(.none)
     }
 }
+
+struct ThinShadow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .shadow(color: .gray.opacity(0.2), radius: 5)
+    }
+}
+
+struct NormalShadow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .shadow(color: .gray.opacity(0.2), radius: 10)
+    }
+}

@@ -32,7 +32,7 @@ struct SponsorView: View {
                 TextField("Adresse mail", text: $vm.sponsor.email)
             }
             .textFieldStyle(MyTextFieldStyle())
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom)
             Toggle(isOn: $legalAge, label: {
                 Text("Je certifie que cette personne est majeure.")
@@ -47,7 +47,7 @@ struct SponsorView: View {
                 }
             }
             .buttonStyle(MyButtonStyle(foregroundColor: .black))
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
         }
         .alert(isPresented: $alert, content: {
             Alert(title: Text(vm.apiResponse.message.isEmpty ? vm.apiError.error : "Modifier mot de passe"), message: Text(vm.apiResponse.message.isEmpty ? vm.apiError.error_description : vm.apiResponse.message))

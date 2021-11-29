@@ -25,7 +25,7 @@ struct UnsubscribeConfirmView: View {
                     }
                 }
                     .buttonStyle(MyButtonStyle(foregroundColor: .black))
-                    .shadow(color: .gray.opacity(0.2), radius: 10)
+                    .normalShadow()
             }
         }
     }

@@ -41,6 +41,16 @@ struct Password: Codable {
     var new_password: String
 }
 
+struct Email: Codable {
+    var email: String
+    var new_email: String
+}
+
+struct Mobile: Codable {
+    var email: String
+    var new_mobile: String
+}
+
 struct Token: Codable {
     var access_token: String
     var token_type: String

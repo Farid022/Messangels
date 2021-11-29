@@ -61,7 +61,7 @@ struct ProfileView: View {
                 TextField("", text: .constant(userVM.profile.gender == "1" ? "Mâle" : "Féminin"))
             }
             .textFieldStyle(MyTextFieldStyle(editable: true))
-            .shadow(color: .gray.opacity(0.2), radius: 10)
+            .normalShadow()
             .padding(.bottom)
             Button("Enregister") {
                 if self.cgImage != self.profileImage.cgImage {
