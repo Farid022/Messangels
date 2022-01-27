@@ -10,7 +10,6 @@ import NavigationStack
 
 struct ContactEditView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @ObservedObject var vm: ContactViewModel
     @Binding var contact: Contact
     
@@ -37,7 +36,7 @@ struct ContactEditView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
             Button("Supprimer ce contact") {
-                vm.delete(userId: auth.user.id ?? 0, contactId: self.contact.id) { success in
+                vm.delete(userId: getUserId(), contactId: self.contact.id) { success in
                     if success {
                         navigationModel.hideTopView()
                     } else {

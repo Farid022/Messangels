@@ -13,6 +13,7 @@ struct FuneralPlaceType: View {
     @State private var selectedFuneral = FuneralBool.none
     @State private var showNote = false
     @State private var note = ""
+    @StateObject private var vm = FuneralLocationViewModel()
     
     var body: some View {
         ZStack {
@@ -22,12 +23,13 @@ struct FuneralPlaceType: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Souhaitez-vous indiquer le lieu de votre cérémonie ?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralPlaceName()) : AnyView(FuneralDoneView())) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Souhaitez-vous indiquer le lieu de votre cérémonie ?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralPlaceName(vm: vm)) : AnyView(FuneralDoneView())) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
+                        ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
                             .onTapGesture {
                                 selectedFuneral = type
+                                vm.location.location_of_ceremony = type == .yes
                             }
                     }
                 }

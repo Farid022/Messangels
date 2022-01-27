@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct AnimalDonationName: View {
-    @State private var donationName = ""
-    var donationType: ClothsDonationType
+    @ObservedObject var vm: AnimalDonatiopnViewModel
     
     var body: some View {
-        FuneralChoiceBaseView(menuTitle: "ANIMAUX", title: "\(donationType == .multiple ? "Indiquez un nom pour votre groupe d’animaux" : "Indiquez le nom de votre animal")", valid: .constant(!donationName.isEmpty), destination: AnyView(AnimalDonationPlaceSelection())) {
-           TextField("Titre", text: $donationName)
-            .textFieldStyle(MyTextFieldStyle())
+        FlowBaseView(menuTitle: "ANIMAUX", title: "\(!vm.animalDonation.single_animal ? "Indiquez un nom pour votre groupe d’animaux" : "Indiquez le nom de votre animal")", valid: .constant(!vm.animalDonation.animal_name.isEmpty), destination: AnyView(AnimalDonationPlaceSelection(vm: vm))) {
+            TextField("Titre", text: $vm.animalDonation.animal_name)
             .normalShadow()
         }
     }

@@ -56,7 +56,7 @@ class Networking {
         }.resume()
     }
     
-    func post<T: Codable, R: Codable>(model: T, response: R, endpoint: String, token: Bool = true, method: String = "POST", completion: @escaping (Result<R,APIErr>) -> Void) {
+    func post<T: Codable, R: Codable>(model: T, response: R, endpoint: String, token: Bool = true, method: String = "POST", keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, completion: @escaping (Result<R,APIErr>) -> Void) {
         guard let encoded = try? JSONEncoder().encode(model) else {
             print("Failed to encode order")
             return
@@ -64,6 +64,8 @@ class Networking {
         
         let url = URL(string: "https://messangel.caansoft.com/api/v1/\(endpoint)")!
 //        let url = URL(string: "http://172.16.17.80:8030/api/v1/\(endpoint)")!
+        print("Request URL: \(url.path)")
+        print("Body: \(String(describing: String(data: encoded, encoding: .utf8)))")
         var request = URLRequest(url: url)
         if token {
             request.setValue("Bearer \(UserDefaults.standard.string(forKey: "token") ?? "")", forHTTPHeaderField: "Authorization")
@@ -80,6 +82,7 @@ class Networking {
                 print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
                 return
             }
+            print("Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
             let decoder = JSONDecoder()
             
             if let decodedData = try? decoder.decode(R.self, from: data) {
@@ -184,4 +187,8 @@ struct UploadResponse: Decodable {
 struct UploadedFile: Decodable {
     let path: String
     let size: Int
+}
+
+func getUserId() -> Int {
+    return UserDefaults.standard.dictionary(forKey: "user")?["id"] as! Int
 }

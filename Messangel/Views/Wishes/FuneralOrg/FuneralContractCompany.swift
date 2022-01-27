@@ -13,7 +13,8 @@ struct FuneralContractCompany: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
-    @State private var selectedCompany = ""
+    @State private var selectedCompany = FuneralCompany(id: 0, name: "")
+    @ObservedObject var vm: FuneralOrgViewModel
     
     var body: some View {
         ZStack {
@@ -23,11 +24,11 @@ struct FuneralContractCompany: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: "Indiquez l’entreprise liée à votre contrat obsèques", valid: .constant(!selectedCompany.isEmpty), destination: AnyView(FuneralContractNo())) {
-                if selectedCompany.isEmpty {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: "Indiquez l’entreprise liée à votre contrat obsèques", valid: .constant(!selectedCompany.name.isEmpty), destination: AnyView(FuneralContractNo(vm: vm))) {
+                if selectedCompany.name.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Indiquez l’entreprise liée à votre contrat obsèques") {
-                            FuneralCompaniesList(selectedCompany: $selectedCompany)
+                            FuneralCompaniesList(selectedCompany: $selectedCompany, vm: vm)
                         }
                     }, label: {
                         Image("list_org")
@@ -38,10 +39,10 @@ struct FuneralContractCompany: View {
                         .foregroundColor(.white)
                         .thinShadow()
                         .overlay(HStack {
-                            Text(selectedCompany)
+                            Text(selectedCompany.name)
                                 .font(.system(size: 14))
                             Button(action: {
-                                selectedCompany.removeAll()
+                                selectedCompany.name.removeAll() // Need FIX
                             }, label: {
                                 Image("ic_btn_remove")
                             })

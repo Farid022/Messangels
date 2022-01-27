@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ClothsDonationDetails: View {
     var title: String
+    var note: String
     
     var body: some View {
         ZStack(alignment:.top) {
@@ -53,7 +54,7 @@ struct ClothsDonationDetails: View {
                 //
                 HStack {
                     // <
-                    Text("*NOMVETEMENT")
+                    Text(title)
                         .font(.system(size: 22), weight: .bold)
                     Spacer()
                 }
@@ -79,24 +80,7 @@ struct ClothsDonationDetails: View {
                                 .font(.system(size: 15), weight: .bold)
                             Spacer()
                         }
-                        Text("""
-                                Lorem ipsum dolor sit amet, consetetur
-                                sadipscing elitr, sed diam nonumy
-                                eirmod tempor invidunt ut labore et
-                                dolore magna aliquyam erat, sed diam
-                                voluptua. At vero eos et accusam et justo
-                                duo dolores et ea rebum. Stet clita kasd
-                                gubergren, no sea takimata sanctus est
-                                Lorem ipsum dolor sit amet. Lorem ipsum
-                                dolor sit amet, consetetur sadipscing
-                                elitr, sed diam nonumy.
-                                
-                                Lorem ipsum dolor sit amet, consetetur
-                                sadipscing elitr, sed diam nonumy
-                                eirmod tempor invidunt ut labore et
-                                dolore magna aliquyam erat, sed diam
-                                voluptua.
-                                """)
+                        Text(note)
                     }
                     .padding()
                     )

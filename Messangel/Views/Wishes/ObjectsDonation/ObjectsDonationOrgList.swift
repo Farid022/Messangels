@@ -10,12 +10,12 @@ import NavigationStack
 
 struct ObjectsDonationOrgList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un organisme"
     @State private var isEditing = false
-    @State private var compainies = ["Nom de l’organisme"]
-    @Binding var selectedCompany: String
+    @State private var refreshList = false
+    @Binding var selectedCompany: Organization
+    @ObservedObject var vm: ObjectDonationViewModel
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -60,7 +60,9 @@ struct ObjectsDonationOrgList: View {
             ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        compainies.append("Nom de l’organisme")
+                        navigationModel.presentContent("ClothsDonationOrgList") {
+                            CreateOrgView(type: "1", refresh: $refreshList)
+                        }
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -76,17 +78,23 @@ struct ObjectsDonationOrgList: View {
                             )
                     }
                     .padding(.bottom)
-                    ForEach(compainies.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { company in
-                            ListItemView(name: company)
+                ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { company in
+                    ListItemView(name: company.name)
                                 .onTapGesture {
                                     selectedCompany = company
+                                    vm.objectDonation.organization_detail = company.id ?? 0
                                     navigationModel.hideTopView()
                                 }
                         }
             }
             .padding()
         }
-                
+        .onDidAppear {
+            vm.getOrgs()
+        }
+        .onChange(of: refreshList) { value in
+            vm.getOrgs()
+        }
             
     }
 }

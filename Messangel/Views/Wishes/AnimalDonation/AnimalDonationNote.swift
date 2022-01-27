@@ -10,7 +10,9 @@ import SwiftUI
 struct AnimalDonationNote: View {
     @State private var showNote = false
     @State private var note = ""
+    @ObservedObject var vm: AnimalDonatiopnViewModel
+
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "ANIMAUX", title: "Ajoutez des informations pratiques sur *votre animal *vos animaux (alimentation, santé, fréquence de sortie, animaux nombreux)", destination: AnyView(AnimalDonationsList()))
+        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "ANIMAUX", title: "Ajoutez des informations pratiques sur *votre animal *vos animaux (alimentation, santé, fréquence de sortie, animaux nombreux)", destination: AnyView(AnimalDonationsList(vm: vm)))
     }
 }

@@ -10,13 +10,11 @@ import NavigationStack
 
 struct FuneralPlacesList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
-    @State private var placeholder = "    Rechercher un organisme"
+    @State private var placeholder = "    Rechercher un lieu"
     @State private var isEditing = false
-//    @StateObject private var vm = ContactViewModel()
-    @State private var compainies = ["Nom de l’organisme"]
-    @Binding var selectedCompany: String
+    @Binding var selectedPlace: BuryLocation
+    @ObservedObject var vm: FuneralLocationViewModel
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -29,7 +27,7 @@ struct FuneralPlacesList: View {
                             BackButton(icon:"chevron.down")
                             .padding(.leading)
                         Spacer()
-                        Text("Sélectionnez un organisme")
+                        Text("Sélectionnez un lieu")
                             .foregroundColor(.white)
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
@@ -85,7 +83,7 @@ struct FuneralPlacesList: View {
                     
                     Spacer().frame(height: 20)
                     Button(action: {
-                        compainies.append("Nom de l’organisme")
+//                        compainies.append("Nom de l’organisme")
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -94,17 +92,18 @@ struct FuneralPlacesList: View {
                                 HStack {
                                     Image("ic_add_org")
                                         .padding(.leading)
-                                    Text("Nouvel Organisme")
+                                    Text("Nouvel lieu")
                                         .foregroundColor(.white)
                                     Spacer()
                                 }
                             )
                     }
                     .padding(.bottom)
-                    ForEach(compainies.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { company in
-                            ListItemView(name: company)
+                ForEach(vm.buryLocations.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { location in
+                    ListItemView(name: location.name)
                                 .onTapGesture {
-                                    selectedCompany = company
+                                    selectedPlace = location
+                                    vm.location.bury_location = location.id
                                     navigationModel.hideTopView()
                                 }
                         }

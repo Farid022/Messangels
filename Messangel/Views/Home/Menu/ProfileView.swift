@@ -113,7 +113,7 @@ struct ProfileView: View {
     }
     
     func updateProfile() {
-        APIService.shared.post(model: userVM.profile, response: auth.user, endpoint: "users/\(auth.user.id ?? 0)/profile", method: "PATCH") { result in
+        APIService.shared.post(model: userVM.profile, response: auth.user, endpoint: "users/\(getUserId())/profile", method: "PATCH") { result in
             switch result {
             case .success(let user):
                 print(user.first_name)

@@ -9,8 +9,9 @@ import SwiftUI
 
 struct FuneralReunionPlace: View {
     @State private var showNote = false
-    @State private var note = ""
+    @ObservedObject var vm: FuneralLocationViewModel
+    
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Lieux", title: "Vous pouvez apporter des précisions concernant le lieu des retrouvailles", destination: AnyView(FuneralPlaceSpecials()))
+        FuneralNoteView(showNote: $showNote, note: $vm.location.reunion_location_note.bound, menuTitle: "Lieux", title: "Vous pouvez apporter des précisions concernant le lieu des retrouvailles", destination: AnyView(FuneralPlaceSpecials(vm: vm)))
     }
 }

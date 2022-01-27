@@ -70,7 +70,7 @@ struct ModifyPasswordView: View {
                 if !valid {
                     return
                 }
-                APIService.shared.post(model: Password(password: old_password, new_password: new_password), response: apiResponse, endpoint: "users/\(auth.user.id ?? 0)/change-password", method: "PUT") { result in
+                APIService.shared.post(model: Password(password: old_password, new_password: new_password), response: apiResponse, endpoint: "users/\(getUserId())/change-password", method: "PUT") { result in
                     switch result {
                     case .success(let response):
                         DispatchQueue.main.async {

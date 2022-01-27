@@ -16,7 +16,10 @@ struct PracticalCodesOTP: View {
                 Color.accentColor
                     .ignoresSafeArea()
                 VStack {
-                    BackButton()
+                    HStack {
+                        BackButton()
+                        Spacer()
+                    }
                     Spacer()
                     Image("ic_lock_white")
                         .padding(.bottom)
@@ -27,7 +30,7 @@ struct PracticalCodesOTP: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "PracticalCodesOTP", destination: AnyView(PracticalCodeNew()), active: .constant(!otp.isEmpty))
+                        NextButton(source: "PracticalCodesOTP", destination: AnyView(PracticalCodeName()), active: .constant(!otp.isEmpty))
                     }
                 }.padding()
             }

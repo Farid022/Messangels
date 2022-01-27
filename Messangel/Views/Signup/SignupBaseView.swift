@@ -59,7 +59,7 @@ struct SignupBaseView<Content: View>: View {
                         if !isCustomAction {
                             NextButton(source: currentView, destination: destination, active: $valid)
                         } else {
-                            NextButton(source: currentView, destination: destination, customAction: customAction, isCustomAction: isCustomAction, active: $valid)
+                            NextButton(isCustomAction: isCustomAction, customAction: customAction, source: currentView, destination: destination, active: $valid)
                         }
                     }
                     SignupProgressView(progress: $progress)

@@ -65,10 +65,11 @@ struct HomeTopView: View {
 }
 
 struct HomeBottomView: View {
-    @EnvironmentObject var auth: Auth
     @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var gVM = GuardianViewModel()
     @State var subscribed = true
+    @State var loading = false
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -81,15 +82,20 @@ struct HomeBottomView: View {
                 }
                 .padding(.bottom)
                 if subscribed {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(gVM.guardians, id: \.self) { guardian in
-                                GuardianCard(vm: gVM, guardian: guardian)
+                    if !loading {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(gVM.guardians, id: \.self) { guardian in
+                                    GuardianCard(vm: gVM, guardian: guardian)
+                                }
+                                AddGuardianView(gVM: gVM)
+                                Spacer()
                             }
-                            AddGuardianView(gVM: gVM)
-                            Spacer()
+                            .padding()
                         }
-                        .padding()
+                    } else {
+                        Loader()
+                            .padding(.top, 50)
                     }
                 } else {
                     Rectangle()
@@ -110,7 +116,12 @@ struct HomeBottomView: View {
             }
         }
         .onAppear() {
-            gVM.getGuardians(userId: auth.user.id ?? 0)
+            loading.toggle()
+            gVM.getGuardians { finished in
+                if finished {
+                    loading.toggle()
+                }
+            }
         }
     }
 }
@@ -135,18 +146,18 @@ struct SubscribeButton: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            HomeNavBar()
-                .background(Color.accentColor)
-            HomeTopView()
-                .background(Color.accentColor)
-            HomeBottomView()
-        }
-        .previewLayout(.sizeThatFits)
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            HomeNavBar()
+//                .background(Color.accentColor)
+//            HomeTopView()
+//                .background(Color.accentColor)
+//            HomeBottomView()
+//        }
+//        .previewLayout(.sizeThatFits)
+//    }
+//}
 
 struct AddGuardianView: View {
     @EnvironmentObject var navigationModel: NavigationModel

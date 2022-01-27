@@ -7,9 +7,10 @@
 
 import SwiftUIX
 import NavigationStack
+import SwiftUI
 
 struct MyLink: View {
-    var url: String
+    var url = "https://www.google.com/"
     var text: String
     var fontSize: CGFloat = 13
     var body: some View {
@@ -22,10 +23,10 @@ struct MyLink: View {
 }
 
 struct NextButton: View {
+    var isCustomAction = false
+    var customAction: () -> Void = {}
     var source: String
     var destination: AnyView
-    var customAction: () -> Void = {}
-    var isCustomAction = false
     
     @Binding var active: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
@@ -217,6 +218,62 @@ struct InputAlert: View {
                         Spacer()
                     }
                     .padding(.vertical, -5)
+                }
+                .padding(.horizontal)
+                .padding(.top, 25)
+            )
+    }
+}
+
+struct MyAlert: View {
+    var title: String
+    var message: String
+    var ok = "Supprimer"
+    var cancel = "Annuler"
+    var action: () -> Void
+    @Binding var showAlert: Bool
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 22.0)
+            .foregroundColor(.white)
+            .frame(width: 270, height: 188)
+            .thinShadow()
+            .overlay(
+                VStack {
+                    Text(title)
+                        .font(.system(size: 17), weight: .semibold)
+                        .padding(.bottom, 5)
+                    Text(message)
+                        .font(.system(size: 13))
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical)
+                    Divider()
+                        .padding(.horizontal, -15)
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            showAlert.toggle()
+                        }) {
+                            Text(cancel)
+                                .font(.system(size: 17))
+                                .foregroundColor(.black)
+                        }
+                        Spacer()
+                        Divider()
+//                            .padding(.top, -3)
+                        Spacer()
+                        Button(action: {
+                            showAlert.toggle()
+                            action()
+                        }) {
+                            Text(ok)
+                                .font(.system(size: 17), weight: .semibold)
+                                .foregroundColor(.accentColor)
+                        }
+                        Spacer()
+                    }
+                    .frame(height: 44)
+//                    .padding(.vertical, -5)
                 }
                 .padding(.horizontal)
                 .padding(.top, 25)

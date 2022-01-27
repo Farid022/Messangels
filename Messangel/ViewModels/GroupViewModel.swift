@@ -23,7 +23,7 @@ struct MsgGroup: Codable, Hashable {
 }
 
 class GroupViewModel: ObservableObject {
-    @Published var group = MsgGroup(id: 0, name: "", user: 0, permission: "1")
+    @Published var group = MsgGroup(id: 0, name: "", user: getUserId(), permission: "1")
     @Published var groups = [MsgGroup]()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
@@ -46,8 +46,8 @@ class GroupViewModel: ObservableObject {
         }
     }
     
-    func getAll(userId: Int) {
-        APIService.shared.getJSON(model: groups, urlString: "mon-messages/group/\(userId)") { result in
+    func getAll() {
+        APIService.shared.getJSON(model: groups, urlString: "mon-messages/group/\(getUserId())") { result in
             switch result {
             case .success(let groups):
                 DispatchQueue.main.async {

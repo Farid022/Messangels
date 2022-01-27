@@ -11,7 +11,6 @@ import NavigationStack
 let newGroupMessage = "Exemple : « Famille », « Mes amis proches », « Pour ma femme »"
 
 struct MessagesBottomView: View {
-    @EnvironmentObject var auth: Auth
     @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var vm = GroupViewModel()
     @State private var loading = false
@@ -25,11 +24,11 @@ struct MessagesBottomView: View {
                     if let text = result {
                         if !text.isEmpty && text.count > 2 {
                             vm.group.name = text
-                            vm.group.user = auth.user.id ?? 0
+                            vm.group.user = getUserId()
                             vm.create { success in
                                 print("Group \(text) created: \(success)")
                                     if success {
-                                        vm.getAll(userId: auth.user.id ?? 0)
+                                        vm.getAll()
                                     }
                             }
                         }
@@ -91,8 +90,8 @@ struct MessagesBottomView: View {
                 }
                 .padding()
             }
-            .onDidAppear() {
-                vm.getAll(userId: auth.user.id ?? 0)
+            .onAppear() {
+                vm.getAll()
             }
         }
 
@@ -189,11 +188,11 @@ struct GroupCapsule: View {
     }
 }
 
-struct MessagesView_Previews: PreviewProvider {
-    static var previews: some View {
-        MessagesBottomView()
-    }
-}
+//struct MessagesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MessagesBottomView()
+//    }
+//}
 
 struct GroupItem: View {
     var group: MsgGroup

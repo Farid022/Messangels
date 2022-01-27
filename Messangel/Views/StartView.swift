@@ -84,6 +84,9 @@ struct BackButton: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     var viewId = ""
     var icon = "chevron.backward"
+    var systemIcon = true
+    var iconColor = Color.white
+    
     var body: some View {
         Button(action: {
             if viewId.isEmpty {
@@ -92,8 +95,13 @@ struct BackButton: View {
                 navigationModel.popContent(viewId)
             }
         }) {
-            Image(systemName: icon)
-                .foregroundColor(.white)
+            if systemIcon {
+                Image(systemName: icon)
+                    .foregroundColor(iconColor)
+            } else {
+                Image(icon)
+                    .foregroundColor(iconColor)
+            }
         }
         .frame(height: 44)
     }

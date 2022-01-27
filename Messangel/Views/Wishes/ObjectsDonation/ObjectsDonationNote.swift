@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ObjectsDonationNote: View {
     @State private var showNote = false
-    @State private var note = ""
+    @ObservedObject var vm: ObjectDonationViewModel
+    
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Objets", title: "*NOMDELOBJET – Photo", destination: AnyView(ObjectsDonationsList()))
+        FuneralNoteView(showNote: $showNote, note: $vm.objectDonation.object_note, menuTitle: "Objets", title: "*NOMDELOBJET – Photo", destination: AnyView(ObjectsDonationsList(vm: vm)))
     }
 }

@@ -12,7 +12,8 @@ struct OrganDonateRefusalNotReg: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
-    
+    @ObservedObject var vm: OrganDonationViewModel
+    @EnvironmentObject var navModel: NavigationModel
     var body: some View {
         ZStack {
             if showNote {
@@ -21,7 +22,18 @@ struct OrganDonateRefusalNotReg: View {
                     .background(.black.opacity(0.8))
                     .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus.", valid: .constant(true), destination: AnyView(FuneralDoneView())) {
+            FlowBaseView(isCustomAction: true, customAction: {
+                if !valid {
+                    return;
+                }
+                vm.create() { success in
+                    if success {
+                        navModel.pushContent("Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus.") {
+                            FuneralDoneView()
+                        }
+                    }
+                }
+            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus.", valid: .constant(true)) {
                 HStack {
                     Button(action: {
                         

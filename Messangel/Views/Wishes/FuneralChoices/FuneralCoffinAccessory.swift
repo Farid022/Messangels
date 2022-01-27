@@ -10,8 +10,9 @@ import SwiftUI
 struct FuneralCoffinAccessory: View {
     @State private var showNote = false
     @State private var note = ""
-    var funeralType: FuneralType
+    @ObservedObject var vm: FeneralViewModel
+    
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Précisez les accessoires obligatoires du cercueil (poignées, plaque d’identité,…)", destination: AnyView(FuneralCoffinOptions(funeralType: funeralType)))
+        FuneralNoteView(showNote: $showNote, note: $vm.funeral.handle_note, menuTitle: "Choix funéraires", title: "Précisez les accessoires obligatoires du cercueil (poignées, plaque d’identité,…)", destination: AnyView(FuneralCoffinOptions(vm: vm)))
     }
 }

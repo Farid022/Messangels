@@ -13,7 +13,7 @@ struct SignupNameView: View {
     @StateObject private var userVM = UserViewModel()
     @State private var referralCode: String = ""
     @State private var referral = false
-    @State private var lastNameActive = false
+//    @State private var lastNameActive = false
     @State private var progress = 1.0
     @State private var valid = false
     
@@ -22,9 +22,10 @@ struct SignupNameView: View {
             Text("Je m'appelle")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            CocoaTextField("Prénom", text: $userVM.user.first_name, onCommit:  {
-                lastNameActive = true
-            })
+            CocoaTextField("Prénom", text: $userVM.user.first_name)
+//                           , onCommit:  {
+//                lastNameActive = true
+//            })
                 .isInitialFirstResponder(true)
                 .xTextFieldStyle()
             CocoaTextField("Nom", text: $userVM.user.last_name)
@@ -35,7 +36,7 @@ struct SignupNameView: View {
 //                    }
 //                }
 //            })
-            .isFirstResponder(lastNameActive)
+//            .isInitialFirstResponder(lastNameActive)
                 .xTextFieldStyle()
             Toggle(isOn: $referral) {
                 Text("J’ai un code filleul")
@@ -59,8 +60,8 @@ struct SignupNameView: View {
     }
 }
 
-struct SignupNameView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupNameView()
-    }
-}
+//struct SignupNameView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignupNameView()
+//    }
+//}

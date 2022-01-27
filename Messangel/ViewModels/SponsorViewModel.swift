@@ -15,7 +15,7 @@ struct Sponsor: Codable {
 }
 
 class SponsorViewModel: ObservableObject {
-    @Published var sponsor = Sponsor(first_name: "", last_name: "", email: "", user: 0)
+    @Published var sponsor = Sponsor(first_name: "", last_name: "", email: "", user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     

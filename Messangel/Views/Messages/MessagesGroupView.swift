@@ -43,21 +43,21 @@ struct MessagesGroupView: View {
                         }
                 }
                 MiddleView(groupName: group.name)
-                LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: mediaCount() + 1), spacing: 16.0) {
+                LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: 2), spacing: 16.0) {
                     CreateMessageCard()
                     if let groupTexts = group.texts {
                         ForEach(groupTexts, id: \.self) { text in
-                            MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg")
+                            MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg", createdAt: strToDate(text.created_at ?? ""))
                         }
                     }
                     if let groupAudios = group.audios {
                         ForEach(groupAudios, id: \.self) { audio in
-                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_video")
+                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_video", createdAt: strToDate(audio.created_at ?? ""))
                         }
                     }
                     if let groupVideos = group.videos {
                         ForEach(groupVideos, id: \.self) { video in
-                            MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video")
+                            MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video", createdAt: strToDate(video.created_at ?? ""))
                         }
                     }
                 }
@@ -153,12 +153,6 @@ struct CreateMessageCard: View {
                     .multilineTextAlignment(.center)
                     .font(.system(size: 13))
                 Spacer()
-                Divider()
-                Text("03 aujourd’hui 2021")
-                    .font(.system(size: 11))
-                    .foregroundColor(.secondary.opacity(0.5))
-                    .padding(5)
-                    .padding(.bottom, 10)
             })
     }
 }
@@ -167,6 +161,7 @@ struct MessageCard: View {
     var image = ""
     var name = ""
     var icon = ""
+    var createdAt = ""
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25.0)
@@ -188,7 +183,7 @@ struct MessageCard: View {
                     .foregroundColor(.gray)
                     .padding(.bottom)
                 Divider()
-                Text("03 aujourd’hui 2021")
+                Text(createdAt)
                     .font(.system(size: 11))
                     .foregroundColor(.secondary.opacity(0.5))
                     .padding(5)

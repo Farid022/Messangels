@@ -13,7 +13,8 @@ struct ObjectsDonationOrganization: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
-    @State private var selectedCompany = ""
+    @State private var selectedCompany = Organization(id: 0, name: "", type: "1", user: getUserId())
+    @ObservedObject var vm: ObjectDonationViewModel
     
     var body: some View {
         ZStack {
@@ -23,11 +24,11 @@ struct ObjectsDonationOrganization: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Objets", title: "Sélectionnez un organisme à qui donner *cet objet *ce groupe d’objets", valid: .constant(!selectedCompany.isEmpty), destination: AnyView(ObjectsDonationPic())) {
-                if selectedCompany.isEmpty {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Objets", title: "Sélectionnez un organisme à qui donner *cet objet *ce groupe d’objets", valid: .constant(!selectedCompany.name.isEmpty), destination: AnyView(ObjectsDonationPic(vm: vm))) {
+                if selectedCompany.name.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Sélectionnez un organisme à qui donner *cet objet *ce groupe d’objets") {
-                            ObjectsDonationOrgList(selectedCompany: $selectedCompany)
+                            ObjectsDonationOrgList(selectedCompany: $selectedCompany, vm: vm)
                         }
                     }, label: {
                         Image("list_org")
@@ -38,10 +39,10 @@ struct ObjectsDonationOrganization: View {
                         .foregroundColor(.white)
                         .thinShadow()
                         .overlay(HStack {
-                            Text(selectedCompany)
+                            Text(selectedCompany.name)
                                 .font(.system(size: 14))
                             Button(action: {
-                                selectedCompany.removeAll()
+                                selectedCompany.name.removeAll()
                             }, label: {
                                 Image("ic_btn_remove")
                             })

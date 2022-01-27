@@ -10,8 +10,12 @@ import SwiftUI
 struct FuneralCoffinOptions: View {
     @State private var showNote = false
     @State private var note = ""
-    var funeralType: FuneralType
+    @ObservedObject var vm: FeneralViewModel
+    
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Précisez des options pour le cercueil (signe religieux, couleur,…)", destination: funeralType == .burial ? AnyView(FuneralOutfit()) : AnyView(FuneralUrnMaterial()))
+        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Précisez des options pour le cercueil (signe religieux, couleur,…)", destination: vm.funeral.burial_type == FuneralType.burial.rawValue ? AnyView(FuneralOutfit(vm: vm)) : AnyView(FuneralUrnMaterial(vm: vm)))
+            .onDidAppear {
+                UserDefaults.standard.set(50.0, forKey: wishesPersonal.first!.id)
+            }
     }
 }

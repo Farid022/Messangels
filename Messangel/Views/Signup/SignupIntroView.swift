@@ -65,8 +65,8 @@ struct SignupIntroView: View {
     }
 }
 
-struct SignupIntroView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignupIntroView()
-    }
-}
+//struct SignupIntroView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SignupIntroView()
+//    }
+//}

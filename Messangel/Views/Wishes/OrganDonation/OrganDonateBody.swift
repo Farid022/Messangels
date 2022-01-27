@@ -12,6 +12,8 @@ struct OrganDonateBody: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
+    @ObservedObject var vm: OrganDonationViewModel
+    @EnvironmentObject var navModel: NavigationModel
     
     var body: some View {
         ZStack {
@@ -21,7 +23,15 @@ struct OrganDonateBody: View {
                     .background(.black.opacity(0.8))
                     .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Pour donner votre corps à la science, vous devez effectuer des démarches auprès d’organismes spécialisés.", valid: .constant(true), destination: AnyView(FuneralDoneView())) {
+            FlowBaseView(isCustomAction: true, customAction: {
+                vm.create() { success in
+                    if success {
+                        navModel.pushContent("Pour donner votre corps à la science, vous devez effectuer des démarches auprès d’organismes spécialisés.") {
+                            FuneralDoneView()
+                        }
+                    }
+                }
+            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Pour donner votre corps à la science, vous devez effectuer des démarches auprès d’organismes spécialisés.", valid: .constant(true)) {
                 HStack {
                     Button(action: {
                         

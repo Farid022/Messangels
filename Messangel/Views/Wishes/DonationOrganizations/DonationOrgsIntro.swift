@@ -37,7 +37,7 @@ struct DonationOrgsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "DonationOrgsIntro", destination: AnyView(FuneralFlowers()), active: .constant(true))
+                        NextButton(source: "DonationOrgsIntro", destination: AnyView(DonationOrgNew()), active: .constant(true))
                     }
                 }.padding()
             }

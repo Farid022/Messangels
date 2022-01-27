@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct FuneralMusicArtist: View {
-    @State private var artist = ""
+    @StateObject private var vm = FuneralMusicViewModel()
+    
     var body: some View {
-        FuneralChoiceBaseView(menuTitle: "Musique", title: "Indiquez le nom de l’artiste", valid: .constant(!artist.isEmpty), destination: AnyView(FuneralMusicTitle())) {
-           TextField("Artiste", text: $artist)
-            .textFieldStyle(MyTextFieldStyle())
+        FlowBaseView(menuTitle: "Musique", title: "Indiquez le nom de l’artiste", valid: .constant(!vm.music.artist_name.isEmpty), destination: AnyView(FuneralMusicTitle(vm: vm))) {
+           TextField("Artiste", text: $vm.music.artist_name)
             .normalShadow()
         }
     }

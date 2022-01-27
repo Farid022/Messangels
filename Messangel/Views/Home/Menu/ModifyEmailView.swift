@@ -54,7 +54,7 @@ struct ModifyEmailView: View {
                 if !valid {
                     return
                 }
-                APIService.shared.post(model: Email(email: auth.user.email, new_email: new_email), response: apiResponse, endpoint: "users/\(auth.user.id ?? 0)/change-email", method: "PUT") { result in
+                APIService.shared.post(model: Email(email: auth.user.email, new_email: new_email), response: apiResponse, endpoint: "users/\(getUserId())/change-email", method: "PUT") { result in
                     switch result {
                     case .success(let response):
                         DispatchQueue.main.async {

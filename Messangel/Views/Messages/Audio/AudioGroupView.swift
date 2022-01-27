@@ -17,7 +17,6 @@ struct AudioGroupView: View {
     @State private var showNewGroupBox = false
     @StateObject private var vm = AudioViewModel()
     @EnvironmentObject var groupVM: GroupViewModel
-    @EnvironmentObject var auth: Auth
     
     var body: some View {
         NavigationStackView("AudioGroupView") {
@@ -40,11 +39,11 @@ struct AudioGroupView: View {
                         if let text = result {
                             if !text.isEmpty && text.count > 2 {
                                 groupVM.group.name = text
-                                groupVM.group.user = auth.user.id ?? 0
+                                groupVM.group.user = getUserId()
                                 groupVM.create { success in
                                     print("Group \(text) created: \(success)")
                                         if success {
-                                            groupVM.getAll(userId: auth.user.id ?? 0)
+                                            groupVM.getAll()
                                         }
                                 }
                             }

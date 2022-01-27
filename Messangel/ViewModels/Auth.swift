@@ -39,7 +39,7 @@ class Auth: ObservableObject {
     }
     
     func getToken(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: credentials, response: token, endpoint: "token") { result in
+        APIService.shared.post(model: credentials, response: token, endpoint: "token", token: false) { result in
             switch result {
             case .success(let token):
                 DispatchQueue.main.async {

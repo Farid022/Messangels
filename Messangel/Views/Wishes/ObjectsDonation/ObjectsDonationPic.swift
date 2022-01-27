@@ -15,6 +15,7 @@ struct ObjectsDonationPic: View {
     @State private var isShowPhotoLibrary = false
     @State private var cgImage = UIImage().cgImage
     @StateObject private var imageLoader = ImageLoader(urlString: "")
+    @ObservedObject var vm: ObjectDonationViewModel
 
     
     var body: some View {
@@ -25,7 +26,7 @@ struct ObjectsDonationPic: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Objets", title: "*NOMDUGROUPE – Photo", valid: .constant(true), destination: AnyView(ObjectsDonationNote())) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Objets", title: "*NOMDUGROUPE – Photo", valid: .constant(true), destination: AnyView(ObjectsDonationNote(vm: vm))) {
                 Rectangle()
                     .fill(Color.accentColor)
                     .frame(width: 66, height: 66)

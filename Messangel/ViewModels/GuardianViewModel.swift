@@ -22,8 +22,8 @@ class GuardianViewModel: ObservableObject {
     @Published var apiResponse = APIService.APIResponse(message: "")
 
     
-    func getGuardians(userId: Int) {
-        APIService.shared.getJSON(model: guardians, urlString: "users/guardian/\(userId)") { result in
+    func getGuardians(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: guardians, urlString: "users/guardian/\(getUserId())") { result in
             switch result {
             case .success(let guardians):
                 DispatchQueue.main.async {
@@ -32,11 +32,12 @@ class GuardianViewModel: ObservableObject {
             case .failure(let error):
                 print(error)
             }
+            completion(true)
         }
     }
     
     func delete(id: Int, userId: Int, completion: @escaping (Bool) -> Void) {
-        APIService.shared.delete(endpoint: "users/guardian/\(userId)/\(id)") { result in
+        APIService.shared.delete(endpoint: "users/guardian/\(getUserId())/\(id)") { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {

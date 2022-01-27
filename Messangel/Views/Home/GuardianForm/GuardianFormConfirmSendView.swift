@@ -10,7 +10,6 @@ import NavigationStack
 
 struct GuardianFormConfirmSendView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @ObservedObject var vm: GuardianViewModel
     var body: some View {
         NavigationStackView("GuardianFormConfirmSendView") {
@@ -36,7 +35,7 @@ struct GuardianFormConfirmSendView: View {
                     .multilineTextAlignment(.center)
                     Spacer().frame(height: 10)
                     Button("Envoyer ma demande") {
-                        vm.guardian.user_id = auth.user.id ?? 0
+                        vm.guardian.user_id = getUserId()
                         APIService.shared.post(model: vm.guardian, response: vm.guardian, endpoint: "users/guardian") { result in
                             switch result {
                             case .success(let guardian):

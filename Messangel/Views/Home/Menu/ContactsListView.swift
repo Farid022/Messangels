@@ -10,7 +10,6 @@ import NavigationStack
 
 struct ContactsListView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
@@ -84,7 +83,7 @@ struct ContactsListView: View {
                 }
             }
             .onDidAppear() {
-                vm.getContacts(userId: auth.user.id ?? 0)
+                vm.getContacts()
             }
         }
     }
@@ -111,8 +110,8 @@ struct ContactView: View {
     }
 }
 
-struct ContactsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactsListView()
-    }
-}
+//struct ContactsListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContactsListView()
+//    }
+//}

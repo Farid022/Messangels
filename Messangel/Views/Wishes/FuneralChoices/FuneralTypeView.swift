@@ -6,6 +6,7 @@
 //
 
 import SwiftUIX
+import SwiftUI
 
 struct FuneralTypeView: View {
     private var funeralTypes = [FuneralType.burial, FuneralType.crematization]
@@ -13,6 +14,7 @@ struct FuneralTypeView: View {
     @State private var selectedFuneral = FuneralType.none
     @State private var showNote = false
     @State private var note = ""
+    @StateObject private var vm = FeneralViewModel()
     
     var body: some View {
         ZStack {
@@ -22,12 +24,13 @@ struct FuneralTypeView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: $valid, destination: selectedFuneral == .burial ? AnyView(FuneralPlaceView(funeralType: selectedFuneral)) : AnyView(FuneralCoffinMaterial(funeralType: selectedFuneral))) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: $valid, destination: AnyView(FuneralPlaceView(vm: vm))) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .burial ? "Inhumation" : "Crématisation", selected: .constant(selectedFuneral == type))
+                        ChoiceCard(text: type == .burial ? "Inhumation" : "Crématisation", selected: .constant(selectedFuneral == type))
                             .onTapGesture {
                                 selectedFuneral = type
+                                vm.funeral.burial_type = type.rawValue
                             }
                     }
                 }
@@ -41,7 +44,7 @@ struct FuneralTypeView: View {
 
 
 
-struct FuneralTypeCard: View {
+struct ChoiceCard: View {
     var text: String
     @Binding var selected: Bool
     
@@ -62,6 +65,7 @@ struct FuneralTypeCard: View {
                             .frame(width: 18, height: 18)
                     }
                     Text(text)
+                        .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
             )

@@ -9,13 +9,18 @@ import SwiftUI
 import NavigationStack
 
 struct TabBarView: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    static let id = String(describing: Self.self)
-    @State var selectedTab = "Accueil"
     @AppStorage("onboardingShown") var onboardingShown = false
-    @State var onboardingStarted = false
-    @State var onboardingCompleted = false
-    @State var onboardingCancelled = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var keyAccRegVM: AccStateViewModel
+    @StateObject private var vmKeyAcc = KeyAccViewModel()
+    @StateObject private var vmOnlineService = OnlineServiceViewModel()
+    @State private var selectedTab = "Accueil"
+    @State private var onboardingStarted = false
+    @State private var onboardingCompleted = false
+    @State private var onboardingCancelled = false
+    @State private var loading = true
+    @State private var showPopUp = false
+    static let id = String(describing: Self.self)
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -35,8 +40,22 @@ struct TabBarView: View {
                                 .tag(tabs[1])
                             TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesBottomView()))
                                 .tag(tabs[2])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(EmptyView()), bottomContent: AnyView(Text("Vie digitale")))
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showPopUp)))
                                 .tag(tabs[3])
+                        }
+                    }
+                    .onChange(of: selectedTab) { value in
+                        if value == "Vie digitale" && loading {
+                            vmKeyAcc.getKeyAccounts { success in
+                                if success {
+                                    keyAccRegVM.keyAccRegistered = vmKeyAcc.keyAccounts.count > 0
+                                    vmOnlineService.getAccounts { success in
+                                        if success {
+                                            loading.toggle()
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     //                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -57,8 +76,16 @@ struct TabBarView: View {
                         }
                     })
                 }
-                BottomTabBar(onboardingShown: $onboardingShown, onboardingStarted: $onboardingStarted, selectedTab: $selectedTab)
-                    .if(!onboardingShown && !onboardingStarted) { $0.brightness(-0.2) }
+                ZStack(alignment: .bottom) {
+                    if keyAccRegVM.showSuccessScreen {
+                        KeyAccRegSuccessView()
+                    }
+                    if showPopUp {
+                        NewAccPopupView(showPopUp: $showPopUp)
+                    }
+                    BottomTabBar(onboardingShown: $onboardingShown, onboardingStarted: $onboardingStarted, selectedTab: $selectedTab)
+                        .if(!onboardingShown && !onboardingStarted) { $0.brightness(-0.2) }
+                }
             }
             .ignoresSafeArea()
         }
@@ -67,7 +94,8 @@ struct TabBarView: View {
 
 var tabs = ["Accueil","Volontés","Messages","Vie digitale"]
 var messagesDiscription = "Créez des messages vidéos, textes et audio pour une personne ou un groupe de destinataires."
-var wishesDiscription = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy."
+var wishesDiscription = "Indiquez vos volontés sur les sujets qui comptent pour vous. Vous pouvez revenir sur vos choix à tout moment."
+var socialAndServicesDesc = "Préparez les accès aux réseaux sociaux et services en ligne que vous utilisez : Alimentation, e-Commerce, Streaming…"
 
 struct BottomTabBar: View {
     @Namespace var animation
@@ -135,51 +163,44 @@ struct TabButton: View {
     }
 }
 
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBarView()
-            .previewDevice("iPhone 12")
-        TabBarView()
-            .previewDevice("iPhone 12 Pro Max")
-        TabBarView()
-            .previewDevice("iPhone 8")
-    }
-}
 
 struct NonHomeTopView: View {
     var title: String
     var detail: String
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading) {
             Text(title)
                 .font(.system(size: 34))
                 .fontWeight(.bold)
                 .foregroundColor(.white)
+                .padding(.bottom, 20)
             Text(detail)
                 .font(.caption)
                 .fixedSize(horizontal: false, vertical: true)
                 .foregroundColor(.white)
                 .padding(.trailing, 100)
+            ZStack {
+                VStack {
+                    Color.accentColor
+                        .frame(height: 25)
+                    Color.white
+                        .frame(height: 25)
+                }
+                .padding(.horizontal, -15)
+                HStack {
+                    Spacer()
+                    Rectangle()
+                        .fill(Color.white)
+                        .frame(width: 56, height: 56)
+                        .cornerRadius(25)
+                        .normalShadow()
+                        .overlay(Image("info"))
+                        .padding(.trailing)
+                }
+            }
+            
         }
         .padding(.horizontal, 15)
-        VStack {
-            Color.accentColor
-                .frame(height: 25)
-            Color.white
-                .frame(height: 25)
-        }
-        .frame(height: 50)
-        .overlay(
-            HStack {
-                Spacer()
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 56, height: 56)
-                    .cornerRadius(25)
-                    .normalShadow()
-                    .overlay(Image("info"))
-                    .padding(.trailing)
-            })
     }
 }
 

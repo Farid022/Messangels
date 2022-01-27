@@ -9,31 +9,15 @@ import SwiftUI
 import NavigationStack
 
 struct ContentView: View {
-    @ObservedObject var auth: Auth
+    @StateObject var auth = Auth()
+    @StateObject var keyAccRegVM = AccStateViewModel()
     let editor: RichEditorView
     
     init() {
-        self.auth = Auth()
+//        self.auth = Auth()
         self.editor = RichEditorView(frame: .zero)
         
-        if let user = UserDefaults.standard.value(forKey: "user") as? [String: Any] {
-            do {
-                let json = try JSONSerialization.data(withJSONObject: user)
-                let decoder = JSONDecoder()
-                let decodedUser = try decoder.decode(User.self, from: json)
-                auth.user = decodedUser
-                auth.credentials = Credentials(email: auth.user.email, password: auth.user.password ?? "")
-                auth.getToken { success in
-                    if success {
-                        print("Got token successfully.")
-                    } else {
-                        print("Token fetch failed!")
-                    }
-                }
-            } catch {
-                print(error)
-            }
-        }
+     
 //        let appearance = UINavigationBarAppearance()
 //        appearance.configureWithTransparentBackground()
 //        appearance.largeTitleTextAttributes = [
@@ -60,14 +44,35 @@ struct ContentView: View {
                     .background(Color.accentColor.ignoresSafeArea())
             }
         }
+        .onAppear() {
+            if let user = UserDefaults.standard.value(forKey: "user") as? [String: Any] {
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: user)
+                    let decoder = JSONDecoder()
+                    let decodedUser = try decoder.decode(User.self, from: json)
+                    auth.user = decodedUser
+                    auth.credentials = Credentials(email: auth.user.email, password: auth.user.password ?? "")
+                    auth.getToken { success in
+                        if success {
+                            print("Got token successfully.")
+                        } else {
+                            print("Token fetch failed!")
+                        }
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
         .environmentObject(auth)
         .environmentObject(NavigationModel())
         .environmentObject(editor)
+        .environmentObject(keyAccRegVM)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

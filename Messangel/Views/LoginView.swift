@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var auth: Auth
+    @StateObject var auth = Auth()
+    @EnvironmentObject var envAuth: Auth
     @State private var loading = false
     @State private var alert = false
     @State private var valid = false
@@ -60,9 +61,9 @@ struct LoginView: View {
                                         case .success(let user):
                                             DispatchQueue.main.async {
                                                 loading = false
-                                                auth.user = user
-                                                auth.user.password = auth.credentials.password
-                                                auth.updateUser()
+                                                envAuth.user = user
+                                                envAuth.user.password = auth.credentials.password
+                                                envAuth.updateUser()
                                             }
                                         case .failure(let err):
                                             print(err)

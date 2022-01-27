@@ -8,11 +8,12 @@
 import SwiftUIX
 
 struct FuneralOrgContractType: View {
-    private var funeralTypes = [FuneralBool.yes, FuneralBool.no]
+    var funeralTypes = [FuneralBool.yes, FuneralBool.no]
     @State private var valid = false
     @State private var selectedFuneral = FuneralBool.none
     @State private var showNote = false
     @State private var note = ""
+    @ObservedObject var vm: FuneralOrgViewModel
     
     var body: some View {
         ZStack {
@@ -22,12 +23,13 @@ struct FuneralOrgContractType: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: "Avez-vous souscrit à un contrat obsèques ?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralContractCompany()) : AnyView(FuneralDoneView())) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: "Avez-vous souscrit à un contrat obsèques ?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralContractCompany(vm: vm)) : AnyView(FuneralDoneView())) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
+                        ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
                             .onTapGesture {
                                 selectedFuneral = type
+                                vm.funeralOrg.company_contact_detail = type == .yes
                             }
                     }
                 }

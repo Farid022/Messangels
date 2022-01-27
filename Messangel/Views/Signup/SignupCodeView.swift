@@ -30,11 +30,11 @@ struct SignupCodeView: View {
                         APIService.shared.post(model: userVM.user, response: userVM.user, endpoint: "users/sign-up", token: false) { result in
                             loading = false
                             switch result {
-                            case .success(let newuser):
-                                print("User ID: \(newuser.id ?? 0)")
+                            case .success(let newUser):
+                                print("User ID: \(newUser.id ?? 0)")
                                 DispatchQueue.main.async {
                                     navigationModel.pushContent("SignupCodeView") {
-                                        SignupDoneView(userVM: userVM)
+                                        SignupDoneView(user: newUser)
                                     }
                                 }
                             case .failure(let error):
@@ -51,7 +51,7 @@ struct SignupCodeView: View {
                     print(err.error_description)
                 }
             }
-        }, progress: $progress, valid: $valid, destination: AnyView(SignupDoneView(userVM: userVM)), currentView: "SignupCodeView", footer: AnyView(EmptyView())) {
+        }, progress: $progress, valid: $valid, destination: AnyView(SignupDoneView(user: userVM.user)), currentView: "SignupCodeView", footer: AnyView(EmptyView())) {
             
             Text("Inscrivez le code reçu par SMS")
                 .font(.system(size: 22))

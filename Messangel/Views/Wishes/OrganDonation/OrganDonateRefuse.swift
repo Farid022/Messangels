@@ -6,13 +6,17 @@
 //
 
 import SwiftUIX
+import SwiftUI
+import NavigationStack
 
 struct OrganDonateRefuse: View {
-    private var funeralTypes = [FuneralBool.yes, FuneralBool.no]
+    var funeralTypes = [FuneralBool.yes, FuneralBool.no]
     @State private var valid = false
     @State private var selectedFuneral = FuneralBool.none
     @State private var showNote = false
     @State private var note = ""
+    @ObservedObject var vm: OrganDonationViewModel
+    @EnvironmentObject var navModel: NavigationModel
     
     var body: some View {
         ZStack {
@@ -22,12 +26,30 @@ struct OrganDonateRefuse: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Avez-vous enregistré ce choix dans le registre national des refus ?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralDoneView()) : AnyView(OrganDonateRefusalNotReg())) {
+            FlowBaseView(isCustomAction:true, customAction: {
+                if !valid { return; }
+                
+                if selectedFuneral == .yes {
+                    vm.create() { success in
+                        if success {
+                            navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
+                                FuneralDoneView()
+                            }
+                        }
+                    }
+                    
+                } else {
+                    navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
+                        OrganDonateRefusalNotReg(vm: vm)
+                    }
+                }
+            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Avez-vous enregistré ce choix dans le registre national des refus ?", valid: $valid) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
+                        ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
                             .onTapGesture {
                                 selectedFuneral = type
+                                vm.donation.register_to_national = type == .yes
                             }
                     }
                 }

@@ -20,7 +20,7 @@ struct SignupPostcodeView: View {
                 .fontWeight(.bold)
             CocoaTextField("", text: $userVM.user.postal_code)
                 .keyboardType(.numberPad)
-                .isInitialFirstResponder(true)
+                .isFirstResponder(true)
                 .textContentType(.postalCode)
                 .xTextFieldStyle()
 //                .overlay(HStack {

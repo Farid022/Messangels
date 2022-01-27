@@ -6,6 +6,7 @@
 //
 
 import SwiftUIX
+import SwiftUI
 
 struct AnimalDonationCount: View {
     private var donationTypes = [ClothsDonationType.single, ClothsDonationType.multiple]
@@ -13,6 +14,7 @@ struct AnimalDonationCount: View {
     @State private var selectedDonation = ClothsDonationType.none
     @State private var showNote = false
     @State private var note = ""
+    @StateObject private var vm = AnimalDonatiopnViewModel()
     
     var body: some View {
         ZStack {
@@ -22,12 +24,13 @@ struct AnimalDonationCount: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "Souhaitez-vous ajouter un ou plusieurs animaux ?", valid: $valid, destination: AnyView(AnimalDonationName(donationType: selectedDonation))) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "Souhaitez-vous ajouter un ou plusieurs animaux ?", valid: $valid, destination: AnyView(AnimalDonationName(vm: vm))) {
                 HStack {
                     ForEach(donationTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .single ? "Un seul article" : "Plusieurs articles", selected: .constant(selectedDonation == type))
+                        ChoiceCard(text: type == .single ? "Un seul article" : "Plusieurs articles", selected: .constant(selectedDonation == type))
                             .onTapGesture {
                                 selectedDonation = type
+                                vm.animalDonation.single_animal = type == .single
                             }
                     }
                 }

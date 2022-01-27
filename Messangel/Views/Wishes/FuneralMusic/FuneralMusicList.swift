@@ -10,17 +10,21 @@ import NavigationStack
 
 struct FuneralMusicList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    var funeralItems = ["Sting – Rise & Fall", "Artiste – Nom du morceau"]
+    @ObservedObject var vm: FuneralMusicViewModel
+    
     var body: some View {
         FuneralItemList(id:"FuneralMusicList", menuTitle: "Musique") {
-            ForEach(funeralItems, id: \.self) { item in
-                FuneralItemCard(title: item, icon: "ic_music_white")
+            ForEach(vm.musics, id: \.self) { music in
+                FuneralItemCard(title: music.song_title, icon: "ic_music_white")
                     .onTapGesture {
                         navigationModel.pushContent("FuneralMusicList") {
-                            FuneralMusicDetails(title: item.components(separatedBy: " – ")[1], artist: item.components(separatedBy: " – ")[0])
+                            FuneralMusicDetails(title: music.song_title, artist: music.artist_name, note: music.broadcast_song_note)
                         }
                     }
             }
+        }
+        .onAppear() {
+            vm.getMusics()
         }
     }
 }

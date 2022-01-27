@@ -54,7 +54,7 @@ struct ModifyMobileView: View {
                 if !valid {
                     return
                 }
-                APIService.shared.post(model: Mobile(email: auth.user.email, new_mobile: new_mobile.replacingOccurrences(of: " ", with: "")), response: apiResponse, endpoint: "users/\(auth.user.id ?? 0)/change-phone", method: "PUT") { result in
+                APIService.shared.post(model: Mobile(email: auth.user.email, new_mobile: new_mobile.replacingOccurrences(of: " ", with: "")), response: apiResponse, endpoint: "users/\(getUserId())/change-phone", method: "PUT") { result in
                     switch result {
                     case .success(let response):
                         DispatchQueue.main.async {

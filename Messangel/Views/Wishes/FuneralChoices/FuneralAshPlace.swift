@@ -10,8 +10,8 @@ import SwiftUI
 struct FuneralAshPlace: View {
     @State private var showNote = false
     @State private var note = ""
-    
+    @ObservedObject var vm: FeneralViewModel
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Choisissez un lieu de dépôt des cendres (columbarium, caveau, dispersion…)", destination: AnyView(FuneralOutfit()))
+        FuneralNoteView(showNote: $showNote, note: $vm.funeral.deposite_ashes_note, menuTitle: "Choix funéraires", title: "Choisissez un lieu de dépôt des cendres (columbarium, caveau, dispersion…)", destination: AnyView(FuneralOutfit(vm: vm)))
     }
 }

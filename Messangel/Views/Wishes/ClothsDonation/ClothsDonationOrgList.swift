@@ -10,12 +10,12 @@ import NavigationStack
 
 struct ClothsDonationOrgList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un organisme"
     @State private var isEditing = false
-    @State private var compainies = ["Nom de l’organisme"]
-    @Binding var selectedCompany: String
+    @State private var refreshList = false
+    @ObservedObject var vm: ClothDonationViewModel
+    @Binding var selectedCompany: Organization
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -60,7 +60,9 @@ struct ClothsDonationOrgList: View {
             ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        compainies.append("Nom de l’organisme")
+                        navigationModel.presentContent("ClothsDonationOrgList") {
+                            CreateOrgView(type: "2", refresh: $refreshList)
+                        }
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -76,17 +78,23 @@ struct ClothsDonationOrgList: View {
                             )
                     }
                     .padding(.bottom)
-                    ForEach(compainies.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { company in
-                            ListItemView(name: company)
+                ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { org in
+                    ListItemView(name: org.name)
                                 .onTapGesture {
-                                    selectedCompany = company
+                                    selectedCompany = org
+                                    vm.clothDonation.clothing_organization_detail = org.id
                                     navigationModel.hideTopView()
                                 }
                         }
             }
             .padding()
         }
-                
+        .onDidAppear {
+            vm.getOrgs()
+        }
+        .onChange(of: refreshList) { value in
+            vm.getOrgs()
+        }
             
     }
 }

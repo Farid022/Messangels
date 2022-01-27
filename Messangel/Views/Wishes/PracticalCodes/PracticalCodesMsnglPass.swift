@@ -16,7 +16,10 @@ struct PracticalCodesMsnglPass: View {
                 Color.accentColor
                     .ignoresSafeArea()
                 VStack {
-                    BackButton()
+                    HStack {
+                        BackButton()
+                        Spacer()
+                    }
                     Spacer()
                     Image("ic_lock_white")
                         .padding(.bottom)

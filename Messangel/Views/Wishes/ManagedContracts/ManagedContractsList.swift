@@ -9,19 +9,22 @@ import SwiftUI
 import NavigationStack
 
 struct ManagedContractsList: View {
-    var funeralItems = ["Banque", "*NOMDUCONTRAT"]
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: ContractViewModel
     
     var body: some View {
         FuneralItemList(id:"ManagedContractsList", menuTitle: "Contrats à gérer") {
-            ForEach(funeralItems, id: \.self) { item in
-                FuneralItemCard(title: item, icon: "ic_contract")
+            ForEach(vm.contracts, id: \.self) { item in
+                FuneralItemCard(title: item.name, icon: "ic_contract")
                     .onTapGesture {
                         navigationModel.pushContent("ManagedContractsList") {
-                            ManagedContractsDetails(title: item)
+                            ManagedContractsDetails(title: item.name, note: item.note)
                         }
                     }
             }
+        }
+        .onAppear {
+            vm.getAll()
         }
     }
 }

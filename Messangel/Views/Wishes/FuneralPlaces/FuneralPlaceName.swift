@@ -13,7 +13,8 @@ struct FuneralPlaceName: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
-    @State private var selectedCompany = ""
+    @State private var selectedPlace = BuryLocation(id: 0, name: "")
+    @ObservedObject var vm: FuneralLocationViewModel
     
     var body: some View {
         ZStack {
@@ -23,11 +24,11 @@ struct FuneralPlaceName: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Indiquez le lieu de cérémonie", valid: .constant(!selectedCompany.isEmpty), destination: AnyView(FuneralRestingPlace())) {
-                if selectedCompany.isEmpty {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Indiquez le lieu de cérémonie", valid: .constant(!selectedPlace.name.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
+                if selectedPlace.name.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Indiquez le lieu de cérémonie") {
-                            FuneralPlacesList(selectedCompany: $selectedCompany)
+                            FuneralPlacesList(selectedPlace: $selectedPlace, vm: vm)
                         }
                     }, label: {
                         Image("list_org")
@@ -38,10 +39,10 @@ struct FuneralPlaceName: View {
                         .foregroundColor(.white)
                         .thinShadow()
                         .overlay(HStack {
-                            Text(selectedCompany)
+                            Text(selectedPlace.name)
                                 .font(.system(size: 14))
                             Button(action: {
-                                selectedCompany.removeAll()
+//                                selectedCompany.removeAll()
                             }, label: {
                                 Image("ic_btn_remove")
                             })

@@ -10,13 +10,12 @@ import NavigationStack
 
 struct DeathAnnounceContactsList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
-//    @StateObject private var vm = ContactViewModel()
-    @State private var contacts = ["Prénom Nom 1"]
-    @Binding var selectedContacts: [String]
+    @StateObject private var contactsVM = ContactViewModel()
+    @Binding var selectedContacts: [Contact]
+    @ObservedObject var vm: PriorityContactsViewModel
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -85,7 +84,7 @@ struct DeathAnnounceContactsList: View {
                     
                     Spacer().frame(height: 20)
                     Button(action: {
-                        contacts.append("Prénom Nom")
+//                        contacts.append("Prénom Nom")
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -101,17 +100,22 @@ struct DeathAnnounceContactsList: View {
                             )
                     }
                     .padding(.bottom)
-                    ForEach(contacts.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { contact in
-                            ListItemView(name: contact, image: "ic_contact")
+                ForEach(contactsVM.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
+                    ListItemView(name: "\(contact.first_name) \(contact.last_name)", image: "ic_contact")
                                 .onTapGesture {
-                                    selectedContacts.append(contact)
+                                    if !selectedContacts.contains(contact) {
+                                        selectedContacts.append(contact)
+                                        vm.priorityContacts.contact.append(contact.id)
+                                    }
                                     navigationModel.hideTopView()
                                 }
                         }
             }
             .padding()
         }
-                
+        .onAppear() {
+            contactsVM.getContacts()
+        }
             
     }
 }

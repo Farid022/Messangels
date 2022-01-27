@@ -9,19 +9,22 @@ import SwiftUI
 import NavigationStack
 
 struct DonationOrgsList: View {
-    var funeralItems = ["Nom Organisme", "Nom Organisme"]
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: DonationOrgViewModel
     
     var body: some View {
         FuneralItemList(id:"DonationOrgsList", menuTitle: "Dons et collectes") {
-            ForEach(funeralItems, id: \.self) { item in
-                FuneralItemCard(title: item, icon: "ic_org")
+            ForEach(vm.donationOrgs, id: \.self) { item in
+                FuneralItemCard(title: item.donation_organization.name, icon: "ic_org")
                     .onTapGesture {
                         navigationModel.pushContent("DonationOrgsList") {
-                            DonationOrgDetails(title: item)
+                            DonationOrgDetails(title: item.donation_organization.name, note: item.donation_note)
                         }
                     }
             }
+        }
+        .onDidAppear {
+            vm.getDonationOrgs()
         }
     }
 }

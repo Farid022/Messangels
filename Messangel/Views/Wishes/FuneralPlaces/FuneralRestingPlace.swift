@@ -8,11 +8,12 @@
 import SwiftUIX
 
 struct FuneralRestingPlace: View {
-    private var funeralTypes = [FuneralRestPlace.funeral_place, FuneralRestPlace.residence]
+    var funeralTypes = [FuneralRestPlace.funeral_place, FuneralRestPlace.residence]
     @State private var valid = false
     @State private var selectedFuneral = FuneralRestPlace.none
     @State private var showNote = false
     @State private var note = ""
+    @ObservedObject var vm: FuneralLocationViewModel
     
     var body: some View {
         ZStack {
@@ -22,12 +23,13 @@ struct FuneralRestingPlace: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Quel lieu de repos souhaiteriez-vous privilégier avant la cérémonie ?", valid: $valid, destination: AnyView(FuneralConvoyRoute())) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Quel lieu de repos souhaiteriez-vous privilégier avant la cérémonie ?", valid: $valid, destination: AnyView(FuneralConvoyRoute(vm: vm))) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .funeral_place ? "Funérarium" : "Domicile", selected: .constant(selectedFuneral == type))
+                        ChoiceCard(text: type == .funeral_place ? "Funérarium" : "Domicile", selected: .constant(selectedFuneral == type))
                             .onTapGesture {
                                 selectedFuneral = type
+                                vm.location.resting_place = type.rawValue
                             }
                     }
                 }

@@ -27,12 +27,26 @@
 		932FF8C126CF80ED00DE52F9 /* VideoTrimView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FF8C026CF80ED00DE52F9 /* VideoTrimView.swift */; };
 		932FF8C326D3779100DE52F9 /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FF8C226D3779100DE52F9 /* RangeSlider.swift */; };
 		932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FF8C526D5065200DE52F9 /* VideoFilterView.swift */; };
+		933911022768A80A00E262B3 /* KeyAccViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933911012768A80A00E262B3 /* KeyAccViewModel.swift */; };
+		9339110A276C759200E262B3 /* ServicesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93391109276C759200E262B3 /* ServicesListView.swift */; };
+		9339110D276C7AF700E262B3 /* KeyMailsAndPhonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9339110C276C7AF700E262B3 /* KeyMailsAndPhonesView.swift */; };
 		933AA30A2664B563000D6D48 /* MessagesGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA3092664B563000D6D48 /* MessagesGroupView.swift */; };
 		933AA30C2664EBA1000D6D48 /* PhotosSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA30B2664EBA1000D6D48 /* PhotosSelectionView.swift */; };
 		933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA30F26674FD8000D6D48 /* ImagePicker.swift */; };
 		933AA312266754F0000D6D48 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA311266754F0000D6D48 /* PhotoPicker.swift */; };
 		933AA31426675B62000D6D48 /* CustomImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AA31326675B62000D6D48 /* CustomImagePicker.swift */; };
 		933AA317266A661F000D6D48 /* NavigationStack in Frameworks */ = {isa = PBXBuildFile; productRef = 933AA316266A661F000D6D48 /* NavigationStack */; };
+		933DF60A27886640005966AF /* FuneralLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF60927886640005966AF /* FuneralLocationViewModel.swift */; };
+		933DF60C27886E4F005966AF /* FuneralAstheticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF60B27886E4F005966AF /* FuneralAstheticViewModel.swift */; };
+		933DF60E27886ECC005966AF /* FuneralMusicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF60D27886ECC005966AF /* FuneralMusicViewModel.swift */; };
+		933DF61027887E0A005966AF /* ClothDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF60F27887E0A005966AF /* ClothDonationViewModel.swift */; };
+		933DF61227887EC8005966AF /* ObjectDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF61127887EC8005966AF /* ObjectDonationViewModel.swift */; };
+		933DF61427887F86005966AF /* AnimalDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF61327887F86005966AF /* AnimalDonationViewModel.swift */; };
+		933DF618278BFB91005966AF /* DonationOrgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF617278BFB91005966AF /* DonationOrgViewModel.swift */; };
+		933DF61A278BFC11005966AF /* AdminDocViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF619278BFC11005966AF /* AdminDocViewModel.swift */; };
+		933DF61C278BFC61005966AF /* PracticalCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF61B278BFC61005966AF /* PracticalCodeViewModel.swift */; };
+		933DF61E278BFD44005966AF /* ContractViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF61D278BFD44005966AF /* ContractViewModel.swift */; };
+		933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933DF61F278BFDE3005966AF /* ExtraWishesViewModel.swift */; };
 		934A21D726515EF300607821 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934A21D626515EF300607821 /* NetworkService.swift */; };
 		934B0E0726A58D4F0008DCE5 /* ModifyPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B0E0626A58D4F0008DCE5 /* ModifyPasswordView.swift */; };
 		934B0E0B26AE887B0008DCE5 /* GuardianViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934B0E0A26AE887B0008DCE5 /* GuardianViewModel.swift */; };
@@ -75,6 +89,21 @@
 		935A59A1265E18EA005B0505 /* UnsubscribeConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */; };
 		935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */; };
 		935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935A59A4265F7029005B0505 /* MessagesBottomView.swift */; };
+		935FFCB22797E63F00290E4C /* OnlineServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCB12797E63F00290E4C /* OnlineServiceViewModel.swift */; };
+		935FFCB6279EC40100290E4C /* NewServiceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCB5279EC40100290E4C /* NewServiceTypeView.swift */; };
+		935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCB7279FA77900290E4C /* CreateOrgView.swift */; };
+		935FFCBA279FE36A00290E4C /* OrganizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCB9279FE36A00290E4C /* OrganizationViewModel.swift */; };
+		935FFCBC27A0162D00290E4C /* SecureAccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */; };
+		93671DA627676447009A4CF1 /* SocialAndServicesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */; };
+		93671DA927676533009A4CF1 /* KeyAccRegSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */; };
+		93671DAB27676562009A4CF1 /* KeyAccRegSMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */; };
+		93671DAD2767657F009A4CF1 /* KeyAccRegEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DAC2767657F009A4CF1 /* KeyAccRegEmailView.swift */; };
+		93671DAF276765C1009A4CF1 /* KeyAccRegPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DAE276765C1009A4CF1 /* KeyAccRegPasswordView.swift */; };
+		93671DB1276765EE009A4CF1 /* KeyAccRegChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DB0276765EE009A4CF1 /* KeyAccRegChoiceView.swift */; };
+		93671DB32767660C009A4CF1 /* KeyAccRegPhoneNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DB22767660C009A4CF1 /* KeyAccRegPhoneNameView.swift */; };
+		93671DB52767661E009A4CF1 /* KeyAccRegTelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DB42767661E009A4CF1 /* KeyAccRegTelView.swift */; };
+		93671DB72767663B009A4CF1 /* KeyAccRegPhonePINView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DB62767663B009A4CF1 /* KeyAccRegPhonePINView.swift */; };
+		93671DB92767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DB82767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift */; };
 		9369D53E265639F100650AA7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D53D265639F100650AA7 /* MenuView.swift */; };
 		9369D54126563DED00650AA7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D54026563DED00650AA7 /* ProfileView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
@@ -97,12 +126,31 @@
 		938313952671E46E00C71C98 /* PHPhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938313922671E46E00C71C98 /* PHPhotoLibrary.swift */; };
 		9383139726787BD800C71C98 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9383139626787BD800C71C98 /* AudioRecorderView.swift */; };
 		938313992678966C00C71C98 /* VideoRecoderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938313982678966C00C71C98 /* VideoRecoderView.swift */; };
+		939CBDAC276CA5B6004520A3 /* KeyAccDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDAB276CA5B6004520A3 /* KeyAccDetailsView.swift */; };
+		939CBDAE276CA5D1004520A3 /* SmartphoneDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDAD276CA5D1004520A3 /* SmartphoneDetailsView.swift */; };
+		939CBDB22771E63F004520A3 /* NewServiceWebSiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDB12771E63E004520A3 /* NewServiceWebSiteView.swift */; };
+		939CBDB42771E67F004520A3 /* ServiceEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDB32771E67F004520A3 /* ServiceEmailView.swift */; };
+		939CBDB62771E699004520A3 /* ServicePhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDB52771E699004520A3 /* ServicePhoneView.swift */; };
+		939CBDB82771E72D004520A3 /* ServiceChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDB72771E72D004520A3 /* ServiceChoiceView.swift */; };
+		939CBDBA2771E75A004520A3 /* ServiceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDB92771E75A004520A3 /* ServiceDetailsView.swift */; };
+		939CBDBC27730F13004520A3 /* SocialChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDBB27730F13004520A3 /* SocialChoiceView.swift */; };
+		939CBDBE27730F41004520A3 /* SocialDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDBD27730F41004520A3 /* SocialDetailsView.swift */; };
+		939CBDC0277311B1004520A3 /* SocialNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDBF277311B1004520A3 /* SocialNoteView.swift */; };
+		939CBDC527731331004520A3 /* SocialAccPicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDC427731331004520A3 /* SocialAccPicView.swift */; };
+		939CBDC727732303004520A3 /* SocialPostTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDC627732303004520A3 /* SocialPostTimeView.swift */; };
+		939CBDCA27732650004520A3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 939CBDC927732650004520A3 /* Introspect */; };
+		939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDCB27732AC1004520A3 /* SocialMemorialAccView.swift */; };
+		939CBDCF27841FD1004520A3 /* FuneralOrgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */; };
+		939CBDD1278471EA004520A3 /* FuneralAnnounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */; };
+		939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */; };
+		939CBDD52786F50A004520A3 /* FuneralSpritualityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */; };
+		939CBDD72786F9D9004520A3 /* DeathAnnouncementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */; };
 		93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */; };
 		93AC01E12716B68000FD7285 /* ModifyMobileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E02716B68000FD7285 /* ModifyMobileView.swift */; };
 		93AC01E32716E0D100FD7285 /* GuardianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E22716E0D100FD7285 /* GuardianView.swift */; };
 		93AC01E5271844A300FD7285 /* WishesMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E4271844A200FD7285 /* WishesMenuView.swift */; };
 		93AC01E8271D476A00FD7285 /* FuneralChoiceIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E7271D476900FD7285 /* FuneralChoiceIntro.swift */; };
-		93AC01EA271D494900FD7285 /* FuneralChoiceBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E9271D494900FD7285 /* FuneralChoiceBaseView.swift */; };
+		93AC01EA271D494900FD7285 /* FlowBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E9271D494900FD7285 /* FlowBaseView.swift */; };
 		93AC01EC271D50EF00FD7285 /* FuneralTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01EB271D50EF00FD7285 /* FuneralTypeView.swift */; };
 		93AC01EE271D873E00FD7285 /* FuneralPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01ED271D873E00FD7285 /* FuneralPlaceView.swift */; };
 		93AC01F0271D878900FD7285 /* FuneralCoffinMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01EF271D878900FD7285 /* FuneralCoffinMaterial.swift */; };
@@ -206,7 +254,7 @@
 		93AC02CD274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02C1274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift */; };
 		93AC02D5274B64B400FD7285 /* DonationOrgsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */; };
 		93AC02D6274B64B400FD7285 /* DonationOrgNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */; };
-		93AC02D8274B64B400FD7285 /* DonationOrgList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D1274B64B400FD7285 /* DonationOrgList.swift */; };
+		93AC02D8274B64B400FD7285 /* DonationOrgOganizationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */; };
 		93AC02D9274B64B400FD7285 /* DonationOrgDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */; };
 		93AC02DA274B64B400FD7285 /* DonationOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D3274B64B400FD7285 /* DonationOrganization.swift */; };
 		93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */; };
@@ -275,11 +323,25 @@
 		932FF8C026CF80ED00DE52F9 /* VideoTrimView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTrimView.swift; sourceTree = "<group>"; };
 		932FF8C226D3779100DE52F9 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		932FF8C526D5065200DE52F9 /* VideoFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFilterView.swift; sourceTree = "<group>"; };
+		933911012768A80A00E262B3 /* KeyAccViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccViewModel.swift; sourceTree = "<group>"; };
+		93391109276C759200E262B3 /* ServicesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesListView.swift; sourceTree = "<group>"; };
+		9339110C276C7AF700E262B3 /* KeyMailsAndPhonesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMailsAndPhonesView.swift; sourceTree = "<group>"; };
 		933AA3092664B563000D6D48 /* MessagesGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesGroupView.swift; sourceTree = "<group>"; };
 		933AA30B2664EBA1000D6D48 /* PhotosSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosSelectionView.swift; sourceTree = "<group>"; };
 		933AA30F26674FD8000D6D48 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		933AA311266754F0000D6D48 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		933AA31326675B62000D6D48 /* CustomImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImagePicker.swift; sourceTree = "<group>"; };
+		933DF60927886640005966AF /* FuneralLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralLocationViewModel.swift; sourceTree = "<group>"; };
+		933DF60B27886E4F005966AF /* FuneralAstheticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralAstheticViewModel.swift; sourceTree = "<group>"; };
+		933DF60D27886ECC005966AF /* FuneralMusicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralMusicViewModel.swift; sourceTree = "<group>"; };
+		933DF60F27887E0A005966AF /* ClothDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothDonationViewModel.swift; sourceTree = "<group>"; };
+		933DF61127887EC8005966AF /* ObjectDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDonationViewModel.swift; sourceTree = "<group>"; };
+		933DF61327887F86005966AF /* AnimalDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDonationViewModel.swift; sourceTree = "<group>"; };
+		933DF617278BFB91005966AF /* DonationOrgViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationOrgViewModel.swift; sourceTree = "<group>"; };
+		933DF619278BFC11005966AF /* AdminDocViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDocViewModel.swift; sourceTree = "<group>"; };
+		933DF61B278BFC61005966AF /* PracticalCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticalCodeViewModel.swift; sourceTree = "<group>"; };
+		933DF61D278BFD44005966AF /* ContractViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractViewModel.swift; sourceTree = "<group>"; };
+		933DF61F278BFDE3005966AF /* ExtraWishesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraWishesViewModel.swift; sourceTree = "<group>"; };
 		934A21D626515EF300607821 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		934B0E0626A58D4F0008DCE5 /* ModifyPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyPasswordView.swift; sourceTree = "<group>"; };
 		934B0E0A26AE887B0008DCE5 /* GuardianViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianViewModel.swift; sourceTree = "<group>"; };
@@ -334,6 +396,21 @@
 		935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeConfirmView.swift; sourceTree = "<group>"; };
 		935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsubscribeReasonView.swift; sourceTree = "<group>"; };
 		935A59A4265F7029005B0505 /* MessagesBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesBottomView.swift; sourceTree = "<group>"; };
+		935FFCB12797E63F00290E4C /* OnlineServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineServiceViewModel.swift; sourceTree = "<group>"; };
+		935FFCB5279EC40100290E4C /* NewServiceTypeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewServiceTypeView.swift; sourceTree = "<group>"; };
+		935FFCB7279FA77900290E4C /* CreateOrgView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrgView.swift; sourceTree = "<group>"; };
+		935FFCB9279FE36A00290E4C /* OrganizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewModel.swift; sourceTree = "<group>"; };
+		935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureAccessViewModel.swift; sourceTree = "<group>"; };
+		93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAndServicesHomeView.swift; sourceTree = "<group>"; };
+		93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSecView.swift; sourceTree = "<group>"; };
+		93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSMSView.swift; sourceTree = "<group>"; };
+		93671DAC2767657F009A4CF1 /* KeyAccRegEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegEmailView.swift; sourceTree = "<group>"; };
+		93671DAE276765C1009A4CF1 /* KeyAccRegPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegPasswordView.swift; sourceTree = "<group>"; };
+		93671DB0276765EE009A4CF1 /* KeyAccRegChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegChoiceView.swift; sourceTree = "<group>"; };
+		93671DB22767660C009A4CF1 /* KeyAccRegPhoneNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegPhoneNameView.swift; sourceTree = "<group>"; };
+		93671DB42767661E009A4CF1 /* KeyAccRegTelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegTelView.swift; sourceTree = "<group>"; };
+		93671DB62767663B009A4CF1 /* KeyAccRegPhonePINView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegPhonePINView.swift; sourceTree = "<group>"; };
+		93671DB82767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegPhoneCodeView.swift; sourceTree = "<group>"; };
 		9369D53D265639F100650AA7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9369D54026563DED00650AA7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -355,12 +432,30 @@
 		938313922671E46E00C71C98 /* PHPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHPhotoLibrary.swift; sourceTree = "<group>"; };
 		9383139626787BD800C71C98 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		938313982678966C00C71C98 /* VideoRecoderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecoderView.swift; sourceTree = "<group>"; };
+		939CBDAB276CA5B6004520A3 /* KeyAccDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccDetailsView.swift; sourceTree = "<group>"; };
+		939CBDAD276CA5D1004520A3 /* SmartphoneDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartphoneDetailsView.swift; sourceTree = "<group>"; };
+		939CBDB12771E63E004520A3 /* NewServiceWebSiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServiceWebSiteView.swift; sourceTree = "<group>"; };
+		939CBDB32771E67F004520A3 /* ServiceEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceEmailView.swift; sourceTree = "<group>"; };
+		939CBDB52771E699004520A3 /* ServicePhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePhoneView.swift; sourceTree = "<group>"; };
+		939CBDB72771E72D004520A3 /* ServiceChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceChoiceView.swift; sourceTree = "<group>"; };
+		939CBDB92771E75A004520A3 /* ServiceDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailsView.swift; sourceTree = "<group>"; };
+		939CBDBB27730F13004520A3 /* SocialChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialChoiceView.swift; sourceTree = "<group>"; };
+		939CBDBD27730F41004520A3 /* SocialDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialDetailsView.swift; sourceTree = "<group>"; };
+		939CBDBF277311B1004520A3 /* SocialNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNoteView.swift; sourceTree = "<group>"; };
+		939CBDC427731331004520A3 /* SocialAccPicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialAccPicView.swift; sourceTree = "<group>"; };
+		939CBDC627732303004520A3 /* SocialPostTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialPostTimeView.swift; sourceTree = "<group>"; };
+		939CBDCB27732AC1004520A3 /* SocialMemorialAccView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMemorialAccView.swift; sourceTree = "<group>"; };
+		939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralOrgViewModel.swift; sourceTree = "<group>"; };
+		939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralAnnounce.swift; sourceTree = "<group>"; };
+		939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganDonationViewModel.swift; sourceTree = "<group>"; };
+		939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralSpritualityViewModel.swift; sourceTree = "<group>"; };
+		939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathAnnouncementViewModel.swift; sourceTree = "<group>"; };
 		93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailView.swift; sourceTree = "<group>"; };
 		93AC01E02716B68000FD7285 /* ModifyMobileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileView.swift; sourceTree = "<group>"; };
 		93AC01E22716E0D100FD7285 /* GuardianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianView.swift; sourceTree = "<group>"; };
 		93AC01E4271844A200FD7285 /* WishesMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishesMenuView.swift; sourceTree = "<group>"; };
 		93AC01E7271D476900FD7285 /* FuneralChoiceIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralChoiceIntro.swift; sourceTree = "<group>"; };
-		93AC01E9271D494900FD7285 /* FuneralChoiceBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralChoiceBaseView.swift; sourceTree = "<group>"; };
+		93AC01E9271D494900FD7285 /* FlowBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlowBaseView.swift; sourceTree = "<group>"; };
 		93AC01EB271D50EF00FD7285 /* FuneralTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralTypeView.swift; sourceTree = "<group>"; };
 		93AC01ED271D873E00FD7285 /* FuneralPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralPlaceView.swift; sourceTree = "<group>"; };
 		93AC01EF271D878900FD7285 /* FuneralCoffinMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralCoffinMaterial.swift; sourceTree = "<group>"; };
@@ -464,7 +559,7 @@
 		93AC02C1274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationPlaceSelection.swift; sourceTree = "<group>"; };
 		93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgsList.swift; sourceTree = "<group>"; };
 		93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgNote.swift; sourceTree = "<group>"; };
-		93AC02D1274B64B400FD7285 /* DonationOrgList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgList.swift; sourceTree = "<group>"; };
+		93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgOganizationList.swift; sourceTree = "<group>"; };
 		93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgDetails.swift; sourceTree = "<group>"; };
 		93AC02D3274B64B400FD7285 /* DonationOrganization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrganization.swift; sourceTree = "<group>"; };
 		93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgNew.swift; sourceTree = "<group>"; };
@@ -508,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93EFE7DF26A06C1C00F50894 /* SwiftUIX in Frameworks */,
+				939CBDCA27732650004520A3 /* Introspect in Frameworks */,
 				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
 				93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */,
 			);
@@ -582,6 +678,64 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		93391108276C755500E262B3 /* KeyAccManagement */ = {
+			isa = PBXGroup;
+			children = (
+				9339110C276C7AF700E262B3 /* KeyMailsAndPhonesView.swift */,
+				939CBDAB276CA5B6004520A3 /* KeyAccDetailsView.swift */,
+				939CBDAD276CA5D1004520A3 /* SmartphoneDetailsView.swift */,
+			);
+			path = KeyAccManagement;
+			sourceTree = "<group>";
+		};
+		9339110B276C759A00E262B3 /* SocialAndServicesAccounts */ = {
+			isa = PBXGroup;
+			children = (
+				93391109276C759200E262B3 /* ServicesListView.swift */,
+				935FFCB5279EC40100290E4C /* NewServiceTypeView.swift */,
+				939CBDB12771E63E004520A3 /* NewServiceWebSiteView.swift */,
+				939CBDB32771E67F004520A3 /* ServiceEmailView.swift */,
+				939CBDB52771E699004520A3 /* ServicePhoneView.swift */,
+				939CBDCD27732BC5004520A3 /* Service */,
+				939CBDC3277312C5004520A3 /* Social */,
+			);
+			path = SocialAndServicesAccounts;
+			sourceTree = "<group>";
+		};
+		933DF6152788828D005966AF /* Wishes */ = {
+			isa = PBXGroup;
+			children = (
+				93AC01FF2721474C00FD7285 /* FuneralChoicesViewModel.swift */,
+				939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */,
+				939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */,
+				939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */,
+				939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */,
+				939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */,
+				933DF60927886640005966AF /* FuneralLocationViewModel.swift */,
+				933DF60B27886E4F005966AF /* FuneralAstheticViewModel.swift */,
+				933DF60D27886ECC005966AF /* FuneralMusicViewModel.swift */,
+				933DF60F27887E0A005966AF /* ClothDonationViewModel.swift */,
+				933DF61127887EC8005966AF /* ObjectDonationViewModel.swift */,
+				933DF61327887F86005966AF /* AnimalDonationViewModel.swift */,
+				933DF617278BFB91005966AF /* DonationOrgViewModel.swift */,
+				933DF619278BFC11005966AF /* AdminDocViewModel.swift */,
+				933DF61B278BFC61005966AF /* PracticalCodeViewModel.swift */,
+				933DF61D278BFD44005966AF /* ContractViewModel.swift */,
+				933DF61F278BFDE3005966AF /* ExtraWishesViewModel.swift */,
+				935FFCB9279FE36A00290E4C /* OrganizationViewModel.swift */,
+			);
+			path = Wishes;
+			sourceTree = "<group>";
+		};
+		933DF616278882BC005966AF /* SocialAndServices */ = {
+			isa = PBXGroup;
+			children = (
+				933911012768A80A00E262B3 /* KeyAccViewModel.swift */,
+				935FFCB12797E63F00290E4C /* OnlineServiceViewModel.swift */,
+			);
+			path = SocialAndServices;
+			sourceTree = "<group>";
+		};
 		93553A652647015D0027BA06 = {
 			isa = PBXGroup;
 			children = (
@@ -653,10 +807,12 @@
 				93553A87264701E60027BA06 /* LoginView.swift */,
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
 				93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */,
+				93AC01E9271D494900FD7285 /* FlowBaseView.swift */,
 				93553A88264701E60027BA06 /* Signup */,
 				9369D53C2656399500650AA7 /* Home */,
 				935A59A6265F7032005B0505 /* Messages */,
 				93AC01E62718453E00FD7285 /* Wishes */,
+				93671DA727676461009A4CF1 /* SocialAndServices */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -702,6 +858,33 @@
 				932FF8B626C1312500DE52F9 /* Audio */,
 			);
 			path = Messages;
+			sourceTree = "<group>";
+		};
+		93671DA727676461009A4CF1 /* SocialAndServices */ = {
+			isa = PBXGroup;
+			children = (
+				93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */,
+				93671DBA27676BAE009A4CF1 /* KeyAccRegistration */,
+				93391108276C755500E262B3 /* KeyAccManagement */,
+				9339110B276C759A00E262B3 /* SocialAndServicesAccounts */,
+			);
+			path = SocialAndServices;
+			sourceTree = "<group>";
+		};
+		93671DBA27676BAE009A4CF1 /* KeyAccRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */,
+				93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */,
+				93671DAC2767657F009A4CF1 /* KeyAccRegEmailView.swift */,
+				93671DAE276765C1009A4CF1 /* KeyAccRegPasswordView.swift */,
+				93671DB0276765EE009A4CF1 /* KeyAccRegChoiceView.swift */,
+				93671DB22767660C009A4CF1 /* KeyAccRegPhoneNameView.swift */,
+				93671DB42767661E009A4CF1 /* KeyAccRegTelView.swift */,
+				93671DB62767663B009A4CF1 /* KeyAccRegPhonePINView.swift */,
+				93671DB82767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift */,
+			);
+			path = KeyAccRegistration;
 			sourceTree = "<group>";
 		};
 		9369D53C2656399500650AA7 /* Home */ = {
@@ -777,11 +960,32 @@
 			path = Photo;
 			sourceTree = "<group>";
 		};
+		939CBDC3277312C5004520A3 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				939CBDBB27730F13004520A3 /* SocialChoiceView.swift */,
+				939CBDBF277311B1004520A3 /* SocialNoteView.swift */,
+				939CBDC427731331004520A3 /* SocialAccPicView.swift */,
+				939CBDC627732303004520A3 /* SocialPostTimeView.swift */,
+				939CBDCB27732AC1004520A3 /* SocialMemorialAccView.swift */,
+				939CBDBD27730F41004520A3 /* SocialDetailsView.swift */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
+		939CBDCD27732BC5004520A3 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				939CBDB72771E72D004520A3 /* ServiceChoiceView.swift */,
+				939CBDB92771E75A004520A3 /* ServiceDetailsView.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		93AC01E62718453E00FD7285 /* Wishes */ = {
 			isa = PBXGroup;
 			children = (
 				93AC01E4271844A200FD7285 /* WishesMenuView.swift */,
-				93AC01E9271D494900FD7285 /* FuneralChoiceBaseView.swift */,
 				93AC01FD271FEB2800FD7285 /* FuneralDoneView.swift */,
 				93AC026727326D7900FD7285 /* ExtraWishes */,
 				93AC02832746619D00FD7285 /* ManagedContracts */,
@@ -974,10 +1178,11 @@
 		93AC026927326E3500FD7285 /* DonationOrganizations */ = {
 			isa = PBXGroup;
 			children = (
+				935FFCB7279FA77900290E4C /* CreateOrgView.swift */,
 				93AC026127326CB700FD7285 /* DonationOrgsIntro.swift */,
 				93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */,
 				93AC02D3274B64B400FD7285 /* DonationOrganization.swift */,
-				93AC02D1274B64B400FD7285 /* DonationOrgList.swift */,
+				93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */,
 				93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */,
 				93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */,
 				93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */,
@@ -1061,7 +1266,9 @@
 				934B0E1826B28FFC0008DCE5 /* AudioViewModel.swift */,
 				934B0E1A26B2904E0008DCE5 /* VideoViewModel.swift */,
 				934B0E1C26B290640008DCE5 /* GalleryViewModel.swift */,
-				93AC01FF2721474C00FD7285 /* FuneralChoicesViewModel.swift */,
+				935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */,
+				933DF6152788828D005966AF /* Wishes */,
+				933DF616278882BC005966AF /* SocialAndServices */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1107,6 +1314,7 @@
 				933AA316266A661F000D6D48 /* NavigationStack */,
 				93EFE7DE26A06C1C00F50894 /* SwiftUIX */,
 				93F08DBC26FD8F1000CC3030 /* Peppermint */,
+				939CBDC927732650004520A3 /* Introspect */,
 			);
 			productName = Messangel;
 			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
@@ -1139,6 +1347,7 @@
 				933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */,
 				93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */,
+				939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
 			projectDirPath = "";
@@ -1195,11 +1404,16 @@
 				93EFE7EE26A15D9700F50894 /* SignupGenderView.swift in Sources */,
 				93AC02CC274B5B4000FD7285 /* AnimalDonationCount.swift in Sources */,
 				933AA30C2664EBA1000D6D48 /* PhotosSelectionView.swift in Sources */,
-				93AC02D8274B64B400FD7285 /* DonationOrgList.swift in Sources */,
+				935FFCBC27A0162D00290E4C /* SecureAccessViewModel.swift in Sources */,
+				939CBDCF27841FD1004520A3 /* FuneralOrgViewModel.swift in Sources */,
+				93AC02D8274B64B400FD7285 /* DonationOrgOganizationList.swift in Sources */,
 				93AC029B27476F2800FD7285 /* ClothsDonationsList.swift in Sources */,
+				939CBDB22771E63F004520A3 /* NewServiceWebSiteView.swift in Sources */,
 				9369D53E265639F100650AA7 /* MenuView.swift in Sources */,
+				93671DAF276765C1009A4CF1 /* KeyAccRegPasswordView.swift in Sources */,
 				934A21D726515EF300607821 /* NetworkService.swift in Sources */,
 				93AC01F4271D87D800FD7285 /* FuneralCoffinInterior.swift in Sources */,
+				933911022768A80A00E262B3 /* KeyAccViewModel.swift in Sources */,
 				93AC02CA274B5B4000FD7285 /* AnimalDonationOrgList.swift in Sources */,
 				934B0E1D26B290640008DCE5 /* GalleryViewModel.swift in Sources */,
 				93AC0228272689BF00FD7285 /* OrganDonateChoice.swift in Sources */,
@@ -1210,16 +1424,22 @@
 				937CA4B72653E7A3004A0227 /* GuardianFormBaseView.swift in Sources */,
 				935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */,
 				934B0E0B26AE887B0008DCE5 /* GuardianViewModel.swift in Sources */,
+				939CBDAE276CA5D1004520A3 /* SmartphoneDetailsView.swift in Sources */,
 				937CA4C12654FC5E004A0227 /* GuardianFormLegalAgeView.swift in Sources */,
+				939CBDBC27730F13004520A3 /* SocialChoiceView.swift in Sources */,
 				93AC02892747658E00FD7285 /* ClothsDonationName.swift in Sources */,
 				93AC02F5274B706C00FD7285 /* PracticalCodeDetails.swift in Sources */,
-				93AC01EA271D494900FD7285 /* FuneralChoiceBaseView.swift in Sources */,
+				939CBDBE27730F41004520A3 /* SocialDetailsView.swift in Sources */,
+				93AC01EA271D494900FD7285 /* FlowBaseView.swift in Sources */,
 				93AC01FC271FEADD00FD7285 /* FuneralTakeWithObjects.swift in Sources */,
 				93AC026E2746137800FD7285 /* FuneralMusicNew.swift in Sources */,
 				93AC01E32716E0D100FD7285 /* GuardianView.swift in Sources */,
+				939CBDBA2771E75A004520A3 /* ServiceDetailsView.swift in Sources */,
 				93EFE7E826A15D9700F50894 /* SignupEmailView.swift in Sources */,
 				93AC026627326D1E00FD7285 /* ExtraWishesIntro.swift in Sources */,
 				93AC026227326CB700FD7285 /* DonationOrgsIntro.swift in Sources */,
+				93671DB92767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift in Sources */,
+				933DF61227887EC8005966AF /* ObjectDonationViewModel.swift in Sources */,
 				93AC020C2721970300FD7285 /* FuneralOrgType.swift in Sources */,
 				937CA4BF2654FB36004A0227 /* GuardianFormConfirmEmailView.swift in Sources */,
 				93AC02C7274B5B4000FD7285 /* AnimalDonationContactsList.swift in Sources */,
@@ -1233,6 +1453,7 @@
 				938313992678966C00C71C98 /* VideoRecoderView.swift in Sources */,
 				93AC01F6271D952900FD7285 /* FuneralCoffinAccessory.swift in Sources */,
 				93AC02AE274B56DE00FD7285 /* ObjectsDonationNote.swift in Sources */,
+				935FFCBA279FE36A00290E4C /* OrganizationViewModel.swift in Sources */,
 				93AC027F274660D700FD7285 /* PracticalCodesIntro.swift in Sources */,
 				93AC02E3274B695B00FD7285 /* AdminDocsNote.swift in Sources */,
 				93AC02872747633A00FD7285 /* ClothsDonationCount.swift in Sources */,
@@ -1250,9 +1471,12 @@
 				93AC01F0271D878900FD7285 /* FuneralCoffinMaterial.swift in Sources */,
 				93EFE7D326971D8200F50894 /* DocTitleView.swift in Sources */,
 				93AC02C2274B5B4000FD7285 /* AnimalDonationsList.swift in Sources */,
+				933DF61027887E0A005966AF /* ClothDonationViewModel.swift in Sources */,
 				93EFE7D5269BD73500F50894 /* DocGroupView.swift in Sources */,
+				939CBDC0277311B1004520A3 /* SocialNoteView.swift in Sources */,
 				933AA30A2664B563000D6D48 /* MessagesGroupView.swift in Sources */,
 				93AC02702746156600FD7285 /* FuneralMusicArtist.swift in Sources */,
+				93671DA927676533009A4CF1 /* KeyAccRegSecView.swift in Sources */,
 				93AC02EE274B6C8B00FD7285 /* ManagedContractName.swift in Sources */,
 				93553A99264701E60027BA06 /* LoginView.swift in Sources */,
 				93AEEF4F26709B8500D99BC2 /* Observable.swift in Sources */,
@@ -1260,6 +1484,7 @@
 				93AC02D9274B64B400FD7285 /* DonationOrgDetails.swift in Sources */,
 				93AC02AB274B56DE00FD7285 /* ObjectsDonationPlaceSelection.swift in Sources */,
 				93AC020E2721978D00FD7285 /* FuneralOrgContractType.swift in Sources */,
+				933DF618278BFB91005966AF /* DonationOrgViewModel.swift in Sources */,
 				9313BA8B2689A467008F566C /* RichEditorToolbar.swift in Sources */,
 				93AC02C3274B5B4000FD7285 /* AnimalDonationDetails.swift in Sources */,
 				93AC021D2726775600FD7285 /* FuneralInvitePic.swift in Sources */,
@@ -1269,30 +1494,38 @@
 				93AC02B2274B56DE00FD7285 /* ObjectsDonationOrgList.swift in Sources */,
 				93553AAE2648CD680027BA06 /* Auth.swift in Sources */,
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
+				939CBDB62771E699004520A3 /* ServicePhoneView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
 				93AC02042721693700FD7285 /* FuneralUrnStyle.swift in Sources */,
+				93671DB32767660C009A4CF1 /* KeyAccRegPhoneNameView.swift in Sources */,
 				93AC02F4274B706C00FD7285 /* PracticalCodeName.swift in Sources */,
 				935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */,
 				932FF8BA26C136BD00DE52F9 /* AudioGroupView.swift in Sources */,
 				93AC02002721474C00FD7285 /* FuneralChoicesViewModel.swift in Sources */,
+				939CBDD52786F50A004520A3 /* FuneralSpritualityViewModel.swift in Sources */,
 				93AC02E2274B695B00FD7285 /* AdminDocsDetails.swift in Sources */,
 				9354046A26C0C8B4004BE5B9 /* TextAlert.swift in Sources */,
 				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
 				93AC021A2726769000FD7285 /* FuneralInviteIntro.swift in Sources */,
 				93AC01FA271FE9B100FD7285 /* FuneralOutfit.swift in Sources */,
+				939CBDD72786F9D9004520A3 /* DeathAnnouncementViewModel.swift in Sources */,
 				93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
 				93AC024B2727D8AD00FD7285 /* FuneralReunionPlace.swift in Sources */,
 				93AC02092721952F00FD7285 /* FuneralOrgIntro.swift in Sources */,
 				93AC026C2732702800FD7285 /* ExtraWishesDetails.swift in Sources */,
+				935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
+				939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */,
 				93AC022E2726918B00FD7285 /* OrganDonateRefusalNotReg.swift in Sources */,
 				93AC01EC271D50EF00FD7285 /* FuneralTypeView.swift in Sources */,
 				93EFE7EA26A15D9700F50894 /* SignupTelIntroView.swift in Sources */,
 				93AC02302726B65300FD7285 /* FuneralTraditionsIntro.swift in Sources */,
+				933DF60C27886E4F005966AF /* FuneralAstheticViewModel.swift in Sources */,
 				93816BA32692D21D0060DC0C /* PDF.swift in Sources */,
 				93AC0285274761D900FD7285 /* ClothsDonationNew.swift in Sources */,
+				939CBDD1278471EA004520A3 /* FuneralAnnounce.swift in Sources */,
 				937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */,
 				935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */,
 				93AC02432727D76C00FD7285 /* FuneralPlaceName.swift in Sources */,
@@ -1304,10 +1537,14 @@
 				93AC022C27268F5100FD7285 /* OrganDonateBody.swift in Sources */,
 				935A5996265BB02B005B0505 /* SuggestionsView.swift in Sources */,
 				93AC0206272169B700FD7285 /* FuneralAshPlace.swift in Sources */,
+				933DF61C278BFC61005966AF /* PracticalCodeViewModel.swift in Sources */,
 				932FF8B126C1309300DE52F9 /* VideoTitleView.swift in Sources */,
 				934B0E0726A58D4F0008DCE5 /* ModifyPasswordView.swift in Sources */,
+				93671DB1276765EE009A4CF1 /* KeyAccRegChoiceView.swift in Sources */,
 				93AC02212726795B00FD7285 /* FuneralInviteText.swift in Sources */,
+				935FFCB22797E63F00290E4C /* OnlineServiceViewModel.swift in Sources */,
 				93EFE7E726A15D9700F50894 /* SignupPostcodeView.swift in Sources */,
+				939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */,
 				93AC029527476C9300FD7285 /* ClothsDonationContactsList.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
 				938313952671E46E00C71C98 /* PHPhotoLibrary.swift in Sources */,
@@ -1323,6 +1560,8 @@
 				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
 				93EFE7D02695EA3700F50894 /* TextViewWrapper+UITextView.swift in Sources */,
 				93AC02102721982400FD7285 /* FuneralContractCompany.swift in Sources */,
+				93671DB72767663B009A4CF1 /* KeyAccRegPhonePINView.swift in Sources */,
+				93671DAD2767657F009A4CF1 /* KeyAccRegEmailView.swift in Sources */,
 				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
 				93AC02EF274B6C8B00FD7285 /* ManagedContractDetails.swift in Sources */,
 				93AC02252726817900FD7285 /* OrganDonateIntro.swift in Sources */,
@@ -1340,6 +1579,7 @@
 				93AC02AD274B56DE00FD7285 /* ObjectsDonationPic.swift in Sources */,
 				93AC029727476E3C00FD7285 /* ClothsDonationPic.swift in Sources */,
 				93AC02352726C92300FD7285 /* FuneralBurialPlace.swift in Sources */,
+				93671DAB27676562009A4CF1 /* KeyAccRegSMSView.swift in Sources */,
 				93AC02392726D9AE00FD7285 /* DeathAnnounceContacts.swift in Sources */,
 				93ADF5B1268060D100BB9F14 /* StopWatchManager.swift in Sources */,
 				93AC01E12716B68000FD7285 /* ModifyMobileView.swift in Sources */,
@@ -1348,19 +1588,24 @@
 				93AC02182721BBFF00FD7285 /* FuneralCompaniesList.swift in Sources */,
 				93AC029327476C5900FD7285 /* ClothsDonationContact.swift in Sources */,
 				93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */,
+				939CBDB82771E72D004520A3 /* ServiceChoiceView.swift in Sources */,
 				93AC02782746212200FD7285 /* FuneralMusicDetails.swift in Sources */,
+				9339110A276C759200E262B3 /* ServicesListView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
 				93AC02EB274B6C8B00FD7285 /* ManagedContractNew.swift in Sources */,
 				933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */,
 				93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */,
+				933DF60A27886640005966AF /* FuneralLocationViewModel.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
 				935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */,
+				939CBDC727732303004520A3 /* SocialPostTimeView.swift in Sources */,
 				93AC02142721989900FD7285 /* FuneralContractNo.swift in Sources */,
 				93AC024F2727E0EB00FD7285 /* FuneralAestheticIntro.swift in Sources */,
 				93AC02522727E41400FD7285 /* FuneralFlowers.swift in Sources */,
 				93AC02C5274B5B4000FD7285 /* AnimalDonationNew.swift in Sources */,
 				93AC02D6274B64B400FD7285 /* DonationOrgNote.swift in Sources */,
 				938313932671E46E00C71C98 /* PHAssetCollection.swift in Sources */,
+				9339110D276C7AF700E262B3 /* KeyMailsAndPhonesView.swift in Sources */,
 				93553AA8264802A90027BA06 /* Extensions.swift in Sources */,
 				93AC023E2727D69300FD7285 /* FuneralPlacesIntro.swift in Sources */,
 				935A59A1265E18EA005B0505 /* UnsubscribeConfirmView.swift in Sources */,
@@ -1368,17 +1613,25 @@
 				932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */,
 				93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */,
 				93AC028F274769FB00FD7285 /* ClothsDonationOrgList.swift in Sources */,
+				933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */,
 				93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */,
 				932FF8B326C130CC00DE52F9 /* VideoGroupView.swift in Sources */,
 				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
 				93AC02F9274B73A100FD7285 /* PracticalCodeText.swift in Sources */,
+				933DF61427887F86005966AF /* AnimalDonationViewModel.swift in Sources */,
 				93AC01EE271D873E00FD7285 /* FuneralPlaceView.swift in Sources */,
+				939CBDAC276CA5B6004520A3 /* KeyAccDetailsView.swift in Sources */,
+				933DF61E278BFD44005966AF /* ContractViewModel.swift in Sources */,
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
+				939CBDB42771E67F004520A3 /* ServiceEmailView.swift in Sources */,
+				933DF60E27886ECC005966AF /* FuneralMusicViewModel.swift in Sources */,
+				939CBDC527731331004520A3 /* SocialAccPicView.swift in Sources */,
 				93AC01E5271844A300FD7285 /* WishesMenuView.swift in Sources */,
 				93AC025A273152AD00FD7285 /* FuneralMusicIntro.swift in Sources */,
 				93AC023B2726D9D300FD7285 /* DeathAnnounceContactsList.swift in Sources */,
 				93AC02B0274B56DE00FD7285 /* ObjectsDonationContact.swift in Sources */,
 				93AC02CD274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift in Sources */,
+				93671DA627676447009A4CF1 /* SocialAndServicesHomeView.swift in Sources */,
 				934B0E1526B27FD90008DCE5 /* GroupViewModel.swift in Sources */,
 				93AC02C9274B5B4000FD7285 /* AnimalDonationOrganization.swift in Sources */,
 				93AC02B4274B56DE00FD7285 /* ObjectsDonationName.swift in Sources */,
@@ -1387,6 +1640,7 @@
 				93AC024D2727D8D300FD7285 /* FuneralPlaceSpecials.swift in Sources */,
 				93AC029927476EB600FD7285 /* ClothsDonationNote.swift in Sources */,
 				93AC02B1274B56DE00FD7285 /* ObjectsDonationCount.swift in Sources */,
+				933DF61A278BFC11005966AF /* AdminDocViewModel.swift in Sources */,
 				93AC02472727D80600FD7285 /* FuneralRestingPlace.swift in Sources */,
 				934B0E1B26B2904E0008DCE5 /* VideoViewModel.swift in Sources */,
 				935A5998265BB040005B0505 /* FAQView.swift in Sources */,
@@ -1394,6 +1648,7 @@
 				938313942671E46E00C71C98 /* PHAsset.swift in Sources */,
 				934B0E1926B28FFC0008DCE5 /* AudioViewModel.swift in Sources */,
 				93AC02DA274B64B400FD7285 /* DonationOrganization.swift in Sources */,
+				93671DB52767661E009A4CF1 /* KeyAccRegTelView.swift in Sources */,
 				93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */,
 				934B0E1126B119EB0008DCE5 /* SponsorViewModel.swift in Sources */,
 				932FF8C326D3779100DE52F9 /* RangeSlider.swift in Sources */,
@@ -1405,6 +1660,7 @@
 				9313BA802689A467008F566C /* RichEditorView.swift in Sources */,
 				9313BA8C2689A467008F566C /* RichEditorOptionItem.swift in Sources */,
 				93AEEF512670A52300D99BC2 /* AlbumImage.swift in Sources */,
+				935FFCB6279EC40100290E4C /* NewServiceTypeView.swift in Sources */,
 				9383139726787BD800C71C98 /* AudioRecorderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1534,7 +1790,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -1557,7 +1813,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -1606,6 +1862,14 @@
 				kind = branch;
 			};
 		};
+		939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.3;
+			};
+		};
 		93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
@@ -1629,6 +1893,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */;
 			productName = NavigationStack;
+		};
+		939CBDC927732650004520A3 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		93EFE7DE26A06C1C00F50894 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;

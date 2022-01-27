@@ -10,12 +10,12 @@ import NavigationStack
 
 struct AnimalDonationOrgList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un organisme"
     @State private var isEditing = false
-    @State private var compainies = ["Nom de l’organisme"]
-    @Binding var selectedCompany: String
+    @Binding var selectedCompany: Organization
+    @ObservedObject var vm: AnimalDonatiopnViewModel
+
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -60,7 +60,7 @@ struct AnimalDonationOrgList: View {
             ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        compainies.append("Nom de l’organisme")
+//                        compainies.append("Nom de l’organisme")
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -76,10 +76,11 @@ struct AnimalDonationOrgList: View {
                             )
                     }
                     .padding(.bottom)
-                    ForEach(compainies.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { company in
-                            ListItemView(name: company)
+                ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { company in
+                    ListItemView(name: company.name)
                                 .onTapGesture {
                                     selectedCompany = company
+                                    vm.animalDonation.animal_organization_detail = company.id ?? 0
                                     navigationModel.hideTopView()
                                 }
                         }

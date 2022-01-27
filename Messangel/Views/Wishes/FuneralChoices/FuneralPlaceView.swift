@@ -10,10 +10,10 @@ import SwiftUI
 struct FuneralPlaceView: View {
     @State private var showNote = false
     @State private var note = ""
-    var funeralType: FuneralType
+    @ObservedObject var vm: FeneralViewModel
     
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Vous pouvez indiquer le lieu d’inhumation (cimetière, caveau familial…)", destination: AnyView(FuneralCoffinMaterial(funeralType: funeralType)))
+        FuneralNoteView(showNote: $showNote, note: $vm.funeral.place_burial_note, menuTitle: "Choix funéraires", title: "Vous pouvez indiquer le lieu d’inhumation (cimetière, caveau familial…)", destination: AnyView(FuneralCoffinMaterial(vm: vm)))
     }
 }
 
@@ -31,7 +31,7 @@ struct FuneralNoteView: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FuneralChoiceBaseView(note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
+            FlowBaseView(note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
                 VStack(spacing: 0.0) {
                     Rectangle()
                         .fill(Color.gray.opacity(0.2))

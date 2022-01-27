@@ -19,7 +19,7 @@ struct Contact: Codable, Hashable {
 }
 
 class ContactViewModel: ObservableObject {
-    @Published var contact = Contact(id: 0, user: 0, first_name: "", last_name: "", email: "", phone_number: "", legal_age: true)
+    @Published var contact = Contact(id: 0, user: getUserId(), first_name: "", last_name: "", email: "", phone_number: "", legal_age: true)
     @Published var contacts = [Contact]()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
@@ -42,8 +42,8 @@ class ContactViewModel: ObservableObject {
         }
     }
     
-    func getContacts(userId: Int) {
-        APIService.shared.getJSON(model: contacts, urlString: "users/contact/\(userId)") { result in
+    func getContacts() {
+        APIService.shared.getJSON(model: contacts, urlString: "users/contact/\(getUserId())") { result in
             switch result {
             case .success(let contactList):
                 DispatchQueue.main.async {
@@ -56,7 +56,7 @@ class ContactViewModel: ObservableObject {
     }
     
     func delete(userId: Int, contactId: Int, completion: @escaping (Bool) -> Void) {
-        APIService.shared.delete(endpoint: "users/contact/\(userId)/\(contactId)") { result in
+        APIService.shared.delete(endpoint: "users/contact/\(getUserId())/\(contactId)") { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {

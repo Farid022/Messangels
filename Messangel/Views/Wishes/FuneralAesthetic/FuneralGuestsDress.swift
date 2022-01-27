@@ -9,8 +9,9 @@ import SwiftUI
 
 struct FuneralGuestsDress: View {
     @State private var showNote = false
-    @State private var note = ""
+    @ObservedObject var vm: FueneralAstheticViewModel
+    
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Esthétique", title: "Indiquez vos souhaits concernant la tenue des invités", destination: AnyView(FuneralGuestsWearings()))
+        FuneralNoteView(showNote: $showNote, note: $vm.asthetic.attendence_dress_note, menuTitle: "Esthétique", title: "Indiquez vos souhaits concernant la tenue des invités", destination: AnyView(FuneralGuestsWearings(vm: vm)))
     }
 }

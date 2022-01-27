@@ -10,7 +10,6 @@ import NavigationStack
 
 struct CreateContactView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject private var auth: Auth
     @ObservedObject var vm: ContactViewModel
     @State private var minorAge = false
     @State private var isValid = false
@@ -73,7 +72,7 @@ struct CreateContactView: View {
             }
             Button(action: {
                 if isValid {
-                    vm.contact.user = auth.user.id ?? 0
+                    vm.contact.user = getUserId()
                     vm.contact.dob = "\(dob_year)-\((months.firstIndex(of: dob_month) ?? 0) + 1)-\(dob_day)"
                     vm.createContact { success in
                         if success {

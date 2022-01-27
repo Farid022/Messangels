@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct PracticalCodeText: View {
     @State private var codeText = ""
+    @State private var loading = false
+    @EnvironmentObject var navModel: NavigationModel
     
     var body: some View {
-        FuneralChoiceBaseView(menuTitle: "Codes pratiques", title: "Entrez votre code. Vous pouvez ajouter des codes complémentaires si nécessaires", valid: .constant(!codeText.isEmpty), destination: AnyView(PracticalCodesList())) {
+        FlowBaseView(menuTitle: "Codes pratiques", title: "Entrez votre code. Vous pouvez ajouter des codes complémentaires si nécessaires", valid: .constant(!codeText.isEmpty), destination: AnyView(PracticalCodesList())) {
            TextField("code", text: $codeText)
-            .textFieldStyle(MyTextFieldStyle())
             .normalShadow()
         }
     }

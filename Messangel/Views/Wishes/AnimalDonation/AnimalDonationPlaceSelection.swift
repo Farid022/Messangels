@@ -8,11 +8,13 @@
 import SwiftUIX
 
 struct AnimalDonationPlaceSelection: View {
-    private var donationTypes = [ClothsDonationPlace.contact, ClothsDonationPlace.organization]
+    var donationTypes = [ClothsDonationPlace.contact, ClothsDonationPlace.organization]
     @State private var valid = false
     @State private var selectedDonation = ClothsDonationPlace.none
     @State private var showNote = false
     @State private var note = ""
+    @ObservedObject var vm: AnimalDonatiopnViewModel
+
     
     var body: some View {
         ZStack {
@@ -22,10 +24,10 @@ struct AnimalDonationPlaceSelection: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "À qui confier *votre animal *vos animaux?", valid: $valid, destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization()) : AnyView(AnimalDonationContact())) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "À qui confier *votre animal *vos animaux?", valid: $valid, destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
                 HStack {
                     ForEach(donationTypes, id: \.self) { type in
-                        FuneralTypeCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))
+                        ChoiceCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))
                             .onTapGesture {
                                 selectedDonation = type
                             }

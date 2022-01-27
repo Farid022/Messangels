@@ -20,7 +20,7 @@ struct FuneralNewItemView: View {
     var destination: AnyView
     
     var body: some View {
-        FuneralChoiceBaseView(addToList: true, menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
+        FlowBaseView(addToList: true, menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
             EmptyView()
         }
     }

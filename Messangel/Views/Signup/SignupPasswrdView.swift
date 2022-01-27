@@ -5,7 +5,7 @@
 //  Created by Saad on 5/7/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import NavigationStack
 
 struct SignupPasswrdView: View {
@@ -27,13 +27,7 @@ struct SignupPasswrdView: View {
                 .fixedSize(horizontal: false, vertical: true)
             Group {
                 MyTextField(placeholder: "Mot de passe", text: $userVM.user.password.bound, isSecureTextEntry: $hidePassword)
-                MyTextField(placeholder: "Confirmez mot de passe", text: $conformPassword, isSecureTextEntry: $hidePassword, onCommit:  {
-//                    if valid {
-//                        navigationModel.pushContent("SignupPasswrdView") {
-//                            SignupTelIntroView(userVM: userVM)
-//                        }
-//                    }
-                })
+                MyTextField(placeholder: "Confirmez mot de passe", text: $conformPassword, isSecureTextEntry: $hidePassword)
             }
             .xTextFieldStyle()
             .overlay(HStack {
@@ -46,7 +40,7 @@ struct SignupPasswrdView: View {
                         hidePassword.toggle()
                     }
             })
-            Text(userVM.user.password!.count < 8 ? "Sécurité : Insuffisant" : "✓ Sécurité : Bon")
+            Text(userVM.user.password?.count ?? 0 < 8 ? "Sécurité : Insuffisant" : "✓ Sécurité : Bon")
                 .font(.system(size: 13))
                 .padding(.leading)
         }
@@ -59,16 +53,11 @@ struct SignupPasswrdView: View {
     }
     
     private func validate() {
-        self.valid = userVM.user.password!.count >= 8 && userVM.user.password! == self.conformPassword
+        self.valid = userVM.user.password?.count ?? 0 >= 8 && userVM.user.password == self.conformPassword
     }
 }
 
-//struct SignupPasswrdView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupPasswrdView()
-//    }
-//}
-
+// MARK: - MyTextField
 struct MyTextField: UIViewRepresentable {
     var placeholder = ""
     @Binding var text: String
@@ -80,7 +69,6 @@ struct MyTextField: UIViewRepresentable {
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textField.placeholder = placeholder
-       
         textField.delegate = context.coordinator
         
         _ = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: textField)
@@ -112,14 +100,13 @@ struct MyTextField: UIViewRepresentable {
             self.parent = textField
         }
         
-//        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//            if let value = textField.text {
-//                parent.text = value
-//                parent.onChange?(value)
-//            }
-//
-//            return true
-//        }
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            if let currentValue = textField.text as NSString? {
+                let proposedValue = currentValue.replacingCharacters(in: range, with: string) as String
+                self.parent.text = proposedValue
+            }
+            return true
+        }
         func textFieldDidEndEditing(_ textField: UITextField) {
             parent.onCommit()
         }

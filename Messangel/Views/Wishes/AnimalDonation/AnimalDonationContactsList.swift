@@ -10,12 +10,13 @@ import NavigationStack
 
 struct AnimalDonationContactsList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
-    @State private var contacts = ["Prénom Nom 1"]
-    @Binding var selectedContacts: [String]
+    @Binding var selectedContact: Contact
+    @ObservedObject var vm: AnimalDonatiopnViewModel
+    @StateObject private var contactsVM = ContactViewModel()
+
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -60,7 +61,7 @@ struct AnimalDonationContactsList: View {
             ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        contacts.append("Prénom Nom")
+//                        contacts.append("Prénom Nom")
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -76,10 +77,11 @@ struct AnimalDonationContactsList: View {
                             )
                     }
                     .padding(.bottom)
-                    ForEach(contacts.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { contact in
-                            ListItemView(name: contact, image: "ic_contact")
+                ForEach(contactsVM.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
+                            ListItemView(name: "\(contact.first_name) \(contact.last_name)", image: "ic_contact")
                                 .onTapGesture {
-                                    selectedContacts.append(contact)
+                                    selectedContact = contact
+                                    vm.animalDonation.animal_contact_detail = contact.id
                                     navigationModel.hideTopView()
                                 }
                         }

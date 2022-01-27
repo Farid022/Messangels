@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct FuneralCoffinMaterial: View {
-    var choices = ["Chêne", "Sapin", "Pin"]
-    var funeralType: FuneralType
-    @State private var selectedChoice = ""
+    var choices = [
+        FuneralCoice(id: 1, name: "Chêne", image: ""),
+        FuneralCoice(id: 2, name: "Sapin", image: ""),
+        FuneralCoice(id: 3, name: "Pin", image: "")
+    ]
     @State private var noteText = ""
+    @ObservedObject var vm: FeneralViewModel
+    
     var body: some View {
-        FuneralChoicesView(noteText: $noteText, choices: choices, selectedChoice: $selectedChoice, menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(funeralType: funeralType)))
+        FuneralChoicesView(noteText: $noteText, choices: choices, selectedChoice: $vm.funeral.coffin_material, menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)))
     }
 }
 
 struct FuneralChoicesView: View {
     @State var showNote = false
     @Binding var noteText: String
-    var choices: [String]
-    @Binding var selectedChoice: String
+    var choices: [FuneralCoice]
+    @Binding var selectedChoice: Int
     var menuTitle: String
     var title: String
     var destination: AnyView
@@ -34,25 +38,25 @@ struct FuneralChoicesView: View {
                  .background(.black.opacity(0.8))
                  .edgesIgnoringSafeArea(.top)
             }
-            FuneralChoiceBaseView(note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(!selectedChoice.isEmpty), destination: destination) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: -70){
                         ForEach(choices, id: \.self) { choice in
                             VStack(spacing: 0) {
-                                Image(choice)
+                                Image(choice.name)
                                 Rectangle()
-                                    .foregroundColor(selectedChoice == choice ? .accentColor : .white)
+                                    .foregroundColor(selectedChoice == choice.id ? .accentColor : .white)
                                     .frame(width: 161, height: 44)
                                     .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
                                     .overlay(
-                                        Text(choice)
-                                            .foregroundColor(selectedChoice == choice ? .white : .black)
+                                        Text(choice.name)
+                                            .foregroundColor(selectedChoice == choice.id ? .white : .black)
                                     )
                                     .padding(.top, -50)
                             }
                             .thinShadow()
                             .onTapGesture {
-                                selectedChoice = choice
+                                selectedChoice = choice.id
                             }
                         }
                     }

@@ -11,7 +11,6 @@ struct SponsorView: View {
     @State private var legalAge = false
     @State private var alert = false
     @StateObject private var vm = SponsorViewModel()
-    @EnvironmentObject private var auth: Auth
     
     var body: some View {
         MenuBaseView(title: "Parrainer un proche") {
@@ -41,7 +40,7 @@ struct SponsorView: View {
             .toggleStyle(CheckboxToggleStyle())
             .padding(.bottom)
             Button("Envoyer un mail") {
-                vm.sponsor.user = auth.user.id ?? 0
+                vm.sponsor.user = getUserId()
                 vm.sendInvitation {
                     alert.toggle()
                 }

@@ -9,19 +9,22 @@ import SwiftUI
 import NavigationStack
 
 struct AdminDocsList: View {
-    var funeralItems = ["Pièce d’identité", "*NOMDELAPIECE"]
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: AdminDocViewModel
     
     var body: some View {
         FuneralItemList(id:"AdminDocsList", menuTitle: "Pièces administratives") {
-            ForEach(funeralItems, id: \.self) { item in
-                FuneralItemCard(title: item, icon: "ic_doc")
+            ForEach(vm.adminDocs, id: \.self) { item in
+                FuneralItemCard(title: item.name, icon: "ic_doc")
                     .onTapGesture {
                         navigationModel.pushContent("AdminDocsList") {
-                            AdminDocsDetails(title: item)
+                            AdminDocsDetails(title: item.name, note: item.note)
                         }
                     }
             }
+        }
+        .onAppear {
+            vm.getAll()
         }
     }
 }

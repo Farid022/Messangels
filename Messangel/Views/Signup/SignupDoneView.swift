@@ -10,7 +10,7 @@ import SwiftUI
 struct SignupDoneView: View {
     @EnvironmentObject var auth: Auth
     @State private var offset: CGFloat = 200
-    @ObservedObject var userVM: UserViewModel
+    var user: User
 
     var body: some View {
         ZStack {
@@ -38,7 +38,8 @@ struct SignupDoneView: View {
                 Spacer()
                 Button("Démarrer", action: {
                     withAnimation {
-                        self.auth.user = userVM.user
+                        self.auth.user = user
+                        self.auth.updateUser()
                     }
                 })
                     .buttonStyle(MyButtonStyle())

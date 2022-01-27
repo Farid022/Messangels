@@ -61,11 +61,11 @@ private struct AccessView: View {
     }
 }
 
-struct AccessSecurityView_Previews: PreviewProvider {
-    static var previews: some View {
-        AccessSecurityView()
-    }
-}
+//struct AccessSecurityView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AccessSecurityView()
+//    }
+//}
 
 struct AccessSecurityHeader: View {
     var body: some View {

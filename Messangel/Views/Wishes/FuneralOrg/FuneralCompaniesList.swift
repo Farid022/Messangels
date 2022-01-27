@@ -10,12 +10,11 @@ import NavigationStack
 
 struct FuneralCompaniesList: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var auth: Auth
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un organisme"
     @State private var isEditing = false
-    @State private var compainies = ["Nom de l’organisme"]
-    @Binding var selectedCompany: String
+    @Binding var selectedCompany: FuneralCompany
+    @ObservedObject var vm: FuneralOrgViewModel
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -60,7 +59,7 @@ struct FuneralCompaniesList: View {
             ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        compainies.append("Nom de l’organisme")
+//                        compainies.append("Nom de l’organisme")
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -76,17 +75,20 @@ struct FuneralCompaniesList: View {
                             )
                     }
                     .padding(.bottom)
-                    ForEach(compainies.filter({ searchString.isEmpty ? true : $0.contains(searchString)}), id:\.self) { company in
-                            ListItemView(name: company)
+                ForEach(vm.funeralCompanies.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { company in
+                    ListItemView(name: company.name)
                                 .onTapGesture {
                                     selectedCompany = company
+                                    vm.funeralOrg.funeral_company = company.id
                                     navigationModel.hideTopView()
                                 }
                         }
             }
             .padding()
         }
-                
+        .onAppear {
+            vm.getCompanies()
+        }
             
     }
 }
