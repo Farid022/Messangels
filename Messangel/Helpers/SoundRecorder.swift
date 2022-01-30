@@ -10,7 +10,7 @@ import AVFoundation
 
 class SoundRecorder: ObservableObject {
     
-    private var audioRecorder: AVAudioRecorder
+    var audioRecorder: AVAudioRecorder
     private var timer: Timer?
     
     private var currentSample: Int

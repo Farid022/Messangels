@@ -63,7 +63,7 @@ class Networking {
         }
         
         let url = URL(string: "https://messangel.caansoft.com/api/v1/\(endpoint)")!
-//        let url = URL(string: "http://172.16.17.80:8030/api/v1/\(endpoint)")!
+        UserDefaults.standard.removeObject(forKey: url.lastPathComponent)
         print("Request URL: \(url.path)")
         print("Body: \(String(describing: String(data: encoded, encoding: .utf8)))")
         var request = URLRequest(url: url)

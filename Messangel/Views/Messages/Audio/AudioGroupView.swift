@@ -11,11 +11,11 @@ import NavigationStack
 struct AudioGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var selectedGroup = 0
-    var filename: URL
+    var fileUrl: URL
     @State private var valid = false
     @State private var loading = false
     @State private var showNewGroupBox = false
-    @StateObject private var vm = AudioViewModel()
+    @ObservedObject var vm: AudioViewModel
     @EnvironmentObject var groupVM: GroupViewModel
     
     var body: some View {
@@ -61,7 +61,7 @@ struct AudioGroupView: View {
                         Text("Aperçu")
                             .font(.system(size: 17))
                             .fontWeight(.bold)
-                        AudioPreview(fileUrl: filename)
+//                        AudioPreview(fileUrl: filename)
                     }
                     VStack {
                         Text("Choisir ou créer un groupe")
@@ -119,8 +119,8 @@ struct AudioGroupView: View {
     func upload() {
         loading = true
         do {
-            let data = try Data(contentsOf: filename)
-            Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "audio") { result in
+            let data = try Data(contentsOf: fileUrl)
+            Networking.shared.upload(data, fileName: fileUrl.lastPathComponent, fileType: "audio") { result in
                 loading = false
                 switch result {
                 case .success(let response):
@@ -129,9 +129,9 @@ struct AudioGroupView: View {
                         vm.audio.audio_link = response.files.first?.path ?? ""
                         vm.audio.size = "\(response.files.first?.size ?? 0)"
                         vm.audio.group = selectedGroup
-                    }
-                    vm.create {
-                        navigationModel.popContent(TabBarView.id)
+                        vm.create {
+                            navigationModel.popContent(TabBarView.id)
+                        }
                     }
                 case .failure(_):
                    return

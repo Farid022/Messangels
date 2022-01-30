@@ -7,8 +7,8 @@
 
 import SwiftUIX
 import SwiftUI
-
-struct FuneralOrgType: View {
+//Have you already chosen a funeral company?
+struct FuneralCompanyOptionView: View {
     var funeralTypes = [FuneralBool.yes, FuneralBool.no]
     @State private var valid = false
     @State private var selectedFuneral = FuneralBool.none
@@ -24,7 +24,7 @@ struct FuneralOrgType: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: "Avez-vous déjà choisi une entreprise funéraire?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralOrgContractType(vm: vm)) : AnyView(FuneralContractCompany(vm: vm))) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: "Avez-vous déjà choisi une entreprise funéraire?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralContractOptionView(vm: vm)) : AnyView(FuneralContractCompany(vm: vm))) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
                         ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))

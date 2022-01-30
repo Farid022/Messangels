@@ -9,11 +9,11 @@ import SwiftUI
 import NavigationStack
 
 struct AudioTitleView: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var groupVM: GroupViewModel
-    var filename: URL
-    @State var title = ""
-    @State var valid = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var groupVM: GroupViewModel
+    @StateObject private var vm = AudioViewModel()
+    @State private var valid = false
+    var fileUrl: URL
     
     var body: some View {
         NavigationStackView("AudioTitleView") {
@@ -21,14 +21,14 @@ struct AudioTitleView: View {
                 Text("Aperçu")
                     .font(.system(size: 17))
                     .fontWeight(.bold)
-                AudioPreview(fileUrl: filename)
+//                AudioPreview
                 Text("Choisir un titre")
                     .font(.system(size: 17))
                     .fontWeight(.bold)
                     .padding(.bottom)
                     .padding(.top, -20)
-                TextField("Titre de la audéo", text: $title, onCommit: {
-                    valid = !title.isEmpty
+                TextField("Titre de la audéo", text: $vm.audio.name, onCommit: {
+                    valid = !vm.audio.name.isEmpty
                 })
                     .textFieldStyle(MyTextFieldStyle())
                     .normalShadow()
@@ -42,7 +42,7 @@ struct AudioTitleView: View {
                         .overlay(
                             Button(action: {
                                 navigationModel.pushContent("AudioTitleView") {
-                                    AudioGroupView(filename: filename)
+                                    AudioGroupView(fileUrl: fileUrl, vm: vm)
                                 }
                             }) {
                                 Image(systemName: "chevron.right").foregroundColor(Color.white)
@@ -51,12 +51,5 @@ struct AudioTitleView: View {
                 }
             }
         }
-    }
-}
-
-struct AudioPreview: View {
-    var fileUrl: URL
-    var body: some View {
-        Image("Audio_Waves")
     }
 }

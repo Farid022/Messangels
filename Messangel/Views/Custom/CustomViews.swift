@@ -27,12 +27,15 @@ struct NextButton: View {
     var customAction: () -> Void = {}
     var source: String
     var destination: AnyView
+    var color = Color.white
+    var iconColor = Color.accentColor
     
     @Binding var active: Bool
     @EnvironmentObject private var navigationModel: NavigationModel
     
     var body: some View {
         Rectangle()
+            .foregroundColor(color)
             .frame(width: 56, height: 56)
             .cornerRadius(25)
             .opacity(active ? 1 : 0.5)
@@ -47,7 +50,7 @@ struct NextButton: View {
                         }
                     }
                 }) {
-                    Image(systemName: "chevron.right").foregroundColor(.accentColor)
+                    Image(systemName: "chevron.right").foregroundColor(iconColor)
                 }
             )
     }

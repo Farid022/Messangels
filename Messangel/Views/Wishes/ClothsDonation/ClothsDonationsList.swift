@@ -23,6 +23,9 @@ struct ClothsDonationsList: View {
                     }
             }
         }
+        .onDidAppear {
+            vm.getAll()
+        }
     }
 }
 

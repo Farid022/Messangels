@@ -23,6 +23,9 @@ struct ObjectsDonationsList: View {
                     }
             }
         }
+        .onDidAppear {
+            vm.getAll()
+        }
     }
 }
 

@@ -9,19 +9,22 @@ import SwiftUI
 import NavigationStack
 
 struct PracticalCodesList: View {
-    var funeralItems = ["Digicodes appartement Paris", "*NOMDUCODE"]
     @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: PracticalCodeViewModel
     
     var body: some View {
         FuneralItemList(id:"PracticalCodesList", menuTitle: "Codes pratiques") {
-            ForEach(funeralItems, id: \.self) { item in
-                FuneralItemCard(title: item, icon: "ic_doc")
+            ForEach(vm.practicalCodes, id: \.self) { item in
+                FuneralItemCard(title: item.name, icon: "ic_doc")
                     .onTapGesture {
                         navigationModel.pushContent("PracticalCodesList") {
-                            PracticalCodeDetails(title: item)
+                            PracticalCodeDetails(title: item.name, note: item.note)
                         }
                     }
             }
+        }
+        .onDidAppear {
+            vm.getPracticalCodes { _ in }
         }
     }
 }

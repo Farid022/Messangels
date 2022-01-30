@@ -28,6 +28,7 @@ En supprimant ce compte mail, vous supprimerez l’accès à 20 comptes (réseau
                             KeyAccRegSecView(keyAccCase: .delEmail)
                         }
                     }, showAlert: $showDeleteConfirm))
+                    .zIndex(1.0)
             }
             NavigationStackView("KeyAccDetailsView") {
                 ZStack(alignment:.top) {

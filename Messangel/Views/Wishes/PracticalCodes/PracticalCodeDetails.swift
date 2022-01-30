@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PracticalCodeDetails: View {
     var title: String
+    var note: String
     
     var body: some View {
         ZStack(alignment:.top) {
@@ -67,38 +68,7 @@ struct PracticalCodeDetails: View {
                     Text("•••••••• (Code 2)")
                     Spacer()
                 }
-                RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundColor(.gray.opacity(0.2))
-                    .frame(height: 430)
-                    .overlay(VStack {
-                        HStack{
-                            Image("ic_note")
-                            Text("Note")
-                                .font(.system(size: 15), weight: .bold)
-                            Spacer()
-                        }
-                        Text("""
-                                Lorem ipsum dolor sit amet, consetetur
-                                sadipscing elitr, sed diam nonumy
-                                eirmod tempor invidunt ut labore et
-                                dolore magna aliquyam erat, sed diam
-                                voluptua. At vero eos et accusam et justo
-                                duo dolores et ea rebum. Stet clita kasd
-                                gubergren, no sea takimata sanctus est
-                                Lorem ipsum dolor sit amet. Lorem ipsum
-                                dolor sit amet, consetetur sadipscing
-                                elitr, sed diam nonumy.
-                                
-                                Lorem ipsum dolor sit amet, consetetur
-                                sadipscing elitr, sed diam nonumy
-                                eirmod tempor invidunt ut labore et
-                                dolore magna aliquyam erat, sed diam
-                                voluptua.
-                                """)
-                    }
-                    .padding()
-                    )
-                    .padding(.bottom, 30)
+                DetailsNoteView(note: note)
                 HStack {
                     Group {
                         Button(action: {}, label: {

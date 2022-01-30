@@ -137,9 +137,9 @@ struct VideoGroupView: View {
                         vm.video.video_link = response.files.first?.path ?? ""
                         vm.video.size = "\(response.files.first?.size ?? 0)"
                         vm.video.group = selectedGroup
-                    }
-                    vm.create {
-                        navigationModel.popContent(TabBarView.id)
+                        vm.create {
+                            navigationModel.popContent(TabBarView.id)
+                        }
                     }
                 case .failure(_):
                    return

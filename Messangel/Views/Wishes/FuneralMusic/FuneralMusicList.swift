@@ -18,12 +18,12 @@ struct FuneralMusicList: View {
                 FuneralItemCard(title: music.song_title, icon: "ic_music_white")
                     .onTapGesture {
                         navigationModel.pushContent("FuneralMusicList") {
-                            FuneralMusicDetails(title: music.song_title, artist: music.artist_name, note: music.broadcast_song_note)
+                            FuneralMusicDetails(vm: vm, music: music)
                         }
                     }
             }
         }
-        .onAppear() {
+        .onDidAppear() {
             vm.getMusics()
         }
     }
@@ -44,46 +44,56 @@ struct FuneralItemList<Content: View>: View {
                 Color.accentColor
                     .frame(height:70)
                     .edgesIgnoringSafeArea(.top)
-                VStack(spacing: 20) {
-                    Color.accentColor
-                        .frame(height:90)
-                        .padding(.horizontal, -20)
-                        .overlay(
-                            HStack {
-                                BackButton()
-                                Spacer()
-                            }, alignment: .top)
-                    
+                ZStack(alignment: .top) {
                     VStack {
-                        Color.accentColor
-                            .frame(height: 35)
-                            .overlay(Text(menuTitle)
-                                        .font(.system(size: 22))
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                        .padding([.leading, .bottom])
-                                     ,
-                                     alignment: .leading)
-                        Color.white
-                            .frame(height: 15)
+                       Spacer()
+                        HStack {
+                            Spacer()
+                            NextButton(source: id,destination: AnyView(FuneralDoneView()), color: .accentColor,iconColor: .white, active: .constant(true))
+                        }
+                        .padding(.trailing)
                     }
-                    .frame(height: 50)
-                    .padding(.horizontal, -16)
-                    .padding(.top, -16)
-                    .overlay(HStack {
+                    .zIndex(1.0)
+                    VStack(spacing: 20) {
+                        Color.accentColor
+                            .frame(height:90)
+                            .padding(.horizontal, -20)
+                        
+                        VStack {
+                            Color.accentColor
+                                .frame(height: 35)
+                                .overlay(Text(menuTitle)
+                                            .font(.system(size: 22))
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                            .padding([.leading, .bottom])
+                                         ,
+                                         alignment: .leading)
+                            Color.white
+                                .frame(height: 15)
+                        }
+                        .frame(height: 50)
+                        .padding(.horizontal, -16)
+                        .padding(.top, -16)
+                        .overlay(HStack {
+                            Spacer()
+                            Rectangle()
+                                .fill(Color.white)
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(25)
+                                .normalShadow()
+                                .overlay(Image("info"))
+                        })
+                        Spacer().frame(height: 17)
+                        ScrollView(showsIndicators: false) {
+                            content
+                                .padding(.vertical)
+                        }
                         Spacer()
-                        Rectangle()
-                            .fill(Color.white)
-                            .frame(width: 60, height: 60)
-                            .cornerRadius(25)
-                            .normalShadow()
-                            .overlay(Image("info"))
-                    })
-                    Spacer().frame(height: 17)
-                    content
-                    Spacer()
+                    }
+                    .padding()
+                    
                 }
-                .padding()
             }
         }
     }

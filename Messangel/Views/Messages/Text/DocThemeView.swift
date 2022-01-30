@@ -9,19 +9,20 @@ import SwiftUI
 import NavigationStack
 
 struct DocThemeView: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    @EnvironmentObject var groupVM: GroupViewModel
-    @State var selectedTheme = "Aucun"
-    var htmlString: NSAttributedString
-    var filename: URL
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var groupVM: GroupViewModel
+    @State private var selectedTheme = "Aucun"
+    @State private var fileUrl = URL(string: "")
+    var htmlAttributedString = NSAttributedString()
+    var htmlString: String
     
     var body: some View {
         NavigationStackView("DocThemeView") {
-            MenuBaseView(height: 60, title: "Créer un message texte") {
+            MenuBaseView(height: 60, title: "Créer un message texte", backButton: false) {
                 Text("Aperçu")
                     .font(.system(size: 17))
                     .fontWeight(.bold)
-                DocPreview(selectedTheme: $selectedTheme, htmlString: htmlString)
+                DocPreview(selectedTheme: $selectedTheme, htmlString: htmlAttributedString)
                 Text("Choisir un thème")
                     .font(.system(size: 17))
                     .fontWeight(.bold)
@@ -37,13 +38,18 @@ struct DocThemeView: View {
                     }
                 }
                 Button {
-                    navigationModel.pushContent("DocThemeView") {
-                        DocTitleView(selectedTheme: $selectedTheme, htmlString: htmlString, filename: filename)
+                    if let fileUrl = fileUrl {
+                        navigationModel.pushContent("DocThemeView") {
+                            DocTitleView(selectedTheme: $selectedTheme, htmlString: htmlAttributedString, filename: fileUrl)
+                        }
                     }
                 } label: {
                     Image("btn_save")
                 }
             }
+        }
+        .onDidAppear {
+            self.fileUrl = writeHtmlString(html: htmlString)
         }
     }
 }

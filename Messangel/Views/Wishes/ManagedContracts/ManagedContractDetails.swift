@@ -63,21 +63,7 @@ struct ManagedContractsDetails: View {
                     Text("BNP Paribas Paris 16")
                     Spacer()
                 }
-                RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundColor(.gray.opacity(0.2))
-                    .frame(height: 430)
-                    .overlay(VStack {
-                        HStack{
-                            Image("ic_note")
-                            Text("Note")
-                                .font(.system(size: 15), weight: .bold)
-                            Spacer()
-                        }
-                        Text(note)
-                    }
-                    .padding()
-                    )
-                    .padding(.bottom, 30)
+                DetailsNoteView(note: note)
                 HStack {
                     Group {
                         Button(action: {}, label: {
@@ -94,6 +80,34 @@ struct ManagedContractsDetails: View {
                 Spacer()
             }
             .padding()
+        }
+    }
+}
+
+struct DetailsNoteView: View {
+    var note: String
+    var body: some View {
+        VStack {
+            if !note.isEmpty {
+                RoundedRectangle(cornerRadius: 25.0)
+                    .foregroundColor(.gray.opacity(0.2))
+                    .frame(height: 420)
+                    .overlay(
+                        VStack(alignment: .leading) {
+                            HStack{
+                                Image("ic_note")
+                                Text("Note")
+                                    .font(.system(size: 15), weight: .bold)
+                                Spacer()
+                            }
+                            Text(note)
+                        }
+                            .padding(), alignment: .top
+                    )
+                    .padding(.bottom, 30)
+            } else {
+                EmptyView()
+            }
         }
     }
 }

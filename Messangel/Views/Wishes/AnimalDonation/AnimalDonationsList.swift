@@ -23,6 +23,9 @@ struct AnimalDonationsList: View {
                     }
             }
         }
+        .onDidAppear {
+            vm.getAll()
+        }
     }
 }
 

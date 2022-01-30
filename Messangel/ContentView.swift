@@ -14,25 +14,7 @@ struct ContentView: View {
     let editor: RichEditorView
     
     init() {
-//        self.auth = Auth()
         self.editor = RichEditorView(frame: .zero)
-        
-     
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithTransparentBackground()
-//        appearance.largeTitleTextAttributes = [
-//            .font : UIFont.boldSystemFont(ofSize: 34),
-//            NSAttributedString.Key.foregroundColor : UIColor.white
-//        ]
-//        appearance.titleTextAttributes = [
-//            .font : UIFont.systemFont(ofSize: 17, weight: .semibold),
-//            NSAttributedString.Key.foregroundColor : UIColor.white
-//        ]
-//        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//        UINavigationBar.appearance().standardAppearance = appearance
-//        UINavigationBar.appearance().tintColor = .white
-//        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(.accentColor)
-
     }
     
     var body: some View {

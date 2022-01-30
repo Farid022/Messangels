@@ -8,6 +8,7 @@
 import Foundation
 
 struct FuneralMusic: Codable {
+    var id: Int?
     var artist_name: String
     var song_title: String
     var broadcast_song_note: String
@@ -23,6 +24,7 @@ struct Music: Hashable, Codable {
 }
 
 class FuneralMusicViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var musics = [Music]()
     @Published var music = FuneralMusic(artist_name: "", song_title: "", broadcast_song_note: "", user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
@@ -58,4 +60,36 @@ class FuneralMusicViewModel: ObservableObject {
             }
         }
     }
+    
+    func del(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.delete(endpoint: "users/\(getUserId())/song/\(id)/music") { result in
+            switch result {
+            case .success(_):
+                completion(true)
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: music, response: music, endpoint: "users/\(getUserId())/song/\(id)/music", method: "PUT") { result in
+            switch result {
+            case .success(let music):
+                DispatchQueue.main.async {
+                    self.music = music
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    
 }

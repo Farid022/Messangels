@@ -132,9 +132,9 @@ struct DocGroupView: View {
                         vm.text.message = response.files.first?.path ?? ""
                         vm.text.size = "\(response.files.first?.size ?? 0)"
                         vm.text.group = selectedGroup
-                    }
-                    vm.create {
-                        navigationModel.popContent(TabBarView.id)
+                        vm.create {
+                            navigationModel.popContent(TabBarView.id)
+                        }
                     }
                 case .failure(_):
                    return

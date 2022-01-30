@@ -26,6 +26,7 @@ En supprimant ce smartphone, vous supprimerez l’accès à 12 comptes (réseaux
                             KeyAccRegSecView(keyAccCase: .delPhone)
                         }
                     }, showAlert: $showDeleteConfirm))
+                    .zIndex(1.0)
             }
             NavigationStackView("SmartphoneDetailsView") {
                 ZStack(alignment:.top) {

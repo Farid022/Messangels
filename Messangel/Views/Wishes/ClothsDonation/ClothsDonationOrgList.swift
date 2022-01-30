@@ -18,46 +18,47 @@ struct ClothsDonationOrgList: View {
     @Binding var selectedCompany: Organization
     
     var body: some View {
-        VStack(spacing: 0.0) {
-            Color.accentColor
-                .ignoresSafeArea()
-                .frame(height: 150)
-                .overlay(
-                    VStack {
-                        HStack {
-                            BackButton(icon:"chevron.down")
-                            .padding(.leading)
-                        Spacer()
-                        Text("Sélectionnez un organisme")
-                            .foregroundColor(.white)
-                            .font(.system(size: 17))
-                            .fontWeight(.semibold)
-                        Spacer()
-                    }
-                        HStack {
-                            TextField(placeholder, text: $searchString)
-                                .textFieldStyle(MyTextFieldStyle())
-                                .onTapGesture {
-                                    isEditing = true
-                                    placeholder = ""
-                                }
-                                .if(!isEditing) {$0.overlay(
-                                    HStack {
-                                        Image("ic_search")
-                                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                                            .padding(.leading, 8)
-                                    }
-                                )}
-                            Button(action: {}, label: {
-                                RoundedRectangle(cornerRadius: 25.0)
+        NavigationStackView("ClothsDonationOrgList") {
+            VStack(spacing: 0.0) {
+                Color.accentColor
+                    .ignoresSafeArea()
+                    .frame(height: 150)
+                    .overlay(
+                        VStack {
+                            HStack {
+                                BackButton(icon:"chevron.down")
+                                    .padding(.leading)
+                                Spacer()
+                                Text("Sélectionnez un organisme")
                                     .foregroundColor(.white)
-                                    .frame(width: 56, height: 56)
-                                    .overlay(Image("ic_sort"))
-                            })
-                        }
-                        .padding()
-                    }, alignment: .bottom)
-            ScrollView(showsIndicators: false) {
+                                    .font(.system(size: 17))
+                                    .fontWeight(.semibold)
+                                Spacer()
+                            }
+                            HStack {
+                                TextField(placeholder, text: $searchString)
+                                    .textFieldStyle(MyTextFieldStyle())
+                                    .onTapGesture {
+                                        isEditing = true
+                                        placeholder = ""
+                                    }
+                                    .if(!isEditing) {$0.overlay(
+                                        HStack {
+                                            Image("ic_search")
+                                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                                .padding(.leading, 8)
+                                        }
+                                    )}
+                                Button(action: {}, label: {
+                                    RoundedRectangle(cornerRadius: 25.0)
+                                        .foregroundColor(.white)
+                                        .frame(width: 56, height: 56)
+                                        .overlay(Image("ic_sort"))
+                                })
+                            }
+                            .padding()
+                        }, alignment: .bottom)
+                ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
                         navigationModel.presentContent("ClothsDonationOrgList") {
@@ -78,16 +79,17 @@ struct ClothsDonationOrgList: View {
                             )
                     }
                     .padding(.bottom)
-                ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { org in
-                    ListItemView(name: org.name)
-                                .onTapGesture {
-                                    selectedCompany = org
-                                    vm.clothDonation.clothing_organization_detail = org.id
-                                    navigationModel.hideTopView()
-                                }
-                        }
+                    ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { org in
+                        ListItemView(name: org.name)
+                            .onTapGesture {
+                                selectedCompany = org
+                                vm.clothDonation.clothing_organization_detail = org.id
+                                navigationModel.hideTopView()
+                            }
+                    }
+                }
+                .padding()
             }
-            .padding()
         }
         .onDidAppear {
             vm.getOrgs()
@@ -95,6 +97,5 @@ struct ClothsDonationOrgList: View {
         .onChange(of: refreshList) { value in
             vm.getOrgs()
         }
-            
     }
 }

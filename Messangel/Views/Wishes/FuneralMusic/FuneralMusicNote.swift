@@ -14,16 +14,19 @@ struct FuneralMusicNote: View {
     @EnvironmentObject var navModel: NavigationModel
     @ObservedObject var vm: FuneralMusicViewModel
     var title = "Indiquez si vous avez des souhaits en particulier concernant ce titre (moments de diffusion, interprétation live…)"
-
+    
     var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.music.broadcast_song_note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-            }
-            FlowBaseView(isCustomAction: true, customAction: {
-                loading.toggle()
+        FuneralNoteCutomActionView(showNote: $showNote, note: $vm.music.broadcast_song_note, loading: $loading, menuTitle: wishesCeremony.last!.id, title: title) {
+            loading.toggle()
+            if vm.updateRecord {
+                vm.update(id: vm.music.id ?? 0) { success in
+                    if success {
+                        navModel.pushContent(title) {
+                            FuneralMusicList(vm: vm)
+                        }
+                    }
+                }
+            } else {
                 vm.create() { success in
                     loading.toggle()
                     if success {
@@ -33,7 +36,30 @@ struct FuneralMusicNote: View {
                         }
                     }
                 }
-            },note: false, showNote: .constant(false), menuTitle: wishesCeremony.last!.id, title: title, valid: .constant(true)) {
+            }
+           
+        }
+    }
+}
+
+
+// MARK: - FuneralNoteCutomActionView
+struct FuneralNoteCutomActionView: View {
+    @Binding var showNote: Bool
+    @Binding var note: String
+    @Binding var loading: Bool
+    var menuTitle: String
+    var title: String
+    var customAction: () -> Void
+    
+    var body: some View {
+        ZStack {
+            if showNote {
+                FuneralNote(showNote: $showNote, note: $note)
+                    .zIndex(1.0)
+                    .background(.black.opacity(0.8))
+            }
+            FlowBaseView(isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
                 VStack(spacing: 0.0) {
                     Rectangle()
                         .fill(Color.gray.opacity(0.2))

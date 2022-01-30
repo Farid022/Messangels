@@ -65,4 +65,17 @@ class ObjectDonationViewModel: ObservableObject {
             }
         }
     }
+    
+    func getAll() {
+        APIService.shared.getJSON(model: donations, urlString: "users/\(getUserId())/object") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.donations = items
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

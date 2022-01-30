@@ -6,8 +6,8 @@
 //
 
 import SwiftUIX
-
-struct FuneralOrgContractType: View {
+//Have you subscribed to a funeral contract?
+struct FuneralContractOptionView: View {
     var funeralTypes = [FuneralBool.yes, FuneralBool.no]
     @State private var valid = false
     @State private var selectedFuneral = FuneralBool.none

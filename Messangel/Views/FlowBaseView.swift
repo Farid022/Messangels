@@ -22,8 +22,9 @@ struct FlowBaseView<Content: View>: View {
     private var parentId: String
     var customAction: () -> Void = {}
     var isCustomAction: Bool
+    var exitAction: () -> Void
     
-    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, popToParent: Bool = false, parentId: String = TabBarView.id, addToList: Bool = false, note: Bool = false, showNote: Binding<Bool> = .constant(false), menuTitle: String, title: String, valid: Binding<Bool>, destination: AnyView = AnyView(EmptyView()), @ViewBuilder content: () -> Content) {
+    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, popToParent: Bool = false, parentId: String = TabBarView.id, addToList: Bool = false, note: Bool = false, showNote: Binding<Bool> = .constant(false), menuTitle: String, title: String, valid: Binding<Bool>, destination: AnyView = AnyView(EmptyView()), exitAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._valid = valid
         self.destination = destination
@@ -36,6 +37,7 @@ struct FlowBaseView<Content: View>: View {
         self.popToParent = popToParent
         self.isCustomAction = isCustomAction
         self.customAction = customAction
+        self.exitAction = exitAction
     }
     
     var body: some View {
@@ -46,10 +48,10 @@ struct FlowBaseView<Content: View>: View {
                     .edgesIgnoringSafeArea(.top)
                 VStack(spacing: 20) {
                     if menuTitle.components(separatedBy: "#").count > 1 {
-                        NavbarButtonView(title: menuTitle.components(separatedBy: "#")[0])
+                        NavbarButtonView(title: menuTitle.components(separatedBy: "#")[0], exitAction: exitAction)
                         NavigationTitleView(menuTitle: menuTitle.components(separatedBy: "#")[1])
                     } else {
-                        NavbarButtonView()
+                        NavbarButtonView(exitAction: exitAction)
                         NavigationTitleView(menuTitle: menuTitle)
                     }
                     if addToList {
@@ -119,15 +121,21 @@ struct NavigationTitleView: View {
 }
 
 struct NavbarButtonView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     var title = ""
-    
+    var exitAction: () -> Void
     var body: some View {
         Color.accentColor
             .frame(height:90)
             .padding(.horizontal, -20)
             .overlay(HStack {
                 VStack(alignment: .leading) {
-                    BackButton(viewId: TabBarView.id, icon:"ic_exit", systemIcon: false)
+                    Button {
+                        exitAction()
+                        navigationModel.popContent(TabBarView.id)
+                    } label: {
+                       Image("ic_exit")
+                    }
                     Text(title)
                         .font(.system(size: 22))
                         .fontWeight(.bold)

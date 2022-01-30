@@ -12,6 +12,7 @@ struct TextEditorView: View {
     
     @State private var htmlText = ""
     @State private var isEditingRichText = false
+    @State private var showRichText = true
     @State private var showFontPicker = false
     @State private var selectedFont = "Arial"
     @EnvironmentObject var editor: RichEditorView
@@ -35,13 +36,13 @@ struct TextEditorView: View {
                     Spacer()
                     if htmlText.length > 10 {
                         Button(action: {
+                            showRichText = false
                             editor.getHtml { html in
                                 let finalHtml = "<div style='padding: 20px;'>" + html + "</div>"
-                                let file = writeHtmlString(html: finalHtml)
                                 let htmlAtrributedString = (html.htmlToAttributedString?.setFontSize(fontSize: 3))!
                                 DispatchQueue.main.async {
                                     navigationModel.pushContent("TextEditorView") {
-                                        DocThemeView(htmlString: htmlAtrributedString, filename: file)
+                                        DocThemeView(htmlAttributedString: htmlAtrributedString, htmlString: finalHtml)
                                     }
                                 }
                             }
@@ -60,8 +61,11 @@ struct TextEditorView: View {
                 .if(htmlText.length <= 10 ) {$0.padding(.bottom, -30)}
                 , alignment: .bottom)
                 VStack {
-                    MyRichTextEditor(htmlText: $htmlText, isEditingRichText: $isEditingRichText)
-                        .padding()
+                    if showRichText {
+                        MyRichTextEditor(htmlText: $htmlText, isEditingRichText: $isEditingRichText)
+                            .padding()
+                    }
+                    Spacer()
                     if isEditingRichText {
                         HStack(spacing: 25) {
                             Spacer()
@@ -120,16 +124,16 @@ struct TextEditorView: View {
         }
         }
     }
-    
-    private func writeHtmlString(html: String) -> URL {
-        let filename = getDocumentsDirectory().appendingPathComponent("text_\(Date()).html")
-        do {
-            try html.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
-        }
-        return filename
+}
+
+func writeHtmlString(html: String) -> URL {
+    let filename = getDocumentsDirectory().appendingPathComponent("text_\(getUserId())_\(UUID().uuidString).html")
+    do {
+        try html.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+    } catch {
+        // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
     }
+    return filename
 }
 
 
@@ -149,7 +153,7 @@ struct MyRichTextEditor: UIViewRepresentable {
     }
     
     func richEditorLostFocus(_ editor: RichEditorView) {
-//      parent.isEditingRichText = false
+      parent.isEditingRichText = false
     }
     
     func richEditor(_ editor: RichEditorView, contentDidChange content: String) {

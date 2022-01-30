@@ -37,7 +37,7 @@ struct FuneralOrgIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralOrgIntro", destination: AnyView(FuneralOrgType()), active: .constant(true))
+                        NextButton(source: "FuneralOrgIntro", destination: AnyView(FuneralCompanyOptionView()), active: .constant(true))
                     }
                 }.padding()
             }

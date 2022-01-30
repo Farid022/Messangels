@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationStack
+import AVKit
 
 struct MessagesGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
@@ -48,16 +49,35 @@ struct MessagesGroupView: View {
                     if let groupTexts = group.texts {
                         ForEach(groupTexts, id: \.self) { text in
                             MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg", createdAt: strToDate(text.created_at ?? ""))
+                                .onTapGesture {
+                                    navigationModel.presentContent(TabBarView.id) {
+                                        MessagesTextView(htmlUrl: text.message, headerImage: "doc_header")
+                                    }
+                                }
                         }
                     }
                     if let groupAudios = group.audios {
                         ForEach(groupAudios, id: \.self) { audio in
-                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_video", createdAt: strToDate(audio.created_at ?? ""))
+                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_audio", createdAt: strToDate(audio.created_at ?? ""))
+                                .onTapGesture {
+                                    if let url = URL(string:audio.audio_link) {
+                                        let player = Player(avPlayer: AVPlayer(url: url))
+                                        navigationModel.presentContent(TabBarView.id) {
+                                            MessagesAudioPlayerView(player: player, bgImage: "bg_audio")
+                                        }
+                                    }
+                                }
                         }
                     }
                     if let groupVideos = group.videos {
                         ForEach(groupVideos, id: \.self) { video in
                             MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video", createdAt: strToDate(video.created_at ?? ""))
+                                .onTapGesture {
+                                    navigationModel.presentContent(TabBarView.id) {
+                                        VideoPlayer(player: AVPlayer(url: URL(string: video.video_link)!))
+                                            .overlay(BackButton(icon:"xmark", systemIcon: true), alignment: .top)
+                                    }
+                                }
                         }
                     }
                 }

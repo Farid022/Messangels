@@ -11,11 +11,13 @@ struct MenuBaseView<Content: View>: View {
     let content: Content
     var title: String
     var height: CGFloat
+    var backButton: Bool
     
-    init(height: CGFloat = 105, title: String, @ViewBuilder content: () -> Content) {
+    init(height: CGFloat = 105, title: String, backButton: Bool = true, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.title = title
         self.height = height
+        self.backButton = backButton
     }
     var body: some View {
         VStack(spacing: 0.0) {
@@ -23,8 +25,10 @@ struct MenuBaseView<Content: View>: View {
                 .ignoresSafeArea()
                 .frame(height: height)
                 .overlay(HStack {
-                    BackButton()
-                        .padding(.leading)
+                    if backButton {
+                        BackButton()
+                            .padding(.leading)
+                    }
                     Spacer()
                     Text(title)
                         .foregroundColor(.white)

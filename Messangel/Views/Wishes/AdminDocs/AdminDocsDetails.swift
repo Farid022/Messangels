@@ -58,21 +58,7 @@ struct AdminDocsDetails: View {
                         .font(.system(size: 22), weight: .bold)
                     Spacer()
                 }
-                RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundColor(.gray.opacity(0.2))
-                    .frame(height: 430)
-                    .overlay(VStack {
-                        HStack{
-                            Image("ic_note")
-                            Text("Note")
-                                .font(.system(size: 15), weight: .bold)
-                            Spacer()
-                        }
-                        Text(note)
-                    }
-                    .padding()
-                    )
-                    .padding(.bottom, 30)
+                DetailsNoteView(note: note)
                 HStack {
                     Group {
                         Button(action: {}, label: {
