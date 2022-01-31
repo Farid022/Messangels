@@ -10,6 +10,7 @@ import NavigationStack
 
 struct ContentView: View {
     @StateObject var auth = Auth()
+    @StateObject private var subVM = SubscriptionViewModel()
     @StateObject var keyAccRegVM = AccStateViewModel()
     let editor: RichEditorView
     
@@ -37,6 +38,12 @@ struct ContentView: View {
                     auth.getToken { success in
                         if success {
                             print("Got token successfully.")
+                            subVM.getSubscriptions { success in
+                                if success {
+                                    print("\(subVM.subscriptions.count > 0 ? "User has subscription" : "No Subscriptions available!")")
+                                    subVM.gotSubscription.toggle()
+                                }
+                            }
                         } else {
                             print("Token fetch failed!")
                         }
@@ -50,6 +57,7 @@ struct ContentView: View {
         .environmentObject(NavigationModel())
         .environmentObject(editor)
         .environmentObject(keyAccRegVM)
+        .environmentObject(subVM)
     }
 }
 

@@ -63,6 +63,7 @@
 		9351CCC927A56C060087C0E9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCC827A56C060087C0E9 /* Player.swift */; };
 		9351CCCD27A65D750087C0E9 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCCC27A65D750087C0E9 /* AudioRecorder.swift */; };
 		9351CCD027A690640087C0E9 /* MessagesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCCF27A690640087C0E9 /* MessagesTextView.swift */; };
+		9351CCD227A6AEF70087C0E9 /* SubscriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCD127A6AEF70087C0E9 /* SubscriptionViewModel.swift */; };
 		9354046A26C0C8B4004BE5B9 /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9354046926C0C8B4004BE5B9 /* TextAlert.swift */; };
 		93553A722647015D0027BA06 /* MessangelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A712647015D0027BA06 /* MessangelApp.swift */; };
 		93553A742647015D0027BA06 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A732647015D0027BA06 /* ContentView.swift */; };
@@ -362,6 +363,7 @@
 		9351CCC827A56C060087C0E9 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9351CCCC27A65D750087C0E9 /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		9351CCCF27A690640087C0E9 /* MessagesTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTextView.swift; sourceTree = "<group>"; };
+		9351CCD127A6AEF70087C0E9 /* SubscriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewModel.swift; sourceTree = "<group>"; };
 		9354046926C0C8B4004BE5B9 /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		93553A6E2647015D0027BA06 /* Messangel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messangel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93553A712647015D0027BA06 /* MessangelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangelApp.swift; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 			isa = PBXGroup;
 			children = (
 				9351CCBE27A3CEB80087C0E9 /* Menu */,
+				9351CCD127A6AEF70087C0E9 /* SubscriptionViewModel.swift */,
 				934B0E0A26AE887B0008DCE5 /* GuardianViewModel.swift */,
 			);
 			path = Home;
@@ -1646,6 +1649,7 @@
 				93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */,
 				939CBDB82771E72D004520A3 /* ServiceChoiceView.swift in Sources */,
 				93AC02782746212200FD7285 /* FuneralMusicDetails.swift in Sources */,
+				9351CCD227A6AEF70087C0E9 /* SubscriptionViewModel.swift in Sources */,
 				9339110A276C759200E262B3 /* ServicesListView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
 				93AC02EB274B6C8B00FD7285 /* ManagedContractNew.swift in Sources */,
@@ -1851,7 +1855,7 @@
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Messangel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1874,7 +1878,7 @@
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Messangel/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

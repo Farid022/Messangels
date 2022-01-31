@@ -43,12 +43,12 @@ private struct StatusView: View {
         }
         HStack {
             Image("ic_member")
-            Text("Membre depuis le \(strToDate(auth.user.registration_date ?? ""))")
+            Text("Membre depuis le \(unixStrToDateSring(auth.user.registration_date ?? ""))")
                 .font(.system(size: 13))
             Spacer()
         }
         .padding(.bottom)
-        MembershipView(text: "Membre depuis le \(strToDate(auth.user.registration_date ?? ""))")
+        MembershipView(text: "Membre depuis le \(unixStrToDateSring(auth.user.registration_date ?? ""))")
         MembershipView(text: "Abonné")
         MembershipView(text: "Ange-gardien")
         MembershipView(text: "Invité (Actif jusqu’au : 8/04/2021)")
@@ -59,7 +59,7 @@ private struct StatusView: View {
     }
 }
 
-func strToDate(_ dateStr: String) -> String {
+func unixStrToDateSring(_ dateStr: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
     if let date = dateFormatter.date(from: dateStr) {
@@ -71,6 +71,7 @@ func strToDate(_ dateStr: String) -> String {
 }
 
 private struct RateView: View {
+    @EnvironmentObject private var vm: SubscriptionViewModel
     var body: some View {
         HStack {
             Text("Forfait")
@@ -83,7 +84,7 @@ private struct RateView: View {
             Spacer()
         }
         HStack {
-            Text("Prochaine date de prélèvement : 12/04/2021")
+            Text("Prochaine date de prélèvement : \(unixStrToDateSring(vm.subscription.endDate ?? ""))")
             Spacer()
         }
         .padding(.bottom)
@@ -128,6 +129,7 @@ private struct PaymentView: View {
 }
 
 private struct StorageSpaceView: View {
+    @EnvironmentObject private var vm: SubscriptionViewModel
     var body: some View {
         HStack {
             Text("Espace de stockage")
@@ -141,9 +143,9 @@ private struct StorageSpaceView: View {
                 .frame(height: 20)
             Rectangle()
                 .foregroundColor(.accentColor)
-                .frame(width: 70, height: 20)
-                .clipShape(CustomCorner(corners: [.topLeft, .bottomLeft]))
-            Text("20%")
+                .frame(width: getStorageWidth(), height: 20)
+                .clipShape(CustomCorner(corners: vm.subscription.consumptionInMB == "0.00" ? [.topLeft, .bottomLeft, .topRight, .bottomRight] : [.topLeft, .bottomLeft]))
+            Text("\(String(format:"%.f", getRemainingStoragePercentage()))%")
                 .font(.system(size: 13))
                 .foregroundColor(.white)
                 .padding(.leading)
@@ -151,7 +153,7 @@ private struct StorageSpaceView: View {
         .normalShadow()
         .padding(.bottom)
         HStack {
-            Text("Il vous reste 100Mo soit l’équivalent de 10 minutes de vidéo.")
+            Text("Il vous reste \(String(format:"%.f", getRemainingStorageMB()))Mo")
                 .font(.system(size: 13))
             Spacer()
         }
@@ -162,6 +164,18 @@ private struct StorageSpaceView: View {
         .normalShadow()
         .buttonStyle(MyButtonStyle(padding: 50,foregroundColor: .black))
         .padding(.bottom)
+    }
+    
+    func getStorageWidth() -> Double {
+        return (((UIScreen.main.bounds.width - 20) / 100.0) * (512.0 - (Double(vm.subscription.consumptionInMB ?? "0.0") ?? 0.0)) / 512.0 * 100.0)
+    }
+    
+    func getRemainingStorageMB() -> Double {
+        return 512.0 - (Double(vm.subscription.consumptionInMB ?? "0.0") ?? 0.0)
+    }
+    
+    func getRemainingStoragePercentage() -> Double {
+        return (512.0 - (Double(vm.subscription.consumptionInMB ?? "0.0") ?? 0.0)) / 512.0 * 100.0
     }
 }
 

@@ -48,7 +48,7 @@ struct MessagesGroupView: View {
                     CreateMessageCard()
                     if let groupTexts = group.texts {
                         ForEach(groupTexts, id: \.self) { text in
-                            MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg", createdAt: strToDate(text.created_at ?? ""))
+                            MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg", createdAt: unixStrToDateSring(text.created_at ?? ""))
                                 .onTapGesture {
                                     navigationModel.presentContent(TabBarView.id) {
                                         MessagesTextView(htmlUrl: text.message, headerImage: "doc_header")
@@ -58,7 +58,7 @@ struct MessagesGroupView: View {
                     }
                     if let groupAudios = group.audios {
                         ForEach(groupAudios, id: \.self) { audio in
-                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_audio", createdAt: strToDate(audio.created_at ?? ""))
+                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_audio", createdAt: unixStrToDateSring(audio.created_at ?? ""))
                                 .onTapGesture {
                                     if let url = URL(string:audio.audio_link) {
                                         let player = Player(avPlayer: AVPlayer(url: url))
@@ -71,7 +71,7 @@ struct MessagesGroupView: View {
                     }
                     if let groupVideos = group.videos {
                         ForEach(groupVideos, id: \.self) { video in
-                            MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video", createdAt: strToDate(video.created_at ?? ""))
+                            MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video", createdAt: unixStrToDateSring(video.created_at ?? ""))
                                 .onTapGesture {
                                     navigationModel.presentContent(TabBarView.id) {
                                         VideoPlayer(player: AVPlayer(url: URL(string: video.video_link)!))

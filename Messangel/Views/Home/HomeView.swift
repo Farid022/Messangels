@@ -66,9 +66,9 @@ struct HomeTopView: View {
 
 struct HomeBottomView: View {
     @EnvironmentObject var navigationModel: NavigationModel
+    @EnvironmentObject private var subVM: SubscriptionViewModel
     @StateObject private var gVM = GuardianViewModel()
-    @State var subscribed = true
-    @State var loading = false
+    @State private var loading = false
     
     var body: some View {
         ScrollView {
@@ -81,7 +81,11 @@ struct HomeBottomView: View {
                     Spacer()
                 }
                 .padding(.bottom)
-                if subscribed {
+                if !subVM.gotSubscription {
+                    Loader()
+                        .padding(.top, 50)
+                }
+                else if subVM.subscriptions.count > 0 {
                     if !loading {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
@@ -115,7 +119,7 @@ struct HomeBottomView: View {
                 Spacer().frame(height: 100)
             }
         }
-        .onAppear() {
+        .task {
             loading.toggle()
             gVM.getGuardians { finished in
                 if finished {
@@ -145,19 +149,6 @@ struct SubscribeButton: View {
         .padding(.horizontal, 70)
     }
 }
-
-//struct HomeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            HomeNavBar()
-//                .background(Color.accentColor)
-//            HomeTopView()
-//                .background(Color.accentColor)
-//            HomeBottomView()
-//        }
-//        .previewLayout(.sizeThatFits)
-//    }
-//}
 
 struct AddGuardianView: View {
     @EnvironmentObject var navigationModel: NavigationModel

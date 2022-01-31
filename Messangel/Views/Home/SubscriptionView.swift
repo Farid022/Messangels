@@ -6,8 +6,16 @@
 //
 
 import SwiftUI
+import NavigationStack
+import Combine
 
 struct SubscriptionView: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var vm: SubscriptionViewModel
+    @State private var cardNo = ""
+    @State private var cardDOE = ""
+    @State private var cardCVC = ""
+    @State private var valid = false
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -35,19 +43,32 @@ struct SubscriptionView: View {
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                     ScrollView {
                         VStack(alignment: .leading) {
-                            CreditCardView()
+                            CreditCardView(cardNo: $cardNo, cardDOE: $cardDOE, cardCode: $cardCVC)
                             SubscriptionDetailsView()
                         }
                         .padding()
                         .textFieldStyle(MyTextFieldStyle())
                     }
                     HStack {
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        Button(action: {
+                            if !valid {
+                                return
+                            }
+                            vm.subscription.card?.number = Int(cardNo) ?? 0
+                            vm.subscription.card?.cvc = Int(cardCVC) ?? 0
+                            vm.subscription.card?.expMonth = Int(cardDOE.components(separatedBy: "/")[0]) ?? 0
+                            vm.subscription.card?.expYear = Int(cardDOE.components(separatedBy: "/")[1]) ?? 0
+                            vm.subscribe { success in
+                                if success {
+                                    navigationModel.popContent(TabBarView.id)
+                                }
+                            }
+                        }, label: {
                             Text("Valider mon paiement et accepter les CGU")
                                 .multilineTextAlignment(.center)
                                 .padding(.horizontal)
                         })
-                        .buttonStyle(MyButtonStyle(padding: 60, foregroundColor: .white, backgroundColor: .gray, cornerRadius: 30))
+                            .buttonStyle(MyButtonStyle(padding: 60, foregroundColor: .white, backgroundColor: valid ? .accentColor : .gray, cornerRadius: 30))
                         .padding(.vertical, 30)
                     }
                     
@@ -60,13 +81,36 @@ struct SubscriptionView: View {
                 }}
                 .edgesIgnoringSafeArea(.bottom)
         }
+        .onReceive(Just(cardDOE)) { inputValue in
+            if inputValue.count > 5 {
+                cardDOE.removeLast()
+            }
+        }
+        .onReceive(Just(cardCVC)) { inputValue in
+            if inputValue.count > 3 {
+                cardCVC.removeLast()
+            }
+        }
+        .onChange(of: cardNo) { value in
+            validate()
+        }
+        .onChange(of: cardDOE) { value in
+            validate()
+        }
+        .onChange(of: cardCVC) { value in
+            validate()
+        }
+    }
+    
+    func validate()  {
+        valid = !cardNo.isEmpty && !cardDOE.isEmpty && !cardCVC.isEmpty
     }
 }
 
 struct CreditCardView: View {
-    @State private var cardNo = ""
-    @State private var cardDOE = ""
-    @State private var cardCode = ""
+    @Binding var cardNo: String
+    @Binding var cardDOE: String
+    @Binding var cardCode: String
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -87,12 +131,15 @@ struct CreditCardView: View {
                 .fontWeight(.bold)
                 .padding(.bottom)
             TextField("Numéro de carte bancaire", text: $cardNo)
+                .keyboardType(.numberPad)
                 .normalShadow()
                 .padding(.bottom)
             TextField("Date d’expiration (MM/YY)", text: $cardDOE)
+                .keyboardType(.numbersAndPunctuation)
                 .normalShadow()
                 .padding(.bottom)
             TextField("Code de sécurité (3 chiffres)", text: $cardCode)
+                .keyboardType(.numbersAndPunctuation)
                 .normalShadow()
                 .padding(.bottom)
             RoundedRectangle(cornerRadius: 25.0)
@@ -160,11 +207,11 @@ struct SubscriptionDetailsView: View {
     }
 }
 
-struct SubscriptionView_Previews: PreviewProvider {
-    static var previews: some View {
-        SubscriptionView()
-    }
-}
+//struct SubscriptionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SubscriptionView()
+//    }
+//}
 
 private var notes = """
     * Vous serez prélevé de 2,00€ dès validation de votre moyen de paiement, puis de 2,00€ tous les mois suivants, à date de souscription de votre abonnement. Ce prélèvement automatique a lieu tous les mois, sans limite de temps. Vous pouvez annuler ce prélèvement automatique à tout moment en revenant sur cette page, au plus tôt 24h après la souscription et au plus tard 48h avant la date d’échéance du Pass en cours. Vos données seront alors conservées 2 mois avant suppression.
