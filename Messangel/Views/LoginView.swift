@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @StateObject var auth = Auth()
     @EnvironmentObject var envAuth: Auth
+    @EnvironmentObject var subVM: SubscriptionViewModel
     @State private var loading = false
     @State private var alert = false
     @State private var valid = false
@@ -64,6 +65,7 @@ struct LoginView: View {
                                                 envAuth.user = user
                                                 envAuth.user.password = auth.credentials.password
                                                 envAuth.updateUser()
+                                                subVM.checkSubscription()
                                             }
                                         case .failure(let err):
                                             print(err)

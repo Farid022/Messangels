@@ -53,10 +53,20 @@ struct Subscription: Codable {
 class SubscriptionViewModel: ObservableObject {
     @Published var gotSubscription = false
     @Published var subscriptions = [Subscription] ()
-    @Published var subscription = Subscription(userID: getUserId(), planID: 4, card: Card(number: 0,expMonth: 1,expYear: 2022, cvc: 33, currency: "eur"))
+    @Published var subscription = Subscription(userID: 0, planID: 4, card: Card(number: 0,expMonth: 1,expYear: 2022, cvc: 33, currency: "eur"))
     @Published var plans = [SubscriptionPlan]()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
+    
+    func checkSubscription() {
+        self.subscription.userID = getUserId()
+        self.getSubscriptions { success in
+            if success {
+                print("\(self.subscriptions.count > 0 ? "User has subscription" : "No Subscriptions available!")")
+                self.gotSubscription.toggle()
+            }
+        }
+    }
     
     func subscribe(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: subscription, response: subscription, endpoint: "users/plans/subscribe") { result in

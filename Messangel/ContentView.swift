@@ -38,12 +38,7 @@ struct ContentView: View {
                     auth.getToken { success in
                         if success {
                             print("Got token successfully.")
-                            subVM.getSubscriptions { success in
-                                if success {
-                                    print("\(subVM.subscriptions.count > 0 ? "User has subscription" : "No Subscriptions available!")")
-                                    subVM.gotSubscription.toggle()
-                                }
-                            }
+                            subVM.checkSubscription()
                         } else {
                             print("Token fetch failed!")
                         }

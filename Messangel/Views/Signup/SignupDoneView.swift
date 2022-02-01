@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignupDoneView: View {
     @EnvironmentObject var auth: Auth
+    @EnvironmentObject var subVM: SubscriptionViewModel
     @State private var offset: CGFloat = 200
     var user: User
 
@@ -40,6 +41,7 @@ struct SignupDoneView: View {
                     withAnimation {
                         self.auth.user = user
                         self.auth.updateUser()
+                        self.subVM.checkSubscription()
                     }
                 })
                     .buttonStyle(MyButtonStyle())

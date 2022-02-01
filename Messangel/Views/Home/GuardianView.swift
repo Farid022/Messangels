@@ -15,7 +15,7 @@ struct GuardianView: View {
     var guardian: Guardian
     
     var body: some View {
-        MenuBaseView(title:"Marianne MILON") {
+        MenuBaseView(title:"\(guardian.last_name) \(guardian.first_name)") {
             Image("gallery_preview")
                 .frame(width: 64, height: 64)
                 .clipShape(Circle())

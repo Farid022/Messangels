@@ -29,6 +29,7 @@ struct DeathAnnounceContacts: View {
                 if !valid {
                     return;
                 }
+                UserDefaults.standard.set(100.0, forKey: wishesCeremony[1].id)
                 vm.addPriorityContacts() { success in
                     if success {
                         navigationModel.pushContent("Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité.") {

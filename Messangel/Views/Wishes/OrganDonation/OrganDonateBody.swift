@@ -24,6 +24,7 @@ struct OrganDonateBody: View {
                     .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(isCustomAction: true, customAction: {
+                UserDefaults.standard.set(100.0, forKey: wishesPersonal[2].id)
                 vm.create() { success in
                     if success {
                         navModel.pushContent("Pour donner votre corps à la science, vous devez effectuer des démarches auprès d’organismes spécialisés.") {

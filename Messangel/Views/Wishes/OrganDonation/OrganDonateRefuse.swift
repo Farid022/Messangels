@@ -30,6 +30,7 @@ struct OrganDonateRefuse: View {
                 if !valid { return; }
                 
                 if selectedFuneral == .yes {
+                    UserDefaults.standard.set(100.0, forKey: wishesPersonal[2].id)
                     vm.create() { success in
                         if success {
                             navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
