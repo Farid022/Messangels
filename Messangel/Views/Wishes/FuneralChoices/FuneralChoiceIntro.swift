@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct FuneralChoiceIntro: View {
-
+    @StateObject private var vm = FeneralViewModel()
     var body: some View {
         NavigationStackView("FuneralChoiceIntro") {
             ZStack(alignment: .topLeading) {
@@ -39,17 +39,21 @@ struct FuneralChoiceIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralChoiceIntro", destination: AnyView(FuneralTypeView()), active: .constant(true))
+                        NextButton(source: "FuneralChoiceIntro", destination: AnyView(FuneralTypeView(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
         }
-    }
-}
-
-struct FuneralChoiceIntro_Previews: PreviewProvider {
-    static var previews: some View {
-        FuneralChoiceIntro()
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.funeralChoices.count > 0 {
+                        vm.funeral = Funeral(place_burial_note: vm.funeralChoices[0].placeBurialNote, handle_note: vm.funeralChoices[0].handleNote, religious_sign_note: vm.funeralChoices[0].religiousSignNote, outfit_note: vm.funeralChoices[0].outfitNote, acessories_note: vm.funeralChoices[0].acessoriesNote, deposite_ashes_note: vm.funeralChoices[0].depositeAshesNote, burial_type: vm.funeralChoices[0].burialType.id, coffin_material: vm.funeralChoices[0].coffinMaterial.id, coffin_finish: vm.funeralChoices[0].coffinFinish.id, internal_material: vm.funeralChoices[0].internalMaterial.id, urn_material: vm.funeralChoices[0].urnMaterial?.id, urn_style: vm.funeralChoices[0].urnStyle?.id, user: getUserId())
+                        vm.updateRecord = true
+                    }
+                }
+            }
+        }
     }
 }

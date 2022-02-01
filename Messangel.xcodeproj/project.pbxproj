@@ -64,6 +64,7 @@
 		9351CCCD27A65D750087C0E9 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCCC27A65D750087C0E9 /* AudioRecorder.swift */; };
 		9351CCD027A690640087C0E9 /* MessagesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCCF27A690640087C0E9 /* MessagesTextView.swift */; };
 		9351CCD227A6AEF70087C0E9 /* SubscriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCD127A6AEF70087C0E9 /* SubscriptionViewModel.swift */; };
+		9351CCD427A92FB00087C0E9 /* WishesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9351CCD327A92FB00087C0E9 /* WishesViewModel.swift */; };
 		9354046A26C0C8B4004BE5B9 /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9354046926C0C8B4004BE5B9 /* TextAlert.swift */; };
 		93553A722647015D0027BA06 /* MessangelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A712647015D0027BA06 /* MessangelApp.swift */; };
 		93553A742647015D0027BA06 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A732647015D0027BA06 /* ContentView.swift */; };
@@ -364,6 +365,7 @@
 		9351CCCC27A65D750087C0E9 /* AudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		9351CCCF27A690640087C0E9 /* MessagesTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTextView.swift; sourceTree = "<group>"; };
 		9351CCD127A6AEF70087C0E9 /* SubscriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewModel.swift; sourceTree = "<group>"; };
+		9351CCD327A92FB00087C0E9 /* WishesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishesViewModel.swift; sourceTree = "<group>"; };
 		9354046926C0C8B4004BE5B9 /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		93553A6E2647015D0027BA06 /* Messangel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messangel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93553A712647015D0027BA06 /* MessangelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangelApp.swift; sourceTree = "<group>"; };
@@ -715,6 +717,7 @@
 		933DF6152788828D005966AF /* Wishes */ = {
 			isa = PBXGroup;
 			children = (
+				9351CCD327A92FB00087C0E9 /* WishesViewModel.swift */,
 				93AC01FF2721474C00FD7285 /* FuneralChoicesViewModel.swift */,
 				939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */,
 				939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */,
@@ -1653,6 +1656,7 @@
 				9339110A276C759200E262B3 /* ServicesListView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
 				93AC02EB274B6C8B00FD7285 /* ManagedContractNew.swift in Sources */,
+				9351CCD427A92FB00087C0E9 /* WishesViewModel.swift in Sources */,
 				933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */,
 				93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */,
 				933DF60A27886640005966AF /* FuneralLocationViewModel.swift in Sources */,

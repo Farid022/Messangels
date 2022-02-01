@@ -26,7 +26,6 @@ struct OrganDonateRefusalNotReg: View {
                 if !valid {
                     return;
                 }
-                UserDefaults.standard.set(100.0, forKey: wishesPersonal[3].id)
                 vm.create() { success in
                     if success {
                         navModel.pushContent("Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus.") {

@@ -21,7 +21,6 @@ struct FuneralBurialPlace: View {
                     .background(.black.opacity(0.8))
             }
             FlowBaseView(isCustomAction: true, customAction: {
-                UserDefaults.standard.set(100.0, forKey: wishesCeremony[0].id)
                 loading.toggle()
                 vm.createSprituality() { success in
                     loading.toggle()

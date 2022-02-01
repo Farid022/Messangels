@@ -9,9 +9,9 @@ import SwiftUI
 
 struct FuneralCoffinMaterial: View {
     var choices = [
-        FuneralCoice(id: 1, name: "Chêne", image: ""),
-        FuneralCoice(id: 2, name: "Sapin", image: ""),
-        FuneralCoice(id: 3, name: "Pin", image: "")
+        FuneralChoice(id: 1, name: "Chêne", image: ""),
+        FuneralChoice(id: 2, name: "Sapin", image: ""),
+        FuneralChoice(id: 3, name: "Pin", image: "")
     ]
     @State private var noteText = ""
     @ObservedObject var vm: FeneralViewModel
@@ -24,7 +24,7 @@ struct FuneralCoffinMaterial: View {
 struct FuneralChoicesView: View {
     @State var showNote = false
     @Binding var noteText: String
-    var choices: [FuneralCoice]
+    var choices: [FuneralChoice]
     @Binding var selectedChoice: Int
     var menuTitle: String
     var title: String

@@ -41,7 +41,6 @@ struct PracticalCodeText: View {
 //                    if codeCount < 3 {
                         loading.toggle()
                         vm.addCode { success in
-                            UserDefaults.standard.set(100.0, forKey: wishesExtras[1].id)
                             loading.toggle()
                             vm.practicalCode.codes.append(vm.code.id ?? 0)
                             vm.code.code = ""

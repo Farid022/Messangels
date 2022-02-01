@@ -14,8 +14,5 @@ struct FuneralCoffinOptions: View {
     
     var body: some View {
         FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Précisez des options pour le cercueil (signe religieux, couleur,…)", destination: vm.funeral.burial_type == FuneralType.burial.rawValue ? AnyView(FuneralOutfit(vm: vm)) : AnyView(FuneralUrnMaterial(vm: vm)))
-            .onDidAppear {
-                UserDefaults.standard.set(50.0, forKey: wishesPersonal.first!.id)
-            }
     }
 }

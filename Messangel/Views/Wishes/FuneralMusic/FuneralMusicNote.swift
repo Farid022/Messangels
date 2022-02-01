@@ -16,7 +16,7 @@ struct FuneralMusicNote: View {
     var title = "Indiquez si vous avez des souhaits en particulier concernant ce titre (moments de diffusion, interprétation live…)"
     
     var body: some View {
-        FuneralNoteCutomActionView(showNote: $showNote, note: $vm.music.broadcast_song_note, loading: $loading, menuTitle: wishesCeremony.last!.id, title: title) {
+        FuneralNoteCutomActionView(showNote: $showNote, note: $vm.music.broadcast_song_note, loading: $loading, menuTitle: wishesCeremony.last!.name, title: title) {
             loading.toggle()
             if vm.updateRecord {
                 vm.update(id: vm.music.id ?? 0) { success in
@@ -30,7 +30,6 @@ struct FuneralMusicNote: View {
                 vm.create() { success in
                     loading.toggle()
                     if success {
-                        UserDefaults.standard.set(100.0, forKey: wishesCeremony.last!.id)
                         navModel.pushContent(title) {
                             FuneralMusicList(vm: vm)
                         }
@@ -67,13 +66,13 @@ struct FuneralNoteCutomActionView: View {
                         .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
                         .overlay(
                             RoundedRectangle(cornerRadius: 25.0)
-                                .fill(Color.gray)
+                                .fill(note.isEmpty ? Color.gray : Color.accentColor)
                                 .frame(width: 56, height: 56)
                                 .overlay(
                                     Button(action: {
                                         showNote.toggle()
                                     }) {
-                                        Image("ic_add_note")
+                                        Image(note.isEmpty ? "ic_add_note" : "ic_notes")
                                     }
                                 )
                         )

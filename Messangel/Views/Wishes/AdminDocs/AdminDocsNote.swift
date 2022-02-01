@@ -27,13 +27,12 @@ struct AdminDocsNote: View {
                 vm.create() { success in
                     loading.toggle()
                     if success {
-                        UserDefaults.standard.set(100.0, forKey: wishesExtras.first!.id)
                         navModel.pushContent(title) {
                             AdminDocsList(vm: vm)
                         }
                     }
                 }
-            },note: false, showNote: .constant(false), menuTitle: wishesExtras.first!.id, title: title, valid: .constant(true)) {
+            },note: false, showNote: .constant(false), menuTitle: wishesExtras.first!.name, title: title, valid: .constant(true)) {
                 VStack(spacing: 0.0) {
                     Rectangle()
                         .fill(Color.gray.opacity(0.2))

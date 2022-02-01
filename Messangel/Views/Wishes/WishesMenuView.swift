@@ -10,7 +10,7 @@ import NavigationStack
 
 struct WishesMenuView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    
+    @StateObject private var vm = WishesViewModel()
     var body: some View {
         VStack {
             ScrollView {
@@ -24,8 +24,8 @@ struct WishesMenuView: View {
                     .padding(.bottom)
                     VStack(spacing: 20) {
                         ForEach(wishesPersonal) { wish in
-                            WishCategoryCard(title: wish.id, desc: wish.desc, icon: wish.icon,
-                                             progress: UserDefaults.standard.double(forKey: wish.id))
+                            WishCategoryCard(title: wish.name, desc: wish.desc, icon: wish.icon,
+                                             progress: CGFloat(vm.wishesProgresses.last(where: {$0.tab == wish.id})?.progress ?? 0))
                                 .onTapGesture {
                                     navigationModel.pushContent(TabBarView.id) {
                                         wish.destination
@@ -41,8 +41,8 @@ struct WishesMenuView: View {
                     }
                     .padding(.bottom)
                     ForEach(wishesCeremony) { wish in
-                        WishCategoryCard(title: wish.id, desc: wish.desc, icon: wish.icon,
-                                         progress: UserDefaults.standard.double(forKey: wish.id))
+                        WishCategoryCard(title: wish.name, desc: wish.desc, icon: wish.icon,
+                                         progress: CGFloat(vm.wishesProgresses.last(where: {$0.tab == wish.id})?.progress ?? 0))
                             .onTapGesture {
                                 navigationModel.pushContent(TabBarView.id) {
                                     wish.destination
@@ -57,8 +57,8 @@ struct WishesMenuView: View {
                     }
                     .padding(.bottom)
                     ForEach(wishesTransport) { wish in
-                        WishCategoryCard(title: wish.id, desc: wish.desc, icon: wish.icon,
-                                         progress: UserDefaults.standard.double(forKey: wish.id))
+                        WishCategoryCard(title: wish.name, desc: wish.desc, icon: wish.icon,
+                                         progress: CGFloat(vm.wishesProgresses.last(where: {$0.tab == wish.id})?.progress ?? 0))
                             .onTapGesture {
                                 navigationModel.pushContent(TabBarView.id) {
                                     wish.destination
@@ -73,8 +73,8 @@ struct WishesMenuView: View {
                     }
                     .padding(.bottom)
                     ForEach(wishesExtras) { wish in
-                        WishCategoryCard(title: wish.id, desc: wish.desc, icon: wish.icon,
-                                         progress: UserDefaults.standard.double(forKey: wish.id))
+                        WishCategoryCard(title: wish.name, desc: wish.desc, icon: wish.icon,
+                                         progress: CGFloat(vm.wishesProgresses.last(where: {$0.tab == wish.id})?.progress ?? 0))
                             .onTapGesture {
                                 navigationModel.pushContent(TabBarView.id) {
                                     wish.destination
@@ -87,43 +87,47 @@ struct WishesMenuView: View {
             }
             Spacer().height(70)
         }
+        .task {
+            vm.getProgress()
+        }
     }
 }
 
 struct WishCategory: Identifiable {
-    var id: String
+    var id: Int
+    var name: String
     var desc: String
     var icon: String
     var destination: AnyView
 }
 
 let wishesPersonal = [
-    WishCategory(id: "Choix funéraires", desc: "Spiritualité et traditions au sein de votre cérémonie.", icon: "ic_funeral", destination: AnyView(FuneralChoiceIntro())),
-    WishCategory(id: "Organismes spécialisés", desc: "Votre organisme de pompes funèbres et votre contrat obsèques.", icon: "ic_person", destination: AnyView(FuneralOrgIntro())),
-    WishCategory(id: "Faire-part et annonce", desc: "Vos indications pour le faire-part, désignation du journal presse locale", icon: "ic_news", destination: AnyView(FuneralInviteIntro())),
-    WishCategory(id: "Don d’organes ou du corps", desc: "Votre choix concernant le don d’organes et le don de votre corps à la science", icon: "ic_organ", destination: AnyView(OrganDonateIntro()))
+    WishCategory(id: 1, name: "Choix funéraires", desc: "Spiritualité et traditions au sein de votre cérémonie.", icon: "ic_funeral", destination: AnyView(FuneralChoiceIntro())),
+    WishCategory(id: 2, name: "Organismes spécialisés", desc: "Votre organisme de pompes funèbres et votre contrat obsèques.", icon: "ic_person", destination: AnyView(FuneralOrgIntro())),
+    WishCategory(id: 3, name: "Faire-part et annonce", desc: "Vos indications pour le faire-part, désignation du journal presse locale", icon: "ic_news", destination: AnyView(FuneralInviteIntro())),
+    WishCategory(id: 4, name: "Don d’organes ou du corps", desc: "Votre choix concernant le don d’organes et le don de votre corps à la science", icon: "ic_organ", destination: AnyView(OrganDonateIntro()))
 ]
 
 let wishesCeremony = [
-    WishCategory(id: "Spiritualité et traditions", desc: "Vos indications concernant la spiritualité et les traditions liées de votre cérémonie", icon: "ic_tradition", destination: AnyView(FuneralTraditionsIntro())),
-    WishCategory(id: "Lieux", desc: "Vos indications sur le lieu de la cérémonie et les différents temps de partage", icon: "ic_location", destination: AnyView(FuneralPlacesIntro())),
-    WishCategory(id: "Diffusion de la nouvelle", desc: "Liste des personnes susceptibles de relayer la nouvelle.", icon: "ic_people", destination: AnyView(DeathAnnounceIntro())),
-    WishCategory(id: "Esthétique", desc: "Vos souhaits concernant les fleurs, la décoration et la tenue des invités", icon: "ic_aesthetic", destination: AnyView(FuneralAestheticIntro())),
-    WishCategory(id: "Musique", desc: "Liste des titres à diffuser lors de votre cérémonie", icon: "ic_music", destination: AnyView(FuneralMusicIntro()))
+    WishCategory(id: 5, name: "Spiritualité et traditions", desc: "Vos indications concernant la spiritualité et les traditions liées de votre cérémonie", icon: "ic_tradition", destination: AnyView(FuneralTraditionsIntro())),
+    WishCategory(id: 6, name: "Lieux", desc: "Vos indications sur le lieu de la cérémonie et les différents temps de partage", icon: "ic_location", destination: AnyView(FuneralPlacesIntro())),
+    WishCategory(id: 7, name: "Diffusion de la nouvelle", desc: "Liste des personnes susceptibles de relayer la nouvelle.", icon: "ic_people", destination: AnyView(DeathAnnounceIntro())),
+    WishCategory(id: 8, name: "Esthétique", desc: "Vos souhaits concernant les fleurs, la décoration et la tenue des invités", icon: "ic_aesthetic", destination: AnyView(FuneralAestheticIntro())),
+    WishCategory(id: 9, name: "Musique", desc: "Liste des titres à diffuser lors de votre cérémonie", icon: "ic_music", destination: AnyView(FuneralMusicIntro()))
 ]
 
 let wishesTransport = [
-    WishCategory(id: "Vêtements et accessoires", desc: "Liste des vêtements et accessoires que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ClothsDonationIntro())),
-    WishCategory(id: "Animaux", desc: "Liste des animaux que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(AnimalDonationIntro())),
-    WishCategory(id: "Objets", desc: "Liste des objets que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ObjectsDonationIntro())),
-    WishCategory(id: "Dons", desc: "Liste des associations auxquelles vous souhaitez faire un don", icon: "ic_organ", destination: AnyView(DonationOrgsIntro()))
+    WishCategory(id: 10, name: "Vêtements et accessoires", desc: "Liste des vêtements et accessoires que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ClothsDonationIntro())),
+    WishCategory(id: 11, name: "Animaux", desc: "Liste des animaux que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(AnimalDonationIntro())),
+    WishCategory(id: 12, name: "Objets", desc: "Liste des objets que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ObjectsDonationIntro())),
+    WishCategory(id: 13, name: "Dons", desc: "Liste des associations auxquelles vous souhaitez faire un don", icon: "ic_organ", destination: AnyView(DonationOrgsIntro()))
 ]
 
  let wishesExtras = [
-    WishCategory(id: "Pièces administratives", desc: "Liste des pièces administratives utiles : Carte d’identité, passeport, carte vitale…", icon: "ic_doc", destination: AnyView(AdminDocsIntro())),
-    WishCategory(id: "Codes pratiques", desc: "Liste de vos codes pratiques : Ordinateurs, alarmes, digicodes, coffres, cadenas…)", icon: "ic_lock_color_native", destination: AnyView(PracticalCodesIntro())),
-    WishCategory(id: "Contrats à gérer", desc: "Liste des organismes qui gèrent les contrats liés à votre quotidien (Logement, banque, assurance…)", icon: "ic_contract", destination: AnyView(ManagedContractsIntro())),
-    WishCategory(id: "Expression libre", desc: "Exprimez-vous librement pour compléter vos volontés", icon: "ic_organ", destination: AnyView(ExtraWishesIntro()))
+    WishCategory(id: 14, name: "Pièces administratives", desc: "Liste des pièces administratives utiles : Carte d’identité, passeport, carte vitale…", icon: "ic_doc", destination: AnyView(AdminDocsIntro())),
+    WishCategory(id: 15, name: "Codes pratiques", desc: "Liste de vos codes pratiques : Ordinateurs, alarmes, digicodes, coffres, cadenas…)", icon: "ic_lock_color_native", destination: AnyView(PracticalCodesIntro())),
+    WishCategory(id: 16, name: "Contrats à gérer", desc: "Liste des organismes qui gèrent les contrats liés à votre quotidien (Logement, banque, assurance…)", icon: "ic_contract", destination: AnyView(ManagedContractsIntro())),
+    WishCategory(id: 17, name: "Expression libre", desc: "Exprimez-vous librement pour compléter vos volontés", icon: "ic_organ", destination: AnyView(ExtraWishesIntro()))
 ]
 
 struct WishCategoryCard: View {
@@ -144,6 +148,7 @@ struct WishCategoryCard: View {
                             RoundedRectangle(cornerRadius: 30.0)
                                 .foregroundColor(progress < 100 ? .gray : .accentColor)
                                 .frame(width: 25)
+                                .animation(.default, value: progress)
                             if progress < 100 {
                                 VStack {
                                     Spacer()
@@ -151,6 +156,7 @@ struct WishCategoryCard: View {
                                         .foregroundColor(.accentColor)
                                         .frame(width: 25, height: progress)
                                         .clipShape(CustomCorner(corners: [.bottomLeft]))
+                                        .animation(.default, value: progress)
                                 }
                             }
                         }

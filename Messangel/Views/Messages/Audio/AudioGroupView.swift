@@ -61,7 +61,6 @@ struct AudioGroupView: View {
                         Text("Aperçu")
                             .font(.system(size: 17))
                             .fontWeight(.bold)
-//                        AudioPreview(fileUrl: filename)
                     }
                     VStack {
                         Text("Choisir ou créer un groupe")

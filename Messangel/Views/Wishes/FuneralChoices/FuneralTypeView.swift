@@ -9,12 +9,12 @@ import SwiftUIX
 import SwiftUI
 
 struct FuneralTypeView: View {
-    private var funeralTypes = [FuneralType.burial, FuneralType.crematization]
+    var funeralTypes = [FuneralType.burial, FuneralType.crematization]
     @State private var valid = false
     @State private var selectedFuneral = FuneralType.none
     @State private var showNote = false
     @State private var note = ""
-    @StateObject private var vm = FeneralViewModel()
+    @ObservedObject var vm: FeneralViewModel
     
     var body: some View {
         ZStack {
@@ -24,19 +24,15 @@ struct FuneralTypeView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: $valid, destination: AnyView(FuneralPlaceView(vm: vm))) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: .constant(vm.funeral.burial_type != 0), destination: AnyView(FuneralPlaceView(vm: vm))) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
-                        ChoiceCard(text: type == .burial ? "Inhumation" : "Crématisation", selected: .constant(selectedFuneral == type))
+                        ChoiceCard(text: type == .burial ? "Inhumation" : "Crématisation", selected: .constant(vm.funeral.burial_type == type.rawValue))
                             .onTapGesture {
-                                selectedFuneral = type
                                 vm.funeral.burial_type = type.rawValue
                             }
                     }
                 }
-            }
-            .onChange(of: selectedFuneral) { value in
-                valid = selectedFuneral != .none
             }
         }
     }

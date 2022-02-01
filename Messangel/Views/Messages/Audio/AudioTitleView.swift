@@ -21,7 +21,10 @@ struct AudioTitleView: View {
                 Text("Aperçu")
                     .font(.system(size: 17))
                     .fontWeight(.bold)
-//                AudioPreview
+                Rectangle()
+                    .foregroundColor(.gray)
+                    .frame(height: 460)
+                    .padding(.horizontal, 30)
                 Text("Choisir un titre")
                     .font(.system(size: 17))
                     .fontWeight(.bold)

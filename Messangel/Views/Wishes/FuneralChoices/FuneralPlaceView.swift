@@ -39,13 +39,13 @@ struct FuneralNoteView: View {
                         .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
                         .overlay(
                             RoundedRectangle(cornerRadius: 25.0)
-                                .fill(Color.gray)
+                                .fill(note.isEmpty ? Color.gray : Color.accentColor)
                                 .frame(width: 56, height: 56)
                                 .overlay(
                                     Button(action: {
                                         showNote.toggle()
                                     }) {
-                                        Image("ic_add_note")
+                                        Image(note.isEmpty ? "ic_add_note" : "ic_notes")
                                     }
                                 )
                         )
