@@ -23,11 +23,18 @@ struct FuneralInviteNewsPaper: View {
             }
             FlowBaseView(isCustomAction: true, customAction: {
                 loading.toggle()
-                vm.create() { success in
-                    loading.toggle()
-                    if success {
-                        navModel.pushContent("Précisez un journal local dans lequel diffuser l’annonce") {
-                            FuneralDoneView()
+                Task {
+                    vm.announcement.invitation_photo = await uploadImage(vm.invitePhoto, type: "invitation")
+                    vm.create() { success in
+                        if success {
+                            WishesViewModel.setProgress(tab: 3) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent("Précisez un journal local dans lequel diffuser l’annonce") {
+                                        FuneralDoneView()
+                                    }
+                                }
+                            }
                         }
                     }
                 }

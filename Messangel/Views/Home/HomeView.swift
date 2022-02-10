@@ -81,51 +81,44 @@ struct HomeBottomView: View {
                     Spacer()
                 }
                 .padding(.bottom)
-                if !subVM.gotSubscription {
+                if subVM.checkingSubscription || !subVM.gotSubscription || loading  {
                     Loader()
                         .padding(.top, 50)
                 }
                 else if subVM.subscriptions.count > 0 {
-                    if !loading {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(gVM.guardians, id: \.self) { guardian in
-                                    GuardianCard(vm: gVM, guardian: guardian)
-                                }
-                                AddGuardianView(gVM: gVM)
-                                Spacer()
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(gVM.guardians, id: \.self) { guardian in
+                                GuardianCard(vm: gVM, guardian: guardian)
                             }
-                            .padding()
+                            AddGuardianView(gVM: gVM)
+                            Spacer()
                         }
-                    } else {
-                        Loader()
-                            .padding(.top, 50)
+                        .padding()
                     }
                 } else {
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 56, height: 56)
-                        .cornerRadius(25)
-                        .thinShadow()
-                        .overlay(
-                            Image("add-user")
-                                .opacity(0.5)
-                        )
-                    Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
-                        .font(.system(size: 13))
-                        .padding([.bottom, .horizontal])
-                    SubscribeButton()
+                    SubscribeView()
                 }
                 Spacer().frame(height: 100)
             }
         }
-        .task {
-            loading.toggle()
-            gVM.getGuardians { finished in
-                if finished {
-                    loading.toggle()
-                }
+        .onChange(of: subVM.checkingSubscription) { value in
+            if !subVM.checkingSubscription && subVM.subscriptions.count > 0 {
+                loadGuardians()
             }
+        }
+        .onChange(of: gVM.guardiansUpdated) { value in
+            if value {
+                loadGuardians()
+            }
+        }
+    }
+    
+    func loadGuardians() {
+        loading.toggle()
+        gVM.getGuardians { _ in
+            loading.toggle()
+            gVM.guardiansUpdated = false
         }
     }
 }
@@ -147,6 +140,26 @@ struct SubscribeButton: View {
         .background(Color.accentColor)
         .cornerRadius(25)
         .padding(.horizontal, 70)
+    }
+}
+
+struct SubscribeView: View {
+    var body: some View {
+        VStack {
+            Rectangle()
+                .fill(Color.white)
+                .frame(width: 56, height: 56)
+                .cornerRadius(25)
+                .thinShadow()
+                .overlay(
+                    Image("add-user")
+                        .opacity(0.5)
+                )
+            Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
+                .font(.system(size: 13))
+                .padding([.bottom, .horizontal])
+            SubscribeButton()
+        }
     }
 }
 

@@ -113,6 +113,7 @@
 		93671DB92767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DB82767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift */; };
 		9369D53E265639F100650AA7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D53D265639F100650AA7 /* MenuView.swift */; };
 		9369D54126563DED00650AA7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D54026563DED00650AA7 /* ProfileView.swift */; };
+		936B58CF27ABBE3800100D28 /* AudioImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B58CE27ABBE3800100D28 /* AudioImageView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
 		937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B126528FB7004A0227 /* SubscriptionView.swift */; };
 		937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */; };
@@ -287,6 +288,9 @@
 		93AEEF512670A52300D99BC2 /* AlbumImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEEF502670A52300D99BC2 /* AlbumImage.swift */; };
 		93AEEF542670C94200D99BC2 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEEF532670C94200D99BC2 /* AlbumViewModel.swift */; };
 		93CC8A3C265FBEA200A28455 /* OnboardingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */; };
+		93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */; };
+		93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFFB27B28BE800E71C0B /* Constants.swift */; };
+		93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBCFFE27B4DFC400E71C0B /* Kingfisher */; };
 		93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C82695EA3700F50894 /* AttributedText.swift */; };
 		93EFE7CE2695EA3700F50894 /* TextViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C92695EA3700F50894 /* TextViewStore.swift */; };
 		93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */; };
@@ -426,6 +430,7 @@
 		93671DB82767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegPhoneCodeView.swift; sourceTree = "<group>"; };
 		9369D53D265639F100650AA7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9369D54026563DED00650AA7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		936B58CE27ABBE3800100D28 /* AudioImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioImageView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		937CA4B126528FB7004A0227 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormIntroView.swift; sourceTree = "<group>"; };
@@ -598,6 +603,8 @@
 		93AEEF502670A52300D99BC2 /* AlbumImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImage.swift; sourceTree = "<group>"; };
 		93AEEF532670C94200D99BC2 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViews.swift; sourceTree = "<group>"; };
+		93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		93DBCFFB27B28BE800E71C0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		93EFE7C82695EA3700F50894 /* AttributedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		93EFE7C92695EA3700F50894 /* TextViewStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewStore.swift; sourceTree = "<group>"; };
 		93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLineBreakMode+TruncationMode.swift"; sourceTree = "<group>"; };
@@ -618,6 +625,7 @@
 				939CBDCA27732650004520A3 /* Introspect in Frameworks */,
 				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
 				93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */,
+				93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,6 +693,7 @@
 			children = (
 				9383139626787BD800C71C98 /* AudioRecorderView.swift */,
 				932FF8B726C1367400DE52F9 /* AudioTitleView.swift */,
+				936B58CE27ABBE3800100D28 /* AudioImageView.swift */,
 				932FF8B926C136BD00DE52F9 /* AudioGroupView.swift */,
 			);
 			path = Audio;
@@ -848,6 +857,7 @@
 			isa = PBXGroup;
 			children = (
 				93EFE7C72695EA3700F50894 /* AttributedText */,
+				93DBCFFB27B28BE800E71C0B /* Constants.swift */,
 				934A21D626515EF300607821 /* NetworkService.swift */,
 				93553A81264701C50027BA06 /* KeyboardResponder.swift */,
 				933AA30F26674FD8000D6D48 /* ImagePicker.swift */,
@@ -872,6 +882,7 @@
 				93553AB7264EC68C0027BA06 /* Custom */,
 				93553A85264701E60027BA06 /* StartView.swift */,
 				93553A87264701E60027BA06 /* LoginView.swift */,
+				93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */,
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
 				93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */,
 				93AC01E9271D494900FD7285 /* FlowBaseView.swift */,
@@ -1373,6 +1384,7 @@
 				93EFE7DE26A06C1C00F50894 /* SwiftUIX */,
 				93F08DBC26FD8F1000CC3030 /* Peppermint */,
 				939CBDC927732650004520A3 /* Introspect */,
+				93DBCFFE27B4DFC400E71C0B /* Kingfisher */,
 			);
 			productName = Messangel;
 			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
@@ -1406,6 +1418,7 @@
 				93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */,
 				939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
 			projectDirPath = "";
@@ -1444,6 +1457,7 @@
 				93AC02D5274B64B400FD7285 /* DonationOrgsList.swift in Sources */,
 				9369D54126563DED00650AA7 /* ProfileView.swift in Sources */,
 				932FF8C126CF80ED00DE52F9 /* VideoTrimView.swift in Sources */,
+				93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */,
 				935A598C265BA3B0005B0505 /* AccessSecurityView.swift in Sources */,
 				9313BA822689A467008F566C /* UIColor+Extensions.swift in Sources */,
 				937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */,
@@ -1476,6 +1490,7 @@
 				934B0E1D26B290640008DCE5 /* GalleryViewModel.swift in Sources */,
 				93AC0228272689BF00FD7285 /* OrganDonateChoice.swift in Sources */,
 				93AC026427326CDC00FD7285 /* AnimalDonationIntro.swift in Sources */,
+				93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */,
 				935A598E265BAF8E005B0505 /* EditSubscriptionView.swift in Sources */,
 				93AC02762746187800FD7285 /* FuneralMusicList.swift in Sources */,
 				93553A742647015D0027BA06 /* ContentView.swift in Sources */,
@@ -1694,6 +1709,7 @@
 				93AC025A273152AD00FD7285 /* FuneralMusicIntro.swift in Sources */,
 				93AC023B2726D9D300FD7285 /* DeathAnnounceContactsList.swift in Sources */,
 				93AC02B0274B56DE00FD7285 /* ObjectsDonationContact.swift in Sources */,
+				936B58CF27ABBE3800100D28 /* AudioImageView.swift in Sources */,
 				93AC02CD274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift in Sources */,
 				93671DA627676447009A4CF1 /* SocialAndServicesHomeView.swift in Sources */,
 				934B0E1526B27FD90008DCE5 /* GroupViewModel.swift in Sources */,
@@ -1854,7 +1870,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -1877,7 +1893,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -1934,6 +1950,14 @@
 				minimumVersion = 0.1.3;
 			};
 		};
+		93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
@@ -1962,6 +1986,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		93DBCFFE27B4DFC400E71C0B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		93EFE7DE26A06C1C00F50894 /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;

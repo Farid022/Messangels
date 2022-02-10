@@ -30,9 +30,10 @@ struct SignupCodeView: View {
                         APIService.shared.post(model: userVM.user, response: userVM.user, endpoint: "users/sign-up", token: false) { result in
                             loading = false
                             switch result {
-                            case .success(let newUser):
+                            case .success(var newUser):
                                 print("User ID: \(newUser.id ?? 0)")
                                 DispatchQueue.main.async {
+                                    newUser.password = userVM.user.password
                                     navigationModel.pushContent("SignupCodeView") {
                                         SignupDoneView(user: newUser)
                                     }

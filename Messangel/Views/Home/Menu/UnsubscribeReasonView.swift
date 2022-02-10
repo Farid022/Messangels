@@ -59,8 +59,9 @@ struct ReasonCoice: View {
 }
 
 struct CustomAlert: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject private var vm: SubscriptionViewModel
+
     @Binding var isPresented: Bool
     var title: String
     var bodyText: String
@@ -78,7 +79,13 @@ struct CustomAlert: View {
                 .font(.system(size: 13))
             Divider()
             Button(action: {
-                navigationModel.hideTopViewWithReverseAnimation()
+                Task {
+                    await vm.unsubscribe()
+                    DispatchQueue.main.async {
+                        vm.checkSubscription()
+                        navigationModel.popContent("Accueil")
+                    }
+                }
             }) {
                 Text(buttonText)
                     .foregroundColor(.accentColor)
@@ -130,8 +137,8 @@ struct ChoicesView: View {
     }
 }
 
-struct UnsubscribeReasonView_Previews: PreviewProvider {
-    static var previews: some View {
-        UnsubscribeReasonView()
-    }
-}
+//struct UnsubscribeReasonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UnsubscribeReasonView()
+//    }
+//}

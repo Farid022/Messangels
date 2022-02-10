@@ -23,7 +23,7 @@ struct ManagedContractsList: View {
                     }
             }
         }
-        .onAppear {
+        .task {
             vm.getAll()
         }
     }

@@ -60,8 +60,13 @@ struct SignupEmailView: View {
                 .keyboardType(.emailAddress)
                 .xTextFieldStyle()
             Toggle(isOn: $accept) {
-                Text("J’accepte les conditions générales d’utilisation de mes données en conformité avec les normes européennes RGPD en vigueur. Lire")
-                    .font(.system(size: 13))
+                Group {
+                    Text("J’accepte les conditions générales d’utilisation de mes données en conformité avec les normes européennes RGPD en vigueur. ") +
+                    Text("[Lire](https://google.com)")
+                        .underline()
+                }
+                .font(.system(size: 13))
+                .tint(.white)
             }
             .toggleStyle(CheckboxToggleStyle())
             .padding(.trailing, -10)

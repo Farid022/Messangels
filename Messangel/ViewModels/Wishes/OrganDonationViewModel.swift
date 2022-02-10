@@ -21,6 +21,7 @@ struct OrganDonation: Codable {
 }
 
 class OrganDonationViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var donation = OrganDonation(donation: 0, user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
@@ -42,4 +43,37 @@ class OrganDonationViewModel: ObservableObject {
             }
         }
     }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: donation, response: donation, endpoint: "users/\(getUserId())/organ_donation/\(id)", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.donation = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+//    func get(completion: @escaping (Bool) -> Void) {
+//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/funeral") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    self.funeralChoices = items
+//                    completion(true)
+//                }
+//            case .failure(let error):
+//                print(error)
+//                completion(false)
+//            }
+//        }
+//    }
 }

@@ -87,7 +87,7 @@ struct ClothsDonationContactsList: View {
             }
             .padding()
         }
-        .onAppear() {
+        .task() {
             contactsVM.getContacts()
         }
             

@@ -9,12 +9,6 @@ import SwiftUI
 import AVFoundation
 import NavigationStack
 
-//struct MessagesAudioPlayerView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MessagesAudioPlayerView()
-//    }
-//}
-
 struct MessagesAudioPlayerView: View {
     @ObservedObject var player: Player
     @State private var fullScreen = false
@@ -31,64 +25,7 @@ struct MessagesAudioPlayerView: View {
                 if !fullScreen {
                     MessagesViewerTopbar()
                 }
-                ZStack {
-                    ZStack(alignment: .topTrailing) {
-                        Text(durationFormatter.string(from: self.player.displayTime) ?? "")
-                            .foregroundColor(.white)
-                            .padding()
-                            .zIndex(1.0)
-                        Image(bgImage)
-                            .resizable()
-                            .frame(width: fullScreen ? screenSize.width : 252, height: fullScreen ? screenSize.height - 100 : 463)
-                            .overlay(ZStack {
-                                HStack {
-                                        if self.player.itemDuration > 0 {
-                                            Slider(value: self.$player.displayTime, in: (0...self.player.itemDuration), onEditingChanged: {
-                                                (scrubStarted) in
-                                                if scrubStarted {
-                                                    self.player.scrubState = .scrubStarted
-                                                } else {
-                                                    self.player.scrubState = .scrubEnded(self.player.displayTime)
-                                                }
-                                            }) .accentColor(.white)
-                                        } else {
-                                            Loader(tintColor: .white)
-                                            Spacer()
-                                        }
-                                    if fullScreen {
-                                        Text(durationFormatter.string(from: self.player.displayTime) ?? "")
-                                            .foregroundColor(.white)
-                                    }
-                                    Button(action: { fullScreen.toggle() }) {
-                                        Image(fullScreen ? "ic_minimize" : "ic_maximize")
-                                    }
-                                }
-                                .if (fullScreen) {$0.padding(.horizontal)}
-                                .zIndex(1.0)
-                                if fullScreen {
-                                    Capsule()
-                                        .foregroundColor(.black.opacity(0.2))
-                                        .frame(height: 45)
-                                }
-                        }.padding(), alignment: .bottom)
-                    }
-                    Button {
-                        switch self.player.timeControlStatus {
-                        case .paused:
-                            self.player.play()
-                        case .waitingToPlayAtSpecifiedRate:
-                            self.player.pause()
-                        case .playing:
-                            self.player.pause()
-                        @unknown default:
-                            fatalError()
-                        }
-                    } label: {
-                        Image(systemName: self.player.timeControlStatus == .paused ? "play.circle.fill": "pause.circle.fill")
-                            .font(.system(size: 56))
-                    }
-                .foregroundColor(.black.opacity(0.2))
-                }
+                AudioPlayerPreview(bgImage: bgImage, fullScreen: $fullScreen, player: player)
                 Spacer()
             }
         }
@@ -124,5 +61,90 @@ struct MessagesViewerTopbar: View {
             }
         }
         .padding()
+    }
+}
+
+struct AudioPlayerButton: View {
+    @ObservedObject var player: Player
+    var body: some View {
+        Button {
+            switch self.player.timeControlStatus {
+            case .paused:
+                self.player.play()
+            case .waitingToPlayAtSpecifiedRate:
+                self.player.pause()
+            case .playing:
+                self.player.pause()
+            @unknown default:
+                fatalError()
+            }
+        } label: {
+            Image(systemName: self.player.timeControlStatus == .paused ? "play.circle.fill": "pause.circle.fill")
+                .font(.system(size: 56))
+        }
+        .foregroundColor(.black.opacity(0.2))
+    }
+}
+
+struct AudioPlayerPreview: View {
+    var bgImage: String
+    @Binding var fullScreen: Bool
+    @ObservedObject var player: Player
+    
+    var body: some View {
+        ZStack {
+            ZStack(alignment: .topTrailing) {
+                Text(durationFormatter.string(from: self.player.displayTime) ?? "")
+                    .foregroundColor(.white)
+                    .padding()
+                    .zIndex(1.0)
+                AsyncImage(url: URL(string: bgImage)) { image in
+                    image.resizable()
+                } placeholder: {
+                    Color.gray
+                }
+                .frame(width: fullScreen ? screenSize.width : 252, height: fullScreen ? screenSize.height - 100 : 463)
+                .overlay(
+                    ZStack {
+                        HStack {
+                            if self.player.itemDuration > 0 {
+                                Slider(value: self.$player.displayTime, in: (0...self.player.itemDuration), onEditingChanged: {
+                                    (scrubStarted) in
+                                    if scrubStarted {
+                                        self.player.scrubState = .scrubStarted
+                                    } else {
+                                        self.player.scrubState = .scrubEnded(self.player.displayTime)
+                                    }
+                                }) .accentColor(.white)
+                            } else {
+                                Loader(tintColor: .white)
+                                Spacer()
+                            }
+                            if fullScreen {
+                                Text(durationFormatter.string(from: self.player.displayTime) ?? "")
+                                    .foregroundColor(.white)
+                            }
+                            Button(action: { fullScreen.toggle() }) {
+                                Image(fullScreen ? "ic_minimize" : "ic_maximize")
+                            }
+                        }
+                        .if (fullScreen) {$0.padding(.horizontal)}
+                        .zIndex(1.0)
+                        if fullScreen {
+                            Capsule()
+                                .foregroundColor(.black.opacity(0.2))
+                                .frame(height: 45)
+                        }
+                    }.padding(), alignment: .bottom
+                )
+                    
+//                Image(bgImage)
+//                    .resizable()
+//                    .frame(width: fullScreen ? screenSize.width : 252, height: fullScreen ? screenSize.height - 100 : 463)
+//                    .overlay(
+//                        )
+            }
+            AudioPlayerButton(player: self.player)
+        }
     }
 }

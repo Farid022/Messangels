@@ -11,21 +11,23 @@ import NavigationStack
 struct UnsubscribeConfirmView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     var body: some View {
-        MenuBaseView(title: "Désabonnement") {
-            VStack(spacing: 30.0) {
-                HStack {
-                    Text("Êtes-vous sûr de vouloir vous désabonner ?")
-                        .fontWeight(.bold)
-                    Spacer()
-                }
-                Text(text)
-                Button("Oui, continuer") {
-                    navigationModel.pushContent("UnsubscribeConfirmView") {
-                        UnsubscribeReasonView()
+        NavigationStackView("UnsubscribeConfirmView") {
+            MenuBaseView(title: "Désabonnement") {
+                VStack(spacing: 30.0) {
+                    HStack {
+                        Text("Êtes-vous sûr de vouloir vous désabonner ?")
+                            .fontWeight(.bold)
+                        Spacer()
                     }
+                    Text(text)
+                    Button("Oui, continuer") {
+                        navigationModel.pushContent("UnsubscribeConfirmView") {
+                            UnsubscribeReasonView()
+                        }
+                    }
+                        .buttonStyle(MyButtonStyle(foregroundColor: .black))
+                        .normalShadow()
                 }
-                    .buttonStyle(MyButtonStyle(foregroundColor: .black))
-                    .normalShadow()
             }
         }
     }
@@ -38,9 +40,3 @@ private let text = """
 
     - Vous conserverez votre rôle d’Ange-gardien le cas échéant. Si vous désirez vous retirer du rôle d’Ange-gardien, supprimez vos protégés dans : Accueil>Mes protégés. Pensez à prévenir ces personnes.
     """
-
-struct UnsubscribeView_Previews: PreviewProvider {
-    static var previews: some View {
-        UnsubscribeConfirmView()
-    }
-}

@@ -11,6 +11,8 @@ class Auth: ObservableObject {
     @Published var user: User
     @Published var credentials: Credentials
     @Published var token: Token
+    @Published var apiResponse = APIService.APIResponse(message: "")
+    @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     init() {
         self.user = User(id: nil, first_name: "", last_name: "", email: "", password: "", phone_number: "", dob: "", city: "", postal_code: "", gender: "", is_active: false, image_url: nil)
@@ -49,6 +51,24 @@ class Auth: ObservableObject {
             case .failure(let error):
                 DispatchQueue.main.async {
                     print(error.error_description)
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    func forgotPassword(_ email: String, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: ["email":email], response: apiResponse, endpoint: "users/forgot-password", token: false) { result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    print(response.message)
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
                     completion(false)
                 }
             }

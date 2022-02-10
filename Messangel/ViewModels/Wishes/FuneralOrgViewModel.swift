@@ -24,6 +24,7 @@ struct FuneralOrg: Codable {
 }
 
 class FuneralOrgViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var funeralCompanies = [FuneralCompany]()
     @Published var funeralOrg = FuneralOrg(chose_funeral_home: true, funeral_company: 0, funeral_company_note: "", company_contact_detail: true, company_contact_num: "", have_funeral_contact: 0, user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
@@ -59,4 +60,37 @@ class FuneralOrgViewModel: ObservableObject {
             }
         }
     }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: funeralOrg, response: funeralOrg, endpoint: "users/\(getUserId())/organization/\(id)", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.funeralOrg = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+//    func get(completion: @escaping (Bool) -> Void) {
+//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/organization") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    self.funeralChoices = items
+//                    completion(true)
+//                }
+//            case .failure(let error):
+//                print(error)
+//                completion(false)
+//            }
+//        }
+//    }
 }

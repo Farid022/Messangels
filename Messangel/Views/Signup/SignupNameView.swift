@@ -11,7 +11,7 @@ import NavigationStack
 struct SignupNameView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var userVM = UserViewModel()
-    @State private var referralCode: String = ""
+//    @State private var referralCode: String = ""
     @State private var referral = false
 //    @State private var lastNameActive = false
     @State private var progress = 1.0
@@ -23,20 +23,9 @@ struct SignupNameView: View {
                 .font(.system(size: 22))
                 .fontWeight(.bold)
             CocoaTextField("Prénom", text: $userVM.user.first_name)
-//                           , onCommit:  {
-//                lastNameActive = true
-//            })
                 .isInitialFirstResponder(true)
                 .xTextFieldStyle()
             CocoaTextField("Nom", text: $userVM.user.last_name)
-//                           , onCommit:  {
-//                if valid {
-//                    navigationModel.pushContent("SignupNameView") {
-//                        SignupBirthView(userVM: userVM)
-//                    }
-//                }
-//            })
-//            .isInitialFirstResponder(lastNameActive)
                 .xTextFieldStyle()
             Toggle(isOn: $referral) {
                 Text("J’ai un code filleul")
@@ -44,7 +33,7 @@ struct SignupNameView: View {
             }
             .toggleStyle(CheckboxToggleStyle())
             if referral {
-                TextField("Code filleul", text: $referralCode)
+                TextField("Code filleul", text: $userVM.user.referral_code)
             }
         }
         .onChange(of: userVM.user.first_name) { value in

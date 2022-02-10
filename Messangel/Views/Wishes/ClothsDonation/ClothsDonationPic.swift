@@ -46,15 +46,8 @@ struct ClothsDonationPic: View {
                                     .onReceive(imageLoader.didChange) { data in
                                         self.inviteImage = UIImage(data: data) ?? UIImage()
                                         self.cgImage = self.inviteImage.cgImage
-                                        Networking.shared.upload(inviteImage.jpegData(compressionQuality: 1)!, fileName: "msgl_user_\(getUserId())_clothing_\(vm.clothDonation.clothing_name)_photo.jpeg", fileType: "image") { result in
-                                            switch result {
-                                            case .success(let response):
-                                                DispatchQueue.main.async {
-                                                    self.vm.clothDonation.clothing_photo = response.files.first?.path ?? ""
-                                                }
-                                            case .failure(let error):
-                                                print("Profile image upload failed: \(error)")
-                                            }
+                                        Task {
+                                            self.vm.clothDonation.clothing_photo = await uploadImage(inviteImage, type: "clothing")
                                         }
                                     }
                             }

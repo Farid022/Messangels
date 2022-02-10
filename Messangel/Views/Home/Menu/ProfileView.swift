@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
 
 struct ProfileView: View {
     @EnvironmentObject var auth: Auth
@@ -15,11 +16,12 @@ struct ProfileView: View {
     @State private var profileImage = UIImage()
     @State private var isShowPhotoLibrary = false
     @State private var cgImage = UIImage().cgImage
+    @State private var isPerformingTask = false
     
     var body: some View {
         MenuBaseView(title:"Profil") {
             Rectangle()
-                .fill(Color.gray)
+                .fill(auth.user.image_url == nil ? Color.gray : Color.white)
                 .frame(width: 66, height: 66)
                 .cornerRadius(30)
                 .overlay(
@@ -29,11 +31,19 @@ struct ProfileView: View {
                         ZStack {
                             if auth.user.image_url == nil {
                                 Image("ic_camera")
-                            } else {
-                                Loader()
+                            } else if let imageUrl = auth.user.image_url {
+                                ZStack {
+                                    Loader()
+                                    KFImage(URL(string: imageUrl))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 66, height: 66)
+                                        .clipShape(Circle())
+                                }
                             }
                             Image(uiImage: profileImage)
                                 .resizable()
+                                .scaledToFill()
                                 .frame(width: 66, height: 66)
                                 .clipShape(Circle())
                                 .onReceive(imageLoader.didChange) { data in
@@ -44,13 +54,13 @@ struct ProfileView: View {
                     })
                 )
             if auth.user.image_url == nil {
-                Text("Choisir une photp")
+                Text("Choisir une photo")
                     .foregroundColor(.secondary)
                     .font(.system(size: 13))
                     .padding(.bottom)
             }
             HStack {
-                Text("Né(e) le \(auth.user.dob) à \(auth.user.city)")
+                Text("Né(e) le \(formatDateString(auth.user.dob, inFormat:"yyyy-MM-dd", outFormat: "d MMM yyyy")) à \(auth.user.city)")
                 Spacer()
             }
             .padding(.bottom)
@@ -58,29 +68,35 @@ struct ProfileView: View {
                 TextField("", text: $userVM.profile.last_name)
                 TextField("", text: $userVM.profile.first_name)
                 TextField("", text: $userVM.profile.postal_code)
-                TextField("", text: .constant(userVM.profile.gender == "1" ? "Mâle" : "Féminin"))
+                TextField("", text: .constant(Genders[Int(userVM.profile.gender) ?? 0]))
             }
             .textFieldStyle(MyTextFieldStyle(editable: true))
             .normalShadow()
             .padding(.bottom)
             Button("Enregister") {
+                isPerformingTask = true
                 if self.cgImage != self.profileImage.cgImage {
-                    Networking.shared.upload(profileImage.jpegData(compressionQuality: 1)!, fileName: "msgl_profil.jpeg", fileType: "image") { result in
-                        switch result {
-                        case .success(let response):
+                    Task {
+                        if let response = await Networking.shared.upload(profileImage.jpegData(compressionQuality: 1)!, fileName: "msgl_profil.jpeg", fileType: "image") {
                             DispatchQueue.main.async {
                                 self.userVM.profile.image_url = response.files.first?.path
+                                updateProfile { success in
+                                    if success {
+                                        isPerformingTask = false
+                                    }
+                                }
                             }
-                            updateProfile()
-                        case .failure(let error):
-                            print("Profile image upload failed: \(error)")
                         }
                     }
                 } else {
-                    updateProfile()
+                    updateProfile { success in
+                        if success {
+                            isPerformingTask = false
+                        }
+                    }
                 }
-              
             }
+            .disabled(isPerformingTask)
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
             .padding(.bottom)
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
@@ -92,27 +108,13 @@ struct ProfileView: View {
         }
         .onDidAppear() {
             self.userVM.profile = Profile(first_name: auth.user.first_name, last_name: auth.user.last_name, postal_code: auth.user.postal_code, gender: "1", image_url: auth.user.image_url)
-//            do {
-//                let imageData = try Data(contentsOf: profileImageUrl())
-//                self.selectedImage = UIImage(data: imageData) ?? UIImage()
-//            } catch {
-//                print("Error loading image : \(error)")
-//            }
-//            let imageView = UIImageView()
-//            if auth.user.image_url != nil {
-//                imageView.af.setImage(withURL: URL(fileURLWithPath: auth.user.image_url!))
-//                if let image = imageView.image {
-//                    self.selectedImage = image
-//                    self.cgImage = self.selectedImage.cgImage
-//                }
-//            }
         }
         .sheet(isPresented: $isShowPhotoLibrary) {
             ImagePicker(selectedImage: $profileImage)
         }
     }
     
-    func updateProfile() {
+    func updateProfile(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: userVM.profile, response: auth.user, endpoint: "users/\(getUserId())/profile", method: "PATCH") { result in
             switch result {
             case .success(let user):
@@ -122,9 +124,11 @@ struct ProfileView: View {
                     auth.user = user
                     auth.user.password = password
                     auth.updateUser()
+                    completion(true)
                 }
             case .failure(let error):
                 print(error.error_description)
+                completion(false)
             }
         }
     }
@@ -149,3 +153,5 @@ class ImageLoader: ObservableObject {
         task.resume()
     }
 }
+
+let Genders = ["", "Masculin", "Féminin", "Autre"]

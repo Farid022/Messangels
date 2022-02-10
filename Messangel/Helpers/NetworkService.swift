@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 typealias APIService = Networking
 
@@ -75,9 +76,10 @@ class Networking {
         request.httpBody = encoded
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Status code: \(httpResponse.statusCode)")
+            guard let httpResponse = response as? HTTPURLResponse  else {
+                return
             }
+            print("Status code: \(httpResponse.statusCode)")
             guard let data = data else {
                 print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
                 return
@@ -86,8 +88,14 @@ class Networking {
             let decoder = JSONDecoder()
             
             if let decodedData = try? decoder.decode(R.self, from: data) {
-                completion(.success(decodedData))
-                return
+                if (200...299).contains(httpResponse.statusCode) {
+                    completion(.success(decodedData))
+                    return
+                } else {
+                    let res = decodedData as? APIResponse
+                    completion(.failure(APIErr(error: "Server Error: \(httpResponse.statusCode)", error_description: res?.message ?? "")))
+                    return
+                }
             } else if let decodedError = try? decoder.decode(APIErr.self, from: data) {
                 completion(.failure(APIErr(error: decodedError.error, error_description: decodedError.error_description)))
                 return
@@ -127,7 +135,7 @@ class Networking {
         }.resume()
     }
     
-    func upload(_ fileData: Data, fileName:String, fileType:String, then completion: @escaping (Result<UploadResponse, APIError>) -> Void) {
+    func upload(_ fileData: Data, fileName:String, fileType:String) async -> UploadResponse? {
         let url = URL(string: "http://51.83.41.210:4000/uploadfile")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -139,46 +147,40 @@ class Networking {
             "artifect_type":fileType,
             "base_path":"/messangel/\(user["id"] ?? "0")/\(fileType)"
         ]
-        var data = Data()
+        var requestData = Data()
         for (key,value) in dic{
-            data.append("------\(boundary)\r\n".data(using: .utf8)!)
-            data.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
-            data.append("\(value)\r\n".data(using: .utf8)!)
+            requestData.append("------\(boundary)\r\n".data(using: .utf8)!)
+            requestData.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+            requestData.append("\(value)\r\n".data(using: .utf8)!)
         }
-        data.append("------\(boundary)\r\n".data(using: .utf8)!)
-        data.append("Content-Disposition: form-data; name=\"dataFiles\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: application/\(fileType)\r\n\r\n".data(using: .utf8)!)
-        data.append(fileData)
-        data.append("\r\n".data(using: .utf8)!)
-        data.append("------\(boundary)--".data(using: .utf8)!)
+        requestData.append("------\(boundary)\r\n".data(using: .utf8)!)
+        requestData.append("Content-Disposition: form-data; name=\"dataFiles\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        requestData.append("Content-Type: application/\(fileType)\r\n\r\n".data(using: .utf8)!)
+        requestData.append(fileData)
+        requestData.append("\r\n".data(using: .utf8)!)
+        requestData.append("------\(boundary)--".data(using: .utf8)!)
         // END FORM DATA
-        let task = URLSession.shared.uploadTask(with: request, from: data) { data, response, error in
-            if let error = error {
-                print ("error: \(error)")
-                return
-            }
-            guard let response = response as? HTTPURLResponse,
-                (200...299).contains(response.statusCode) else {
-                print ("server error")
-                return
-            }
-            if let mimeType = response.mimeType,
-                mimeType == "application/json",
-                let data = data,
-                let dataString = String(data: data, encoding: .utf8) {
+        do {
+            let (responseData, urlResponse) = try await URLSession.shared.upload(for: request, from: requestData)
+            guard let httpUrlResponse = urlResponse as? HTTPURLResponse,
+                  (200...299).contains(httpUrlResponse.statusCode) else {
+                      print ("server error")
+                      return nil
+                  }
+            if let mimeType = httpUrlResponse.mimeType,
+               mimeType == "application/json",
+               let dataString = String(data: responseData, encoding: .utf8) {
                 print ("got data: \(dataString)")
-                let decoder = JSONDecoder()
-                do {
-                    let decodedData = try decoder.decode(UploadResponse.self, from: data)
-                    completion(.success(decodedData))
-                } catch let decodingError {
-                    completion(.failure(APIError.error("Error: \(decodingError)")))
-                }
             }
+            let uploadResponse = try JSONDecoder().decode(UploadResponse.self, from: responseData)
+            return uploadResponse
+        } catch (let error) {
+            print(error.localizedDescription)
         }
-        task.resume()
+        return nil
     }
-}
+    
+} // END OF CLASS
 
 struct UploadResponse: Decodable {
     let files: [UploadedFile]
@@ -191,4 +193,11 @@ struct UploadedFile: Decodable {
 
 func getUserId() -> Int {
     return UserDefaults.standard.dictionary(forKey: "user")?["id"] as! Int
+}
+
+func uploadImage(_ image: UIImage, type: String) async -> String {
+    if let response = await Networking.shared.upload(image.jpegData(compressionQuality: 1)!, fileName: "msgl_user_\(getUserId())_\(type)_\(UUID().uuidString).jpeg", fileType: "image") {
+        return response.files.first?.path ?? ""
+    }
+    return ""
 }

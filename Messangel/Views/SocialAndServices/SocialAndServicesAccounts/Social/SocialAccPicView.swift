@@ -44,15 +44,8 @@ struct SocialAccPicView: View {
                                     .onReceive(imageLoader.didChange) { data in
                                         self.inviteImage = UIImage(data: data) ?? UIImage()
                                         self.cgImage = self.inviteImage.cgImage
-                                        Networking.shared.upload(inviteImage.jpegData(compressionQuality: 1)!, fileName: "msgl_user_\(getUserId())_invitation_photo.jpeg", fileType: "image") { result in
-                                            switch result {
-                                            case .success(let response):
-                                                DispatchQueue.main.async {
-                                                    self.vm.account.lastPostImage = response.files.first?.path ?? ""
-                                                }
-                                            case .failure(let error):
-                                                print("Profile image upload failed: \(error)")
-                                            }
+                                        Task {
+                                            self.vm.account.lastPostImage = await uploadImage(inviteImage, type: "social_acc")
                                         }
                                     }
                             }

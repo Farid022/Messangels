@@ -14,6 +14,8 @@ extension Binding {
     }
 }
 
+//MARK: - String
+
 extension NSAttributedString {
     func setFontSize(fontSize: CGFloat) -> NSMutableAttributedString {
         let newStr = self.mutableCopy() as! NSMutableAttributedString
@@ -120,6 +122,8 @@ public extension String {
     }
 }
 
+// MARK: - View
+
 extension View {
     func animate(using animation: Animation = Animation.easeInOut(duration: 1), _ action: @escaping () -> Void) -> some View {
         onAppear {
@@ -178,6 +182,18 @@ extension View {
         self.modifier(NormalShadow())
     }
 }
+
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    var screenSize: CGRect {
+        return UIScreen.main.bounds
+    }
+}
+
+// MARK: - Application
 
 extension UIApplication {
     func endEditing() {

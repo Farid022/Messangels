@@ -16,6 +16,7 @@ struct FueneralAsthetic: Codable {
 }
 
 class FueneralAstheticViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var asthetic = FueneralAsthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: 0, user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
@@ -37,4 +38,37 @@ class FueneralAstheticViewModel: ObservableObject {
             }
         }
     }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: asthetic, response: asthetic, endpoint: "users/\(getUserId())/asthetic/\(id)", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.asthetic = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+//    func get(completion: @escaping (Bool) -> Void) {
+//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/asthetic") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    self.funeralChoices = items
+//                    completion(true)
+//                }
+//            case .failure(let error):
+//                print(error)
+//                completion(false)
+//            }
+//        }
+//    }
 }

@@ -9,7 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct FuneralInviteIntro: View {
-
+    @StateObject private var vm = FuneralAnnounceViewModel()
+    
     var body: some View {
         NavigationStackView("FuneralInviteIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,7 +38,7 @@ struct FuneralInviteIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralInviteIntro", destination: AnyView(FuneralInvitePic()), active: .constant(true))
+                        NextButton(source: "FuneralInviteIntro", destination: AnyView(FuneralInvitePic(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }

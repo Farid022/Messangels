@@ -23,7 +23,7 @@ struct AdminDocsList: View {
                     }
             }
         }
-        .onAppear {
+        .task {
             vm.getAll()
         }
     }

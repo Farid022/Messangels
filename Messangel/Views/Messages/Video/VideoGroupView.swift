@@ -101,7 +101,9 @@ struct VideoGroupView: View {
                         HStack {
                             Button(action: {
                                 if valid {
-                                    upload()
+                                    Task {
+                                       await uploadVideo()
+                                    }
                                 }
                             }, label: {
                                 Text("Valider")
@@ -124,27 +126,24 @@ struct VideoGroupView: View {
         }
     }
     
-    func upload() {
-        loading = true
+    func uploadVideo() async {
         do {
             let data = try Data(contentsOf: filename)
-            Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "video") { result in
-                loading = false
-                switch result {
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        vm.uploadResponse = response
-                        vm.video.video_link = response.files.first?.path ?? ""
-                        vm.video.size = "\(response.files.first?.size ?? 0)"
-                        vm.video.group = selectedGroup
-                        vm.create {
-                            navigationModel.popContent(TabBarView.id)
-                        }
-                    }
-                case .failure(_):
-                   return
+            loading.toggle()
+            let response = await Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "video")
+            loading.toggle()
+            if let response = response {
+                DispatchQueue.main.async {
+                    vm.uploadResponse = response
+                    vm.video.video_link = response.files.first?.path ?? ""
+                    vm.video.size = "\(response.files.first?.size ?? 0)"
+                    vm.video.group = selectedGroup
+                }
+                vm.create {
+                    navigationModel.popContent(TabBarView.id)
                 }
             }
+            
         } catch let err {
             print(err)
         }

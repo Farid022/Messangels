@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct MenuView: View {
+    @EnvironmentObject private var subVM: SubscriptionViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var auth: Auth
     var body: some View {
@@ -21,7 +22,7 @@ struct MenuView: View {
                     Color.accentColor
                         .frame(height: 150)
                         .overlay(TopBar(), alignment: .bottom)
-                    List(menuList) {menuItem in
+                    List(menuList()) {menuItem in
                         ZStack {
 //                            Button("") {}
                             Button(action: {
@@ -52,11 +53,25 @@ struct MenuView: View {
                             }
                         }
                     }
-                    .padding()
                     Spacer().frame(height: 80)
                 }
             }
         }
+    }
+    
+    private func menuList() -> [MainMenu] {
+        return [
+            MainMenu(id: "Profil", ic: "ic_profile", destination: AnyView(EmptyView())),
+            MainMenu(id: "Accès et sécurité", ic: "ic_lock", destination: AnyView(AccessSecurityView())),
+            MainMenu(id: "Abonnement", ic: "ic_card", destination: AnyView(EditSubscriptionView())),
+            MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),
+            MainMenu(id: "Parrainer un proche", ic: "ic_sponsor", destination: AnyView(SponsorView())),
+            MainMenu(id: "Notifications et alertes SMS", ic: "ic_bell", destination: AnyView(NotificationsView())),
+            MainMenu(id: "Propositions d’améliorations", ic: "ic_bulb", destination: AnyView(SuggestionsView())),
+            MainMenu(id: "Support/F.A.Q", ic: "ic_wheel", destination: AnyView(FAQView())),
+            MainMenu(id: "À propos de Messangel", ic: "ic_info", destination: AnyView(AboutView())),
+            MainMenu(id: "Se déconnecter", ic: "ic_logout", destination: AnyView(StartView()))
+        ]
     }
 }
 
@@ -65,19 +80,6 @@ private struct MainMenu: Identifiable {
     var ic: String
     var destination: AnyView
 }
-
-private let menuList: [MainMenu] = [
-    MainMenu(id: "Profil", ic: "ic_profile", destination: AnyView(EmptyView())),
-    MainMenu(id: "Accès et sécurité", ic: "ic_lock", destination: AnyView(AccessSecurityView())),
-    MainMenu(id: "Abonnement", ic: "ic_card", destination: AnyView(EditSubscriptionView())),
-    MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),
-    MainMenu(id: "Parrainer un proche", ic: "ic_sponsor", destination: AnyView(SponsorView())),
-    MainMenu(id: "Notifications et alertes SMS", ic: "ic_bell", destination: AnyView(NotificationsView())),
-    MainMenu(id: "Propositions d’améliorations", ic: "ic_bulb", destination: AnyView(SuggestionsView())),
-    MainMenu(id: "Support/F.A.Q", ic: "ic_wheel", destination: AnyView(FAQView())),
-    MainMenu(id: "À propos de Messangel", ic: "ic_info", destination: AnyView(AboutView())),
-    MainMenu(id: "Se déconnecter", ic: "ic_logout", destination: AnyView(StartView()))
-]
 
 struct TopBar: View {
     @EnvironmentObject var navigationModel: NavigationModel

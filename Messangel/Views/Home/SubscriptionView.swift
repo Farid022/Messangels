@@ -60,6 +60,7 @@ struct SubscriptionView: View {
                             vm.subscription.card?.expYear = Int(cardDOE.components(separatedBy: "/")[1]) ?? 0
                             vm.subscribe { success in
                                 if success {
+                                    vm.checkSubscription()
                                     navigationModel.popContent(TabBarView.id)
                                 }
                             }

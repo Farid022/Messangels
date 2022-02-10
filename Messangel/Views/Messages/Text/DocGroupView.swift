@@ -95,8 +95,10 @@ struct DocGroupView: View {
                         HStack {
                             Button(action: {
                                 if valid {
-                                    upload()
-                                }
+                                    Task {
+                                        await uploadDoc()
+                                    }
+                               }
                             }, label: {
                                 Text("Valider")
                                     .font(.system(size: 15))
@@ -119,25 +121,21 @@ struct DocGroupView: View {
         }
     }
     
-    func upload() {
-        loading = true
+    func uploadDoc() async {
         do {
             let data = try Data(contentsOf: filename)
-            Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "text") { result in
-                loading = false
-                switch result {
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        vm.uploadResponse = response
-                        vm.text.message = response.files.first?.path ?? ""
-                        vm.text.size = "\(response.files.first?.size ?? 0)"
-                        vm.text.group = selectedGroup
-                        vm.create {
-                            navigationModel.popContent(TabBarView.id)
-                        }
-                    }
-                case .failure(_):
-                   return
+            loading.toggle()
+            let response = await Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "text")
+            loading.toggle()
+            if let response = response {
+                DispatchQueue.main.async {
+                    vm.uploadResponse = response
+                    vm.text.message = response.files.first?.path ?? ""
+                    vm.text.size = "\(response.files.first?.size ?? 0)"
+                    vm.text.group = selectedGroup
+                }
+                vm.create {
+                    navigationModel.popContent(TabBarView.id)
                 }
             }
         } catch let err {

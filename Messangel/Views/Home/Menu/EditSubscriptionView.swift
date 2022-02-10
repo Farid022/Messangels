@@ -9,13 +9,18 @@ import SwiftUI
 import NavigationStack
 
 struct EditSubscriptionView: View {
+    @EnvironmentObject private var subVM: SubscriptionViewModel
     var body: some View {
-        MenuBaseView(title: "Abonnement") {
-            StatusView()
-            RateView()
-            PaymentView()
-            StorageSpaceView()
-            UnsubscribeSection()
+        NavigationStackView("EditSubscriptionView") {
+            MenuBaseView(title: "Abonnement") {
+                StatusView()
+                RateView()
+                PaymentView()
+                StorageSpaceView()
+                if !subVM.subscriptions.isEmpty {
+                    UnsubscribeSection()
+                }
+            }
         }
     }
 }
@@ -35,6 +40,7 @@ struct MembershipView: View {
 
 private struct StatusView: View {
     @EnvironmentObject var auth: Auth
+    @EnvironmentObject private var subVM: SubscriptionViewModel
     var body: some View {
         HStack {
             Text("Statut(s)")
@@ -53,20 +59,11 @@ private struct StatusView: View {
         MembershipView(text: "Ange-gardien")
         MembershipView(text: "Invité (Actif jusqu’au : 8/04/2021)")
         Spacer().frame(height: 20)
-        SubscribeButton()
-            .padding(.horizontal, -25)
+        if subVM.subscriptions.isEmpty {
+            SubscribeButton()
+                .padding(.horizontal, -25)
+        }
         Spacer().frame(height: 20)
-    }
-}
-
-func unixStrToDateSring(_ dateStr: String) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
-    if let date = dateFormatter.date(from: dateStr) {
-        dateFormatter.dateStyle = .long
-        return dateFormatter.string(from: date)
-    } else {
-        return ""
     }
 }
 

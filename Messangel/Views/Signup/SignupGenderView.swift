@@ -18,7 +18,6 @@ struct SignupGenderView: View {
             Text("Je m’identifie comme")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-//            Spacer().frame(height: 50)
             Group {
                 Button("Masculin", action: {
                     userVM.user.gender = "1"

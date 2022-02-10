@@ -113,7 +113,7 @@ struct DeathAnnounceContactsList: View {
             }
             .padding()
         }
-        .onAppear() {
+        .task() {
             contactsVM.getContacts()
         }
             

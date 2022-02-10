@@ -11,6 +11,7 @@ struct MsgAudio: Codable, Hashable {
     var id: Int
     var name: String
     var audio_link: String
+    var audio_image: String?
     var size: String?
     var group: Int
     var created_at: String?

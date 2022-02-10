@@ -30,7 +30,7 @@ struct MessagesGroupView: View {
                         .padding(.horizontal, -16)
                         .padding(.top, -16)
                         .opacity(fadeOut ? 0.5 : 1)
-                        .animation(.easeInOut(duration: 0.5))
+                        .animation(.easeInOut(duration: 0.5), value: fadeOut)
                         .onReceive(timer) { _ in
                             if currentIndex < albumVM.albumImages.count - 1 {
                                 fadeOut.toggle()
@@ -63,7 +63,7 @@ struct MessagesGroupView: View {
                                     if let url = URL(string:audio.audio_link) {
                                         let player = Player(avPlayer: AVPlayer(url: url))
                                         navigationModel.presentContent(TabBarView.id) {
-                                            MessagesAudioPlayerView(player: player, bgImage: "bg_audio")
+                                            MessagesAudioPlayerView(player: player, bgImage: audio.audio_image ?? "https://google.com")
                                         }
                                     }
                                 }

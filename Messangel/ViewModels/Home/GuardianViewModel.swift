@@ -17,6 +17,7 @@ struct Guardian: Codable, Hashable {
 }
 
 class GuardianViewModel: ObservableObject {
+    @Published var guardiansUpdated = false
     @Published var guardian = Guardian(id: 0, user_id: 0, first_name: "", last_name: "", email: "", status: "1")
     @Published var guardians = [Guardian]()
     @Published var apiResponse = APIService.APIResponse(message: "")

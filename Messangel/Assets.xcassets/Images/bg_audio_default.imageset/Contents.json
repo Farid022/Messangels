@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "bg_audio.png",
+      "filename" : "bg_audio_default.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "bg_audio@2x.png",
+      "filename" : "bg_audio_default@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "bg_audio@3x.png",
+      "filename" : "bg_audio_default@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

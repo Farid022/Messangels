@@ -10,7 +10,7 @@ import NavigationStack
 
 struct SignupBirthView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @State private var dob = Calendar.current.date(byAdding: .year, value: -18, to: Date())!
+    @State private var dob = Date()
     @State private var progress = 12.5
     @State private var valid = false
     @State private var dobSelected = false
@@ -66,11 +66,16 @@ struct SignupBirthView: View {
                 }
             }
         }
-        .animation(.default)
+        .animation(.default, value: offset)
         .onChange(of: userVM.user.city) { value in
             self.validate()
         }
         .onDidAppear {
+            if userVM.user.dob.isEmpty {
+                self.dob = Calendar.current.date(byAdding: .year, value: -18, to: Date())!
+            } else if let date = strToDate(userVM.user.dob) {
+                self.dob = date
+            }
             self.validate()
         }
     }
@@ -105,15 +110,3 @@ struct CustomActionSheet : View {
         .cornerRadius(25)
     }
 }
-
-func dateToStr(_ date: Date, dateFormat: String = "yyyy-MM-dd") -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = dateFormat
-    return dateFormatter.string(from: date)
-}
-
-//struct SignupBirthView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupBirthView()
-//    }
-//}

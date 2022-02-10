@@ -21,6 +21,7 @@ struct User: Hashable, Codable {
     var is_active: Bool
     var image_url: String?
     var registration_date: String?
+    var referral_code: String?
 }
 
 struct Profile: Codable {

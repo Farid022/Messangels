@@ -90,7 +90,7 @@ struct MessagesBottomView: View {
                 }
                 .padding()
             }
-            .onAppear() {
+            .task() {
                 vm.getAll()
             }
         }

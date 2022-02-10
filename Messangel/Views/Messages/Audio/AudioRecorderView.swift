@@ -41,7 +41,7 @@ struct AudioRecorderView: View {
                     Spacer()
                     Image("Audio_Waves")
                         .offset(x: audioRecorder.recording ? -(UIScreen.main.bounds.size.width+400) : UIScreen.main.bounds.size.width)
-                        .animation(Animation.linear(duration: 5).repeatForever(autoreverses: false))
+                        .animation(Animation.linear(duration: 5).repeatForever(autoreverses: false), value: audioRecorder.recording)
                     Spacer().frame(height: 100)
                     Text("APPUYEZ POUR VOUS ENREGISTRER")
                         .foregroundColor(.white)
@@ -54,7 +54,7 @@ struct AudioRecorderView: View {
                             let fileUrl = audioRecorder.audioRecorder.url
                             print("Recorded Audio File: \(fileUrl.path)")
                             navigationModel.pushContent("AudioRecorderView") {
-                                AudioTitleView(fileUrl: fileUrl)
+                                AudioTitleView(player: Player(avPlayer: AVPlayer(url: fileUrl)), fileUrl: fileUrl)
                             }
                         } else {
                             audioRecorder.startRecording()
@@ -72,12 +72,6 @@ struct AudioRecorderView: View {
 }
 
 
-//struct AudioRecorderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AudioRecorderView()
-//    }
-//}
-
 struct BarView: View {
     var value: CGFloat
     
@@ -86,7 +80,6 @@ struct BarView: View {
             Capsule()
                 .fill(Color(hexadecimal: "D6D5D5"))
                 .frame(width: 2.5, height: value)
-            //                .frame(width: (UIScreen.main.bounds.width - CGFloat(numberOfSamples) * 4) / CGFloat(numberOfSamples), height: value)
         }
     }
 }
@@ -112,14 +105,13 @@ struct RecordButtonView: View {
                     RoundedRectangle(cornerRadius: 5)
                         .fill(Color.accentColor)
                         .frame(width: blinkSize, height: blinkSize)
-                        .onAppear{
-                            withAnimation{
+                        .onAppear {
+                            withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)){
                                 blinkColor = .white
                                 blinkSize = 18
                             }
                         }
                 }
-                .animation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true))
             }
         }
     }

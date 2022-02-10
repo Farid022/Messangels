@@ -11,25 +11,29 @@ import NavigationStack
 struct AudioTitleView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var groupVM: GroupViewModel
+    @ObservedObject var player: Player
     @StateObject private var vm = AudioViewModel()
     @State private var valid = false
+    @State private var fullScreen = false
+
     var fileUrl: URL
     
     var body: some View {
         NavigationStackView("AudioTitleView") {
             MenuBaseView(height: 60, title: "Filtre") {
-                Text("Aperçu")
-                    .font(.system(size: 17))
-                    .fontWeight(.bold)
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .frame(height: 460)
-                    .padding(.horizontal, 30)
-                Text("Choisir un titre")
-                    .font(.system(size: 17))
-                    .fontWeight(.bold)
-                    .padding(.bottom)
-                    .padding(.top, -20)
+//                ZStack {
+//                    Rectangle()
+//                        .foregroundColor(.gray.opacity(0.5))
+//                        .frame(height: screenSize.width / 1.15)
+//                        .padding(.horizontal, 30)
+//                        .padding(.bottom, 30)
+//                    Image("audio_preview_waves")
+//                    AudioPlayerButton(player: self.player)
+//                }
+                ZStack {
+                    Image("audio_preview_waves")
+                    AudioPlayerPreview(bgImage: "bg_audio_default", fullScreen: $fullScreen, player: player)
+                }
                 TextField("Titre de la audéo", text: $vm.audio.name, onCommit: {
                     valid = !vm.audio.name.isEmpty
                 })
@@ -45,7 +49,7 @@ struct AudioTitleView: View {
                         .overlay(
                             Button(action: {
                                 navigationModel.pushContent("AudioTitleView") {
-                                    AudioGroupView(fileUrl: fileUrl, vm: vm)
+                                    AudioImageView(player: player, vm: vm, fileUrl: fileUrl)
                                 }
                             }) {
                                 Image(systemName: "chevron.right").foregroundColor(Color.white)
@@ -56,3 +60,5 @@ struct AudioTitleView: View {
         }
     }
 }
+
+

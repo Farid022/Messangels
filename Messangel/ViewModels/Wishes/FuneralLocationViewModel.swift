@@ -29,6 +29,7 @@ struct FuneralLocation: Codable {
 }
 
 class FuneralLocationViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var buryLocations = [BuryLocation]()
     @Published var location = FuneralLocation(location_of_ceremony: false, user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
@@ -51,4 +52,37 @@ class FuneralLocationViewModel: ObservableObject {
             }
         }
     }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: location, response: location, endpoint: "users/\(getUserId())/premises/\(id)", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.location = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+//    func get(completion: @escaping (Bool) -> Void) {
+//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/premises") { result in
+//            switch result {
+//            case .success(let items):
+//                DispatchQueue.main.async {
+//                    self.funeralChoices = items
+//                    completion(true)
+//                }
+//            case .failure(let error):
+//                print(error)
+//                completion(false)
+//            }
+//        }
+//    }
 }
