@@ -1,0 +1,183 @@
+//
+//  OrganismesObsequesView.swift
+//  Messangel
+//
+//  Created by Muhammad Ali  Pasha on 2/9/22.
+//
+
+import SwiftUI
+import NavigationStack
+import Combine
+struct OrganismesObsequesView: View {
+    var body: some View {
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
+            VStack(spacing: 0.0) {
+                Color.accentColor
+                    .ignoresSafeArea()
+                    .frame(height: 5)
+                NavBar()
+                    .overlay(HStack {
+                        BackButton()
+                        Spacer()
+                        Text("Organisme obsèques")
+                            .font(.system(size: 17))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.white)
+                           
+                        Spacer()
+                       
+                       
+                    }
+                    .padding(.trailing)
+                    .padding(.leading))
+                
+                ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
+                    ScrollView {
+                        VStack{
+                            Text("Voici mes informations concernant mon entreprise funéraire et mon contrat obsèque")
+                                   .font(.system(size: 22))
+                                   .fontWeight(.bold)
+                                   .padding(.top,40)
+                                   .padding(.bottom,40)
+                                   .padding(.horizontal)
+                          
+                           
+                            FuneralContractView()
+                            
+                            
+                            MonCercueilTitleView(title: "Je n’ai pas choisi d’entreprise funéraire")
+                                .padding(.bottom,40)
+                            MonCercueilTitleView(title: "JJe n’ai pas souscrit de contrat obsèques")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+struct FuneralContractView: View
+{
+    var body: some View {
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+            
+         VStack(alignment:.leading)
+         {
+             Text("Mon contrat obsèques")
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
+                    .padding(.bottom,24)
+                    .padding(.top,24)
+                    .padding(.leading,24)
+             
+             
+             MonCercueilWithListView(title: "Organisme", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items:  [MesVolenteItem(title: "Nom de l’organisme", type:"ic_company")])
+             
+             MonCercueilWithListView(title: "Numéro de contrat", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items:  [])
+         }
+        }
+        .cornerRadius(22)
+        .padding(.leading,18)
+        .padding(.trailing,18)
+    }
+}
+
+
+struct MonCercueilWithListItem: View
+{
+    var title: String
+    var description: String
+    var items: [MesVolenteItem]
+    var body: some View {
+        
+        VStack(alignment:.leading)
+        {
+            Text("+ " + title)
+                   .font(.system(size: 15))
+                   .fontWeight(.bold)
+                  
+                   .padding(.bottom,24)
+            
+            if items.count > 0
+            {
+                ForEach(enumerating: items, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: item.type, item: item.title)
+
+                }
+                
+               
+                .padding(.bottom)
+            }
+            HStack(alignment:.top){
+                Image("ic_note")
+                
+                Text(description)
+                       .font(.system(size: 14))
+                       .fontWeight(.regular)
+                       .padding(.bottom,40)
+                       .padding(.leading,16)
+                       .padding(.trailing,24)
+                
+            }
+            
+        }
+        .padding(.leading,24)
+        .padding(.trailing,24)
+    }
+}
+
+struct MonCercueilWithListView: View
+{
+    var title: String
+    var description: String
+    var items: [MesVolenteItem]
+    var body: some View {
+        
+        VStack(alignment:.leading)
+        {
+            MonCercueilWithListItem(title: title , description: description, items: items)
+        }
+                
+        
+    }
+}
+
+struct MonCercueilTitleView: View
+{
+    var title: String
+ 
+    var body: some View {
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+           
+        VStack(alignment:.leading)
+        {
+            Text(title)
+                   .font(.system(size: 15))
+                   .fontWeight(.bold)
+                   .multilineTextAlignment(.leading)
+                   
+        
+            
+        }
+        .padding(.leading,24)
+        .padding(.trailing,24)
+        .padding(.vertical,40)
+        }
+        .cornerRadius(22)
+        .padding(.leading,18)
+        .padding(.trailing,18)
+    }
+}
+
+struct OrganismesObsequesView_Previews: PreviewProvider {
+    static var previews: some View {
+        OrganismesObsequesView()
+    }
+}

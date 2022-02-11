@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2396201E27AD04B200CE3CCD /* MonMessangelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2396201D27AD04B200CE3CCD /* MonMessangelView.swift */; };
+		23C0F1E227B2FE8F008F386D /* ChoixfunerairesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E127B2FE8F008F386D /* ChoixfunerairesView.swift */; };
+		23C0F1E427B30360008F386D /* OrganismesObsequesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E327B30360008F386D /* OrganismesObsequesView.swift */; };
+		23C0F1E627B3811D008F386D /* CorpsScienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E527B3811D008F386D /* CorpsScienceView.swift */; };
+		23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */; };
+		23C0F1EB27B381A1008F386D /* DiffusionNouvelleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */; };
 		9313BA6F26846019008F566C /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA6E26846019008F566C /* TextEditorView.swift */; };
 		9313BA802689A467008F566C /* RichEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA712689A467008F566C /* RichEditorView.swift */; };
 		9313BA812689A467008F566C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA722689A467008F566C /* String+Extensions.swift */; };
@@ -309,6 +315,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2396201D27AD04B200CE3CCD /* MonMessangelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMessangelView.swift; sourceTree = "<group>"; };
+		23C0F1E127B2FE8F008F386D /* ChoixfunerairesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixfunerairesView.swift; sourceTree = "<group>"; };
+		23C0F1E327B30360008F386D /* OrganismesObsequesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganismesObsequesView.swift; sourceTree = "<group>"; };
+		23C0F1E527B3811D008F386D /* CorpsScienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpsScienceView.swift; sourceTree = "<group>"; };
+		23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritualiteTraditionsView.swift; sourceTree = "<group>"; };
+		23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffusionNouvelleView.swift; sourceTree = "<group>"; };
 		9313BA6E26846019008F566C /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		9313BA712689A467008F566C /* RichEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichEditorView.swift; sourceTree = "<group>"; };
 		9313BA722689A467008F566C /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -624,6 +636,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2396201C27AD038100CE3CCD /* MonMessangel */ = {
+			isa = PBXGroup;
+			children = (
+				2396201D27AD04B200CE3CCD /* MonMessangelView.swift */,
+				23C0F1E127B2FE8F008F386D /* ChoixfunerairesView.swift */,
+				23C0F1E327B30360008F386D /* OrganismesObsequesView.swift */,
+				23C0F1E527B3811D008F386D /* CorpsScienceView.swift */,
+				23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */,
+				23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */,
+			);
+			path = MonMessangel;
+			sourceTree = "<group>";
+		};
 		9313BA702689A467008F566C /* RichEditorView */ = {
 			isa = PBXGroup;
 			children = (
@@ -876,6 +901,7 @@
 				93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */,
 				93AC01E9271D494900FD7285 /* FlowBaseView.swift */,
 				93553A88264701E60027BA06 /* Signup */,
+				2396201C27AD038100CE3CCD /* MonMessangel */,
 				9369D53C2656399500650AA7 /* Home */,
 				935A59A6265F7032005B0505 /* Messages */,
 				93AC01E62718453E00FD7285 /* Wishes */,
@@ -1452,6 +1478,7 @@
 				9313BA812689A467008F566C /* String+Extensions.swift in Sources */,
 				93AC01E8271D476A00FD7285 /* FuneralChoiceIntro.swift in Sources */,
 				93AC01F2271D87A300FD7285 /* FuneralCoffinShape.swift in Sources */,
+				23C0F1EB27B381A1008F386D /* DiffusionNouvelleView.swift in Sources */,
 				93AC02AA274B56DE00FD7285 /* ObjectsDonationsList.swift in Sources */,
 				93AC026027326B3300FD7285 /* ObjectsDonationIntro.swift in Sources */,
 				937CA4BB2653EC21004A0227 /* GuardianFormFirstNameView.swift in Sources */,
@@ -1495,6 +1522,7 @@
 				939CBDBA2771E75A004520A3 /* ServiceDetailsView.swift in Sources */,
 				9351CCC727A548D00087C0E9 /* MessagesAudioPlayerView.swift in Sources */,
 				93EFE7E826A15D9700F50894 /* SignupEmailView.swift in Sources */,
+				23C0F1E627B3811D008F386D /* CorpsScienceView.swift in Sources */,
 				93AC026627326D1E00FD7285 /* ExtraWishesIntro.swift in Sources */,
 				93AC026227326CB700FD7285 /* DonationOrgsIntro.swift in Sources */,
 				93671DB92767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift in Sources */,
@@ -1513,6 +1541,7 @@
 				93AC01F6271D952900FD7285 /* FuneralCoffinAccessory.swift in Sources */,
 				93AC02AE274B56DE00FD7285 /* ObjectsDonationNote.swift in Sources */,
 				935FFCBA279FE36A00290E4C /* OrganizationViewModel.swift in Sources */,
+				23C0F1E227B2FE8F008F386D /* ChoixfunerairesView.swift in Sources */,
 				93AC027F274660D700FD7285 /* PracticalCodesIntro.swift in Sources */,
 				93AC02E3274B695B00FD7285 /* AdminDocsNote.swift in Sources */,
 				93AC02872747633A00FD7285 /* ClothsDonationCount.swift in Sources */,
@@ -1561,6 +1590,7 @@
 				935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */,
 				932FF8BA26C136BD00DE52F9 /* AudioGroupView.swift in Sources */,
 				93AC02002721474C00FD7285 /* FuneralChoicesViewModel.swift in Sources */,
+				23C0F1E427B30360008F386D /* OrganismesObsequesView.swift in Sources */,
 				939CBDD52786F50A004520A3 /* FuneralSpritualityViewModel.swift in Sources */,
 				93AC02E2274B695B00FD7285 /* AdminDocsDetails.swift in Sources */,
 				9354046A26C0C8B4004BE5B9 /* TextAlert.swift in Sources */,
@@ -1588,6 +1618,7 @@
 				9351CCD027A690640087C0E9 /* MessagesTextView.swift in Sources */,
 				9351CCCD27A65D750087C0E9 /* AudioRecorder.swift in Sources */,
 				935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */,
+				2396201E27AD04B200CE3CCD /* MonMessangelView.swift in Sources */,
 				93AC02432727D76C00FD7285 /* FuneralPlaceName.swift in Sources */,
 				93EFE7EB26A15D9700F50894 /* SignupTelView.swift in Sources */,
 				9351CCC327A43B790087C0E9 /* Utils.swift in Sources */,
@@ -1607,6 +1638,7 @@
 				93EFE7E726A15D9700F50894 /* SignupPostcodeView.swift in Sources */,
 				939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */,
 				93AC029527476C9300FD7285 /* ClothsDonationContactsList.swift in Sources */,
+				23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
 				938313952671E46E00C71C98 /* PHPhotoLibrary.swift in Sources */,
 				93AC02542727E4E000FD7285 /* FuneralDecoration.swift in Sources */,

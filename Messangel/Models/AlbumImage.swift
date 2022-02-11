@@ -11,3 +11,17 @@ struct AlbumImage: Hashable {
     var id : String
     var image : UIImage
 }
+
+
+struct MesMessage: Hashable {
+    var icon : String
+    var title : String
+    var count : String
+}
+
+
+struct MesVolenteItem: Hashable {
+
+    var title : String
+    var type : String
+}
