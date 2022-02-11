@@ -5,7 +5,7 @@
 //  Created by Saad on 10/18/21.
 //
 
-import SwiftUIX
+import SwiftUI
 
 struct ClothsDonationPlaceSelection: View {
     var donationTypes = [ClothsDonationPlace.contact, ClothsDonationPlace.organization]

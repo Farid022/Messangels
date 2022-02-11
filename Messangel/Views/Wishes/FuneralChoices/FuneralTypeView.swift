@@ -5,7 +5,6 @@
 //  Created by Saad on 10/18/21.
 //
 
-import SwiftUIX
 import SwiftUI
 
 struct FuneralTypeView: View {
@@ -72,6 +71,7 @@ struct FuneralNote: View {
     @Binding var showNote: Bool
     @Binding var note:String
     @State var expandedNote = false
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -108,8 +108,8 @@ struct FuneralNote: View {
                 .frame(height: expandedNote ? 295 : 160)
                 .overlay(
                     VStack {
-                        TextView("", text: $note)
-                            .isFirstResponder(true)
+                        TextEditor(text: $note)
+                            .focused($isFocused)
                         HStack {
                             Spacer()
                             Button(action: {
@@ -125,5 +125,9 @@ struct FuneralNote: View {
             Spacer()
         }
         .padding()
+        .onAppear() {
+            isFocused = true
+        }
     }
+
 }

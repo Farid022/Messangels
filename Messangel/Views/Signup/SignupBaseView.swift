@@ -5,7 +5,7 @@
 //  Created by Saad on 5/8/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import NavigationStack
 
 struct SignupBaseView<Content: View>: View {
@@ -13,24 +13,24 @@ struct SignupBaseView<Content: View>: View {
     @ObservedObject private var keyboardResponder = KeyboardResponder()
     @Binding private var progress: Double
     @Binding private var valid: Bool
-//    @Binding private var editing: Bool
     private let content: Content
     private let destination: AnyView
     private let currentView: String
     private let footer: AnyView
     private let isCustomAction: Bool
     private let customAction: () -> Void
+    private let myTextFieldStyle: Bool
     
-    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, currentView: String, footer: AnyView, @ViewBuilder content: () -> Content) {
+    init(myTextFieldStyle: Bool = true, isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, currentView: String, footer: AnyView, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._progress = progress
         self._valid = valid
         self.destination = destination
         self.currentView = currentView
         self.footer = footer
-//        self._editing = editing
         self.isCustomAction = isCustomAction
         self.customAction = customAction
+        self.myTextFieldStyle = myTextFieldStyle
     }
     
     var body: some View {
@@ -50,9 +50,7 @@ struct SignupBaseView<Content: View>: View {
                     
                     Spacer().frame(height: 15)
                     content
-//                    if (Keyboard.main.isShowing && !editing) || currentView == "SignupGenderView" || currentView == "SignupPostcodeView" {
-                        Spacer()
-//                    }
+                    Spacer()
                     HStack {
                         footer
                         Spacer()
@@ -64,11 +62,9 @@ struct SignupBaseView<Content: View>: View {
                     }
                     SignupProgressView(progress: $progress)
                 }.padding()
-//                .offset(y: -keyboardResponder.currentHeight*0.85)
             }
-//            .ignoresSafeArea(.keyboard)
             .foregroundColor(.white)
-            .textFieldStyle(MyTextFieldStyle())
+            .if(myTextFieldStyle) { $0.textFieldStyle(MyTextFieldStyle()) }
         }
     }
 }

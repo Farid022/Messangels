@@ -9,13 +9,18 @@ import SwiftUI
 import NavigationStack
 
 struct SignupPasswrdView: View {
+    enum PasswordField {
+        case password
+        case confirmPassword
+    }
+    
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var userVM: UserViewModel
     @State private var conformPassword: String = ""
     @State private var progress = 12.5 * 5
     @State private var valid = false
     @State private var hidePassword = true
-    
+    @FocusState private var focusedField: PasswordField?
     
     var body: some View {
         SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupTelIntroView(userVM: userVM)), currentView: "SignupPasswrdView", footer: AnyView(Spacer())) {
@@ -26,8 +31,14 @@ struct SignupPasswrdView: View {
                 .font(.system(size: 15))
                 .fixedSize(horizontal: false, vertical: true)
             Group {
-                MyTextField(placeholder: "Mot de passe", text: $userVM.user.password.bound, isSecureTextEntry: $hidePassword)
-                MyTextField(placeholder: "Confirmez mot de passe", text: $conformPassword, isSecureTextEntry: $hidePassword)
+                MyTextField(placeholder: "Mot de passe", text: $userVM.user.password.bound, isSecureTextEntry: $hidePassword) {
+                    focusedField = .confirmPassword
+                }
+                .focused($focusedField, equals: .password)
+                MyTextField(placeholder: "Confirmez mot de passe", text: $conformPassword, isSecureTextEntry: $hidePassword) {
+                    hideKeyboard()
+                }
+                .focused($focusedField, equals: .confirmPassword)
             }
             .xTextFieldStyle()
             .overlay(HStack {
@@ -35,7 +46,7 @@ struct SignupPasswrdView: View {
                 Image(systemName: hidePassword ? "eye" : "eye.slash")
                     .foregroundColor(.black)
                     .padding(.trailing, 20)
-                    .animation(.default)
+                    .animation(.default, value: hidePassword)
                     .onTapGesture {
                         hidePassword.toggle()
                     }
@@ -43,6 +54,9 @@ struct SignupPasswrdView: View {
             Text(userVM.user.password?.count ?? 0 < 8 ? "Sécurité : Insuffisant" : "✓ Sécurité : Bon")
                 .font(.system(size: 13))
                 .padding(.leading)
+        }
+        .onDidAppear {
+            focusedField = .password
         }
         .onChange(of: userVM.user.password) { value in
             self.validate()
@@ -70,6 +84,7 @@ struct MyTextField: UIViewRepresentable {
         textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         textField.placeholder = placeholder
         textField.delegate = context.coordinator
+        textField.returnKeyType = .next
         
         _ = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: textField)
             .compactMap {
@@ -107,8 +122,13 @@ struct MyTextField: UIViewRepresentable {
             }
             return true
         }
-        func textFieldDidEndEditing(_ textField: UITextField) {
+//        func textFieldDidEndEditing(_ textField: UITextField) {
+//            parent.onCommit()
+//        }
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             parent.onCommit()
+            return true
         }
     }
 }

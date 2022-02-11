@@ -34,7 +34,7 @@ struct GuardianFormDoneView: View {
                     .fontWeight(.bold)
                 Text(
                 """
-                Marianne recevra votre demande sur :
+                \(vm.guardian.last_name) recevra votre demande sur :
                 \(vm.guardian.email)
                 """
                 )
@@ -54,9 +54,3 @@ struct GuardianFormDoneView: View {
         .foregroundColor(.white)
     }
 }
-
-//struct GuardianFormDoneView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuardianFormDoneView()
-//    }
-//}

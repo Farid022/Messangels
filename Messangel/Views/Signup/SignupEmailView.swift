@@ -5,7 +5,7 @@
 //  Created by Saad on 5/7/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import NavigationStack
 import Peppermint
 
@@ -19,6 +19,7 @@ struct SignupEmailView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var error_msg = "Un compte avec cette email existe déjà"
     @State private var alert = false
+    @FocusState private var isFocused: Bool
     let predicate = EmailPredicate()
     
     var body: some View {
@@ -55,10 +56,12 @@ struct SignupEmailView: View {
                 .fontWeight(.bold)
             Text("Un e-mail sera envoyé à cette adresse pour la confirmer.")
                 .font(.system(size: 15))
-            CocoaTextField("Mon adresse e-mail", text: $userVM.user.email)
-                .autocapitalization(.none)
+            TextField("Mon adresse e-mail", text: $userVM.user.email)
                 .keyboardType(.emailAddress)
-                .xTextFieldStyle()
+                .textInputAutocapitalization(.never)
+                .focused($isFocused)
+                .submitLabel(.next)
+                .textContentType(.emailAddress)
             Toggle(isOn: $accept) {
                 Group {
                     Text("J’accepte les conditions générales d’utilisation de mes données en conformité avec les normes européennes RGPD en vigueur. ") +
@@ -81,6 +84,9 @@ struct SignupEmailView: View {
                 }
             }
         }
+        .onDidAppear {
+            isFocused = true
+        }
         .onChange(of: userVM.user.email) { value in
             self.validate()
         }
@@ -101,9 +107,3 @@ struct SignupEmailView: View {
         self.valid = predicate.evaluate(with: userVM.user.email) && self.accept
     }
 }
-
-//struct SignupEmailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupEmailView()
-//    }
-//}

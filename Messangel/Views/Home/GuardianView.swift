@@ -53,10 +53,11 @@ struct GuardianView: View {
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .black))
         }
         .alert(isPresented: $confirmAlert, content: {
-            Alert(title: Text("Supprimer l’Ange-gardien ?"), message: Text("Un mail sera envoyé à Marianne pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {
+            Alert(title: Text("Supprimer l’Ange-gardien ?"), message: Text("Un mail sera envoyé à \(vm.guardian.last_name) pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {
                 vm.delete(id: guardian.id, userId: guardian.user_id) { success in
                     if success {
                         DispatchQueue.main.async {
+                            vm.guardiansUpdated = true
                             navigationModel.popContent("Accueil")
                         }
                     } else {

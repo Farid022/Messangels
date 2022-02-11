@@ -27,7 +27,7 @@ struct GuardianFormConfirmSendView: View {
                         .fontWeight(.bold)
                     Text(
                         """
-                    Marianne recevra votre demande sur :
+                    \(vm.guardian.last_name) recevra votre demande sur :
                     \(vm.guardian.email)
                     """
                     )
@@ -38,9 +38,9 @@ struct GuardianFormConfirmSendView: View {
                         vm.guardian.user_id = getUserId()
                         APIService.shared.post(model: vm.guardian, response: vm.guardian, endpoint: "users/guardian") { result in
                             switch result {
-                            case .success(let guardian):
+                            case .success(_):
                                 DispatchQueue.main.async {
-                                    print(guardian.id)
+                                    vm.guardiansUpdated = true
                                     navigationModel.pushContent("GuardianFormConfirmSendView") {
                                         GuardianFormDoneView(vm: vm)
                                     }
@@ -59,9 +59,3 @@ struct GuardianFormConfirmSendView: View {
         }
     }
 }
-
-//struct GuardianFormConfirmSendView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuardianFormConfirmSendView()
-//    }
-//}

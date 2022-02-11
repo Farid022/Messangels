@@ -117,8 +117,10 @@ struct HomeBottomView: View {
     func loadGuardians() {
         loading.toggle()
         gVM.getGuardians { _ in
-            loading.toggle()
-            gVM.guardiansUpdated = false
+            DispatchQueue.main.async {
+                loading.toggle()
+                gVM.guardiansUpdated = false
+            }
         }
     }
 }

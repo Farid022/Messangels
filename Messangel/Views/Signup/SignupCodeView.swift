@@ -5,7 +5,7 @@
 //  Created by Saad on 5/7/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import Combine
 import NavigationStack
 
@@ -20,7 +20,7 @@ struct SignupCodeView: View {
     @ObservedObject var userVM: UserViewModel
     
     var body: some View {
-        SignupBaseView(isCustomAction: true, customAction: {
+        SignupBaseView(myTextFieldStyle: false, isCustomAction: true, customAction: {
             loading = true
             APIService.shared.post(model: OTPVerify(phone_number: userVM.user.phone_number, otp: code), response: apiResponse, endpoint: "users/otp/verify", token: false, method: "PATCH") { result in
                 switch result {
@@ -93,6 +93,7 @@ struct SignupCodeView: View {
 
 struct OTPTextFieldView: View {
     @Binding var code: String
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         ZStack {
@@ -128,15 +129,18 @@ struct OTPTextFieldView: View {
     }
     
     private var CodeTextField: some View {
-        return CocoaTextField("", text: $code)
+        return TextField("", text: $code)
             .keyboardType(.numberPad)
-            .isInitialFirstResponder(true)
-            .foregroundColor(.clear)
+            .focused($isFocused)
             .textContentType(.oneTimeCode)
+            .foregroundColor(.clear)
             .onReceive(Just(code)) { inputValue in
                 if inputValue.count > 4 {
                     code.removeLast()
                 }
+            }
+            .onAppear {
+                isFocused = true
             }
     }
 }

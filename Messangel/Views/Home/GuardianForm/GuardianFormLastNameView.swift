@@ -5,27 +5,27 @@
 //  Created by Saad on 5/18/21.
 //
 
-import SwiftUIX
+import SwiftUI
 
 struct GuardianFormLastNameView: View {
     @State private var progress = 1.0
     @State private var valid = false
+    @FocusState private var isFocused: Bool
     @ObservedObject var vm: GuardianViewModel
     
     var body: some View {
         GuardianFormBaseView(title: "Nom de l’ange gardien" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormFirstNameView(vm: vm))) {
-            CocoaTextField("Nom", text: $vm.guardian.last_name, onCommit:  {
-                valid = true
-            })
-//            .isFirstResponder(true)
-            .xTextFieldStyle()
-            .shadow(color: .gray.opacity(0.3), radius: 10)
+            TextField("Nom", text: $vm.guardian.last_name)
+                .textContentType(.familyName)
+                .focused($isFocused)
+                .submitLabel(.next)
+                .normalShadow()
+        }
+        .onChange(of: vm.guardian.last_name) { value in
+            valid = !value.isEmpty
+        }
+        .onDidAppear {
+            isFocused = true
         }
     }
 }
-
-//struct GuardianFormLastNameView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuardianFormLastNameView()
-//    }
-//}

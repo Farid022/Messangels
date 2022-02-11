@@ -5,7 +5,7 @@
 ////  Created by Saad on 5/9/21.
 ////
 //
-//import SwiftUIX
+//import SwiftUI
 //import Combine
 //import NavigationStack
 //

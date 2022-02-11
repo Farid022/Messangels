@@ -94,7 +94,6 @@ struct GuardianFormBaseView<Content: View>: View {
                     SignupProgressView(progress: $progress, tintColor: .accentColor, progressMultiplier: 100/7)
                 }
                 .padding()
-//                .background(Color.white)
             }
             .textFieldStyle(MyTextFieldStyle())
         }

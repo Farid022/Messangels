@@ -5,9 +5,8 @@
 //  Created by Saad on 4/30/21.
 //
 
-import SwiftUIX
-import NavigationStack
 import SwiftUI
+import NavigationStack
 
 struct MyLink: View {
     var url = "https://www.google.com/"
@@ -172,6 +171,7 @@ struct CustomTextField: UIViewRepresentable {
 
 struct InputAlert: View {
     @State private var inputText = ""
+    @FocusState private var isFocused: Bool
     var title: String
     var message: String
     var placeholder = ""
@@ -192,9 +192,12 @@ struct InputAlert: View {
                     Text(message)
                         .font(.system(size: 13))
                         .multilineTextAlignment(.center)
-                    CocoaTextField(placeholder, text: $inputText)
-                        .isInitialFirstResponder(true)
-                        .borderStyle(.roundedRect)
+//                    CocoaTextField(placeholder, text: $inputText)
+//                        .isInitialFirstResponder(true)
+//                        .borderStyle(.roundedRect)
+                    TextField(placeholder, text: $inputText)
+                        .focused($isFocused)
+                        .textFieldStyle(.roundedBorder)
                         .padding(.bottom, 5)
                     Divider()
                         .padding(.horizontal, -15)
@@ -225,6 +228,9 @@ struct InputAlert: View {
                 .padding(.horizontal)
                 .padding(.top, 25)
             )
+            .onAppear() {
+                isFocused = true
+            }
     }
 }
 

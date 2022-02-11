@@ -13,6 +13,7 @@ struct Guardian: Codable, Hashable {
     var first_name: String
     var last_name: String
     var email: String
+    var guardian_note: String?
     var status: String
 }
 

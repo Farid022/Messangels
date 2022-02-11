@@ -291,6 +291,7 @@
 		93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */; };
 		93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFFB27B28BE800E71C0B /* Constants.swift */; };
 		93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBCFFE27B4DFC400E71C0B /* Kingfisher */; };
+		93DBD00227B5456300E71C0B /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBD00127B5456300E71C0B /* SwiftUIX */; };
 		93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C82695EA3700F50894 /* AttributedText.swift */; };
 		93EFE7CE2695EA3700F50894 /* TextViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C92695EA3700F50894 /* TextViewStore.swift */; };
 		93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */; };
@@ -300,7 +301,6 @@
 		93EFE7D5269BD73500F50894 /* DocGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7D4269BD73500F50894 /* DocGroupView.swift */; };
 		93EFE7D7269D9CEE00F50894 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7D6269D9CEE00F50894 /* User.swift */; };
 		93EFE7D9269E04D500F50894 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7D8269E04D500F50894 /* UserViewModel.swift */; };
-		93EFE7DF26A06C1C00F50894 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 93EFE7DE26A06C1C00F50894 /* SwiftUIX */; };
 		93EFE7E626A15D9700F50894 /* SignupBirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A94264701E60027BA06 /* SignupBirthView.swift */; };
 		93EFE7E726A15D9700F50894 /* SignupPostcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A90264701E60027BA06 /* SignupPostcodeView.swift */; };
 		93EFE7E826A15D9700F50894 /* SignupEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A91264701E60027BA06 /* SignupEmailView.swift */; };
@@ -621,10 +621,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93EFE7DF26A06C1C00F50894 /* SwiftUIX in Frameworks */,
 				939CBDCA27732650004520A3 /* Introspect in Frameworks */,
 				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
 				93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */,
+				93DBD00227B5456300E71C0B /* SwiftUIX in Frameworks */,
 				93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1381,10 +1381,10 @@
 			name = Messangel;
 			packageProductDependencies = (
 				933AA316266A661F000D6D48 /* NavigationStack */,
-				93EFE7DE26A06C1C00F50894 /* SwiftUIX */,
 				93F08DBC26FD8F1000CC3030 /* Peppermint */,
 				939CBDC927732650004520A3 /* Introspect */,
 				93DBCFFE27B4DFC400E71C0B /* Kingfisher */,
+				93DBD00127B5456300E71C0B /* SwiftUIX */,
 			);
 			productName = Messangel;
 			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
@@ -1415,10 +1415,10 @@
 			mainGroup = 93553A652647015D0027BA06;
 			packageReferences = (
 				933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */,
-				93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */,
 				939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				93DBD00027B5456200E71C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
 			projectDirPath = "";
@@ -1958,12 +1958,12 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+		93DBD00027B5456200E71C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
 			};
 		};
 		93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */ = {
@@ -1992,9 +1992,9 @@
 			package = 93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		93EFE7DE26A06C1C00F50894 /* SwiftUIX */ = {
+		93DBD00127B5456300E71C0B /* SwiftUIX */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 93EFE7DD26A06C1C00F50894 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			package = 93DBD00027B5456200E71C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */;
 			productName = SwiftUIX;
 		};
 		93F08DBC26FD8F1000CC3030 /* Peppermint */ = {

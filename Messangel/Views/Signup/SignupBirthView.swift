@@ -5,7 +5,7 @@
 //  Created by Saad on 5/6/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import NavigationStack
 
 struct SignupBirthView: View {
@@ -40,15 +40,9 @@ struct SignupBirthView: View {
                 Text("Dans la ville de")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
-                CocoaTextField("Ville", text: $userVM.user.city, onCommit:  {
-                    if valid {
-                        navigationModel.pushContent("SignupBirthView") {
-                            SignupPostcodeView(userVM: userVM)
-                        }
-                    }
-                })
-                .font(.systemFont(ofSize: 17))
-                .xTextFieldStyle()
+                TextField("Ville", text: $userVM.user.city)
+                    .textContentType(.addressCity)
+                    .submitLabel(.next)
             }
             VStack {
                 Spacer()

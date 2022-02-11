@@ -10,20 +10,24 @@ import SwiftUI
 struct GuardianFormNoteView: View {
     @State private var progress = (100/7)*6.0
     @State private var valid = false
-    @State private var note = ""
+    @State private var showNote = false
     @ObservedObject var vm: GuardianViewModel
+    
     var body: some View {
-        GuardianFormBaseView(title: "Message personnel (facultatif)" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormConfirmSendView(vm: vm))) {
-            TextField("Note", text: $note, onCommit:  {
-                valid = true
-            })
-            .shadow(color: .gray.opacity(0.3), radius: 10)
+        ZStack {
+            if showNote {
+                FuneralNote(showNote: $showNote, note: $vm.guardian.guardian_note.bound)
+                    .zIndex(1.0)
+                    .background(.black.opacity(0.8))
+            }
+            GuardianFormBaseView(title: "Message personnel (facultatif)" ,progress: $progress, valid: .constant(true), destination: AnyView(GuardianFormConfirmSendView(vm: vm))) {
+                
+                HStack{
+                    Spacer()
+                    NoteView(showNote: $showNote, note: $vm.guardian.guardian_note.bound)
+                    Spacer()
+                }
+            }
         }
     }
 }
-
-//struct GuardianFormNoteView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuardianFormNoteView()
-//    }
-//}

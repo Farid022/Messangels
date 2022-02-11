@@ -5,7 +5,7 @@
 //  Created by Saad on 10/18/21.
 //
 
-import SwiftUIX
+import SwiftUI
 
 struct ObjectsDonationPic: View {
     @State private var valid = false

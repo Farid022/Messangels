@@ -18,14 +18,8 @@ struct GuardianFormLegalAgeView: View {
                 valid.toggle()
             }
             .buttonStyle(MyButtonStyle(padding: 0, foregroundColor: valid ? .white : .black, backgroundColor: valid ? .accentColor : .white))
-            .shadow(color: .gray.opacity(0.3), radius: 10)
+            .normalShadow()
             .keyboardType(.emailAddress)
         }
     }
 }
-
-//struct GuardianFormLegalAgeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuardianFormLegalAgeView()
-//    }
-//}

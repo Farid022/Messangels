@@ -5,28 +5,31 @@
 //  Created by Saad on 5/18/21.
 //
 
-import SwiftUIX
+import SwiftUI
+import Peppermint
 
 struct GuardianFormEmailView: View {
     @State private var progress = (100/7)*3.0
     @State private var valid = false
     @ObservedObject var vm: GuardianViewModel
+    @FocusState private var isFocused: Bool
+    let predicate = EmailPredicate()
     
     var body: some View {
         GuardianFormBaseView(title: "Adresse mail" ,progress: $progress, valid: $valid, destination: AnyView(GuardianFormConfirmEmailView(vm: vm))) {
-            CocoaTextField("Mail", text: $vm.guardian.email, onCommit:  {
-                valid = true
-            })
-//            .isFirstResponder(true)
-            .xTextFieldStyle()
-            .shadow(color: .gray.opacity(0.3), radius: 10)
-            .keyboardType(.emailAddress)
+            TextField("Mail", text: $vm.guardian.email)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+                .focused($isFocused)
+                .submitLabel(.next)
+                .textContentType(.emailAddress)
+                .normalShadow()
+        }
+        .onChange(of: vm.guardian.email) { value in
+            valid = predicate.evaluate(with: value)
+        }
+        .onDidAppear {
+            isFocused = true
         }
     }
 }
-
-//struct GuardianFormEmailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GuardianFormEmailView()
-//    }
-//}
