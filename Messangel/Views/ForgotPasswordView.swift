@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationStack
+import Peppermint
 
 struct ForgotPasswordView: View {
     @EnvironmentObject private var navModel: NavigationModel
@@ -14,6 +15,8 @@ struct ForgotPasswordView: View {
     @State private var loading = false
     @State private var alert = false
     @State private var errorAlert = false
+    @FocusState private var isFocused: Bool
+    let predicate = EmailPredicate()
     
     var body: some View {
         NavigationStackView("ForgotPasswordView") {
@@ -34,9 +37,14 @@ struct ForgotPasswordView: View {
                         .frame(height: 50)
                     TextField("Adresse mail", text: $auth.credentials.email)
                         .keyboardType(.emailAddress)
-                        .submitLabel(.go)
+                        .textInputAutocapitalization(.never)
+                        .submitLabel(.send)
+                        .focused($isFocused)
                         .onSubmit {
-                            if auth.credentials.email.isEmpty { return }
+                            if !predicate.evaluate(with:auth.credentials.email) {
+                                isFocused = true
+                                return
+                            }
                             loading.toggle()
                             auth.forgotPassword(auth.credentials.email) { success in
                                 loading.toggle()
@@ -63,11 +71,14 @@ struct ForgotPasswordView: View {
             }, message: {
                 Text("Cliquez sur le lien que nous vous avons envoyé par mail pour réinitialiser votre mot de passe.")
             })
-            .alert(auth.apiError.error, isPresented: $errorAlert, actions: {
+            .alert("Error", isPresented: $errorAlert, actions: {
                 Button("OK", role: .cancel) {}
             }, message: {
                 Text(auth.apiError.error_description)
             })
+        }
+        .onDidAppear {
+            isFocused = true
         }
     }
 }

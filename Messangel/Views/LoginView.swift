@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationStack
+import Peppermint
 
 struct LoginView: View {
     @StateObject var auth = Auth()
@@ -17,6 +18,8 @@ struct LoginView: View {
     @State private var alert = false
     @State private var valid = false
     @State private var apiError = APIService.APIErr(error: "", error_description: "")
+    let predicate = EmailPredicate()
+    
     var body: some View {
         NavigationStackView("LoginView") {
             ZStack {
@@ -33,6 +36,7 @@ struct LoginView: View {
                         .padding(.bottom)
                     TextField("Identifiant ou adresse mail", text: $auth.credentials.email)
                         .keyboardType(.emailAddress)
+                        .textInputAutocapitalization(.never)
                     SecureField("Mot de passe", text: $auth.credentials.password)
                     HStack {
                         Spacer()
@@ -121,7 +125,7 @@ struct LoginView: View {
     }
     
     func validate() {
-        self.valid = !auth.credentials.email.isEmpty && !auth.credentials.password.isEmpty
+        self.valid = predicate.evaluate(with: auth.credentials.email) && !auth.credentials.password.isEmpty
     }
 }
 

@@ -112,6 +112,11 @@ struct HomeBottomView: View {
                 loadGuardians()
             }
         }
+        .onAppear {
+            if !loading && !subVM.checkingSubscription && subVM.subscriptions.count > 0 {
+                loadGuardians()
+            }
+        }
     }
     
     func loadGuardians() {
