@@ -12,7 +12,7 @@ struct OrganDonateChoice: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
-    @StateObject private var vm = OrganDonationViewModel()
+    @ObservedObject var vm: OrganDonationViewModel
     
     var body: some View {
         ZStack {

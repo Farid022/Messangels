@@ -12,14 +12,13 @@ struct DonationOrganization: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var valid = false
     @State private var showNote = false
-    @State private var note = ""
     @State private var selectedCompany = Organization(id: 0, name: "", type: "3", user: getUserId())
-    @StateObject private var vm = DonationOrgViewModel()
-    
+    @ObservedObject var vm: DonationOrgViewModel
+
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.donationOrg.donation_organization_note.bound)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)

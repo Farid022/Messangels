@@ -13,7 +13,7 @@ struct ManagedContractsList: View {
     @ObservedObject var vm: ContractViewModel
     
     var body: some View {
-        FuneralItemList(id:"ManagedContractsList", menuTitle: "Contrats à gérer") {
+        FuneralItemList(id:"ManagedContractsList", menuTitle: "Contrats à gérer", newItemView: AnyView(ManagedContractName(vm: ContractViewModel()))) {
             ForEach(vm.contracts, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_contract")
                     .onTapGesture {

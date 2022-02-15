@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FuneralFlowers: View {
     @State private var noteText = ""
-    @StateObject private var vm = FueneralAstheticViewModel()
+    @ObservedObject var vm: FueneralAstheticViewModel
     
     var choices = [
         FuneralChoice(id: 1, name: "Lys", image: ""),

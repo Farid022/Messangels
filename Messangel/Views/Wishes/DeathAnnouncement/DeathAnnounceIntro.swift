@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct DeathAnnounceIntro: View {
+    @StateObject private var vm = PriorityContactsViewModel()
 
     var body: some View {
         NavigationStackView("DeathAnnounceIntro") {
@@ -37,11 +38,25 @@ struct DeathAnnounceIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "DeathAnnounceIntro", destination: AnyView(DeathAnnounceContacts()), active: .constant(true))
+                        NextButton(source: "DeathAnnounceIntro", destination: AnyView(DeathAnnounceContacts(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.priorities.count > 0 {
+                        let i = vm.priorities[0]
+                        vm.priorityContacts = PriorityContacts(contact: [], priority_note: i.priority_note)
+                        i.contact.forEach { contact in
+                            vm.priorityContacts.contact.append(contact.id)
+                        }
+                        vm.updateRecord = true
+                    }
+                }
+            }
         }
     }
 }

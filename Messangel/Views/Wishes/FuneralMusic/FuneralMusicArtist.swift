@@ -15,11 +15,6 @@ struct FuneralMusicArtist: View {
            TextField("Artiste", text: $vm.music.artist_name)
             .normalShadow()
         }
-        .onDidAppear {
-            if !vm.updateRecord, let music: FuneralMusic = Utils.getData("music") {
-                vm.music = music
-            }
-        }
     }
 }
 

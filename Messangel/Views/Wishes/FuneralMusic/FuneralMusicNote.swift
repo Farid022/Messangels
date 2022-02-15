@@ -21,17 +21,29 @@ struct FuneralMusicNote: View {
             if vm.updateRecord {
                 vm.update(id: vm.music.id ?? 0) { success in
                     if success {
-                        navModel.pushContent(title) {
-                            FuneralMusicList(vm: vm)
+                        navModel.popContent("FuneralMusicList")
+                        vm.getMusics { _ in
+                            print("Funeral Music List Updated")
                         }
                     }
                 }
             } else {
                 vm.create() { success in
-                    loading.toggle()
-                    if success {
-                        navModel.pushContent(title) {
-                            FuneralMusicList(vm: vm)
+                    if success && vm.musics.isEmpty {
+                        WishesViewModel.setProgress(tab: 9) { completed in
+                            loading.toggle()
+                            if completed {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
+                                }
+                            }
+                        }
+                    } else {
+                        loading.toggle()
+                        if success {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
                         }
                     }
                 }

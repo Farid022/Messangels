@@ -9,6 +9,7 @@ import Foundation
 
 struct ClothDonation: Codable {
     var single_clothing: Bool
+    var single_clothing_note: String?
     var clothing_name: String
     var clothing_contact_detail: Int?
     var clothing_organization_detail: Int?
@@ -21,6 +22,7 @@ struct ClothingDonation: Hashable, Codable {
     var id: Int
     var user: User
     var single_clothing: Bool
+    var single_clothing_note: String?
     var clothing_photo: String
     var clothing_note: String
     var clothing_organization_detail: Organization?

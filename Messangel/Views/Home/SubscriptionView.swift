@@ -33,10 +33,10 @@ struct SubscriptionView: View {
                             .foregroundColor(.white)
                             .padding(.leading)
                         Spacer()
-                        Button(action: {}, label: {
-                            Image("help")
-                                .padding(.horizontal, -30)
-                        })
+//                        Button(action: {}, label: {
+//                            Image("help")
+//                                .padding(.horizontal, -30)
+//                        })
                     }
                     .padding(.trailing, 5)
                     .padding(.leading))

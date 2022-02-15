@@ -12,7 +12,7 @@ struct ExtraWishesDetails: View {
     @State private var showNote = false
     @State private var loading = false
     @EnvironmentObject var navModel: NavigationModel
-    @StateObject private var vm = ExtraWishViewModel()
+    @ObservedObject var vm: ExtraWishViewModel
     var title = "Exprimez-vous librement sur vos volontés"
     
     var body: some View {
@@ -24,11 +24,22 @@ struct ExtraWishesDetails: View {
             }
             FlowBaseView(isCustomAction: true, customAction: {
                 loading.toggle()
-                vm.create() { success in
-                    loading.toggle()
-                    if success {
-                        navModel.pushContent(title) {
-                            FuneralDoneView()
+                if vm.updateRecord {
+                    vm.update(id: vm.extraWishes[0].id) { success in
+                        loading.toggle()
+                        if success {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
+                        }
+                    }
+                } else {
+                    vm.create() { success in
+                        loading.toggle()
+                        if success {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
                         }
                     }
                 }

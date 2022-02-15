@@ -9,8 +9,7 @@ import SwiftUI
 
 struct AnimalDonationPic: View {
     @State private var valid = false
-    @State private var showNote = false
-    @State private var note = ""
+//    @State private var showNote = false
     @State private var inviteImage = UIImage()
     @State private var isShowPhotoLibrary = false
     @State private var cgImage = UIImage().cgImage
@@ -20,13 +19,13 @@ struct AnimalDonationPic: View {
     
     var body: some View {
         ZStack {
-            if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
-                .zIndex(1.0)
-                .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
-            }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "*NOMDELANIMAL – Photo", valid: .constant(true), destination: AnyView(AnimalDonationNote(vm: vm))) {
+//            if showNote {
+//               FuneralNote(showNote: $showNote, note: $note)
+//                .zIndex(1.0)
+//                .background(.black.opacity(0.8))
+//                .edgesIgnoringSafeArea(.top)
+//            }
+            FlowBaseView(menuTitle: "ANIMAUX", title: "*NOMDELANIMAL – Photo", valid: .constant(true), destination: AnyView(AnimalDonationNote(vm: vm))) {
                 Rectangle()
                     .fill(Color.accentColor)
                     .frame(width: 66, height: 66)

@@ -9,12 +9,21 @@ import Foundation
 
 struct PriorityContacts: Codable {
     var contact: [Int]
-    var user: Int
+    var priority_note: String?
+    var user = getUserId()
+}
+
+struct PriorityContactsData: Hashable, Codable {
+    var id: Int
+    var contact: [Contact]
+    var priority_note: String?
+    var user: User
 }
 
 class PriorityContactsViewModel: ObservableObject {
     @Published var updateRecord = false
-    @Published var priorityContacts = PriorityContacts(contact: [Int](), user: getUserId())
+    @Published var priorities = [PriorityContactsData]()
+    @Published var priorityContacts = PriorityContacts(contact: [Int]())
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -54,19 +63,19 @@ class PriorityContactsViewModel: ObservableObject {
         }
     }
     
-//    func get(completion: @escaping (Bool) -> Void) {
-//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/priority_contact") { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                    self.funeralChoices = items
-//                    completion(true)
-//                }
-//            case .failure(let error):
-//                print(error)
-//                completion(false)
-//            }
-//        }
-//    }
+    func get(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: priorities, urlString: "users/\(getUserId())/priority_contact") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.priorities = items
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
 }
 

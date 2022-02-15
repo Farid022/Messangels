@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct DonationOrgsIntro: View {
-
+    @StateObject private var vm = DonationOrgViewModel()
     var body: some View {
         NavigationStackView("DonationOrgsIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,7 +37,7 @@ struct DonationOrgsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "DonationOrgsIntro", destination: AnyView(DonationOrgNew()), active: .constant(true))
+                        NextButton(source: "DonationOrgsIntro", destination: AnyView(DonationOrgNew(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }

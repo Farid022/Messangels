@@ -12,12 +12,22 @@ struct FueneralAsthetic: Codable {
     var attendence_dress_note: String
     var guest_accessories_note: String
     var flower: Int
-    var user: Int
+    var user = getUserId()
+}
+
+struct FueneralAstheticData: Codable {
+    var id: Int
+    var special_decoration_note: String
+    var attendence_dress_note: String
+    var guest_accessories_note: String
+    var flower: FuneralChoice
+    var user: User
 }
 
 class FueneralAstheticViewModel: ObservableObject {
     @Published var updateRecord = false
-    @Published var asthetic = FueneralAsthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: 0, user: getUserId())
+    @Published var asthetics = [FueneralAstheticData]()
+    @Published var asthetic = FueneralAsthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: 0)
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -57,18 +67,18 @@ class FueneralAstheticViewModel: ObservableObject {
         }
     }
     
-//    func get(completion: @escaping (Bool) -> Void) {
-//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/asthetic") { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                    self.funeralChoices = items
-//                    completion(true)
-//                }
-//            case .failure(let error):
-//                print(error)
-//                completion(false)
-//            }
-//        }
-//    }
+    func get(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: asthetics, urlString: "users/\(getUserId())/asthetic") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.asthetics = items
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
 }

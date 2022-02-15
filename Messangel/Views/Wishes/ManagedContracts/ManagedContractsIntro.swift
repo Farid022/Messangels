@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct ManagedContractsIntro: View {
+    @StateObject private var vm = ContractViewModel()
     var body: some View {
         NavigationStackView("ManagedContractsIntro") {
             ZStack(alignment: .topLeading) {
@@ -36,7 +37,7 @@ struct ManagedContractsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "ManagedContractsIntro", destination: AnyView(ManagedContractNew()), active: .constant(true))
+                        NextButton(source: "ManagedContractsIntro", destination: AnyView(ManagedContractNew(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }

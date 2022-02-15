@@ -14,7 +14,14 @@ struct DeathAnnounceContacts: View {
     @State private var showNote = false
     @State private var note = ""
     @State private var selectedContacts = [Contact]()
-    @StateObject private var vm = PriorityContactsViewModel()
+    @ObservedObject var vm: PriorityContactsViewModel
+    var title = "Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité."
+    
+    private func successAction() {
+        navigationModel.pushContent(title) {
+            FuneralDoneView()
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -28,15 +35,21 @@ struct DeathAnnounceContacts: View {
                 if !valid {
                     return;
                 }
-                vm.addPriorityContacts() { success in
-                    if success {
-                        navigationModel.pushContent("Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité.") {
-                            FuneralDoneView()
+                if !vm.updateRecord {
+                    vm.addPriorityContacts() { success in
+                        if success {
+                            successAction()
+                        }
+                    }
+                } else {
+                    vm.update(id: vm.priorities[0].id) { success in
+                        if success {
+                            successAction()
                         }
                     }
                 }
                 
-            },note: true, showNote: $showNote, menuTitle: "Diffusion de la nouvelle", title: "Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité.", valid: .constant(!vm.priorityContacts.contact.isEmpty)) {
+            },note: true, showNote: $showNote, menuTitle: "Diffusion de la nouvelle", title: title, valid: .constant(!vm.priorityContacts.contact.isEmpty)) {
                 if vm.priorityContacts.contact.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité.") {

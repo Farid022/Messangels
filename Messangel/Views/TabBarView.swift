@@ -208,10 +208,10 @@ struct NonHomeNavBar: View {
     var body: some View {
         HStack {
             Spacer()
-            Button(action: {}, label: {
-                Image("help")
-                    .padding(.horizontal, -30)
-            })
+//            Button(action: {}, label: {
+//                Image("help")
+//                    .padding(.horizontal, -30)
+//            })
         }
     }
 }

@@ -23,7 +23,10 @@ struct FuneralMusicDetails: View {
                     .overlay(MyAlert(title: "Supprimer ce smartphone", message: confirmMessage, action: {
                         vm.del(id: music.id) { success in
                             if success {
-                                navigationModel.popContent(TabBarView.id)
+                                navigationModel.popContent("FuneralMusicList")
+                                vm.getMusics { _ in
+                                    print("Funeral Music List Updated After Delete")
+                                }
                             }
                         }
                     }, showAlert: $showDeleteConfirm))
@@ -40,7 +43,11 @@ struct FuneralMusicDetails: View {
                             .padding(.horizontal, -20)
                             .overlay(
                                 HStack {
-                                    BackButton()
+                                    Button {
+                                        navigationModel.popContent(TabBarView.id)
+                                    } label: {
+                                       Image("ic_exit")
+                                    }
                                     Spacer()
                                 }, alignment: .top)
                         
@@ -69,9 +76,8 @@ struct FuneralMusicDetails: View {
                                 .normalShadow()
                                 .overlay(Image("info"))
                         })
-                        //
                         HStack {
-                            // <
+                            BackButton(iconColor: .gray)
                             Text("\(music.artist_name) - \(music.song_title)")
                                 .font(.system(size: 22), weight: .bold)
                             Spacer()
@@ -93,10 +99,9 @@ struct FuneralMusicDetails: View {
                                 Button(action: {
                                     vm.music = FuneralMusic(id: music.id, artist_name: music.artist_name, song_title: music.song_title, broadcast_song_note: music.broadcast_song_note, user: getUserId())
                                     vm.updateRecord = true
-                                    navigationModel.popContent(FuneralMusicArtist.title)
-//                                    navigationModel.pushContent("FuneralMusicDetails") {
-//                                        FuneralMusicArtist(vm: vm)
-//                                    }
+                                    navigationModel.pushContent("FuneralMusicDetails") {
+                                        FuneralMusicArtist(vm: vm)
+                                    }
                                 }, label: {
                                     Text("Modifier")
                                 })

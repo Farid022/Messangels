@@ -11,20 +11,12 @@ import NavigationStack
 struct ClothsDonationContact: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var valid = false
-    @State private var showNote = false
-    @State private var note = ""
     @State private var selectedContact = Contact(id: 0, user: getUserId(), first_name: "", last_name: "", email: "", phone_number: "", legal_age: true)
     @ObservedObject var vm: ClothDonationViewModel
     
     var body: some View {
         ZStack {
-            if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
-                .zIndex(1.0)
-                .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
-            }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Vêtements et accessoires", title: "Sélectionnez un contact à qui donner *cet article *ces articles", valid: .constant(!selectedContact.first_name.isEmpty), destination: AnyView(ClothsDonationPic(vm: vm))) {
+            FlowBaseView(menuTitle: "Vêtements et accessoires", title: "Sélectionnez un contact à qui donner *cet article *ces articles", valid: .constant(!selectedContact.first_name.isEmpty), destination: AnyView(ClothsDonationPic(vm: vm))) {
                 if selectedContact.first_name.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Sélectionnez un contact à qui donner *cet article *ces articles") {

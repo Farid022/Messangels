@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct ExtraWishesIntro: View {
-
+    @StateObject private var vm = ExtraWishViewModel()
     var body: some View {
         NavigationStackView("ExtraWishesIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,11 +37,21 @@ struct ExtraWishesIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "ExtraWishesIntro", destination: AnyView(ExtraWishesDetails()), active: .constant(true))
+                        NextButton(source: "ExtraWishesIntro", destination: AnyView(ExtraWishesDetails(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.extraWishes.count > 0 {
+                        vm.extraWish = ExtraWish(express_yourself_note: vm.extraWishes[0].express_yourself_note, user: getUserId())
+                        vm.updateRecord = true
+                    }
+                }
+            }
         }
     }
 }

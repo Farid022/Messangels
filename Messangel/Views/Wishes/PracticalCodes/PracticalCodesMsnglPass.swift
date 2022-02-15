@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct PracticalCodesMsnglPass: View {
+    @ObservedObject var vm: PracticalCodeViewModel
     @State private var password = ""
     var body: some View {
         NavigationStackView("PracticalCodesMsnglPass") {
@@ -36,7 +37,7 @@ struct PracticalCodesMsnglPass: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "PracticalCodesMsnglPass", destination: AnyView(PracticalCodesOTP()), active: .constant(!password.isEmpty))
+                        NextButton(source: "PracticalCodesMsnglPass", destination: AnyView(PracticalCodesOTP(vm: vm)), active: .constant(!password.isEmpty))
                     }
                 }.padding()
             }

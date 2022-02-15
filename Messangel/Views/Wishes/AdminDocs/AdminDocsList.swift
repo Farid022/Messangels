@@ -13,7 +13,7 @@ struct AdminDocsList: View {
     @ObservedObject var vm: AdminDocViewModel
     
     var body: some View {
-        FuneralItemList(id:"AdminDocsList", menuTitle: "Pièces administratives") {
+        FuneralItemList(id:"AdminDocsList", menuTitle: "Pièces administratives", newItemView: AnyView(AdminDocsName(vm: AdminDocViewModel()))) {
             ForEach(vm.adminDocs, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_doc")
                     .onTapGesture {

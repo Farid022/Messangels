@@ -12,7 +12,7 @@ struct SpiritualTraditionChoice: View {
     @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
-    @StateObject private var vm = FuneralSpritualityViewModel()
+    @ObservedObject var vm: FuneralSpritualityViewModel
     
     var body: some View {
         ZStack {

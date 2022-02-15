@@ -13,6 +13,6 @@ struct FuneralCoffinOptions: View {
     @ObservedObject var vm: FeneralViewModel
     
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $note, menuTitle: "Choix funéraires", title: "Précisez des options pour le cercueil (signe religieux, couleur,…)", destination: vm.funeral.burial_type == FuneralType.burial.rawValue ? AnyView(FuneralOutfit(vm: vm)) : AnyView(FuneralUrnMaterial(vm: vm)))
+        FuneralNoteView(showNote: $showNote, note: $vm.funeral.religious_sign_note, menuTitle: "Choix funéraires", title: "Précisez des options pour le cercueil (signe religieux, couleur,…)", destination: vm.funeral.burial_type == FuneralType.burial.rawValue ? AnyView(FuneralOutfit(vm: vm)) : AnyView(FuneralUrnMaterial(vm: vm)))
     }
 }

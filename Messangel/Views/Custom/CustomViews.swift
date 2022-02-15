@@ -24,8 +24,8 @@ struct MyLink: View {
 struct NextButton: View {
     var isCustomAction = false
     var customAction: () -> Void = {}
-    var source: String
-    var destination: AnyView
+    var source: String?
+    var destination: AnyView?
     var color = Color.white
     var iconColor = Color.accentColor
     
@@ -43,7 +43,7 @@ struct NextButton: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     if active && isCustomAction {
                         customAction()
-                    } else if active {
+                    } else if active, let source = source {
                         navigationModel.pushContent(source) {
                             destination
                         }

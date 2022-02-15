@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ManagedContractNew: View {
+    @ObservedObject var vm: ContractViewModel
     var body: some View {
-        FuneralNewItemView(menuTitle: "Contrats à gérer", title: "Ajoutez un premier contrat à résilier", destination: AnyView(ManagedContractName()))
+        FuneralNewItemView(menuTitle: "Contrats à gérer", title: "Ajoutez un premier contrat à résilier", destination: AnyView(ManagedContractName(vm: vm)))
 
     }
 }

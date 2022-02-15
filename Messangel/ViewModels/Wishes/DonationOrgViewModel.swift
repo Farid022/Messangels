@@ -9,12 +9,14 @@ import Foundation
 
 struct DonationOrg: Codable {
     var donation_organization: Int
+    var donation_organization_note: String?
     var donation_note: String
     var user: Int
 }
 
 struct DonationOrgDetail: Hashable, Codable {
     var donation_organization: Organization
+    var donation_organization_note: String?
     var donation_note: String
     var user: User
 }

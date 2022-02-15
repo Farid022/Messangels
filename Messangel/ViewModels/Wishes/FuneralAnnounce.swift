@@ -10,16 +10,28 @@ import UIKit
 
 struct FuneralAnnounce: Codable {
     var invitation_photo: String
+    var invitation_photo_note: String?
     var invitation_note: String
     var theme_note: String
     var newspaper_note: String
-    var user: Int
+    var user = getUserId()
+}
+
+struct FuneralAnnounceData: Hashable, Codable {
+    var id: Int
+    var invitation_photo: String
+    var invitation_photo_note: String?
+    var invitation_note: String
+    var theme_note: String
+    var newspaper_note: String
+    var user: User
 }
 
 class FuneralAnnounceViewModel: ObservableObject {
     @Published var invitePhoto = UIImage()
     @Published var updateRecord = false
-    @Published var announcement = FuneralAnnounce(invitation_photo: "", invitation_note: "", theme_note: "", newspaper_note: "", user: getUserId())
+    @Published var announcements = [FuneralAnnounceData]()
+    @Published var announcement = FuneralAnnounce(invitation_photo: "", invitation_note: "", theme_note: "", newspaper_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -59,18 +71,18 @@ class FuneralAnnounceViewModel: ObservableObject {
         }
     }
     
-//    func get(completion: @escaping (Bool) -> Void) {
-//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/announce") { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                    self.funeralChoices = items
-//                    completion(true)
-//                }
-//            case .failure(let error):
-//                print(error)
-//                completion(false)
-//            }
-//        }
-//    }
+    func get(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: announcements, urlString: "users/\(getUserId())/announce") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.announcements = items
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
 }

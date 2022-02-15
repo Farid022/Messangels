@@ -16,12 +16,21 @@ enum SpiritualType: Int, CaseIterable {
 struct FuneralSprituality: Codable {
     var spritual_ceremony: Int
     var ceremony_note: String
-    var user: Int
+    var user = getUserId()
+}
+
+struct FuneralSpritualityData: Codable {
+    var id: Int
+    var spritual_ceremony: FuneralIntity
+    var spritual_ceremony_note: String
+    var ceremony_note: String
+    var user: User
 }
 
 class FuneralSpritualityViewModel: ObservableObject {
     @Published var updateRecord = false
-    @Published var sprituality = FuneralSprituality(spritual_ceremony: 0, ceremony_note: "", user: getUserId())
+    @Published var spritualities = [FuneralSpritualityData]()
+    @Published var sprituality = FuneralSprituality(spritual_ceremony: 0, ceremony_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -61,18 +70,18 @@ class FuneralSpritualityViewModel: ObservableObject {
         }
     }
     
-//    func get(completion: @escaping (Bool) -> Void) {
-//        APIService.shared.getJSON(model: funeralChoices, urlString: "users/\(getUserId())/sprituality") { result in
-//            switch result {
-//            case .success(let items):
-//                DispatchQueue.main.async {
-//                    self.funeralChoices = items
-//                    completion(true)
-//                }
-//            case .failure(let error):
-//                print(error)
-//                completion(false)
-//            }
-//        }
-//    }
+    func get(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: spritualities, urlString: "users/\(getUserId())/sprituality") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.spritualities = items
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
 }

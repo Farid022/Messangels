@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct PracticalCodesIntro: View {
+    @StateObject private var vm = PracticalCodeViewModel()
     var body: some View {
         NavigationStackView("PracticalCodesIntro") {
             ZStack(alignment: .topLeading) {
@@ -36,7 +37,7 @@ struct PracticalCodesIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "PracticalCodesIntro", destination: AnyView(PracticalCodeNew()), active: .constant(true))
+                        NextButton(source: "PracticalCodesIntro", destination: AnyView(PracticalCodeNew(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }

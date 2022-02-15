@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct FuneralPlaceType: View {
-    private var funeralTypes = [FuneralBool.yes, FuneralBool.no]
+    var funeralTypes = [FuneralBool.yes, FuneralBool.no]
     @State private var valid = false
     @State private var selectedFuneral = FuneralBool.none
     @State private var showNote = false
-    @State private var note = ""
-    @StateObject private var vm = FuneralLocationViewModel()
+    @ObservedObject var vm: FuneralLocationViewModel
     
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.location.location_of_ceremony_note.bound)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)

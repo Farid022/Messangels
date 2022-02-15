@@ -9,6 +9,9 @@ import SwiftUI
 import NavigationStack
 
 struct FuneralMusicIntro: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var vm = FuneralMusicViewModel()
+    @State private var gotList = false
 
     var body: some View {
         NavigationStackView("FuneralAestheticIntro") {
@@ -37,11 +40,25 @@ struct FuneralMusicIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralAestheticIntro", destination: AnyView(FuneralMusicNew()), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent("FuneralAestheticIntro") {
+                                if vm.musics.isEmpty {
+                                    FuneralMusicNew(vm: vm)
+                                } else {
+                                    FuneralMusicList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear() {
+            vm.getMusics { _ in
+                gotList.toggle()
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ struct FuneralMusicTitle: View {
     
     var body: some View {
         FlowBaseView(menuTitle: "Musique", title: "Indiquez le nom du titre", valid: .constant(!vm.music.song_title.isEmpty), destination: AnyView(FuneralMusicNote(vm: vm)), exitAction: {
-            Utils.saveData(vm.music, key: "music")
+            //
         }) {
            TextField("Titre", text: $vm.music.song_title)
             .normalShadow()

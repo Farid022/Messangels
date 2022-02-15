@@ -9,11 +9,12 @@ import SwiftUI
 import NavigationStack
 
 struct OrganDonateRefuse: View {
-    var funeralTypes = [FuneralBool.yes, FuneralBool.no]
-    @State private var valid = false
+    private let funeralTypes = [FuneralBool.yes, FuneralBool.no]
+    private let title = "Avez-vous enregistré ce choix dans le registre national des refus ?"
     @State private var selectedFuneral = FuneralBool.none
     @State private var showNote = false
     @State private var note = ""
+    @State private var loading = false
     @ObservedObject var vm: OrganDonationViewModel
     @EnvironmentObject var navModel: NavigationModel
     
@@ -26,23 +27,31 @@ struct OrganDonateRefuse: View {
                 .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(isCustomAction:true, customAction: {
-                if !valid { return; }
+                if selectedFuneral == .none { return; }
                 
                 if selectedFuneral == .yes {
-                    vm.create() { success in
-                        if success {
-                            navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
-                                FuneralDoneView()
+                    if !vm.updateRecord {
+                        vm.create() { success in
+                            loading.toggle()
+                            if success {
+                                wishChoiceSuccessAction(title, navModel: navModel)
+                            }
+                        }
+                    } else {
+                        vm.update(id: vm.donations[0].id) { success in
+                            loading.toggle()
+                            if success {
+                                wishChoiceSuccessAction(title, navModel: navModel)
                             }
                         }
                     }
                     
                 } else {
-                    navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
+                    navModel.pushContent(title) {
                         OrganDonateRefusalNotReg(vm: vm)
                     }
                 }
-            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Avez-vous enregistré ce choix dans le registre national des refus ?", valid: $valid) {
+            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: title, valid: .constant(selectedFuneral != .none)) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
                         ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
@@ -52,9 +61,10 @@ struct OrganDonateRefuse: View {
                             }
                     }
                 }
-            }
-            .onChange(of: selectedFuneral) { value in
-                valid = selectedFuneral != .none
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

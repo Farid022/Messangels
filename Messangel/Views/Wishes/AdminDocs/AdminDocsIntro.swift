@@ -9,6 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct AdminDocsIntro: View {
+    @StateObject private var vm = AdminDocViewModel()
+
     var body: some View {
         NavigationStackView("AdminDocsIntro") {
             ZStack(alignment: .topLeading) {
@@ -36,7 +38,7 @@ struct AdminDocsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "AdminDocsIntro", destination: AnyView(AdminDocsNew()), active: .constant(true))
+                        NextButton(source: "AdminDocsIntro", destination: AnyView(AdminDocsNew(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }

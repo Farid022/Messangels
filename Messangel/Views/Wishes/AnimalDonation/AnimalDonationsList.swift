@@ -13,7 +13,7 @@ struct AnimalDonationsList: View {
     @ObservedObject var vm: AnimalDonatiopnViewModel
 
     var body: some View {
-        FuneralItemList(id:"ClothsDonationsList", menuTitle: "ANIMAUX") {
+        FuneralItemList(id:"ClothsDonationsList", menuTitle: "ANIMAUX", newItemView: AnyView(AnimalDonationName(vm: AnimalDonatiopnViewModel()))) {
             ForEach(vm.donations, id: \.self) { item in
                 FuneralItemCard(title: item.animal_name, icon: "ic_cloth")
                     .onTapGesture {

@@ -13,7 +13,7 @@ struct ClothsDonationsList: View {
     @ObservedObject var vm: ClothDonationViewModel
     
     var body: some View {
-        FuneralItemList(id:"ClothsDonationsList", menuTitle: "Vêtements et accessoires") {
+        FuneralItemList(id:"ClothsDonationsList", menuTitle: "Vêtements et accessoires", newItemView: AnyView(ClothsDonationName(vm: ClothDonationViewModel()))) {
             ForEach(vm.donations, id: \.self) { donation in
                 FuneralItemCard(title: donation.clothing_name, icon: "ic_cloth")
                     .onTapGesture {
