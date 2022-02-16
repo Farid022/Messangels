@@ -35,9 +35,7 @@ struct MenuBaseView<Content: View>: View {
                         .font(.system(size: 17))
                         .fontWeight(.semibold)
                     Spacer()
-//                    Image("help")
-//                        .padding(.horizontal, -30)
-                }.padding(.bottom, -30), alignment: .bottom)
+                }, alignment: .bottom)
             ScrollView(showsIndicators: false) {
                 VStack {
                     content
