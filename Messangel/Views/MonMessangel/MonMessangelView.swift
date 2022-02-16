@@ -14,6 +14,7 @@ struct MonMessangelView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     
     var body: some View {
+        NavigationStackView("MonMessangelView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -119,6 +120,7 @@ struct MonMessangelView: View {
                    
                 }
             }
+        }
         }
        
     }
@@ -264,7 +266,7 @@ struct MesVoluntesView: View
 {
     var body: some View {
         Group{
-            MesVoluntesListView(items: [MesVolenteItem(title: "Choix", type:""),MesVolenteItem(title: "funéraires", type:""),MesVolenteItem(title: "Organisme obsèques", type:""),MesVolenteItem(title: "Annonces", type:""),MesVolenteItem(title: "Don d’organes ou du corps", type:"")], title: "Mes choix personnels", description: "")
+            MesVoluntesListView(items: [MesVolenteItem(title: "Choix funéraires", type:""),MesVolenteItem(title: "Organisme obsèques", type:""),MesVolenteItem(title: "Annonces", type:""),MesVolenteItem(title: "Don d’organes ou du corps", type:"")], title: "Mes choix personnels", description: "")
                 .padding(.bottom,40)
             
             MesVoluntesListView(items: [MesVolenteItem(title: "Spiritualité et traditions", type:""),MesVolenteItem(title: "Lieux", type:""),MesVolenteItem(title: "Diffusion de la nouvelle", type:""),MesVolenteItem(title: "Esthétique", type:""),MesVolenteItem(title: "Musique", type:"")], title: "Pour ma cérémonie", description: "")
@@ -322,14 +324,7 @@ struct MesVoluntesListView: View
                 {
                     index, item in
                     MesVoluntesItem(type: item.type, item: item.title)
-                        .onTapGesture {
-                            navigationModel.pushContent("MonMessangelView") {
-                //                if item == ""
-                //                {
-                                    ChoixfunerairesView()
-                               // }
-                                }
-                        }
+                        
 
                 }
                 .padding(.leading,24)
@@ -344,7 +339,7 @@ struct MesVoluntesListView: View
 
 struct MesVoluntesItem: View
 {
-   
+    @EnvironmentObject var navigationModel: NavigationModel
     var type: String
     var item: String
     var body: some View {
@@ -390,6 +385,33 @@ struct MesVoluntesItem: View
        
         }
         .frame(height:68)
+        .onTapGesture {
+            navigationModel.pushContent("MonMessangelView") {
+                
+                switch(item)
+                {
+                case "Choix funéraires" :  ChoixfunerairesView()
+                case "Organisme obsèques" :  OrganismesObsequesView()
+                case "Animaux" : AnimalsView()
+                case "Annonces": AdvertismentView()
+                case "Don d’organes ou du corps": CorpsScienceView()
+                case "Spiritualité et traditions": SpiritualiteTraditionsView()
+                case  "Lieux": PremisesView()
+                case "Diffusion de la nouvelle" : DiffusionNouvelleView()
+                case   "Esthétique": AestheticView()
+                case  "Musique": MusicView()
+                case  "Pièces administratives": AdministrativePartsView()
+                case  "Dons et collectes": DonationCollectioView()
+                case  "Vêtements et accessoires": ClothAccessoriesView()
+                case  "Objets": ObjectListView()
+                case  "Codes pratiques": CodePractiveView()
+                case  "Contrats à gérer": ManageContractsView()
+                case  "Expression libre": ExpressionView()
+                default: MusicView()
+                    
+              }
+                }
+        }
         
     }
 }

@@ -79,17 +79,7 @@ struct MyAnnoucementView: View
                        .padding(.bottom,40)
                        .padding(.leading,24)
                 
-                LazyVGrid(columns: columns) {
-                    ForEach(enumerating: animalList, id:\.self)
-                    {
-                        index, item in
-                        gridItem(title: item)
-                        
-                    }
-                }
-                .padding(.leading,24)
-                .padding(.trailing,24)
-                .padding(.bottom,40)
+               
                 
                 Group{
                    
@@ -97,7 +87,17 @@ struct MyAnnoucementView: View
                 MonCercueilItem(title: "Apparence de mon faire-part", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "")
                 MonCercueilItem(title: "Texte à faire apparaître", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "")
                     
-                 
+                    LazyVGrid(columns: columns) {
+                        ForEach(enumerating: animalList, id:\.self)
+                        {
+                            index, item in
+                            gridItem(title: item)
+                            
+                        }
+                    }
+                    .padding(.leading,24)
+                    .padding(.trailing,24)
+                    .padding(.bottom,40)
                 }
                 
                 

@@ -54,6 +54,8 @@ struct ChoixfunerairesView: View {
                                 FunerairesView(title: "Mon lieu de crémation", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.")
                                     .padding(.bottom,40)
                                 MonCercueilView()
+                                    .padding(.bottom,40)
+                               
                                 FunerairesView(title: "Ma tenue", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.") .padding(.bottom,40)
                                 
                                 FunerairesView(title: "Mes objets et accessoires", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.") .padding(.bottom,40)
@@ -114,11 +116,14 @@ struct MonCercueilItem: View
         
         VStack(alignment:.leading)
         {
+            if title.count > 0
+            {
             Text("+ " + title)
                    .font(.system(size: 15))
                    .fontWeight(.bold)
                   
                    .padding(.bottom,24)
+            }
             
             if image.count > 0
             {
@@ -173,6 +178,7 @@ struct MonCercueilView: View
                 
             }
         }
+        .cornerRadius(22)
         .padding(.leading,18)
         .padding(.trailing,18)
     }

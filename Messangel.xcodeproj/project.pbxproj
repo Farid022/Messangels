@@ -23,6 +23,13 @@
 		23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */; };
 		23C0F1EB27B381A1008F386D /* DiffusionNouvelleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */; };
 		23D2C69927BC49B9007CF0D9 /* StaggeredGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2C69827BC49B9007CF0D9 /* StaggeredGrid.swift */; };
+		23D3CFBD27BD5B43009CDBF4 /* MusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFBC27BD5B43009CDBF4 /* MusicView.swift */; };
+		23D3CFBF27BD5E95009CDBF4 /* AdministrativePartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFBE27BD5E95009CDBF4 /* AdministrativePartsView.swift */; };
+		23D3CFC127BD6127009CDBF4 /* DonationCollectioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFC027BD6127009CDBF4 /* DonationCollectioView.swift */; };
+		23D3CFC327BD6ADE009CDBF4 /* ClothAccessoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFC227BD6ADE009CDBF4 /* ClothAccessoriesView.swift */; };
+		23D3CFC527BD6C07009CDBF4 /* ObjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFC427BD6C07009CDBF4 /* ObjectListView.swift */; };
+		23D3CFC727BD72CB009CDBF4 /* CodePractiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFC627BD72CB009CDBF4 /* CodePractiveView.swift */; };
+		23D3CFC927BD751C009CDBF4 /* ManageContractsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D3CFC827BD751C009CDBF4 /* ManageContractsView.swift */; };
 		9313BA6F26846019008F566C /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA6E26846019008F566C /* TextEditorView.swift */; };
 		9313BA802689A467008F566C /* RichEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA712689A467008F566C /* RichEditorView.swift */; };
 		9313BA812689A467008F566C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA722689A467008F566C /* String+Extensions.swift */; };
@@ -341,6 +348,13 @@
 		23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritualiteTraditionsView.swift; sourceTree = "<group>"; };
 		23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffusionNouvelleView.swift; sourceTree = "<group>"; };
 		23D2C69827BC49B9007CF0D9 /* StaggeredGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaggeredGrid.swift; sourceTree = "<group>"; };
+		23D3CFBC27BD5B43009CDBF4 /* MusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicView.swift; sourceTree = "<group>"; };
+		23D3CFBE27BD5E95009CDBF4 /* AdministrativePartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministrativePartsView.swift; sourceTree = "<group>"; };
+		23D3CFC027BD6127009CDBF4 /* DonationCollectioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationCollectioView.swift; sourceTree = "<group>"; };
+		23D3CFC227BD6ADE009CDBF4 /* ClothAccessoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothAccessoriesView.swift; sourceTree = "<group>"; };
+		23D3CFC427BD6C07009CDBF4 /* ObjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectListView.swift; sourceTree = "<group>"; };
+		23D3CFC627BD72CB009CDBF4 /* CodePractiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodePractiveView.swift; sourceTree = "<group>"; };
+		23D3CFC827BD751C009CDBF4 /* ManageContractsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageContractsView.swift; sourceTree = "<group>"; };
 		9313BA6E26846019008F566C /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		9313BA712689A467008F566C /* RichEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichEditorView.swift; sourceTree = "<group>"; };
 		9313BA722689A467008F566C /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -675,6 +689,13 @@
 				235A58CB27BAC682007FF930 /* ListOTPView.swift */,
 				235A58CD27BAC69B007FF930 /* ListPasswordView.swift */,
 				235A58CF27BAC6C8007FF930 /* ExpressionView.swift */,
+				23D3CFBC27BD5B43009CDBF4 /* MusicView.swift */,
+				23D3CFBE27BD5E95009CDBF4 /* AdministrativePartsView.swift */,
+				23D3CFC027BD6127009CDBF4 /* DonationCollectioView.swift */,
+				23D3CFC227BD6ADE009CDBF4 /* ClothAccessoriesView.swift */,
+				23D3CFC427BD6C07009CDBF4 /* ObjectListView.swift */,
+				23D3CFC627BD72CB009CDBF4 /* CodePractiveView.swift */,
+				23D3CFC827BD751C009CDBF4 /* ManageContractsView.swift */,
 			);
 			path = MonMessangel;
 			sourceTree = "<group>";
@@ -1556,6 +1577,7 @@
 				23C0F1E627B3811D008F386D /* CorpsScienceView.swift in Sources */,
 				93AC026627326D1E00FD7285 /* ExtraWishesIntro.swift in Sources */,
 				93AC026227326CB700FD7285 /* DonationOrgsIntro.swift in Sources */,
+				23D3CFC127BD6127009CDBF4 /* DonationCollectioView.swift in Sources */,
 				93671DB92767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift in Sources */,
 				933DF61227887EC8005966AF /* ObjectDonationViewModel.swift in Sources */,
 				93AC020C2721970300FD7285 /* FuneralCompanyOptionView.swift in Sources */,
@@ -1629,6 +1651,7 @@
 				93AC02E2274B695B00FD7285 /* AdminDocsDetails.swift in Sources */,
 				9354046A26C0C8B4004BE5B9 /* TextAlert.swift in Sources */,
 				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
+				23D3CFBD27BD5B43009CDBF4 /* MusicView.swift in Sources */,
 				93AC021A2726769000FD7285 /* FuneralInviteIntro.swift in Sources */,
 				93AC01FA271FE9B100FD7285 /* FuneralOutfit.swift in Sources */,
 				939CBDD72786F9D9004520A3 /* DeathAnnouncementViewModel.swift in Sources */,
@@ -1638,6 +1661,8 @@
 				93AC02092721952F00FD7285 /* FuneralOrgIntro.swift in Sources */,
 				93AC026C2732702800FD7285 /* ExtraWishesDetails.swift in Sources */,
 				935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */,
+				23D3CFC927BD751C009CDBF4 /* ManageContractsView.swift in Sources */,
+				23D3CFC527BD6C07009CDBF4 /* ObjectListView.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
 				235A58C827BAC597007FF930 /* AnimalDetailView.swift in Sources */,
 				939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */,
@@ -1655,6 +1680,7 @@
 				935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */,
 				2396201E27AD04B200CE3CCD /* MonMessangelView.swift in Sources */,
 				93AC02432727D76C00FD7285 /* FuneralPlaceName.swift in Sources */,
+				23D3CFBF27BD5E95009CDBF4 /* AdministrativePartsView.swift in Sources */,
 				93EFE7EB26A15D9700F50894 /* SignupTelView.swift in Sources */,
 				9351CCC327A43B790087C0E9 /* Utils.swift in Sources */,
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
@@ -1677,6 +1703,7 @@
 				23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
 				938313952671E46E00C71C98 /* PHPhotoLibrary.swift in Sources */,
+				23D3CFC327BD6ADE009CDBF4 /* ClothAccessoriesView.swift in Sources */,
 				93AC02542727E4E000FD7285 /* FuneralDecoration.swift in Sources */,
 				93AC02CB274B5B4000FD7285 /* AnimalDonationPic.swift in Sources */,
 				93AC022A27268D1D00FD7285 /* OrganDonateRefuse.swift in Sources */,
@@ -1750,6 +1777,7 @@
 				93AC028F274769FB00FD7285 /* ClothsDonationOrgList.swift in Sources */,
 				933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */,
 				93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */,
+				23D3CFC727BD72CB009CDBF4 /* CodePractiveView.swift in Sources */,
 				932FF8B326C130CC00DE52F9 /* VideoGroupView.swift in Sources */,
 				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
 				93AC02F9274B73A100FD7285 /* PracticalCodeText.swift in Sources */,
