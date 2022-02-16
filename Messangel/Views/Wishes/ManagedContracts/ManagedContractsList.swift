@@ -11,6 +11,7 @@ import NavigationStack
 struct ManagedContractsList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: ContractViewModel
+    var refresh: Bool
     
     var body: some View {
         FuneralItemList(id:"ManagedContractsList", menuTitle: "Contrats à gérer", newItemView: AnyView(ManagedContractName(vm: ContractViewModel()))) {
@@ -18,13 +19,15 @@ struct ManagedContractsList: View {
                 FuneralItemCard(title: item.name, icon: "ic_contract")
                     .onTapGesture {
                         navigationModel.pushContent("ManagedContractsList") {
-                            ManagedContractsDetails(title: item.name, note: item.note)
+                            ManagedContractsDetails(vm: vm, contract: item)
                         }
                     }
             }
         }
         .task {
-            vm.getAll()
+            if refresh {
+                vm.getAll { _ in }
+            }
         }
     }
 }

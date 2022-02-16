@@ -18,12 +18,33 @@ struct ClothsDonationNote: View {
     var body: some View {
         FuneralNoteCutomActionView(showNote: $showNote, note: $vm.clothDonation.clothing_note, loading: $loading, menuTitle: "Vêtements et accessoires", title: title) {
             loading.toggle()
-            vm.createClothDonation { success in
-                loading.toggle()
-                if success {
-                    UserDefaults.standard.set(100.0, forKey: "Vêtements et accessoires")
-                    navModel.pushContent(title) {
-                        ClothsDonationsList(vm: vm)
+            if vm.updateRecord {
+                vm.update(id: vm.clothDonation.id ?? 0) { success in
+                    if success {
+                        navModel.popContent("ClothsDonationsList")
+                        vm.getAll { _ in
+                            print("ClothsDonationsList Updated")
+                        }
+                    }
+                }
+            } else {
+                vm.createClothDonation { success in
+                    if success && vm.donations.isEmpty {
+                        WishesViewModel.setProgress(tab: 10) { completed in
+                            loading.toggle()
+                            if completed {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
+                                }
+                            }
+                        }
+                    } else {
+                        loading.toggle()
+                        if success {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
+                        }
                     }
                 }
             }

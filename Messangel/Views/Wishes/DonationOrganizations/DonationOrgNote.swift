@@ -18,12 +18,31 @@ struct DonationOrgNote: View {
     var body: some View {
         FuneralNoteCutomActionView(showNote: $showNote, note: $vm.donationOrg.donation_note, loading: $loading, menuTitle: "Dons et collectes", title: title) {
             loading.toggle()
-            vm.create() { success in
-                loading.toggle()
-                if success {
-                    UserDefaults.standard.set(100.0, forKey: "Dons et collectes")
-                    navModel.pushContent(title) {
-                        DonationOrgsList(vm: vm)
+            if vm.updateRecord {
+                vm.update(id: vm.donationOrg.id ?? 0) { success in
+                    if success {
+                        navModel.popContent("DonationOrgsList")
+                        vm.getDonationOrgs { _ in }
+                    }
+                }
+            } else {
+                vm.create { success in
+                    if success && vm.donationOrgs.isEmpty {
+                        WishesViewModel.setProgress(tab: 13) { completed in
+                            loading.toggle()
+                            if completed {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
+                                }
+                            }
+                        }
+                    } else {
+                        loading.toggle()
+                        if success {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
+                        }
                     }
                 }
             }

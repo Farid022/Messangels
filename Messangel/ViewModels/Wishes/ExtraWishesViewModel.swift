@@ -9,7 +9,7 @@ import Foundation
 
 struct ExtraWish: Codable {
     var express_yourself_note: String
-    var user: Int
+    var user = getUserId()
 }
 
 struct ExtraWishData: Hashable, Codable {
@@ -21,7 +21,7 @@ struct ExtraWishData: Hashable, Codable {
 class ExtraWishViewModel: ObservableObject {
     @Published var updateRecord = false
     @Published var extraWishes = [ExtraWishData]()
-    @Published var extraWish = ExtraWish(express_yourself_note: "", user: getUserId())
+    @Published var extraWish = ExtraWish(express_yourself_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     

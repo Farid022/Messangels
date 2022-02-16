@@ -123,7 +123,7 @@ struct NavigationTitleView: View {
 struct NavbarButtonView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     var title = ""
-    var exitAction: () -> Void
+    var exitAction: (() -> Void)?
     var body: some View {
         Color.accentColor
             .frame(height:90)
@@ -131,7 +131,9 @@ struct NavbarButtonView: View {
             .overlay(HStack {
                 VStack(alignment: .leading) {
                     Button {
-                        exitAction()
+                        if let exitAction = exitAction {
+                            exitAction()
+                        }
                         navigationModel.popContent(TabBarView.id)
                     } label: {
                        Image("ic_exit")

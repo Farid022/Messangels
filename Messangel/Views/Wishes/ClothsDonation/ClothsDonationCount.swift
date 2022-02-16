@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct ClothsDonationCount: View {
-    var donationTypes = [ClothsDonationType.single, ClothsDonationType.multiple]
-    @State private var valid = false
-    @State private var selectedDonation = ClothsDonationType.none
     @State private var showNote = false
-    @StateObject private var vm = ClothDonationViewModel()
+    @ObservedObject var vm: ClothDonationViewModel
     
     var body: some View {
         ZStack {
@@ -22,19 +19,15 @@ struct ClothsDonationCount: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Vêtements et accessoires", title: "Souhaitez-vous ajouter un ou plusieurs articles ?", valid: $valid, destination: AnyView(ClothsDonationName(vm: vm))) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Vêtements et accessoires", title: "Souhaitez-vous ajouter un ou plusieurs articles ?", valid: .constant(vm.clothDonation.single_clothing != nil), destination: AnyView(ClothsDonationName(vm: vm))) {
                 HStack {
-                    ForEach(donationTypes, id: \.self) { type in
-                        ChoiceCard(text: type == .single ? "Un seul article" : "Plusieurs articles", selected: .constant(selectedDonation == type))
+                    ForEach([true, false], id: \.self) { opt in
+                        ChoiceCard(text: opt ? "Un seul article" : "Plusieurs articles", selected: .constant(vm.clothDonation.single_clothing == opt))
                             .onTapGesture {
-                                selectedDonation = type
-                                vm.clothDonation.single_clothing = type == .single
+                                vm.clothDonation.single_clothing = opt
                             }
                     }
                 }
-            }
-            .onChange(of: selectedDonation) { value in
-                valid = selectedDonation != .none
             }
         }
     }

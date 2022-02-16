@@ -9,6 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct DonationOrgsIntro: View {
+    @State private var gotList = false
+    @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var vm = DonationOrgViewModel()
     var body: some View {
         NavigationStackView("DonationOrgsIntro") {
@@ -37,11 +39,25 @@ struct DonationOrgsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "DonationOrgsIntro", destination: AnyView(DonationOrgNew(vm: vm)), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent("DonationOrgsIntro") {
+                                if vm.donationOrgs.isEmpty {
+                                    DonationOrgNew(vm: vm)
+                                } else {
+                                    DonationOrgsList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.getDonationOrgs { _ in
+                gotList.toggle()
+            }
         }
     }
 }

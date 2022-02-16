@@ -10,6 +10,9 @@ import NavigationStack
 
 struct PracticalCodesIntro: View {
     @StateObject private var vm = PracticalCodeViewModel()
+    @State private var gotList = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    
     var body: some View {
         NavigationStackView("PracticalCodesIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,11 +40,25 @@ struct PracticalCodesIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "PracticalCodesIntro", destination: AnyView(PracticalCodeNew(vm: vm)), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent("ObjectsDonationIntro") {
+                                if vm.practicalCodes.isEmpty {
+                                    PracticalCodeNew(vm: vm)
+                                } else {
+                                    PracticalCodesList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.getPracticalCodes { _ in
+                gotList.toggle()
+            }
         }
     }
 }

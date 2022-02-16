@@ -11,6 +11,7 @@ import NavigationStack
 struct AdminDocsList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: AdminDocViewModel
+    var refresh: Bool
     
     var body: some View {
         FuneralItemList(id:"AdminDocsList", menuTitle: "Pièces administratives", newItemView: AnyView(AdminDocsName(vm: AdminDocViewModel()))) {
@@ -18,13 +19,15 @@ struct AdminDocsList: View {
                 FuneralItemCard(title: item.name, icon: "ic_doc")
                     .onTapGesture {
                         navigationModel.pushContent("AdminDocsList") {
-                            AdminDocsDetails(title: item.name, note: item.note)
+                            AdminDocsDetails(vm: vm, docs: item)
                         }
                     }
             }
         }
         .task {
-            vm.getAll()
+            if refresh {
+                vm.getAll { _ in }
+            }
         }
     }
 }

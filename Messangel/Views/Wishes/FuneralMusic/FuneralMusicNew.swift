@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FuneralMusicNew: View {
-    @ObservedObject var vm: FuneralMusicViewModel
+    @StateObject private var vm = FuneralMusicViewModel()
     var body: some View {
         FuneralNewItemView(menuTitle: "Musique", title: "Ajoutez un premier titre", destination: AnyView(FuneralMusicArtist(vm: vm)))
     }

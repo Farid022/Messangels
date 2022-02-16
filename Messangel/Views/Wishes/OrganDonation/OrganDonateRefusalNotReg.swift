@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct OrganDonateRefusalNotReg: View {
-    @State private var valid = false
+//    @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
     @State private var loading = false

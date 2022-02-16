@@ -43,7 +43,7 @@ struct FuneralMusicIntro: View {
                         NextButton(isCustomAction: true, customAction: {
                             navigationModel.pushContent("FuneralAestheticIntro") {
                                 if vm.musics.isEmpty {
-                                    FuneralMusicNew(vm: vm)
+                                    FuneralMusicNew()
                                 } else {
                                     FuneralMusicList(vm: vm, refresh: false)
                                 }

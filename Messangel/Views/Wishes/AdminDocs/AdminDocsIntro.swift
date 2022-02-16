@@ -10,7 +10,9 @@ import NavigationStack
 
 struct AdminDocsIntro: View {
     @StateObject private var vm = AdminDocViewModel()
-
+    @State private var gotList = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    
     var body: some View {
         NavigationStackView("AdminDocsIntro") {
             ZStack(alignment: .topLeading) {
@@ -38,11 +40,25 @@ struct AdminDocsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "AdminDocsIntro", destination: AnyView(AdminDocsNew(vm: vm)), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent("AdminDocsIntro") {
+                                if vm.adminDocs.isEmpty {
+                                    AdminDocsNew(vm: vm)
+                                } else {
+                                    AdminDocsList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.getAll { _ in
+                gotList.toggle()
+            }
         }
     }
 }

@@ -67,7 +67,9 @@ class FuneralMusicViewModel: ObservableObject {
         APIService.shared.delete(endpoint: "users/\(getUserId())/song/\(id)/music") { result in
             switch result {
             case .success(_):
-                completion(true)
+                DispatchQueue.main.async {
+                    completion(true)
+                }
             case .failure(let error):
                 print(error)
                 completion(false)

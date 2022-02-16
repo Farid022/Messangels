@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ObjectsDonationNew: View {
+    @ObservedObject var vm: ObjectDonationViewModel
     var body: some View {
-        FuneralNewItemView(menuTitle: "Objets", title: "Ajoutez vos premiers objets", destination: AnyView(ObjectsDonationCount()))
+        FuneralNewItemView(menuTitle: "Objets", title: "Ajoutez vos premiers objets", destination: AnyView(ObjectsDonationCount(vm: vm)))
 
     }
 }

@@ -8,14 +8,15 @@
 import Foundation
 
 struct ClothDonation: Codable {
-    var single_clothing: Bool
+    var id: Int?
+    var single_clothing: Bool?
     var single_clothing_note: String?
     var clothing_name: String
     var clothing_contact_detail: Int?
     var clothing_organization_detail: Int?
     var clothing_photo: String
     var clothing_note: String
-    var user: Int
+    var user = getUserId()
 }
 
 struct ClothingDonation: Hashable, Codable {
@@ -31,9 +32,10 @@ struct ClothingDonation: Hashable, Codable {
 }
 
 class ClothDonationViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var donations = [ClothingDonation]()
     @Published var orgs = [Organization]()
-    @Published var clothDonation = ClothDonation(single_clothing: true, clothing_name: "", clothing_contact_detail: 0, clothing_organization_detail: 0, clothing_photo: "", clothing_note: "", user: getUserId())
+    @Published var clothDonation = ClothDonation(clothing_name: "", clothing_contact_detail: 0, clothing_organization_detail: 0, clothing_photo: "", clothing_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -68,15 +70,49 @@ class ClothDonationViewModel: ObservableObject {
         }
     }
     
-    func getAll() {
+    func getAll(completion: @escaping (Bool) -> Void) {
         APIService.shared.getJSON(model: donations, urlString: "users/\(getUserId())/clothing") { result in
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
                     self.donations = items
+                    completion(true)
                 }
             case .failure(let error):
                 print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    func del(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.delete(endpoint: "users/\(getUserId())/cloth/\(id)/clothing") { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: clothDonation, response: clothDonation, endpoint: "users/\(getUserId())/cloth/\(id)/clothing", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.clothDonation = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
             }
         }
     }

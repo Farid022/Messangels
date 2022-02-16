@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct OrganDonateBody: View {
-    @State private var valid = false
+//    @State private var valid = false
     @State private var showNote = false
     @State private var note = ""
     @State private var loading = false
@@ -26,6 +26,7 @@ struct OrganDonateBody: View {
                     .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(isCustomAction: true, customAction: {
+                loading.toggle()
                 if !vm.updateRecord {
                     vm.create() { success in
                         loading.toggle()

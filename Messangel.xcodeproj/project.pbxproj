@@ -264,7 +264,7 @@
 		93AC02D6274B64B400FD7285 /* DonationOrgNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */; };
 		93AC02D8274B64B400FD7285 /* DonationOrgOganizationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */; };
 		93AC02D9274B64B400FD7285 /* DonationOrgDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */; };
-		93AC02DA274B64B400FD7285 /* DonationOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D3274B64B400FD7285 /* DonationOrganization.swift */; };
+		93AC02DA274B64B400FD7285 /* DonationOrgsSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D3274B64B400FD7285 /* DonationOrgsSelectionView.swift */; };
 		93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */; };
 		93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02DC274B695B00FD7285 /* AdminDocsNew.swift */; };
 		93AC02E2274B695B00FD7285 /* AdminDocsDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02DD274B695B00FD7285 /* AdminDocsDetails.swift */; };
@@ -579,7 +579,7 @@
 		93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgNote.swift; sourceTree = "<group>"; };
 		93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgOganizationList.swift; sourceTree = "<group>"; };
 		93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgDetails.swift; sourceTree = "<group>"; };
-		93AC02D3274B64B400FD7285 /* DonationOrganization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrganization.swift; sourceTree = "<group>"; };
+		93AC02D3274B64B400FD7285 /* DonationOrgsSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgsSelectionView.swift; sourceTree = "<group>"; };
 		93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgNew.swift; sourceTree = "<group>"; };
 		93AC02DC274B695B00FD7285 /* AdminDocsNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminDocsNew.swift; sourceTree = "<group>"; };
 		93AC02DD274B695B00FD7285 /* AdminDocsDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminDocsDetails.swift; sourceTree = "<group>"; };
@@ -1260,7 +1260,7 @@
 				935FFCB7279FA77900290E4C /* CreateOrgView.swift */,
 				93AC026127326CB700FD7285 /* DonationOrgsIntro.swift */,
 				93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */,
-				93AC02D3274B64B400FD7285 /* DonationOrganization.swift */,
+				93AC02D3274B64B400FD7285 /* DonationOrgsSelectionView.swift */,
 				93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */,
 				93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */,
 				93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */,
@@ -1727,7 +1727,7 @@
 				93AC02AC274B56DE00FD7285 /* ObjectsDonationNew.swift in Sources */,
 				938313942671E46E00C71C98 /* PHAsset.swift in Sources */,
 				934B0E1926B28FFC0008DCE5 /* AudioViewModel.swift in Sources */,
-				93AC02DA274B64B400FD7285 /* DonationOrganization.swift in Sources */,
+				93AC02DA274B64B400FD7285 /* DonationOrgsSelectionView.swift in Sources */,
 				93671DB52767661E009A4CF1 /* KeyAccRegTelView.swift in Sources */,
 				93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */,
 				934B0E1126B119EB0008DCE5 /* SponsorViewModel.swift in Sources */,

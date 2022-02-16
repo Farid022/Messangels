@@ -6,80 +6,51 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct ManagedContractsDetails: View {
-    var title: String
-    var note: String
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @ObservedObject var vm: ContractViewModel
+    var contract: ContractSever
+    var confirmMessage = "Les informations liées seront supprimées définitivement"
+    @State private var showDeleteConfirm = false
     
     var body: some View {
-        ZStack(alignment:.top) {
-            Color.accentColor
-                .frame(height:70)
-                .edgesIgnoringSafeArea(.top)
-            VStack(spacing: 20) {
-                Color.accentColor
-                    .frame(height:90)
-                    .padding(.horizontal, -20)
-                    .overlay(
-                        HStack {
-                            BackButton()
-                            Spacer()
-                        }, alignment: .top)
-                
-                VStack {
-                    Color.accentColor
-                        .frame(height: 35)
-                        .overlay(Text("Contrats à gérer")
-                                    .font(.system(size: 22))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding([.leading, .bottom])
-                                 ,
-                                 alignment: .leading)
-                    Color.white
-                        .frame(height: 15)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, -16)
-                .padding(.top, -16)
-                .overlay(HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(25)
-                        .normalShadow()
-                        .overlay(Image("info"))
-                })
-                //
-                HStack {
-                    // <
-                    Text("Banque")
-                        .font(.system(size: 22), weight: .bold)
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_item_info")
-                    Text("BNP Paribas Paris 16")
-                    Spacer()
-                }
-                DetailsNoteView(note: note)
-                HStack {
-                    Group {
-                        Button(action: {}, label: {
-                            Text("Modifier")
-                        })
-                        Button(action: {}, label: {
-                            Text("Supprimer")
-                        })
+        ZStack {
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce contract") {
+                vm.del(id: contract.id) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: ManagedContractsList.self))
+                        vm.getAll { _ in }
                     }
-                    .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                    .normalShadow()
-                    Spacer()
                 }
-                Spacer()
             }
-            .padding()
+            NavigationStackView(String(describing: Self.self)) {
+                ZStack(alignment:.top) {
+                    Color.accentColor
+                        .frame(height:70)
+                        .edgesIgnoringSafeArea(.top)
+                    VStack(spacing: 20) {
+                        NavbarButtonView()
+                        NavigationTitleView(menuTitle: "Contrats à gérer")
+                        DetailsTitleView(title: contract.name)
+                        HStack {
+                            Image("ic_item_info")
+                            Text(contract.organization.name)
+                            Spacer()
+                        }
+                        DetailsNoteView(note: contract.note)
+                        DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                            vm.contract = ContractLocal(id: contract.id, contract_name: contract.name, contract_organization: contract.organization.id ?? 1, contract_note: contract.note)
+                            vm.updateRecord = true
+                            navigationModel.pushContent(String(describing: Self.self)) {
+                                ManagedContractName(vm: vm)
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
         }
     }
 }

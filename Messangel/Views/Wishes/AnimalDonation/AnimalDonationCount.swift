@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct AnimalDonationCount: View {
-    private var donationTypes = [ClothsDonationType.single, ClothsDonationType.multiple]
+    private let donationTypes = [ClothsDonationType.single, ClothsDonationType.multiple]
     @State private var valid = false
     @State private var selectedDonation = ClothsDonationType.none
     @State private var showNote = false
-    @StateObject private var vm = AnimalDonatiopnViewModel()
-    
+    @ObservedObject var vm: AnimalDonatiopnViewModel
+
     var body: some View {
         ZStack {
             if showNote {

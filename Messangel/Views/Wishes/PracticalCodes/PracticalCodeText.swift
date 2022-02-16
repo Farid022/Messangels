@@ -24,9 +24,32 @@ struct PracticalCodeText: View {
                     .background(.black.opacity(0.8))
             }
             FlowBaseView(isCustomAction: true, customAction: {
-                vm.createPracticalCode { success in
-                    navModel.pushContent(title) {
-                        PracticalCodesList(vm: vm)
+                if vm.updateRecord {
+                    vm.update(id: vm.practicalCode.id ?? 0) { success in
+                        if success {
+                            navModel.popContent("PracticalCodesList")
+                            vm.getPracticalCodes { _ in }
+                        }
+                    }
+                } else {
+                    vm.createPracticalCode { success in
+                        if success && vm.practicalCodes.isEmpty {
+                            WishesViewModel.setProgress(tab: 15) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent(title) {
+                                        FuneralDoneView()
+                                    }
+                                }
+                            }
+                        } else {
+                            loading.toggle()
+                            if success {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
+                                }
+                            }
+                        }
                     }
                 }
             }, note: true, showNote: $showNote, menuTitle: "Codes pratiques", title: title, valid: .constant(!vm.code.code.isEmpty)) {

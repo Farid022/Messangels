@@ -11,20 +11,23 @@ import NavigationStack
 struct AnimalDonationsList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: AnimalDonatiopnViewModel
-
+    var refresh: Bool
+    
     var body: some View {
         FuneralItemList(id:"ClothsDonationsList", menuTitle: "ANIMAUX", newItemView: AnyView(AnimalDonationName(vm: AnimalDonatiopnViewModel()))) {
             ForEach(vm.donations, id: \.self) { item in
                 FuneralItemCard(title: item.animal_name, icon: "ic_cloth")
                     .onTapGesture {
                         navigationModel.pushContent("ClothsDonationsList") {
-                            AnimalDonationDetails(title: item.animal_name, note: item.animal_note)
+                            AnimalDonationDetails(vm: vm, donation: item)
                         }
                     }
             }
         }
         .onDidAppear {
-            vm.getAll()
+            if refresh {
+                vm.getAll { _ in }
+            }
         }
     }
 }

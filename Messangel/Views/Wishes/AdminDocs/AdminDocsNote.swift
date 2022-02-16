@@ -24,11 +24,31 @@ struct AdminDocsNote: View {
             }
             FlowBaseView(isCustomAction: true, customAction: {
                 loading.toggle()
-                vm.create() { success in
-                    loading.toggle()
-                    if success {
-                        navModel.pushContent(title) {
-                            AdminDocsList(vm: vm)
+                if vm.updateRecord {
+                    vm.update(id: vm.adminDoc.id ?? 0) { success in
+                        if success {
+                            navModel.popContent("AdminDocsList")
+                            vm.getAll { _ in }
+                        }
+                    }
+                } else {
+                    vm.create { success in
+                        if success && vm.adminDocs.isEmpty {
+                            WishesViewModel.setProgress(tab: 14) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent(title) {
+                                        FuneralDoneView()
+                                    }
+                                }
+                            }
+                        } else {
+                            loading.toggle()
+                            if success {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
+                                }
+                            }
                         }
                     }
                 }
