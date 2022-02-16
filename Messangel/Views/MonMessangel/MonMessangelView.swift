@@ -281,7 +281,7 @@ struct MesVoluntesView: View
 }
 struct MesVoluntesListView: View
 {
-    
+    @EnvironmentObject var navigationModel: NavigationModel
     var items: [MesVolenteItem]
     var title: String
     var description: String
@@ -322,6 +322,14 @@ struct MesVoluntesListView: View
                 {
                     index, item in
                     MesVoluntesItem(type: item.type, item: item.title)
+                        .onTapGesture {
+                            navigationModel.pushContent("MonMessangelView") {
+                //                if item == ""
+                //                {
+                                    ChoixfunerairesView()
+                               // }
+                                }
+                        }
 
                 }
                 .padding(.leading,24)
@@ -336,6 +344,7 @@ struct MesVoluntesListView: View
 
 struct MesVoluntesItem: View
 {
+   
     var type: String
     var item: String
     var body: some View {
@@ -348,24 +357,28 @@ struct MesVoluntesItem: View
             {
                 Image(type)
                 .padding(.leading,24)
+             
                 Text(item)
                        .font(.system(size: 15))
                        .fontWeight(.regular)
                        .multilineTextAlignment(.center)
                        .padding(.leading,12)
+                
             }
             else
             {
-                
+               
                 Text(item)
                        .font(.system(size: 15))
                        .fontWeight(.regular)
                        .multilineTextAlignment(.center)
                        .padding(.leading,24)
-            }
+            
+             
+                }
            
             Spacer()
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: {}) {
                 Image("ic_nextArrow")
             }
             .padding(.trailing,24)

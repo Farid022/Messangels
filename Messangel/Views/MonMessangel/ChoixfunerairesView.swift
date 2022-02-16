@@ -123,13 +123,15 @@ struct MonCercueilItem: View
             if image.count > 0
             {
                 Image(image)
-                .frame(width: 161,height: 208)
                 .padding(.bottom,24)
                 .cornerRadius(22)
+                .frame(width: 161, height: 207, alignment: .leading)
             }
+            if description.count > 0
+            {
             HStack(alignment:.top){
                 Image("ic_note")
-                
+              
                 Text(description)
                        .font(.system(size: 14))
                        .fontWeight(.regular)
@@ -137,6 +139,7 @@ struct MonCercueilItem: View
                        .padding(.leading,16)
                        .padding(.trailing,24)
                 
+            }
             }
             
         }

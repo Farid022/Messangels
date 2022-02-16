@@ -31,6 +31,7 @@ struct HomeNavBar: View {
 }
 
 struct HomeTopView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var auth: Auth
     var body: some View {
         HStack {
@@ -46,7 +47,12 @@ struct HomeTopView: View {
                         .padding(.bottom, 30)
                 }
                 .foregroundColor(.white)
-                Button(action: {}, label: {
+                Button(action: {
+                    navigationModel.pushContent(TabBarView.id) {
+                        MonMessangelView()
+                    }
+                }, label: {
+                    
                     Text("Voir mon Messangel")
                         .font(.system(size: 15))
                 })

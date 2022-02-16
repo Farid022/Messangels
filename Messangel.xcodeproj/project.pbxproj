@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		235A58C027BAC359007FF930 /* AdvertismentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58BF27BAC359007FF930 /* AdvertismentView.swift */; };
+		235A58C227BAC550007FF930 /* PremisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58C127BAC550007FF930 /* PremisesView.swift */; };
+		235A58C427BAC572007FF930 /* AestheticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58C327BAC572007FF930 /* AestheticView.swift */; };
+		235A58C627BAC586007FF930 /* AnimalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58C527BAC586007FF930 /* AnimalsView.swift */; };
+		235A58C827BAC597007FF930 /* AnimalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58C727BAC597007FF930 /* AnimalDetailView.swift */; };
+		235A58CA27BAC62E007FF930 /* WishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58C927BAC62E007FF930 /* WishListView.swift */; };
+		235A58CC27BAC682007FF930 /* ListOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58CB27BAC682007FF930 /* ListOTPView.swift */; };
+		235A58CE27BAC69B007FF930 /* ListPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58CD27BAC69B007FF930 /* ListPasswordView.swift */; };
+		235A58D027BAC6C8007FF930 /* ExpressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235A58CF27BAC6C8007FF930 /* ExpressionView.swift */; };
 		2396201E27AD04B200CE3CCD /* MonMessangelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2396201D27AD04B200CE3CCD /* MonMessangelView.swift */; };
 		23C0F1E227B2FE8F008F386D /* ChoixfunerairesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E127B2FE8F008F386D /* ChoixfunerairesView.swift */; };
 		23C0F1E427B30360008F386D /* OrganismesObsequesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E327B30360008F386D /* OrganismesObsequesView.swift */; };
 		23C0F1E627B3811D008F386D /* CorpsScienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E527B3811D008F386D /* CorpsScienceView.swift */; };
 		23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */; };
 		23C0F1EB27B381A1008F386D /* DiffusionNouvelleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */; };
+		23D2C69927BC49B9007CF0D9 /* StaggeredGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D2C69827BC49B9007CF0D9 /* StaggeredGrid.swift */; };
 		9313BA6F26846019008F566C /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA6E26846019008F566C /* TextEditorView.swift */; };
 		9313BA802689A467008F566C /* RichEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA712689A467008F566C /* RichEditorView.swift */; };
 		9313BA812689A467008F566C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9313BA722689A467008F566C /* String+Extensions.swift */; };
@@ -315,12 +325,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		235A58BF27BAC359007FF930 /* AdvertismentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertismentView.swift; sourceTree = "<group>"; };
+		235A58C127BAC550007FF930 /* PremisesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremisesView.swift; sourceTree = "<group>"; };
+		235A58C327BAC572007FF930 /* AestheticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AestheticView.swift; sourceTree = "<group>"; };
+		235A58C527BAC586007FF930 /* AnimalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalsView.swift; sourceTree = "<group>"; };
+		235A58C727BAC597007FF930 /* AnimalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalDetailView.swift; sourceTree = "<group>"; };
+		235A58C927BAC62E007FF930 /* WishListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListView.swift; sourceTree = "<group>"; };
+		235A58CB27BAC682007FF930 /* ListOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOTPView.swift; sourceTree = "<group>"; };
+		235A58CD27BAC69B007FF930 /* ListPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPasswordView.swift; sourceTree = "<group>"; };
+		235A58CF27BAC6C8007FF930 /* ExpressionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionView.swift; sourceTree = "<group>"; };
 		2396201D27AD04B200CE3CCD /* MonMessangelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMessangelView.swift; sourceTree = "<group>"; };
 		23C0F1E127B2FE8F008F386D /* ChoixfunerairesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoixfunerairesView.swift; sourceTree = "<group>"; };
 		23C0F1E327B30360008F386D /* OrganismesObsequesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganismesObsequesView.swift; sourceTree = "<group>"; };
 		23C0F1E527B3811D008F386D /* CorpsScienceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorpsScienceView.swift; sourceTree = "<group>"; };
 		23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpiritualiteTraditionsView.swift; sourceTree = "<group>"; };
 		23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffusionNouvelleView.swift; sourceTree = "<group>"; };
+		23D2C69827BC49B9007CF0D9 /* StaggeredGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaggeredGrid.swift; sourceTree = "<group>"; };
 		9313BA6E26846019008F566C /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		9313BA712689A467008F566C /* RichEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichEditorView.swift; sourceTree = "<group>"; };
 		9313BA722689A467008F566C /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -639,12 +659,22 @@
 		2396201C27AD038100CE3CCD /* MonMessangel */ = {
 			isa = PBXGroup;
 			children = (
+				23D2C69827BC49B9007CF0D9 /* StaggeredGrid.swift */,
 				2396201D27AD04B200CE3CCD /* MonMessangelView.swift */,
 				23C0F1E127B2FE8F008F386D /* ChoixfunerairesView.swift */,
 				23C0F1E327B30360008F386D /* OrganismesObsequesView.swift */,
 				23C0F1E527B3811D008F386D /* CorpsScienceView.swift */,
 				23C0F1E827B38152008F386D /* SpiritualiteTraditionsView.swift */,
 				23C0F1EA27B381A1008F386D /* DiffusionNouvelleView.swift */,
+				235A58BF27BAC359007FF930 /* AdvertismentView.swift */,
+				235A58C127BAC550007FF930 /* PremisesView.swift */,
+				235A58C327BAC572007FF930 /* AestheticView.swift */,
+				235A58C527BAC586007FF930 /* AnimalsView.swift */,
+				235A58C727BAC597007FF930 /* AnimalDetailView.swift */,
+				235A58C927BAC62E007FF930 /* WishListView.swift */,
+				235A58CB27BAC682007FF930 /* ListOTPView.swift */,
+				235A58CD27BAC69B007FF930 /* ListPasswordView.swift */,
+				235A58CF27BAC6C8007FF930 /* ExpressionView.swift */,
 			);
 			path = MonMessangel;
 			sourceTree = "<group>";
@@ -1500,6 +1530,7 @@
 				93AC01F4271D87D800FD7285 /* FuneralCoffinInterior.swift in Sources */,
 				933911022768A80A00E262B3 /* KeyAccViewModel.swift in Sources */,
 				93AC02CA274B5B4000FD7285 /* AnimalDonationOrgList.swift in Sources */,
+				235A58C427BAC572007FF930 /* AestheticView.swift in Sources */,
 				934B0E1D26B290640008DCE5 /* GalleryViewModel.swift in Sources */,
 				93AC0228272689BF00FD7285 /* OrganDonateChoice.swift in Sources */,
 				93AC026427326CDC00FD7285 /* AnimalDonationIntro.swift in Sources */,
@@ -1538,6 +1569,7 @@
 				93AC0202272168E800FD7285 /* FuneralUrnMaterial.swift in Sources */,
 				93279FC826EF0F110063A673 /* SoundRecorder.swift in Sources */,
 				938313992678966C00C71C98 /* VideoRecoderView.swift in Sources */,
+				235A58C627BAC586007FF930 /* AnimalsView.swift in Sources */,
 				93AC01F6271D952900FD7285 /* FuneralCoffinAccessory.swift in Sources */,
 				93AC02AE274B56DE00FD7285 /* ObjectsDonationNote.swift in Sources */,
 				935FFCBA279FE36A00290E4C /* OrganizationViewModel.swift in Sources */,
@@ -1559,6 +1591,7 @@
 				93AC01F0271D878900FD7285 /* FuneralCoffinMaterial.swift in Sources */,
 				93EFE7D326971D8200F50894 /* DocTitleView.swift in Sources */,
 				93AC02C2274B5B4000FD7285 /* AnimalDonationsList.swift in Sources */,
+				235A58D027BAC6C8007FF930 /* ExpressionView.swift in Sources */,
 				933DF61027887E0A005966AF /* ClothDonationViewModel.swift in Sources */,
 				93EFE7D5269BD73500F50894 /* DocGroupView.swift in Sources */,
 				939CBDC0277311B1004520A3 /* SocialNoteView.swift in Sources */,
@@ -1580,6 +1613,7 @@
 				93AC02332726B79F00FD7285 /* SpiritualTraditionChoice.swift in Sources */,
 				93AC02B2274B56DE00FD7285 /* ObjectsDonationOrgList.swift in Sources */,
 				93553AAE2648CD680027BA06 /* Auth.swift in Sources */,
+				235A58C227BAC550007FF930 /* PremisesView.swift in Sources */,
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				939CBDB62771E699004520A3 /* ServicePhoneView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
@@ -1605,6 +1639,7 @@
 				93AC026C2732702800FD7285 /* ExtraWishesDetails.swift in Sources */,
 				935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
+				235A58C827BAC597007FF930 /* AnimalDetailView.swift in Sources */,
 				939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */,
 				93AC022E2726918B00FD7285 /* OrganDonateRefusalNotReg.swift in Sources */,
 				93AC01EC271D50EF00FD7285 /* FuneralTypeView.swift in Sources */,
@@ -1637,6 +1672,7 @@
 				935FFCB22797E63F00290E4C /* OnlineServiceViewModel.swift in Sources */,
 				93EFE7E726A15D9700F50894 /* SignupPostcodeView.swift in Sources */,
 				939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */,
+				235A58CE27BAC69B007FF930 /* ListPasswordView.swift in Sources */,
 				93AC029527476C9300FD7285 /* ClothsDonationContactsList.swift in Sources */,
 				23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
@@ -1655,6 +1691,7 @@
 				93EFE7D02695EA3700F50894 /* TextViewWrapper+UITextView.swift in Sources */,
 				93AC02102721982400FD7285 /* FuneralContractCompany.swift in Sources */,
 				93671DB72767663B009A4CF1 /* KeyAccRegPhonePINView.swift in Sources */,
+				235A58CC27BAC682007FF930 /* ListOTPView.swift in Sources */,
 				93671DAD2767657F009A4CF1 /* KeyAccRegEmailView.swift in Sources */,
 				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
 				93AC02EF274B6C8B00FD7285 /* ManagedContractDetails.swift in Sources */,
@@ -1684,6 +1721,7 @@
 				93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */,
 				939CBDB82771E72D004520A3 /* ServiceChoiceView.swift in Sources */,
 				93AC02782746212200FD7285 /* FuneralMusicDetails.swift in Sources */,
+				23D2C69927BC49B9007CF0D9 /* StaggeredGrid.swift in Sources */,
 				9351CCD227A6AEF70087C0E9 /* SubscriptionViewModel.swift in Sources */,
 				9339110A276C759200E262B3 /* ServicesListView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
@@ -1693,6 +1731,7 @@
 				93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */,
 				933DF60A27886640005966AF /* FuneralLocationViewModel.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
+				235A58CA27BAC62E007FF930 /* WishListView.swift in Sources */,
 				935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */,
 				939CBDC727732303004520A3 /* SocialPostTimeView.swift in Sources */,
 				93AC02142721989900FD7285 /* FuneralContractNo.swift in Sources */,
@@ -1721,6 +1760,7 @@
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
 				939CBDB42771E67F004520A3 /* ServiceEmailView.swift in Sources */,
 				933DF60E27886ECC005966AF /* FuneralMusicViewModel.swift in Sources */,
+				235A58C027BAC359007FF930 /* AdvertismentView.swift in Sources */,
 				939CBDC527731331004520A3 /* SocialAccPicView.swift in Sources */,
 				93AC01E5271844A300FD7285 /* WishesMenuView.swift in Sources */,
 				93AC025A273152AD00FD7285 /* FuneralMusicIntro.swift in Sources */,

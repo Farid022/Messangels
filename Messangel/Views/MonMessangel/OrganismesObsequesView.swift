@@ -41,9 +41,11 @@ struct OrganismesObsequesView: View {
                                    .padding(.bottom,40)
                                    .padding(.horizontal)
                           
-                           
-                            FuneralContractView()
+                            ItemWithTitleListDescription(title: "Mon entreprise funéraire", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [MesVolenteItem(title: "Nom de l’organisme", type:"ic_company")])
+                                .padding(.bottom,40)
                             
+                            FuneralContractView()
+                                .padding(.bottom,40)
                             
                             MonCercueilTitleView(title: "Je n’ai pas choisi d’entreprise funéraire")
                                 .padding(.bottom,40)
@@ -66,6 +68,7 @@ struct FuneralContractView: View
             
          VStack(alignment:.leading)
          {
+
              Text("Mon contrat obsèques")
                     .font(.system(size: 20))
                     .fontWeight(.bold)
@@ -73,6 +76,7 @@ struct FuneralContractView: View
                     .padding(.top,24)
                     .padding(.leading,24)
              
+        
              
              MonCercueilWithListView(title: "Organisme", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items:  [MesVolenteItem(title: "Nom de l’organisme", type:"ic_company")])
              
@@ -85,7 +89,57 @@ struct FuneralContractView: View
     }
 }
 
+struct ItemWithTitleListDescription: View
+{
+    var title: String
+    var description: String
+    var items: [MesVolenteItem]
+    var body: some View {
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+        VStack(alignment:.leading)
+        {
+            Text(title)
+                   .font(.system(size: 15))
+                   .fontWeight(.bold)
+                   .padding(.leading,24)
+                   .padding(.bottom,24)
+                   .padding(.top,40)
+            
+            if items.count > 0
+            {
+                ForEach(enumerating: items, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: item.type, item: item.title)
 
+                }
+                .padding(.trailing,24)
+                .padding(.leading,24)
+                .padding(.bottom)
+            }
+            HStack(alignment:.top){
+                Image("ic_note")
+                
+                Text(description)
+                       .font(.system(size: 14))
+                       .fontWeight(.regular)
+                       .padding(.bottom,40)
+                       .padding(.leading,16)
+                       .padding(.trailing,24)
+                
+            }
+            .padding(.leading,24)
+           
+            
+            }
+        }
+        .cornerRadius(24)
+        .padding(.leading,24)
+        .padding(.trailing,24)
+    }
+}
 struct MonCercueilWithListItem: View
 {
     var title: String
