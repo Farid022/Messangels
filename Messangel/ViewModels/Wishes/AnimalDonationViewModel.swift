@@ -5,7 +5,7 @@
 //  Created by Saad on 1/7/22.
 //
 
-import Foundation
+import SwiftUI
 
 struct AnimalDonation: Codable {
     var id: Int?
@@ -40,10 +40,12 @@ struct AnimalDonationDetail: Hashable, Codable {
 }
 
 class AnimalDonatiopnViewModel: ObservableObject {
+    @Published var contactName = ""
+    @Published var orgName = ""
+    @Published var localPhoto = UIImage()
     @Published var updateRecord = false
     @Published var donations = [AnimalDonationDetail]()
-    @Published var orgs = [Organization]()
-    @Published var animalDonation = AnimalDonation(animal_name: "", animal_contact_detail: 0, animal_organization_detail: 0, animal_species: "", animal_note: "")
+    @Published var animalDonation = AnimalDonation(animal_name: "", animal_species: "", animal_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -61,19 +63,6 @@ class AnimalDonatiopnViewModel: ObservableObject {
                     self.apiError = error
                     completion(false)
                 }
-            }
-        }
-    }
-    
-    func getOrgs() {
-        APIService.shared.getJSON(model: orgs, urlString: "choices/\(getUserId())/organization?type=5") { result in
-            switch result {
-            case .success(let items):
-                DispatchQueue.main.async {
-                    self.orgs = items
-                }
-            case .failure(let error):
-                print(error)
             }
         }
     }

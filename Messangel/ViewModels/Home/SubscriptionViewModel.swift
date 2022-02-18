@@ -55,7 +55,7 @@ class SubscriptionViewModel: ObservableObject {
     @Published var checkingSubscription = false
     @Published var gotSubscription = false
     @Published var subscriptions = [Subscription] ()
-    @Published var subscription = Subscription(userID: 0, planID: 4, card: Card(number: 0,expMonth: 1,expYear: 2022, cvc: 33, currency: "eur"))
+    @Published var subscription = Subscription(userID: 0, planID: 1, card: Card(number: 0,expMonth: 1,expYear: 2022, cvc: 33, currency: "eur"))
     @Published var plans = [SubscriptionPlan]()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")

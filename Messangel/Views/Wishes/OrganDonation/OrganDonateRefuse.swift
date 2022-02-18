@@ -28,9 +28,13 @@ struct OrganDonateRefuse: View {
                     loading.toggle()
                     if !vm.updateRecord {
                         vm.create() { success in
-                            loading.toggle()
                             if success {
-                                wishChoiceSuccessAction(title, navModel: navModel)
+                                WishesViewModel.setProgress(tab: 4) { completed in
+                                    loading.toggle()
+                                    if completed {
+                                        wishChoiceSuccessAction(title, navModel: navModel)
+                                    }
+                                }
                             }
                         }
                     } else {

@@ -10,6 +10,7 @@ import Combine
 import AVKit
 import MobileCoreServices
 import NavigationStack
+import UniformTypeIdentifiers
 
 struct VideoTrimView: View {
     @State var videoUrl: URL
@@ -138,7 +139,8 @@ struct VideoTrimView: View {
         
         guard let documentDirectory = try? manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {return}
         let mediaType = "mp4"
-        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
+//        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
+        if mediaType == UTType.movie.identifier as String || mediaType == "mp4" as String {
             let asset = AVAsset(url: sourceURL1 as URL)
             let length = Float(asset.duration.value) / Float(asset.duration.timescale)
             print("video length: \(length) seconds")

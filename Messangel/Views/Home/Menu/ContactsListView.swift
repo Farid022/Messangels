@@ -13,6 +13,7 @@ struct ContactsListView: View {
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
+    @State private var refreshList = false
     @StateObject private var vm = ContactViewModel()
     
     var body: some View {
@@ -37,7 +38,7 @@ struct ContactsListView: View {
                         .frame(width: 56, height: 56)
                         .overlay(Button(action: {
                             navigationModel.pushContent("ContactsListView") {
-                                CreateContactView(vm: vm)
+                                CreateContactView(vm: vm, refresh: $refreshList)
                             }
                         }) {
                             Image("ic_contact-add")
@@ -83,6 +84,9 @@ struct ContactsListView: View {
                 }
             }
             .onDidAppear() {
+                vm.getContacts()
+            }
+            .onChange(of: refreshList) { _ in
                 vm.getContacts()
             }
         }

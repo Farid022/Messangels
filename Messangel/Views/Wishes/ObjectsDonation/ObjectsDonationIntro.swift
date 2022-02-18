@@ -14,7 +14,7 @@ struct ObjectsDonationIntro: View {
     @StateObject private var vm = ObjectDonationViewModel()
     
     var body: some View {
-        NavigationStackView("ObjectsDonationIntro") {
+        NavigationStackView(String(describing: Self.self)) {
             ZStack(alignment: .topLeading) {
                 Color.accentColor
                     .ignoresSafeArea()
@@ -41,7 +41,7 @@ struct ObjectsDonationIntro: View {
                     HStack {
                         Spacer()
                         NextButton(isCustomAction: true, customAction: {
-                            navigationModel.pushContent("ObjectsDonationIntro") {
+                            navigationModel.pushContent(String(describing: Self.self)) {
                                 if vm.donations.isEmpty {
                                     ObjectsDonationNew(vm: vm)
                                 } else {

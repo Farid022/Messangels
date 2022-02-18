@@ -10,18 +10,11 @@ import SwiftUI
 
 struct DeathAnnounceContacts: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @State private var valid = false
     @State private var showNote = false
+    @State private var loading = false
     @State private var note = ""
-    @State private var selectedContacts = [Contact]()
     @ObservedObject var vm: PriorityContactsViewModel
     var title = "Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité."
-    
-    private func successAction() {
-        navigationModel.pushContent(title) {
-            FuneralDoneView()
-        }
-    }
     
     var body: some View {
         ZStack {
@@ -32,19 +25,23 @@ struct DeathAnnounceContacts: View {
                 .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(isCustomAction: true, customAction: {
-                if !valid {
-                    return;
-                }
+                loading.toggle()
                 if !vm.updateRecord {
                     vm.addPriorityContacts() { success in
                         if success {
-                            successAction()
+                            WishesViewModel.setProgress(tab: 6) { completed in
+                                loading.toggle()
+                                if completed {
+                                    successAction(title, navModel: navigationModel)
+                                }
+                            }
                         }
                     }
                 } else {
                     vm.update(id: vm.priorities[0].id) { success in
+                        loading.toggle()
                         if success {
-                            successAction()
+                            successAction(title, navModel: navigationModel)
                         }
                     }
                 }
@@ -53,33 +50,33 @@ struct DeathAnnounceContacts: View {
                 if vm.priorityContacts.contact.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité.") {
-                            DeathAnnounceContactsList(selectedContacts: $selectedContacts, vm: vm)
+                            DeathAnnounceContactsList(vm: vm)
                         }
                     }, label: {
                         Image("list_contact")
                     })
                 } else {
-                    ForEach(selectedContacts, id: \.self) { contact in
-                        LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: vm.priorityContacts.contact.count), spacing: 16.0) {
-                        RoundedRectangle(cornerRadius: 25.0)
-                            .frame(width: 170, height: 56)
-                            .foregroundColor(.white)
-                            .thinShadow()
-                            .overlay(HStack {
-                                Text(contact.first_name)
-                                    .font(.system(size: 14))
-                                Button(action: { // FIX: use 1 of the two arrays only
-                                    vm.priorityContacts.contact.remove(at: vm.priorityContacts.contact.firstIndex(of: contact.id)!)
-                                    selectedContacts.remove(at: selectedContacts.firstIndex(of: contact)!)
-                                }, label: {
-                                    Image("ic_btn_remove")
-                                })
-                            })
+                    LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: vm.priorityContacts.contact.count), alignment: .leading, spacing: 16.0) {
+                        ForEach(vm.contacts, id: \.self) { contact in
+                            FuneralCapsuleView(name: contact.first_name + " " + contact.last_name) {
+                                vm.priorityContacts.contact.remove(at: vm.priorityContacts.contact.firstIndex(of: contact.id)!)
+                                vm.contacts.remove(at: vm.contacts.firstIndex(of: contact)!)
+                            }
                         }
+                    }
+                    if loading {
+                        Loader()
+                            .padding(.top)
                     }
                 }
             }
             
         }
+    }
+}
+
+func successAction(_ title: String, navModel: NavigationModel) {
+    navModel.pushContent(title) {
+        FuneralDoneView()
     }
 }

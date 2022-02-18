@@ -53,6 +53,10 @@ struct FuneralInviteNewsPaper: View {
                 }
             },note: false, showNote: .constant(false), menuTitle: "Annonces", title: "Précisez un journal local dans lequel diffuser l’annonce", valid: .constant(true)) {
                 NoteView(showNote:$showNote, note: $vm.announcement.newspaper_note)
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

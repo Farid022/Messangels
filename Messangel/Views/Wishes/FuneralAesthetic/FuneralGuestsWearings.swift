@@ -27,10 +27,14 @@ struct FuneralGuestsWearings: View {
                 loading.toggle()
                 if !vm.updateRecord {
                     vm.create() { success in
-                        loading.toggle()
                         if success {
-                            navModel.pushContent(title) {
-                                FuneralDoneView()
+                            WishesViewModel.setProgress(tab: 7) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent(title) {
+                                        FuneralDoneView()
+                                    }
+                                }
                             }
                         }
                     }

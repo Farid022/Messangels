@@ -34,7 +34,7 @@ struct AdminDocsNote: View {
                 } else {
                     vm.create { success in
                         if success && vm.adminDocs.isEmpty {
-                            WishesViewModel.setProgress(tab: 14) { completed in
+                            WishesViewModel.setProgress(tab: 13) { completed in
                                 loading.toggle()
                                 if completed {
                                     navModel.pushContent(title) {

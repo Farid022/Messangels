@@ -8,17 +8,19 @@
 import SwiftUI
 import NavigationStack
 
-struct ObjectsDonationOrgList: View {
+struct SingleContactSelectionList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var searchString = ""
-    @State private var placeholder = "    Rechercher un organisme"
+    @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
-    @State private var refreshList = false
-    @Binding var selectedCompany: Organization
-    @ObservedObject var vm: ObjectDonationViewModel
+    @State private var refresh = false
+    @Binding var contactId: Int
+    @Binding var contactName: String
+    @StateObject private var contactsVM = ContactViewModel()
+    
     
     var body: some View {
-        NavigationStackView("ObjectsDonationOrgList") {
+        NavigationStackView(String(describing: Self.self)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
                     .ignoresSafeArea()
@@ -29,7 +31,7 @@ struct ObjectsDonationOrgList: View {
                                 BackButton(icon:"chevron.down")
                                     .padding(.leading)
                                 Spacer()
-                                Text("Sélectionnez un organisme")
+                                Text("Sélectionnez au moins une personne")
                                     .foregroundColor(.white)
                                     .font(.system(size: 17))
                                     .fontWeight(.semibold)
@@ -61,8 +63,8 @@ struct ObjectsDonationOrgList: View {
                 ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        navigationModel.presentContent("ObjectsDonationOrgList") {
-                            CreateOrgView(type: "1", refresh: $refreshList)
+                        navigationModel.presentContent(String(describing: Self.self)) {
+                            CreateContactView(vm: contactsVM, refresh: $refresh)
                         }
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
@@ -70,33 +72,31 @@ struct ObjectsDonationOrgList: View {
                             .frame(height: 56)
                             .overlay(
                                 HStack {
-                                    Image("ic_add_org")
+                                    Image("ic_add-user")
                                         .padding(.leading)
-                                    Text("Nouvel Organisme")
+                                    Text("Nouvel contact")
                                         .foregroundColor(.white)
                                     Spacer()
                                 }
                             )
                     }
                     .padding(.bottom)
-                    ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { company in
-                        ListItemView(name: company.name)
-                            .onTapGesture {
-                                selectedCompany = company
-                                vm.objectDonation.organization_detail = company.id ?? 0
-                                navigationModel.hideTopView()
-                            }
+                    ForEach(contactsVM.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
+                        ListItemView(name: "\(contact.first_name) \(contact.last_name)", image: "ic_contact") {
+                            contactName = "\(contact.first_name) \(contact.last_name)"
+                            contactId = contact.id
+                            navigationModel.hideTopView()
+                        }
                     }
                 }
                 .padding()
             }
         }
-        .onDidAppear {
-            vm.getOrgs()
+        .task() {
+            contactsVM.getContacts()
         }
-        .onChange(of: refreshList) { value in
-            vm.getOrgs()
+        .onChange(of: refresh) { _ in
+            contactsVM.getContacts()
         }
-        
     }
 }

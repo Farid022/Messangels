@@ -34,7 +34,7 @@ struct PracticalCodeText: View {
                 } else {
                     vm.createPracticalCode { success in
                         if success && vm.practicalCodes.isEmpty {
-                            WishesViewModel.setProgress(tab: 15) { completed in
+                            WishesViewModel.setProgress(tab: 14) { completed in
                                 loading.toggle()
                                 if completed {
                                     navModel.pushContent(title) {
@@ -52,7 +52,7 @@ struct PracticalCodeText: View {
                         }
                     }
                 }
-            }, note: true, showNote: $showNote, menuTitle: "Codes pratiques", title: title, valid: .constant(!vm.code.code.isEmpty)) {
+            }, note: true, showNote: $showNote, menuTitle: "Codes pratiques", title: title, valid: .constant(!vm.practicalCode.codes.isEmpty)) {
 //                ForEach(0 ..< codeCount, id: \.self) { item in
                     SecureField("Code", text: $vm.code.code)
                         .normalShadow()

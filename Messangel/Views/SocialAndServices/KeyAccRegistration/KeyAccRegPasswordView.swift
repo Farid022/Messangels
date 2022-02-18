@@ -28,7 +28,7 @@ struct KeyAccRegPasswordView: View {
                 Image(systemName: hidePassword ? "eye" : "eye.slash")
                     .foregroundColor(.black)
                     .padding(.trailing, 20)
-                    .animation(.default)
+                    .animation(.default, value: hidePassword)
                     .onTapGesture {
                         hidePassword.toggle()
                     }

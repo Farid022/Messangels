@@ -27,6 +27,14 @@ struct ContentView: View {
                     .background(Color.accentColor.ignoresSafeArea())
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            if !subVM.gotSubscription {
+                if let window = UIApplication.shared.windows.first {
+                    window.rootViewController = UIHostingController(rootView: ContentView())
+                    window.makeKeyAndVisible()
+                }
+            }
+        }
         .onAppear() {
             if let user = UserDefaults.standard.value(forKey: "user") as? [String: Any] {
                 do {

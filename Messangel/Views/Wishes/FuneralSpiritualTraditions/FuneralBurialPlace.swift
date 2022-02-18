@@ -25,9 +25,13 @@ struct FuneralBurialPlace: View {
             loading.toggle()
             if !vm.updateRecord {
                 vm.createSprituality() { success in
-                    loading.toggle()
                     if success {
-                        successFunc()
+                        WishesViewModel.setProgress(tab: 5) { completed in
+                            loading.toggle()
+                            if completed {
+                                successFunc()
+                            }
+                        }
                     }
                 }
             } else {

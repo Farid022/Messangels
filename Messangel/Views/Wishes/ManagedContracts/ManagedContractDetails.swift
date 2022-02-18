@@ -42,6 +42,7 @@ struct ManagedContractsDetails: View {
                         DetailsNoteView(note: contract.note)
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.contract = ContractLocal(id: contract.id, contract_name: contract.name, contract_organization: contract.organization.id ?? 1, contract_note: contract.note)
+                            vm.orgName = contract.organization.name
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 ManagedContractName(vm: vm)

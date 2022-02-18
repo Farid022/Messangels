@@ -16,7 +16,7 @@ struct AnimalDonationsList: View {
     var body: some View {
         FuneralItemList(id:"ClothsDonationsList", menuTitle: "ANIMAUX", newItemView: AnyView(AnimalDonationName(vm: AnimalDonatiopnViewModel()))) {
             ForEach(vm.donations, id: \.self) { item in
-                FuneralItemCard(title: item.animal_name, icon: "ic_cloth")
+                FuneralItemCard(title: item.animal_name, icon: "ic_animal")
                     .onTapGesture {
                         navigationModel.pushContent("ClothsDonationsList") {
                             AnimalDonationDetails(vm: vm, donation: item)

@@ -31,7 +31,7 @@ struct ContractSever: Hashable, Codable {
 
 class ContractViewModel: ObservableObject {
     @Published var updateRecord = false
-    @Published var orgs = [Organization]()
+    @Published var orgName = ""
     @Published var contracts = [ContractSever]()
     @Published var contract = ContractLocal(contract_name: "", contract_organization: 0, contract_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
@@ -66,19 +66,6 @@ class ContractViewModel: ObservableObject {
             case .failure(let error):
                 print(error)
                 completion(false)
-            }
-        }
-    }
-    
-    func getOrgs() {
-        APIService.shared.getJSON(model: orgs, urlString: "choices/\(getUserId())/organization?type=4") { result in
-            switch result {
-            case .success(let items):
-                DispatchQueue.main.async {
-                    self.orgs = items
-                }
-            case .failure(let error):
-                print(error)
             }
         }
     }

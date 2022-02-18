@@ -29,9 +29,11 @@ struct OrganDonateBody: View {
                 loading.toggle()
                 if !vm.updateRecord {
                     vm.create() { success in
-                        loading.toggle()
                         if success {
-                            wishChoiceSuccessAction(title, navModel: navModel)
+                            WishesViewModel.setProgress(tab: 4) { completed in
+                                loading.toggle()
+                                wishChoiceSuccessAction(title, navModel: navModel)
+                            }
                         }
                     }
                 } else {
@@ -61,7 +63,7 @@ func viewMessangelGuide() -> some View {
         }, label: {
             Text("Voir notre guide Messangel")
         })
-            .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
+            .buttonStyle(MyButtonStyle(padding: 20, maxWidth: false, foregroundColor: .white, backgroundColor: .accentColor))
         Spacer()
     }
 }

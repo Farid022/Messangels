@@ -35,10 +35,14 @@ struct ExtraWishesDetails: View {
                     }
                 } else {
                     vm.create() { success in
-                        loading.toggle()
                         if success {
-                            navModel.pushContent(title) {
-                                FuneralDoneView()
+                            WishesViewModel.setProgress(tab: 16) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent(title) {
+                                        FuneralDoneView()
+                                    }
+                                }
                             }
                         }
                     }

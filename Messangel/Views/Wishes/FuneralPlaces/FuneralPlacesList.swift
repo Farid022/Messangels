@@ -13,7 +13,6 @@ struct FuneralPlacesList: View {
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un lieu"
     @State private var isEditing = false
-    @Binding var selectedPlace: BuryLocation
     @ObservedObject var vm: FuneralLocationViewModel
     
     var body: some View {
@@ -100,17 +99,20 @@ struct FuneralPlacesList: View {
                     }
                     .padding(.bottom)
                 ForEach(vm.buryLocations.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { location in
-                    ListItemView(name: location.name)
-                                .onTapGesture {
-                                    selectedPlace = location
-                                    vm.location.bury_location = location.id
-                                    navigationModel.hideTopView()
-                                }
-                        }
+                    ListItemView(name: location.name) {
+                        vm.name = location.name
+                        vm.location.bury_location = location.id
+                        navigationModel.hideTopView()
+                    }
+                }
             }
             .padding()
         }
+        .onDidAppear {
+            vm.getBuryLOcations { _ in
                 
+            }
+        }
             
     }
 }

@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct AnimalDonationCount: View {
-    private let donationTypes = [ClothsDonationType.single, ClothsDonationType.multiple]
-    @State private var valid = false
-    @State private var selectedDonation = ClothsDonationType.none
     @State private var showNote = false
     @ObservedObject var vm: AnimalDonatiopnViewModel
 
@@ -22,19 +19,15 @@ struct AnimalDonationCount: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "Souhaitez-vous ajouter un ou plusieurs animaux ?", valid: $valid, destination: AnyView(AnimalDonationName(vm: vm))) {
+            FlowBaseView(note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "Souhaitez-vous ajouter un ou plusieurs animaux ?", valid: .constant(vm.animalDonation.single_animal != nil), destination: AnyView(AnimalDonationName(vm: vm))) {
                 HStack {
-                    ForEach(donationTypes, id: \.self) { type in
-                        ChoiceCard(text: type == .single ? "Un seul article" : "Plusieurs articles", selected: .constant(selectedDonation == type))
+                    ForEach([true, false], id: \.self) { type in
+                        ChoiceCard(text: type ? "Un seul article" : "Plusieurs articles", selected: .constant(vm.animalDonation.single_animal == type))
                             .onTapGesture {
-                                selectedDonation = type
-                                vm.animalDonation.single_animal = type == .single
+                                vm.animalDonation.single_animal = type
                             }
                     }
                 }
-            }
-            .onChange(of: selectedDonation) { value in
-                valid = selectedDonation != .none
             }
         }
     }

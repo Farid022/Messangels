@@ -33,24 +33,26 @@ struct FuneralMusicDetails: View {
                     VStack(spacing: 20) {
                         NavbarButtonView()
                         NavigationTitleView(menuTitle: "Musique")
-                        DetailsTitleView(title: "\(music.artist_name) - \(music.song_title)")
-                        HStack {
-                            Image("ic_item_info")
-                            Text("Artiste –  \(music.artist_name)")
-                            Spacer()
-                        }
-                        HStack {
-                            Image("ic_item_info")
-                            Text("Nom du titre –  \(music.song_title)")
-                            Spacer()
-                        }
-                        
-                        DetailsNoteView(note: music.broadcast_song_note)
-                        DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
-                            vm.music = FuneralMusic(id: music.id, artist_name: music.artist_name, song_title: music.song_title, broadcast_song_note: music.broadcast_song_note, user: getUserId())
-                            vm.updateRecord = true
-                            navigationModel.pushContent(String(describing: Self.self)) {
-                                FuneralMusicArtist(vm: vm)
+                        ScrollView {
+                            DetailsTitleView(title: "\(music.artist_name) - \(music.song_title)")
+                            HStack {
+                                Image("ic_item_info")
+                                Text("Artiste –  \(music.artist_name)")
+                                Spacer()
+                            }
+                            HStack {
+                                Image("ic_item_info")
+                                Text("Nom du titre –  \(music.song_title)")
+                                Spacer()
+                            }
+                            
+                            DetailsNoteView(note: music.broadcast_song_note)
+                            DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                                vm.music = FuneralMusic(id: music.id, artist_name: music.artist_name, song_title: music.song_title, broadcast_song_note: music.broadcast_song_note, user: getUserId())
+                                vm.updateRecord = true
+                                navigationModel.pushContent(String(describing: Self.self)) {
+                                    FuneralMusicArtist(vm: vm)
+                                }
                             }
                         }
                     }

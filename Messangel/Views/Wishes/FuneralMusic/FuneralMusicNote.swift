@@ -30,7 +30,7 @@ struct FuneralMusicNote: View {
             } else {
                 vm.create() { success in
                     if success && vm.musics.isEmpty {
-                        WishesViewModel.setProgress(tab: 9) { completed in
+                        WishesViewModel.setProgress(tab: 8) { completed in
                             loading.toggle()
                             if completed {
                                 navModel.pushContent(title) {
@@ -71,34 +71,11 @@ struct FuneralNoteCutomActionView: View {
                     .background(.black.opacity(0.8))
             }
             FlowBaseView(isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
-                VStack(spacing: 0.0) {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 161, height: 207.52)
-                        .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .fill(note.isEmpty ? Color.gray : Color.accentColor)
-                                .frame(width: 56, height: 56)
-                                .overlay(
-                                    Button(action: {
-                                        showNote.toggle()
-                                    }) {
-                                        Image(note.isEmpty ? "ic_add_note" : "ic_notes")
-                                    }
-                                )
-                        )
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 161, height: 44)
-                        .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
-                        .overlay(Text("Note"))
-                    if loading {
-                        Loader()
-                            .padding(.top)
-                    }
+                NoteView(showNote: $showNote, note: $note)
+                if loading {
+                    Loader()
+                        .padding(.top)
                 }
-                .thinShadow()
             }
         }
     }

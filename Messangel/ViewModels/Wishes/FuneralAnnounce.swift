@@ -5,8 +5,7 @@
 //  Created by Saad on 1/4/22.
 //
 
-import Foundation
-import UIKit
+import SwiftUI
 
 struct FuneralAnnounce: Codable {
     var invitation_photo: String

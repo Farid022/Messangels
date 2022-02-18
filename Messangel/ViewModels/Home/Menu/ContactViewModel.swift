@@ -9,7 +9,7 @@ import Foundation
 
 struct Contact: Codable, Hashable {
     var id: Int
-    var user: Int
+    var user: Int?
     var first_name: String
     var last_name:String
     var email:String

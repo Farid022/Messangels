@@ -47,6 +47,7 @@ struct DonationOrgDetails: View {
                         DetailsNoteView(note: org.donation_note)
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.donationOrg = DonationOrg(id: org.id, donation_organization: org.donation_organization.id ?? 1, donation_note: org.donation_note)
+                            vm.orgName = org.donation_organization.name
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 DonationOrgsSelectionView(vm: vm)

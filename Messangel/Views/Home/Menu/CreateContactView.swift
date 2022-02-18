@@ -14,10 +14,11 @@ struct CreateContactView: View {
     @State private var minorAge = false
     @State private var isValid = false
     @State private var alert = false
-    
+    @State private var loading = false
     @State private var dob_day = 1
     @State private var dob_month = "AVRIL"
     @State private var dob_year = 2001
+    @Binding var refresh: Bool
     
     var body: some View {
         MenuBaseView(title: "Créer un contact") {
@@ -71,11 +72,14 @@ struct CreateContactView: View {
                     .padding(.bottom, 20)
             }
             Button(action: {
-                if isValid {
+                if !vm.contact.last_name.isEmpty && !vm.contact.last_name.isEmpty {
+                    loading.toggle()
                     vm.contact.user = getUserId()
                     vm.contact.dob = "\(dob_year)-\((months.firstIndex(of: dob_month) ?? 0) + 1)-\(dob_day)"
                     vm.createContact { success in
+                        loading.toggle()
                         if success {
+                            refresh.toggle()
                             navigationModel.hideTopViewWithReverseAnimation()
                         } else {
                             alert.toggle()
@@ -89,6 +93,10 @@ struct CreateContactView: View {
                 }
             }
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
+            if loading {
+                Loader()
+                    .padding(.top)
+            }
         }
         .alert(isPresented: $alert, content: {
             Alert(title: Text(vm.apiError.error), message: Text(vm.apiError.error_description))

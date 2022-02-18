@@ -27,10 +27,14 @@ struct FuneralPlaceSpecials: View {
                 loading.toggle()
                 if !vm.updateRecord {
                     vm.create() { success in
-                        loading.toggle()
                         if success {
-                            navModel.pushContent(title) {
-                                FuneralDoneView()
+                            WishesViewModel.setProgress(tab: 17) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent(title) {
+                                        FuneralDoneView()
+                                    }
+                                }
                             }
                         }
                     }
@@ -46,6 +50,10 @@ struct FuneralPlaceSpecials: View {
                 }
             },note: false, showNote: .constant(false), menuTitle: "Lieux", title: title, valid: .constant(true)) {
                 NoteView(showNote:$showNote, note: $vm.location.special_ceremony_note.bound)
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

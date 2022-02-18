@@ -12,9 +12,8 @@ struct AnimalDonationOrganization: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var valid = false
     @State private var showNote = false
-    @State private var selectedCompany = Organization(id: 0, name: "", type: "5", user: getUserId())
     @ObservedObject var vm: AnimalDonatiopnViewModel
-
+    private let title = "Indiquez le nom de l’organisme auquel confier *votre animal *vos animaux"
     
     var body: some View {
         ZStack {
@@ -24,29 +23,23 @@ struct AnimalDonationOrganization: View {
 //                .background(.black.opacity(0.8))
 //                .edgesIgnoringSafeArea(.top)
 //            }
-            FlowBaseView(menuTitle: "ANIMAUX", title: "Indiquez le nom de l’organisme auquel confier *votre animal *vos animaux", valid: .constant(!selectedCompany.name.isEmpty), destination: AnyView(AnimalDonationPic(vm: vm))) {
-                if selectedCompany.name.isEmpty {
+            FlowBaseView(menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(AnimalDonationPic(vm: vm))) {
+                if vm.orgName.isEmpty {
                     Button(action: {
-                        navigationModel.presentContent("Indiquez le nom de l’organisme auquel confier *votre animal *vos animaux") {
-                            AnimalDonationOrgList(selectedCompany: $selectedCompany, vm: vm)
+                        navigationModel.presentContent(title) {
+                            SingleOrgSelectionList(orgId: $vm.animalDonation.animal_organization_detail.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 5)
                         }
                     }, label: {
                         Image("list_org")
                     })
                 } else {
-                    RoundedRectangle(cornerRadius: 25.0)
-                        .frame(height: 56)
-                        .foregroundColor(.white)
-                        .thinShadow()
-                        .overlay(HStack {
-                            Text(selectedCompany.name)
-                                .font(.system(size: 14))
-                            Button(action: {
-                                selectedCompany.name.removeAll()
-                            }, label: {
-                                Image("ic_btn_remove")
-                            })
-                        })
+                    HStack {
+                        FuneralCapsuleView(name: vm.orgName) {
+                            vm.orgName.removeAll()
+                            vm.animalDonation.animal_organization_detail = nil
+                        }
+                        Spacer()
+                    }
                 }
             }
             

@@ -293,20 +293,26 @@ struct MyAlert: View {
 struct ListItemView: View {
     var name = ""
     var image = "ic_company"
+    var action = {}
     
     var body: some View {
-        Capsule()
-            .fill(Color.white)
-            .frame(height: 56)
-            .normalShadow()
-            .overlay(HStack{
-                Image(image)
-                    .padding(.leading)
-                Text(name)
-                Spacer()
-                Image("ic_add_circle")
-                    .padding(.trailing)
-            })
-            .padding(.bottom)
+        Button {
+            action()
+        } label: {
+            Capsule()
+                .fill(Color.white)
+                .frame(height: 56)
+                .normalShadow()
+                .overlay(HStack{
+                    Image(image)
+                        .padding(.leading)
+                    Text(name)
+                    Spacer()
+                    Image("ic_add_circle")
+                        .padding(.trailing)
+                })
+                .padding(.bottom)
+        }
+
     }
 }

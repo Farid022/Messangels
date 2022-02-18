@@ -174,11 +174,10 @@
 		93AC02042721693700FD7285 /* FuneralUrnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02032721693700FD7285 /* FuneralUrnStyle.swift */; };
 		93AC0206272169B700FD7285 /* FuneralAshPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC0205272169B700FD7285 /* FuneralAshPlace.swift */; };
 		93AC02092721952F00FD7285 /* FuneralOrgIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02082721952F00FD7285 /* FuneralOrgIntro.swift */; };
-		93AC020C2721970300FD7285 /* FuneralCompanyOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC020B2721970300FD7285 /* FuneralCompanyOptionView.swift */; };
-		93AC020E2721978D00FD7285 /* FuneralContractOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC020D2721978D00FD7285 /* FuneralContractOptionView.swift */; };
-		93AC02102721982400FD7285 /* FuneralContractCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC020F2721982400FD7285 /* FuneralContractCompany.swift */; };
+		93AC020C2721970300FD7285 /* FuneralCompanyIsPreSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC020B2721970300FD7285 /* FuneralCompanyIsPreSelectedView.swift */; };
+		93AC020E2721978D00FD7285 /* FuneralHaveContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC020D2721978D00FD7285 /* FuneralHaveContractView.swift */; };
+		93AC02102721982400FD7285 /* FuneralSelectCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC020F2721982400FD7285 /* FuneralSelectCompanyView.swift */; };
 		93AC02142721989900FD7285 /* FuneralContractNo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02132721989900FD7285 /* FuneralContractNo.swift */; };
-		93AC02182721BBFF00FD7285 /* FuneralCompaniesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02172721BBFF00FD7285 /* FuneralCompaniesList.swift */; };
 		93AC021A2726769000FD7285 /* FuneralInviteIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02192726769000FD7285 /* FuneralInviteIntro.swift */; };
 		93AC021D2726775600FD7285 /* FuneralInvitePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC021C2726775600FD7285 /* FuneralInvitePic.swift */; };
 		93AC021F272678B400FD7285 /* FuneralInviteWishes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC021E272678B400FD7285 /* FuneralInviteWishes.swift */; };
@@ -197,7 +196,7 @@
 		93AC023B2726D9D300FD7285 /* DeathAnnounceContactsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC023A2726D9D300FD7285 /* DeathAnnounceContactsList.swift */; };
 		93AC023E2727D69300FD7285 /* FuneralPlacesIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC023D2727D69200FD7285 /* FuneralPlacesIntro.swift */; };
 		93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02402727D70E00FD7285 /* FuneralPlaceType.swift */; };
-		93AC02432727D76C00FD7285 /* FuneralPlaceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02422727D76C00FD7285 /* FuneralPlaceName.swift */; };
+		93AC02432727D76C00FD7285 /* FuneralPlaceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02422727D76C00FD7285 /* FuneralPlaceSelection.swift */; };
 		93AC02452727D79400FD7285 /* FuneralPlacesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02442727D79400FD7285 /* FuneralPlacesList.swift */; };
 		93AC02472727D80600FD7285 /* FuneralRestingPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02462727D80600FD7285 /* FuneralRestingPlace.swift */; };
 		93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02482727D85900FD7285 /* FuneralConvoyRoute.swift */; };
@@ -228,10 +227,8 @@
 		93AC02872747633A00FD7285 /* ClothsDonationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02862747633A00FD7285 /* ClothsDonationCount.swift */; };
 		93AC02892747658E00FD7285 /* ClothsDonationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02882747658E00FD7285 /* ClothsDonationName.swift */; };
 		93AC028D2747681200FD7285 /* ClothsDonationPlaceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC028C2747681200FD7285 /* ClothsDonationPlaceSelection.swift */; };
-		93AC028F274769FB00FD7285 /* ClothsDonationOrgList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC028E274769FB00FD7285 /* ClothsDonationOrgList.swift */; };
 		93AC029127476A5600FD7285 /* ClothsDonationOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC029027476A5600FD7285 /* ClothsDonationOrganization.swift */; };
 		93AC029327476C5900FD7285 /* ClothsDonationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC029227476C5900FD7285 /* ClothsDonationContact.swift */; };
-		93AC029527476C9300FD7285 /* ClothsDonationContactsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC029427476C9300FD7285 /* ClothsDonationContactsList.swift */; };
 		93AC029727476E3C00FD7285 /* ClothsDonationPic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC029627476E3C00FD7285 /* ClothsDonationPic.swift */; };
 		93AC029927476EB600FD7285 /* ClothsDonationNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC029827476EB600FD7285 /* ClothsDonationNote.swift */; };
 		93AC029B27476F2800FD7285 /* ClothsDonationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC029A27476F2800FD7285 /* ClothsDonationsList.swift */; };
@@ -244,8 +241,6 @@
 		93AC02AF274B56DE00FD7285 /* ObjectsDonationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A3274B56DD00FD7285 /* ObjectsDonationDetails.swift */; };
 		93AC02B0274B56DE00FD7285 /* ObjectsDonationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A4274B56DD00FD7285 /* ObjectsDonationContact.swift */; };
 		93AC02B1274B56DE00FD7285 /* ObjectsDonationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A5274B56DD00FD7285 /* ObjectsDonationCount.swift */; };
-		93AC02B2274B56DE00FD7285 /* ObjectsDonationOrgList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A6274B56DE00FD7285 /* ObjectsDonationOrgList.swift */; };
-		93AC02B3274B56DE00FD7285 /* ObjectsDonationContactsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A7274B56DE00FD7285 /* ObjectsDonationContactsList.swift */; };
 		93AC02B4274B56DE00FD7285 /* ObjectsDonationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A8274B56DE00FD7285 /* ObjectsDonationName.swift */; };
 		93AC02B5274B56DE00FD7285 /* ObjectsDonationOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02A9274B56DE00FD7285 /* ObjectsDonationOrganization.swift */; };
 		93AC02C2274B5B4000FD7285 /* AnimalDonationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02B6274B5B3F00FD7285 /* AnimalDonationsList.swift */; };
@@ -253,16 +248,15 @@
 		93AC02C4274B5B4000FD7285 /* AnimalDonationContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02B8274B5B3F00FD7285 /* AnimalDonationContact.swift */; };
 		93AC02C5274B5B4000FD7285 /* AnimalDonationNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02B9274B5B3F00FD7285 /* AnimalDonationNew.swift */; };
 		93AC02C6274B5B4000FD7285 /* AnimalDonationNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BA274B5B3F00FD7285 /* AnimalDonationNote.swift */; };
-		93AC02C7274B5B4000FD7285 /* AnimalDonationContactsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BB274B5B3F00FD7285 /* AnimalDonationContactsList.swift */; };
+		93AC02C7274B5B4000FD7285 /* SingleContactSelectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BB274B5B3F00FD7285 /* SingleContactSelectionList.swift */; };
 		93AC02C8274B5B4000FD7285 /* AnimalDonationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BC274B5B3F00FD7285 /* AnimalDonationName.swift */; };
 		93AC02C9274B5B4000FD7285 /* AnimalDonationOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BD274B5B4000FD7285 /* AnimalDonationOrganization.swift */; };
-		93AC02CA274B5B4000FD7285 /* AnimalDonationOrgList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BE274B5B4000FD7285 /* AnimalDonationOrgList.swift */; };
+		93AC02CA274B5B4000FD7285 /* SingleOrgSelectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BE274B5B4000FD7285 /* SingleOrgSelectionList.swift */; };
 		93AC02CB274B5B4000FD7285 /* AnimalDonationPic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02BF274B5B4000FD7285 /* AnimalDonationPic.swift */; };
 		93AC02CC274B5B4000FD7285 /* AnimalDonationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02C0274B5B4000FD7285 /* AnimalDonationCount.swift */; };
 		93AC02CD274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02C1274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift */; };
 		93AC02D5274B64B400FD7285 /* DonationOrgsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */; };
 		93AC02D6274B64B400FD7285 /* DonationOrgNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */; };
-		93AC02D8274B64B400FD7285 /* DonationOrgOganizationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */; };
 		93AC02D9274B64B400FD7285 /* DonationOrgDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */; };
 		93AC02DA274B64B400FD7285 /* DonationOrgsSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D3274B64B400FD7285 /* DonationOrgsSelectionView.swift */; };
 		93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */; };
@@ -283,6 +277,11 @@
 		93AC02F9274B73A100FD7285 /* PracticalCodeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02F8274B73A100FD7285 /* PracticalCodeText.swift */; };
 		93AC02FB274B9CC300FD7285 /* PracticalCodesMsnglPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02FA274B9CC300FD7285 /* PracticalCodesMsnglPass.swift */; };
 		93AC02FD274BAE6F00FD7285 /* PracticalCodesOTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC02FC274BAE6F00FD7285 /* PracticalCodesOTP.swift */; };
+		93AD1DCD27BE0426007BBF81 /* FuneralHaveCompanyContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD1DCC27BE0426007BBF81 /* FuneralHaveCompanyContractView.swift */; };
+		93AD1DD127BE0948007BBF81 /* FuneralContractCompanyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD1DD027BE0948007BBF81 /* FuneralContractCompanyView.swift */; };
+		93AD1DD327BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD1DD227BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift */; };
+		93AD1DD527BE1A00007BBF81 /* FuneralContractLinkedOrgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD1DD427BE1A00007BBF81 /* FuneralContractLinkedOrgView.swift */; };
+		93AD1DDA27BF7A20007BBF81 /* ManagedContractOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AD1DD927BF7A20007BBF81 /* ManagedContractOrganization.swift */; };
 		93ADF5AF2679D75100BB9F14 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADF5AE2679D75100BB9F14 /* CameraController.swift */; };
 		93ADF5B1268060D100BB9F14 /* StopWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADF5B0268060D100BB9F14 /* StopWatchManager.swift */; };
 		93AEEF512670A52300D99BC2 /* AlbumImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEEF502670A52300D99BC2 /* AlbumImage.swift */; };
@@ -489,11 +488,10 @@
 		93AC02032721693700FD7285 /* FuneralUrnStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralUrnStyle.swift; sourceTree = "<group>"; };
 		93AC0205272169B700FD7285 /* FuneralAshPlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralAshPlace.swift; sourceTree = "<group>"; };
 		93AC02082721952F00FD7285 /* FuneralOrgIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralOrgIntro.swift; sourceTree = "<group>"; };
-		93AC020B2721970300FD7285 /* FuneralCompanyOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralCompanyOptionView.swift; sourceTree = "<group>"; };
-		93AC020D2721978D00FD7285 /* FuneralContractOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralContractOptionView.swift; sourceTree = "<group>"; };
-		93AC020F2721982400FD7285 /* FuneralContractCompany.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralContractCompany.swift; sourceTree = "<group>"; };
+		93AC020B2721970300FD7285 /* FuneralCompanyIsPreSelectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralCompanyIsPreSelectedView.swift; sourceTree = "<group>"; };
+		93AC020D2721978D00FD7285 /* FuneralHaveContractView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralHaveContractView.swift; sourceTree = "<group>"; };
+		93AC020F2721982400FD7285 /* FuneralSelectCompanyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralSelectCompanyView.swift; sourceTree = "<group>"; };
 		93AC02132721989900FD7285 /* FuneralContractNo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralContractNo.swift; sourceTree = "<group>"; };
-		93AC02172721BBFF00FD7285 /* FuneralCompaniesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralCompaniesList.swift; sourceTree = "<group>"; };
 		93AC02192726769000FD7285 /* FuneralInviteIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralInviteIntro.swift; sourceTree = "<group>"; };
 		93AC021C2726775600FD7285 /* FuneralInvitePic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralInvitePic.swift; sourceTree = "<group>"; };
 		93AC021E272678B400FD7285 /* FuneralInviteWishes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralInviteWishes.swift; sourceTree = "<group>"; };
@@ -512,7 +510,7 @@
 		93AC023A2726D9D300FD7285 /* DeathAnnounceContactsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathAnnounceContactsList.swift; sourceTree = "<group>"; };
 		93AC023D2727D69200FD7285 /* FuneralPlacesIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralPlacesIntro.swift; sourceTree = "<group>"; };
 		93AC02402727D70E00FD7285 /* FuneralPlaceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralPlaceType.swift; sourceTree = "<group>"; };
-		93AC02422727D76C00FD7285 /* FuneralPlaceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralPlaceName.swift; sourceTree = "<group>"; };
+		93AC02422727D76C00FD7285 /* FuneralPlaceSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralPlaceSelection.swift; sourceTree = "<group>"; };
 		93AC02442727D79400FD7285 /* FuneralPlacesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralPlacesList.swift; sourceTree = "<group>"; };
 		93AC02462727D80600FD7285 /* FuneralRestingPlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralRestingPlace.swift; sourceTree = "<group>"; };
 		93AC02482727D85900FD7285 /* FuneralConvoyRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralConvoyRoute.swift; sourceTree = "<group>"; };
@@ -543,10 +541,8 @@
 		93AC02862747633A00FD7285 /* ClothsDonationCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationCount.swift; sourceTree = "<group>"; };
 		93AC02882747658E00FD7285 /* ClothsDonationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothsDonationName.swift; sourceTree = "<group>"; };
 		93AC028C2747681200FD7285 /* ClothsDonationPlaceSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationPlaceSelection.swift; sourceTree = "<group>"; };
-		93AC028E274769FB00FD7285 /* ClothsDonationOrgList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationOrgList.swift; sourceTree = "<group>"; };
 		93AC029027476A5600FD7285 /* ClothsDonationOrganization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationOrganization.swift; sourceTree = "<group>"; };
 		93AC029227476C5900FD7285 /* ClothsDonationContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationContact.swift; sourceTree = "<group>"; };
-		93AC029427476C9300FD7285 /* ClothsDonationContactsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationContactsList.swift; sourceTree = "<group>"; };
 		93AC029627476E3C00FD7285 /* ClothsDonationPic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationPic.swift; sourceTree = "<group>"; };
 		93AC029827476EB600FD7285 /* ClothsDonationNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClothsDonationNote.swift; sourceTree = "<group>"; };
 		93AC029A27476F2800FD7285 /* ClothsDonationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothsDonationsList.swift; sourceTree = "<group>"; };
@@ -559,8 +555,6 @@
 		93AC02A3274B56DD00FD7285 /* ObjectsDonationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationDetails.swift; sourceTree = "<group>"; };
 		93AC02A4274B56DD00FD7285 /* ObjectsDonationContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationContact.swift; sourceTree = "<group>"; };
 		93AC02A5274B56DD00FD7285 /* ObjectsDonationCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationCount.swift; sourceTree = "<group>"; };
-		93AC02A6274B56DE00FD7285 /* ObjectsDonationOrgList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationOrgList.swift; sourceTree = "<group>"; };
-		93AC02A7274B56DE00FD7285 /* ObjectsDonationContactsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationContactsList.swift; sourceTree = "<group>"; };
 		93AC02A8274B56DE00FD7285 /* ObjectsDonationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationName.swift; sourceTree = "<group>"; };
 		93AC02A9274B56DE00FD7285 /* ObjectsDonationOrganization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsDonationOrganization.swift; sourceTree = "<group>"; };
 		93AC02B6274B5B3F00FD7285 /* AnimalDonationsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationsList.swift; sourceTree = "<group>"; };
@@ -568,16 +562,15 @@
 		93AC02B8274B5B3F00FD7285 /* AnimalDonationContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationContact.swift; sourceTree = "<group>"; };
 		93AC02B9274B5B3F00FD7285 /* AnimalDonationNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationNew.swift; sourceTree = "<group>"; };
 		93AC02BA274B5B3F00FD7285 /* AnimalDonationNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationNote.swift; sourceTree = "<group>"; };
-		93AC02BB274B5B3F00FD7285 /* AnimalDonationContactsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationContactsList.swift; sourceTree = "<group>"; };
+		93AC02BB274B5B3F00FD7285 /* SingleContactSelectionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleContactSelectionList.swift; sourceTree = "<group>"; };
 		93AC02BC274B5B3F00FD7285 /* AnimalDonationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationName.swift; sourceTree = "<group>"; };
 		93AC02BD274B5B4000FD7285 /* AnimalDonationOrganization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationOrganization.swift; sourceTree = "<group>"; };
-		93AC02BE274B5B4000FD7285 /* AnimalDonationOrgList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationOrgList.swift; sourceTree = "<group>"; };
+		93AC02BE274B5B4000FD7285 /* SingleOrgSelectionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleOrgSelectionList.swift; sourceTree = "<group>"; };
 		93AC02BF274B5B4000FD7285 /* AnimalDonationPic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationPic.swift; sourceTree = "<group>"; };
 		93AC02C0274B5B4000FD7285 /* AnimalDonationCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationCount.swift; sourceTree = "<group>"; };
 		93AC02C1274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDonationPlaceSelection.swift; sourceTree = "<group>"; };
 		93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgsList.swift; sourceTree = "<group>"; };
 		93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgNote.swift; sourceTree = "<group>"; };
-		93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgOganizationList.swift; sourceTree = "<group>"; };
 		93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgDetails.swift; sourceTree = "<group>"; };
 		93AC02D3274B64B400FD7285 /* DonationOrgsSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgsSelectionView.swift; sourceTree = "<group>"; };
 		93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonationOrgNew.swift; sourceTree = "<group>"; };
@@ -598,6 +591,11 @@
 		93AC02F8274B73A100FD7285 /* PracticalCodeText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticalCodeText.swift; sourceTree = "<group>"; };
 		93AC02FA274B9CC300FD7285 /* PracticalCodesMsnglPass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticalCodesMsnglPass.swift; sourceTree = "<group>"; };
 		93AC02FC274BAE6F00FD7285 /* PracticalCodesOTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticalCodesOTP.swift; sourceTree = "<group>"; };
+		93AD1DCC27BE0426007BBF81 /* FuneralHaveCompanyContractView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralHaveCompanyContractView.swift; sourceTree = "<group>"; };
+		93AD1DD027BE0948007BBF81 /* FuneralContractCompanyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralContractCompanyView.swift; sourceTree = "<group>"; };
+		93AD1DD227BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralHaveOrgLinkedContractView.swift; sourceTree = "<group>"; };
+		93AD1DD427BE1A00007BBF81 /* FuneralContractLinkedOrgView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralContractLinkedOrgView.swift; sourceTree = "<group>"; };
+		93AD1DD927BF7A20007BBF81 /* ManagedContractOrganization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedContractOrganization.swift; sourceTree = "<group>"; };
 		93ADF5AE2679D75100BB9F14 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		93ADF5B0268060D100BB9F14 /* StopWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchManager.swift; sourceTree = "<group>"; };
 		93AEEF502670A52300D99BC2 /* AlbumImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImage.swift; sourceTree = "<group>"; };
@@ -1066,6 +1064,8 @@
 			children = (
 				93AC01E4271844A200FD7285 /* WishesMenuView.swift */,
 				93AC01FD271FEB2800FD7285 /* FuneralDoneView.swift */,
+				93AC02BB274B5B3F00FD7285 /* SingleContactSelectionList.swift */,
+				93AC02BE274B5B4000FD7285 /* SingleOrgSelectionList.swift */,
 				93AC026727326D7900FD7285 /* ExtraWishes */,
 				93AC02832746619D00FD7285 /* ManagedContracts */,
 				93AC0280274660E200FD7285 /* PracticalCodes */,
@@ -1111,11 +1111,10 @@
 			isa = PBXGroup;
 			children = (
 				93AC02082721952F00FD7285 /* FuneralOrgIntro.swift */,
-				93AC020B2721970300FD7285 /* FuneralCompanyOptionView.swift */,
-				93AC020D2721978D00FD7285 /* FuneralContractOptionView.swift */,
-				93AC020F2721982400FD7285 /* FuneralContractCompany.swift */,
-				93AC02172721BBFF00FD7285 /* FuneralCompaniesList.swift */,
+				93AC020B2721970300FD7285 /* FuneralCompanyIsPreSelectedView.swift */,
 				93AC02132721989900FD7285 /* FuneralContractNo.swift */,
+				93AD1DCF27BE05F1007BBF81 /* CompanyNotPreSelected */,
+				93AD1DCE27BE0597007BBF81 /* CompanyPreSelected */,
 			);
 			path = FuneralOrg;
 			sourceTree = "<group>";
@@ -1169,7 +1168,7 @@
 			children = (
 				93AC023D2727D69200FD7285 /* FuneralPlacesIntro.swift */,
 				93AC02402727D70E00FD7285 /* FuneralPlaceType.swift */,
-				93AC02422727D76C00FD7285 /* FuneralPlaceName.swift */,
+				93AC02422727D76C00FD7285 /* FuneralPlaceSelection.swift */,
 				93AC02442727D79400FD7285 /* FuneralPlacesList.swift */,
 				93AC02462727D80600FD7285 /* FuneralRestingPlace.swift */,
 				93AC02482727D85900FD7285 /* FuneralConvoyRoute.swift */,
@@ -1214,9 +1213,7 @@
 				93AC02882747658E00FD7285 /* ClothsDonationName.swift */,
 				93AC028C2747681200FD7285 /* ClothsDonationPlaceSelection.swift */,
 				93AC029027476A5600FD7285 /* ClothsDonationOrganization.swift */,
-				93AC028E274769FB00FD7285 /* ClothsDonationOrgList.swift */,
 				93AC029227476C5900FD7285 /* ClothsDonationContact.swift */,
-				93AC029427476C9300FD7285 /* ClothsDonationContactsList.swift */,
 				93AC029627476E3C00FD7285 /* ClothsDonationPic.swift */,
 				93AC029827476EB600FD7285 /* ClothsDonationNote.swift */,
 				93AC029A27476F2800FD7285 /* ClothsDonationsList.swift */,
@@ -1243,9 +1240,7 @@
 				93AC02BC274B5B3F00FD7285 /* AnimalDonationName.swift */,
 				93AC02C1274B5B4000FD7285 /* AnimalDonationPlaceSelection.swift */,
 				93AC02BD274B5B4000FD7285 /* AnimalDonationOrganization.swift */,
-				93AC02BE274B5B4000FD7285 /* AnimalDonationOrgList.swift */,
 				93AC02B8274B5B3F00FD7285 /* AnimalDonationContact.swift */,
-				93AC02BB274B5B3F00FD7285 /* AnimalDonationContactsList.swift */,
 				93AC02BF274B5B4000FD7285 /* AnimalDonationPic.swift */,
 				93AC02BA274B5B3F00FD7285 /* AnimalDonationNote.swift */,
 				93AC02B6274B5B3F00FD7285 /* AnimalDonationsList.swift */,
@@ -1261,7 +1256,6 @@
 				93AC026127326CB700FD7285 /* DonationOrgsIntro.swift */,
 				93AC02D4274B64B400FD7285 /* DonationOrgNew.swift */,
 				93AC02D3274B64B400FD7285 /* DonationOrgsSelectionView.swift */,
-				93AC02D1274B64B400FD7285 /* DonationOrgOganizationList.swift */,
 				93AC02CF274B64B400FD7285 /* DonationOrgNote.swift */,
 				93AC02CE274B64B400FD7285 /* DonationOrgsList.swift */,
 				93AC02D2274B64B400FD7285 /* DonationOrgDetails.swift */,
@@ -1278,9 +1272,7 @@
 				93AC02A8274B56DE00FD7285 /* ObjectsDonationName.swift */,
 				93AC029F274B56DD00FD7285 /* ObjectsDonationPlaceSelection.swift */,
 				93AC02A9274B56DE00FD7285 /* ObjectsDonationOrganization.swift */,
-				93AC02A6274B56DE00FD7285 /* ObjectsDonationOrgList.swift */,
 				93AC02A4274B56DD00FD7285 /* ObjectsDonationContact.swift */,
-				93AC02A7274B56DE00FD7285 /* ObjectsDonationContactsList.swift */,
 				93AC02A1274B56DD00FD7285 /* ObjectsDonationPic.swift */,
 				93AC02A2274B56DD00FD7285 /* ObjectsDonationNote.swift */,
 				93AC029E274B56DD00FD7285 /* ObjectsDonationsList.swift */,
@@ -1323,11 +1315,40 @@
 				93AC02812746619400FD7285 /* ManagedContractsIntro.swift */,
 				93AC02E6274B6C8A00FD7285 /* ManagedContractNew.swift */,
 				93AC02E9274B6C8B00FD7285 /* ManagedContractName.swift */,
+				93AD1DD927BF7A20007BBF81 /* ManagedContractOrganization.swift */,
 				93AC02E8274B6C8B00FD7285 /* ManagedContractsNote.swift */,
 				93AC02E7274B6C8A00FD7285 /* ManagedContractsList.swift */,
 				93AC02EA274B6C8B00FD7285 /* ManagedContractDetails.swift */,
 			);
 			path = ManagedContracts;
+			sourceTree = "<group>";
+		};
+		93AD1DCE27BE0597007BBF81 /* CompanyPreSelected */ = {
+			isa = PBXGroup;
+			children = (
+				93AD1DCC27BE0426007BBF81 /* FuneralHaveCompanyContractView.swift */,
+				93AC020F2721982400FD7285 /* FuneralSelectCompanyView.swift */,
+				93AD1DD827BE1B5E007BBF81 /* LinkedOrganization */,
+			);
+			path = CompanyPreSelected;
+			sourceTree = "<group>";
+		};
+		93AD1DCF27BE05F1007BBF81 /* CompanyNotPreSelected */ = {
+			isa = PBXGroup;
+			children = (
+				93AC020D2721978D00FD7285 /* FuneralHaveContractView.swift */,
+				93AD1DD027BE0948007BBF81 /* FuneralContractCompanyView.swift */,
+			);
+			path = CompanyNotPreSelected;
+			sourceTree = "<group>";
+		};
+		93AD1DD827BE1B5E007BBF81 /* LinkedOrganization */ = {
+			isa = PBXGroup;
+			children = (
+				93AD1DD227BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift */,
+				93AD1DD427BE1A00007BBF81 /* FuneralContractLinkedOrgView.swift */,
+			);
+			path = LinkedOrganization;
 			sourceTree = "<group>";
 		};
 		93AEEF4D26709B1000D99BC2 /* ViewModels */ = {
@@ -1478,7 +1499,6 @@
 				933AA30C2664EBA1000D6D48 /* PhotosSelectionView.swift in Sources */,
 				935FFCBC27A0162D00290E4C /* SecureAccessViewModel.swift in Sources */,
 				939CBDCF27841FD1004520A3 /* FuneralOrgViewModel.swift in Sources */,
-				93AC02D8274B64B400FD7285 /* DonationOrgOganizationList.swift in Sources */,
 				93AC029B27476F2800FD7285 /* ClothsDonationsList.swift in Sources */,
 				939CBDB22771E63F004520A3 /* NewServiceWebSiteView.swift in Sources */,
 				9369D53E265639F100650AA7 /* MenuView.swift in Sources */,
@@ -1486,7 +1506,7 @@
 				934A21D726515EF300607821 /* NetworkService.swift in Sources */,
 				93AC01F4271D87D800FD7285 /* FuneralCoffinInterior.swift in Sources */,
 				933911022768A80A00E262B3 /* KeyAccViewModel.swift in Sources */,
-				93AC02CA274B5B4000FD7285 /* AnimalDonationOrgList.swift in Sources */,
+				93AC02CA274B5B4000FD7285 /* SingleOrgSelectionList.swift in Sources */,
 				934B0E1D26B290640008DCE5 /* GalleryViewModel.swift in Sources */,
 				93AC0228272689BF00FD7285 /* OrganDonateChoice.swift in Sources */,
 				93AC026427326CDC00FD7285 /* AnimalDonationIntro.swift in Sources */,
@@ -1514,9 +1534,9 @@
 				93AC026227326CB700FD7285 /* DonationOrgsIntro.swift in Sources */,
 				93671DB92767664C009A4CF1 /* KeyAccRegPhoneCodeView.swift in Sources */,
 				933DF61227887EC8005966AF /* ObjectDonationViewModel.swift in Sources */,
-				93AC020C2721970300FD7285 /* FuneralCompanyOptionView.swift in Sources */,
+				93AC020C2721970300FD7285 /* FuneralCompanyIsPreSelectedView.swift in Sources */,
 				937CA4BF2654FB36004A0227 /* GuardianFormConfirmEmailView.swift in Sources */,
-				93AC02C7274B5B4000FD7285 /* AnimalDonationContactsList.swift in Sources */,
+				93AC02C7274B5B4000FD7285 /* SingleContactSelectionList.swift in Sources */,
 				934B0E1726B28FEC0008DCE5 /* TextViewModel.swift in Sources */,
 				93AC02E5274B695B00FD7285 /* AdminDocsList.swift in Sources */,
 				93AC02F6274B706C00FD7285 /* PracticalCodesList.swift in Sources */,
@@ -1556,7 +1576,7 @@
 				93AC02EC274B6C8B00FD7285 /* ManagedContractsList.swift in Sources */,
 				93AC02D9274B64B400FD7285 /* DonationOrgDetails.swift in Sources */,
 				93AC02AB274B56DE00FD7285 /* ObjectsDonationPlaceSelection.swift in Sources */,
-				93AC020E2721978D00FD7285 /* FuneralContractOptionView.swift in Sources */,
+				93AC020E2721978D00FD7285 /* FuneralHaveContractView.swift in Sources */,
 				933DF618278BFB91005966AF /* DonationOrgViewModel.swift in Sources */,
 				9313BA8B2689A467008F566C /* RichEditorToolbar.swift in Sources */,
 				93AC02C3274B5B4000FD7285 /* AnimalDonationDetails.swift in Sources */,
@@ -1564,7 +1584,6 @@
 				93AC02C4274B5B4000FD7285 /* AnimalDonationContact.swift in Sources */,
 				93EFE7D12695EA3700F50894 /* TextViewWrapper+NSTextView.swift in Sources */,
 				93AC02332726B79F00FD7285 /* SpiritualTraditionChoice.swift in Sources */,
-				93AC02B2274B56DE00FD7285 /* ObjectsDonationOrgList.swift in Sources */,
 				93553AAE2648CD680027BA06 /* Auth.swift in Sources */,
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				939CBDB62771E699004520A3 /* ServicePhoneView.swift in Sources */,
@@ -1603,7 +1622,7 @@
 				9351CCD027A690640087C0E9 /* MessagesTextView.swift in Sources */,
 				9351CCCD27A65D750087C0E9 /* AudioRecorder.swift in Sources */,
 				935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */,
-				93AC02432727D76C00FD7285 /* FuneralPlaceName.swift in Sources */,
+				93AC02432727D76C00FD7285 /* FuneralPlaceSelection.swift in Sources */,
 				93EFE7EB26A15D9700F50894 /* SignupTelView.swift in Sources */,
 				9351CCC327A43B790087C0E9 /* Utils.swift in Sources */,
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
@@ -1612,6 +1631,7 @@
 				93EFE7ED26A15D9700F50894 /* SignupDoneView.swift in Sources */,
 				93AC022C27268F5100FD7285 /* OrganDonateBody.swift in Sources */,
 				935A5996265BB02B005B0505 /* SuggestionsView.swift in Sources */,
+				93AD1DCD27BE0426007BBF81 /* FuneralHaveCompanyContractView.swift in Sources */,
 				93AC0206272169B700FD7285 /* FuneralAshPlace.swift in Sources */,
 				933DF61C278BFC61005966AF /* PracticalCodeViewModel.swift in Sources */,
 				932FF8B126C1309300DE52F9 /* VideoTitleView.swift in Sources */,
@@ -1621,7 +1641,6 @@
 				935FFCB22797E63F00290E4C /* OnlineServiceViewModel.swift in Sources */,
 				93EFE7E726A15D9700F50894 /* SignupPostcodeView.swift in Sources */,
 				939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */,
-				93AC029527476C9300FD7285 /* ClothsDonationContactsList.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
 				938313952671E46E00C71C98 /* PHPhotoLibrary.swift in Sources */,
 				93AC02542727E4E000FD7285 /* FuneralDecoration.swift in Sources */,
@@ -1631,12 +1650,13 @@
 				93AEEF542670C94200D99BC2 /* AlbumViewModel.swift in Sources */,
 				93AC01F8271D956400FD7285 /* FuneralCoffinOptions.swift in Sources */,
 				93AC02822746619400FD7285 /* ManagedContractsIntro.swift in Sources */,
+				93AD1DD127BE0948007BBF81 /* FuneralContractCompanyView.swift in Sources */,
 				9351CCC927A56C060087C0E9 /* Player.swift in Sources */,
 				93AC029D2747C3C700FD7285 /* ClothsDonationDetails.swift in Sources */,
 				93816BA42692D21D0060DC0C /* HTML.swift in Sources */,
 				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
 				93EFE7D02695EA3700F50894 /* TextViewWrapper+UITextView.swift in Sources */,
-				93AC02102721982400FD7285 /* FuneralContractCompany.swift in Sources */,
+				93AC02102721982400FD7285 /* FuneralSelectCompanyView.swift in Sources */,
 				93671DB72767663B009A4CF1 /* KeyAccRegPhonePINView.swift in Sources */,
 				93671DAD2767657F009A4CF1 /* KeyAccRegEmailView.swift in Sources */,
 				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
@@ -1649,7 +1669,6 @@
 				93AC01FE271FEB2800FD7285 /* FuneralDoneView.swift in Sources */,
 				93AC027C27465F8A00FD7285 /* AdminDocsIntro.swift in Sources */,
 				9313BA6F26846019008F566C /* TextEditorView.swift in Sources */,
-				93AC02B3274B56DE00FD7285 /* ObjectsDonationContactsList.swift in Sources */,
 				93AC02742746175E00FD7285 /* FuneralMusicNote.swift in Sources */,
 				93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */,
 				93AC02372726D93000FD7285 /* DeathAnnounceIntro.swift in Sources */,
@@ -1662,7 +1681,6 @@
 				93AC01E12716B68000FD7285 /* ModifyMobileView.swift in Sources */,
 				93AC02FB274B9CC300FD7285 /* PracticalCodesMsnglPass.swift in Sources */,
 				93AC0223272679D100FD7285 /* FuneralInviteNewsPaper.swift in Sources */,
-				93AC02182721BBFF00FD7285 /* FuneralCompaniesList.swift in Sources */,
 				93AC029327476C5900FD7285 /* ClothsDonationContact.swift in Sources */,
 				93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */,
 				939CBDB82771E72D004520A3 /* ServiceChoiceView.swift in Sources */,
@@ -1671,6 +1689,7 @@
 				9339110A276C759200E262B3 /* ServicesListView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
 				93AC02EB274B6C8B00FD7285 /* ManagedContractNew.swift in Sources */,
+				93AD1DD327BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift in Sources */,
 				9351CCD427A92FB00087C0E9 /* WishesViewModel.swift in Sources */,
 				933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */,
 				93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */,
@@ -1691,7 +1710,6 @@
 				93AC02C8274B5B4000FD7285 /* AnimalDonationName.swift in Sources */,
 				932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */,
 				93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */,
-				93AC028F274769FB00FD7285 /* ClothsDonationOrgList.swift in Sources */,
 				933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */,
 				93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */,
 				932FF8B326C130CC00DE52F9 /* VideoGroupView.swift in Sources */,
@@ -1732,9 +1750,11 @@
 				93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */,
 				934B0E1126B119EB0008DCE5 /* SponsorViewModel.swift in Sources */,
 				932FF8C326D3779100DE52F9 /* RangeSlider.swift in Sources */,
+				93AD1DDA27BF7A20007BBF81 /* ManagedContractOrganization.swift in Sources */,
 				934B0E1326B15ABE0008DCE5 /* ContactEditView.swift in Sources */,
 				93AC02582727E53700FD7285 /* FuneralGuestsWearings.swift in Sources */,
 				933AA312266754F0000D6D48 /* PhotoPicker.swift in Sources */,
+				93AD1DD527BE1A00007BBF81 /* FuneralContractLinkedOrgView.swift in Sources */,
 				93EFE7D7269D9CEE00F50894 /* User.swift in Sources */,
 				93AC02E4274B695B00FD7285 /* AdminDocsName.swift in Sources */,
 				9313BA802689A467008F566C /* RichEditorView.swift in Sources */,
@@ -1870,7 +1890,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -1893,7 +1913,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

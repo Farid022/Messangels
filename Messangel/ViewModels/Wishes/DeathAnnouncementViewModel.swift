@@ -22,17 +22,18 @@ struct PriorityContactsData: Hashable, Codable {
 
 class PriorityContactsViewModel: ObservableObject {
     @Published var updateRecord = false
+    @Published var contacts = [Contact]()
     @Published var priorities = [PriorityContactsData]()
     @Published var priorityContacts = PriorityContacts(contact: [Int]())
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func addPriorityContacts(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: priorityContacts, response: priorityContacts, endpoint: "users/\(getUserId())/priority_contact") { result in
+        APIService.shared.post(model: priorityContacts, response: apiResponse, endpoint: "users/\(getUserId())/priority_contact") { result in
             switch result {
-            case .success(let contacts):
+            case .success(let response):
                 DispatchQueue.main.async {
-                    self.priorityContacts = contacts
+                    self.apiResponse = response
                     completion(true)
                 }
             case .failure(let error):

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AnimalDonationPlaceSelection: View {
     var donationTypes = [ClothsDonationPlace.contact, ClothsDonationPlace.organization]
-    @State private var valid = false
     @State private var selectedDonation = ClothsDonationPlace.none
     @State private var showNote = false
     @ObservedObject var vm: AnimalDonatiopnViewModel
@@ -22,7 +21,7 @@ struct AnimalDonationPlaceSelection: View {
 //                .background(.black.opacity(0.8))
 //                .edgesIgnoringSafeArea(.top)
 //            }
-            FlowBaseView(menuTitle: "ANIMAUX", title: "À qui confier *votre animal *vos animaux?", valid: $valid, destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
+            FlowBaseView(menuTitle: "ANIMAUX", title: "À qui confier *votre animal *vos animaux?", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
                 HStack {
                     ForEach(donationTypes, id: \.self) { type in
                         ChoiceCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))
@@ -32,8 +31,12 @@ struct AnimalDonationPlaceSelection: View {
                     }
                 }
             }
-            .onChange(of: selectedDonation) { value in
-                valid = selectedDonation != .none
+        }
+        .onDidAppear {
+            if vm.animalDonation.animal_contact_detail != nil {
+                selectedDonation = .contact
+            } else if vm.animalDonation.animal_organization_detail != nil {
+                selectedDonation = .organization
             }
         }
     }

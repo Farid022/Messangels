@@ -13,7 +13,7 @@ struct AnimalDonationIntro: View {
     @State private var gotList = false
     @EnvironmentObject private var navigationModel: NavigationModel
     var body: some View {
-        NavigationStackView("AnimalDonationIntro") {
+        NavigationStackView(String(describing: Self.self)) {
             ZStack(alignment: .topLeading) {
                 Color.accentColor
                     .ignoresSafeArea()
@@ -39,9 +39,8 @@ struct AnimalDonationIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "AnimalDonationIntro", destination: AnyView(AnimalDonationNew(vm: vm)), active: .constant(true))
                         NextButton(isCustomAction: true, customAction: {
-                            navigationModel.pushContent("ObjectsDonationIntro") {
+                            navigationModel.pushContent(String(describing: Self.self)) {
                                 if vm.donations.isEmpty {
                                     AnimalDonationNew(vm: vm)
                                 } else {

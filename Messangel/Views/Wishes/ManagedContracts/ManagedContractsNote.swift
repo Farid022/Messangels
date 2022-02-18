@@ -36,7 +36,7 @@ struct ManagedContractNote: View {
                     } else {
                         vm.create { success in
                             if success && vm.contracts.isEmpty {
-                                WishesViewModel.setProgress(tab: 16) { completed in
+                                WishesViewModel.setProgress(tab: 15) { completed in
                                     loading.toggle()
                                     if completed {
                                         navModel.pushContent(title) {

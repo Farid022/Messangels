@@ -13,11 +13,12 @@ struct DeathAnnounceContactsList: View {
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
+    @State private var refreshList = false
     @StateObject private var contactsVM = ContactViewModel()
-    @Binding var selectedContacts: [Contact]
     @ObservedObject var vm: PriorityContactsViewModel
     
     var body: some View {
+        NavigationStackView(String(describing: Self.self)) {
         VStack(spacing: 0.0) {
             Color.accentColor
                 .ignoresSafeArea()
@@ -84,7 +85,9 @@ struct DeathAnnounceContactsList: View {
                     
                     Spacer().frame(height: 20)
                     Button(action: {
-//                        contacts.append("Prénom Nom")
+                        navigationModel.presentContent(String(describing: Self.self)) {
+                           CreateContactView(vm: contactsVM, refresh: $refreshList)
+                        }
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
                             .fill(Color.accentColor)
@@ -101,21 +104,26 @@ struct DeathAnnounceContactsList: View {
                     }
                     .padding(.bottom)
                 ForEach(contactsVM.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
-                    ListItemView(name: "\(contact.first_name) \(contact.last_name)", image: "ic_contact")
-                                .onTapGesture {
-                                    if !selectedContacts.contains(contact) {
-                                        selectedContacts.append(contact)
-                                        vm.priorityContacts.contact.append(contact.id)
-                                    }
-                                    navigationModel.hideTopView()
-                                }
+                    ListItemView(name: "\(contact.first_name) \(contact.last_name)", image: "ic_contact") {
+                        if !vm.priorityContacts.contact.contains(contact.id) {
+                            vm.contacts.append(contact)
+                            vm.priorityContacts.contact.append(contact.id)
+//                            withAnimation {
+                                contactsVM.contacts.removeAll(where: { $0.id == contact.id })
+//                            }
                         }
+                    }
+                    
+                }
             }
             .padding()
         }
+    }
         .task() {
             contactsVM.getContacts()
         }
-            
+        .onChange(of: refreshList) { _ in
+            contactsVM.getContacts()
+        }
     }
 }

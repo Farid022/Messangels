@@ -42,6 +42,7 @@ class Networking {
                 completion(.failure(.error(NSLocalizedString("Error: Data us corrupt.", comment: ""))))
                 return
             }
+            print("GET Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = dateDecodingStrategy
             decoder.keyDecodingStrategy = keyDecodingStrategy
@@ -84,7 +85,7 @@ class Networking {
                 print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
                 return
             }
-            print("Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
+            print("\(method) Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
             let decoder = JSONDecoder()
             
             if let decodedData = try? decoder.decode(R.self, from: data) {

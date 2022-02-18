@@ -26,9 +26,9 @@ struct DonationOrgNote: View {
                     }
                 }
             } else {
-                vm.create { success in
+                vm.setDonationNote { success in
                     if success && vm.donationOrgs.isEmpty {
-                        WishesViewModel.setProgress(tab: 13) { completed in
+                        WishesViewModel.setProgress(tab: 12) { completed in
                             loading.toggle()
                             if completed {
                                 navModel.pushContent(title) {

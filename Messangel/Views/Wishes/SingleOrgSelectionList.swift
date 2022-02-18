@@ -8,17 +8,19 @@
 import SwiftUI
 import NavigationStack
 
-struct DonationOrgList: View {
+struct SingleOrgSelectionList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var searchString = ""
     @State private var placeholder = "    Rechercher un organisme"
     @State private var isEditing = false
     @State private var refreshList = false
-    @Binding var selectedCompany: Organization
-    @ObservedObject var vm: DonationOrgViewModel
+    @StateObject private var vm = OrgViewModel()
+    @Binding var orgId: Int
+    @Binding var orgName: String
+    var orgType: Int
     
     var body: some View {
-        NavigationStackView("DonationOrgList") {
+        NavigationStackView(String(describing: Self.self)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
                     .ignoresSafeArea()
@@ -61,8 +63,8 @@ struct DonationOrgList: View {
                 ScrollView(showsIndicators: false) {
                     Spacer().frame(height: 20)
                     Button(action: {
-                        navigationModel.presentContent("DonationOrgList") {
-                            CreateOrgView(type: "3", refresh: $refreshList)
+                        navigationModel.presentContent(String(describing: Self.self)) {
+                            CreateOrgView(type: "\(orgType)", refresh: $refreshList)
                         }
                     }) {
                         RoundedRectangle(cornerRadius: 25.0)
@@ -80,22 +82,21 @@ struct DonationOrgList: View {
                     }
                     .padding(.bottom)
                     ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { company in
-                        ListItemView(name: company.name)
-                            .onTapGesture {
-                                selectedCompany = company
-                                vm.donationOrg.donation_organization = company.id ?? 0
-                                navigationModel.hideTopView()
-                            }
+                        ListItemView(name: company.name) {
+                            orgId = company.id ?? 0
+                            orgName = company.name
+                            navigationModel.hideTopView()
+                        }
                     }
                 }
                 .padding()
             }
         }
         .onDidAppear {
-            vm.getOrgs()
+            vm.getOrgs(orgType)
         }
         .onChange(of: refreshList) { value in
-            vm.getOrgs()
+            vm.getOrgs(orgType)
         }
     }
 }

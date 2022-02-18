@@ -22,6 +22,7 @@ struct DonationOrgDetail: Hashable, Codable {
 }
 
 class DonationOrgViewModel: ObservableObject {
+    @Published var orgName = ""
     @Published var updateRecord = false
     @Published var newOrg = Organization(name: "", type: "1", user: getUserId())
     @Published var donationOrgs = [DonationOrgDetail]()
@@ -62,19 +63,6 @@ class DonationOrgViewModel: ObservableObject {
                     self.apiError = error
                     completion(false)
                 }
-            }
-        }
-    }
-    
-    func getOrgs() {
-        APIService.shared.getJSON(model: orgs, urlString: "choices/\(getUserId())/organization?type=3") { result in
-            switch result {
-            case .success(let items):
-                DispatchQueue.main.async {
-                    self.orgs = items
-                }
-            case .failure(let error):
-                print(error)
             }
         }
     }
