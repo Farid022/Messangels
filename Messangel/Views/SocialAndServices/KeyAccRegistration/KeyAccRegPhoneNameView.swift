@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct KeyAccRegPhoneNameView: View {
-    @StateObject private var vm = KeyAccViewModel()
+    @ObservedObject var vm: KeyAccViewModel
     
     var body: some View {
         FlowBaseView(menuTitle: "Comptes-clés", title: "Indiquez un nom pour votre smartphone", valid: .constant(!vm.keySmartPhone.name.isEmpty), destination: AnyView(KeyAccRegTelView(vm: vm))) {

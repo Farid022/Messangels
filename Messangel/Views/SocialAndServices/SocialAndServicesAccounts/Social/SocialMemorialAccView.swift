@@ -10,10 +10,8 @@ import NavigationStack
 
 struct SocialMemorialAccView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    var keyAccRegChoices = [KeyAccChoice.remove, KeyAccChoice.manage]
-    @State private var valid = false
-    @State private var selectedChoice = KeyAccChoice.none
     @State private var showNote = false
+    @State private var loading = false
     @State private var note = ""
     @ObservedObject var vm: OnlineServiceViewModel
     
@@ -26,24 +24,31 @@ struct SocialMemorialAccView: View {
                 .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(isCustomAction: true, customAction: {
-                vm.addAccount { success in
-                    if success {
-                        navigationModel.popContent(TabBarView.id)
+                loading.toggle()
+                Task {
+                    if vm.socialAccPic.cgImage != nil {
+                        self.vm.account.lastPostImage = await uploadImage(vm.socialAccPic, type: "social_acc")
+                    }
+                    vm.addAccount { success in
+                        loading.toggle()
+                        if success {
+                            navigationModel.popContent(TabBarView.id)
+                        }
                     }
                 }
-            }, note: true, showNote: $showNote, menuTitle: "Ajouter un réseau social", title: "\(vm.service.name) - Acceptez-vous qu’un proche créée un compte commémoratif sur ce réseau?", valid: $valid) {
+            }, note: true, showNote: $showNote, menuTitle: "Ajouter un réseau social", title: "\(vm.service.name) - Acceptez-vous qu’un proche créée un compte commémoratif sur ce réseau?", valid: .constant(vm.account.memorialAccount != nil)) {
                 HStack {
-                    ForEach(keyAccRegChoices, id: \.self) { choice in
-                        ChoiceCard(text: choice == .remove ? "Oui" : "Non", selected: .constant(selectedChoice == choice))
+                    ForEach([true, false], id: \.self) { choice in
+                        ChoiceCard(text: choice ? "Oui" : "Non", selected: .constant(vm.account.memorialAccount == choice))
                             .onTapGesture {
-                                selectedChoice = choice
-                                vm.account.memorialAccount = choice == .remove
+                                vm.account.memorialAccount = choice
                             }
                     }
                 }
-            }
-            .onChange(of: selectedChoice) { value in
-                valid = selectedChoice != .none
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

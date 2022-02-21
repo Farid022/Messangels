@@ -52,7 +52,9 @@ struct Funeral: Codable {
     var acessories_note: String
     var deposite_ashes_note: String
     var burial_type: Int
+    var burial_type_note: String?
     var coffin_material: Int
+    var coffin_material_note: String?
     var coffin_finish: Int
     var internal_material: Int
     var urn_material: Int?
@@ -70,7 +72,9 @@ struct FuneralChoiceDetail: Codable {
     var acessoriesNote: String
     var depositeAshesNote: String
     var burialType: BurialType
+    var burial_type_note: String?
     var coffinMaterial: FuneralChoice
+    var coffin_material_note: String?
     var coffinFinish: FuneralChoice
     var internalMaterial: FuneralChoice
     var urnMaterial: FuneralChoice?
@@ -85,7 +89,9 @@ struct FuneralChoiceDetail: Codable {
         case acessoriesNote = "acessories_note"
         case depositeAshesNote = "deposite_ashes_note"
         case burialType = "burial_type"
+        case burial_type_note
         case coffinMaterial = "coffin_material"
+        case coffin_material_note
         case coffinFinish = "coffin_finish"
         case internalMaterial = "internal_material"
         case urnMaterial = "urn_material"

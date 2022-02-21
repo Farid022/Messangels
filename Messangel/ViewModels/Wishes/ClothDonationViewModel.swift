@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+struct Attachement: Hashable, Codable {
+    var id: Int
+    var url: String
+    var user: Int
+}
+
 struct ClothDonation: Codable {
     var id: Int?
     var single_clothing: Bool?
@@ -29,7 +35,7 @@ struct ClothingDonation: Hashable, Codable {
     var clothing_organization_detail: Organization?
     var clothing_contact_detail: Contact?
     var clothing_photo: String
-    var clothing_note_attachment: [String]?
+    var clothing_note_attachment: [Attachement]?
     var clothing_note: String
 }
 

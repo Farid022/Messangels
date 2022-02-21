@@ -11,23 +11,21 @@ import NavigationStack
 struct SocialDetailsView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @State private var showDeleteConfirm = false
-    var serviceName: String
-    var note: String
+    @ObservedObject var vm: OnlineServiceViewModel
+    var account: OnlineServiceAccountDetail
     var confirmMessage = "Les informations liées seront supprimées définitivement"
     
     var body: some View {
         ZStack {
-            if showDeleteConfirm {
-                Color.black.opacity(0.8)
-                    .ignoresSafeArea()
-                    .overlay(MyAlert(title: "Supprimer ce compte-clé", message: confirmMessage, action: {
-                        navigationModel.pushContent("SocialDetailsView") {
-                            KeyAccRegSecView(keyAccCase: .delEmail)
-                        }
-                    }, showAlert: $showDeleteConfirm))
-                    .zIndex(1.0)
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce compte-clé") {
+                vm.del(id: account.id) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: ServicesListView.self))
+                        vm.getAccounts { _ in }
+                    }
+                }
             }
-            NavigationStackView("ServiceDetailsView") {
+            NavigationStackView(String(describing: Self.self)) {
                 ZStack(alignment:.top) {
                     Color.accentColor
                         .frame(height:70)
@@ -68,46 +66,20 @@ struct SocialDetailsView: View {
                                 .overlay(Image("info"))
                         })
                         HStack {
-                            Text("< \(serviceName)")
+                            BackButton(iconColor: .gray)
+                            Text(account.accountFields.onlineService.name)
                                 .font(.system(size: 22), weight: .bold)
                             Spacer()
                         }
-                        SocialDetailsSubView()
-                        if !note.isEmpty {
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .foregroundColor(.gray.opacity(0.2))
-                                .frame(height: 430)
-                                .overlay(VStack {
-                                    HStack{
-                                        Image("ic_note")
-                                        Text("Note")
-                                            .font(.system(size: 15), weight: .bold)
-                                        Spacer()
-                                    }
-                                    Text(note)
-                                }
-                                .padding()
-                                )
-                            .padding(.bottom, 30)
-                        } else {
-                            /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
-                        }
-                        HStack {
-                            Group {
-                                Button(action: {}, label: {
-                                    Text("Modifier")
-                                })
-                                Button(action: {
-                                    showDeleteConfirm.toggle()
-                                }, label: {
-                                    Text("Supprimer")
-                                })
+                        SocialDetailsSubView(email: account.accountFields.mailAccount.email, phoneName: account.accountFields.smartphone.name, url: account.accountFields.onlineService.url)
+                        DetailsNoteView(note: account.accountFields.manageAccountNote)
+                        DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                            vm.account = OnlineServiceAccount(id: account.id, accountId: account.id, lastPostNote: account.lastPostNote, lastPostImage: account.lastPostImage, lastPostImageNote: account.lastPostImageNote, leaveMsgTime: account.leaveMsgTime, memorialAccount: account.memorialAccount)
+                            vm.updateRecord = true
+                            navigationModel.pushContent(String(describing: Self.self)) {
+                                SocialNoteView(vm: vm)
                             }
-                            .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                            .normalShadow()
-                            Spacer()
                         }
-                        Spacer()
                     }
                     .padding()
                 }
@@ -117,6 +89,10 @@ struct SocialDetailsView: View {
 }
 
 struct SocialDetailsSubView: View {
+    var email: String
+    var phoneName: String
+    var url: String
+    
     var body: some View {
         VStack {
             HStack {
@@ -126,14 +102,14 @@ struct SocialDetailsSubView: View {
             }
             HStack {
                 Image("ic_key_color_native")
-                Text("sophie.carnero@gmail.com")
+                Text(email)
                 Spacer()
             }
             HStack {
                 Image("ic_phone")
                     .renderingMode(.template)
                     .foregroundColor(.accentColor)
-                Text("iPhone de Sophie")
+                Text(phoneName)
                 Spacer()
             }
             HStack {
@@ -143,24 +119,24 @@ struct SocialDetailsSubView: View {
             }
             HStack {
                 Image("ic_item_info")
-                Text("www.instagram.com")
+                Text(url)
                 Spacer()
             }
-            HStack {
-                Image("ic_item_info")
-                Text("*Clôturer immédiatement/*Mettre un message (Note)")
-                Spacer()
-            }
-            HStack {
-                Image("ic_item_info")
-                Text("Ajouter une photo")
-                Spacer()
-            }
-            HStack {
-                Image("ic_item_info")
-                Text("Clôturer le compte après 1 mois")
-                Spacer()
-            }
+//            HStack {
+//                Image("ic_item_info")
+//                Text("*Clôturer immédiatement/*Mettre un message (Note)")
+//                Spacer()
+//            }
+//            HStack {
+//                Image("ic_item_info")
+//                Text("Ajouter une photo")
+//                Spacer()
+//            }
+//            HStack {
+//                Image("ic_item_info")
+//                Text("Clôturer le compte après 1 mois")
+//                Spacer()
+//            }
             HStack {
                 Image("ic_item_info")
                 Text(agreeMemorialAccount)

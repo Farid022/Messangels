@@ -10,19 +10,18 @@ import SwiftUI
 struct FuneralInvitePic: View {
     @State private var valid = false
     @State private var showNote = false
-    @State private var note = ""
     @State private var isShowPhotoLibrary = false
     @ObservedObject var vm: FuneralAnnounceViewModel
     
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.announcement.invitation_photo_note.bound)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Annonces", title: "Vous pouvez si vous le souhaitez, faire apparaître une photo sur votre faire part", valid: .constant(true), destination: AnyView(FuneralInviteWishes(vm: vm))) {
+            FlowBaseView(noteText: $vm.announcement.invitation_photo_note.bound, note: true, showNote: $showNote, menuTitle: "Annonces", title: "Vous pouvez si vous le souhaitez, faire apparaître une photo sur votre faire part", valid: .constant(true), destination: AnyView(FuneralInviteWishes(vm: vm))) {
                 ImageSelectionView(isShowPhotoLibrary: $isShowPhotoLibrary, localImage: vm.invitePhoto, remoteImage: vm.announcement.invitation_photo)
             }
             
@@ -48,15 +47,20 @@ struct ImageSelectionView: View {
                     isShowPhotoLibrary.toggle()
                 }, label: {
                     ZStack {
-                        Image("ic_camera")
+                        if remoteImage.isEmpty && localImage.cgImage == nil {
+                            Image("ic_camera")
+                        }
                         Group{
                             if localImage.cgImage != nil {
                                 Image(uiImage: localImage)
                                     .resizable()
                                     .scaledToFit()
                             } else if !remoteImage.isEmpty {
-                                AsyncImage(url: URL(string: remoteImage))
-                                    .scaledToFit()
+                                AsyncImage(url: URL(string: remoteImage)) { image in
+                                    image.resizable()
+                                } placeholder: {
+                                    Loader(tintColor: .white)
+                                }
                             }
                         }
                         .frame(width: 100, height: 100)

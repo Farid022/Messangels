@@ -14,11 +14,11 @@ struct FuneralMusicList: View {
     var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"FuneralMusicList", menuTitle: "Musique", newItemView: AnyView(FuneralMusicArtist(vm: FuneralMusicViewModel()))) {
+        FuneralItemList(id: String(describing: Self.self), menuTitle: "Musique", newItemView: AnyView(FuneralMusicArtist(vm: FuneralMusicViewModel()))) {
             ForEach(vm.musics, id: \.self) { music in
                 FuneralItemCard(title: music.song_title, icon: "ic_music_white")
                     .onTapGesture {
-                        navigationModel.pushContent("FuneralMusicList") {
+                        navigationModel.pushContent(String(describing: Self.self)) {
                             FuneralMusicDetails(vm: vm, music: music)
                         }
                     }

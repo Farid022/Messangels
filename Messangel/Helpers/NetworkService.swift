@@ -202,3 +202,14 @@ func uploadImage(_ image: UIImage, type: String) async -> String {
     }
     return ""
 }
+
+func uploadFile(_ fileUrl: URL, type: String) async -> String {
+    let data = try? Data(contentsOf: fileUrl)
+    if let data = data {
+        if let response = await Networking.shared.upload(data, fileName: "msgl_user_\(getUserId())_\(type)_\(fileUrl.lastPathComponent)", fileType: fileUrl.pathExtension) {
+            return response.files.first?.path ?? ""
+        }
+    }
+    return ""
+}
+

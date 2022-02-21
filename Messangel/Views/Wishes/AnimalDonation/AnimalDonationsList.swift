@@ -14,11 +14,11 @@ struct AnimalDonationsList: View {
     var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"ClothsDonationsList", menuTitle: "ANIMAUX", newItemView: AnyView(AnimalDonationName(vm: AnimalDonatiopnViewModel()))) {
+        FuneralItemList(id: String(describing: Self.self), menuTitle: "ANIMAUX", newItemView: AnyView(AnimalDonationCount(vm: AnimalDonatiopnViewModel()))) {
             ForEach(vm.donations, id: \.self) { item in
                 FuneralItemCard(title: item.animal_name, icon: "ic_animal")
                     .onTapGesture {
-                        navigationModel.pushContent("ClothsDonationsList") {
+                        navigationModel.pushContent(String(describing: Self.self)) {
                             AnimalDonationDetails(vm: vm, donation: item)
                         }
                     }

@@ -42,8 +42,12 @@ struct KeyAccRegSMSView: View {
                             vm.otp.otp = Int(code) ?? 0
                             vm.authOTP {
                                 if vm.apiResponse.message == "1" {
-                                    navModel.pushContent("KeyAccRegSMSView") {
-                                        destinationView()
+                                    if navModel.isAlternativeViewShowing("KeyAccRegSMSView") {
+                                        
+                                    } else {
+                                        navModel.pushContent("KeyAccRegSMSView") {
+                                            destinationView()
+                                        }
                                     }
                                 }
                             }

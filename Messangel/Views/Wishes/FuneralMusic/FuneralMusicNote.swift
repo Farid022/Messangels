@@ -52,31 +52,3 @@ struct FuneralMusicNote: View {
         }
     }
 }
-
-
-// MARK: - FuneralNoteCutomActionView
-struct FuneralNoteCutomActionView: View {
-    @Binding var showNote: Bool
-    @Binding var note: String
-    @Binding var loading: Bool
-    var menuTitle: String
-    var title: String
-    var customAction: () -> Void
-    
-    var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-            }
-            FlowBaseView(isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
-                NoteView(showNote: $showNote, note: $note)
-                if loading {
-                    Loader()
-                        .padding(.top)
-                }
-            }
-        }
-    }
-}

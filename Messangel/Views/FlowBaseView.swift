@@ -13,6 +13,7 @@ struct FlowBaseView<Content: View>: View {
     @Binding private var valid: Bool
     private var title: String
     private var menuTitle: String
+    @Binding var noteText: String
     private var note: Bool
     private var addToList: Bool
     @Binding var showNote: Bool
@@ -24,7 +25,7 @@ struct FlowBaseView<Content: View>: View {
     var isCustomAction: Bool
     var exitAction: () -> Void
     
-    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, popToParent: Bool = false, parentId: String = TabBarView.id, addToList: Bool = false, note: Bool = false, showNote: Binding<Bool> = .constant(false), menuTitle: String, title: String, valid: Binding<Bool>, destination: AnyView = AnyView(EmptyView()), exitAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
+    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, popToParent: Bool = false, parentId: String = TabBarView.id, addToList: Bool = false, noteText: Binding<String> = .constant(""), note: Bool = false, showNote: Binding<Bool> = .constant(false), menuTitle: String, title: String, valid: Binding<Bool>, destination: AnyView = AnyView(EmptyView()), exitAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._valid = valid
         self.destination = destination
@@ -38,6 +39,7 @@ struct FlowBaseView<Content: View>: View {
         self.isCustomAction = isCustomAction
         self.customAction = customAction
         self.exitAction = exitAction
+        self._noteText = noteText
     }
     
     var body: some View {
@@ -74,7 +76,7 @@ struct FlowBaseView<Content: View>: View {
                         Spacer()
                         HStack {
                             if note {
-                                FlowNoteButtonView(showNote: $showNote)
+                                FlowNoteButtonView(showNote: $showNote, note: $noteText)
                             }
                             Spacer()
                             FlowNextButtonView(valid: $valid, title: title, destination: destination, popToParent: popToParent, parentId: parentId, customAction: customAction, isCustomAction: isCustomAction)
@@ -208,16 +210,17 @@ struct FlowNextButtonView: View {
 
 struct FlowNoteButtonView: View {
     @Binding var showNote: Bool
+    @Binding var note: String
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25.0)
-            .foregroundColor(.gray)
+            .foregroundColor(note.isEmpty ? .gray : .accentColor)
             .frame(width: 56, height: 56)
             .overlay(
                 Button(action: {
                     showNote.toggle()
                 }) {
-                    Image("ic_add_note")
+                    Image(note.isEmpty ? "ic_add_note" : "ic_notes")
                 }
             )
     }

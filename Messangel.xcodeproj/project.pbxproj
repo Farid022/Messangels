@@ -149,7 +149,7 @@
 		939CBDCA27732650004520A3 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 939CBDC927732650004520A3 /* Introspect */; };
 		939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDCB27732AC1004520A3 /* SocialMemorialAccView.swift */; };
 		939CBDCF27841FD1004520A3 /* FuneralOrgViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */; };
-		939CBDD1278471EA004520A3 /* FuneralAnnounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */; };
+		939CBDD1278471EA004520A3 /* FuneralAnnounceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD0278471EA004520A3 /* FuneralAnnounceViewModel.swift */; };
 		939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */; };
 		939CBDD52786F50A004520A3 /* FuneralSpritualityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */; };
 		939CBDD72786F9D9004520A3 /* DeathAnnouncementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */; };
@@ -463,7 +463,7 @@
 		939CBDC627732303004520A3 /* SocialPostTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialPostTimeView.swift; sourceTree = "<group>"; };
 		939CBDCB27732AC1004520A3 /* SocialMemorialAccView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialMemorialAccView.swift; sourceTree = "<group>"; };
 		939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralOrgViewModel.swift; sourceTree = "<group>"; };
-		939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralAnnounce.swift; sourceTree = "<group>"; };
+		939CBDD0278471EA004520A3 /* FuneralAnnounceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralAnnounceViewModel.swift; sourceTree = "<group>"; };
 		939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganDonationViewModel.swift; sourceTree = "<group>"; };
 		939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralSpritualityViewModel.swift; sourceTree = "<group>"; };
 		939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathAnnouncementViewModel.swift; sourceTree = "<group>"; };
@@ -727,7 +727,7 @@
 				9351CCD327A92FB00087C0E9 /* WishesViewModel.swift */,
 				93AC01FF2721474C00FD7285 /* FuneralChoicesViewModel.swift */,
 				939CBDCE27841FCF004520A3 /* FuneralOrgViewModel.swift */,
-				939CBDD0278471EA004520A3 /* FuneralAnnounce.swift */,
+				939CBDD0278471EA004520A3 /* FuneralAnnounceViewModel.swift */,
 				939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */,
 				939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */,
 				939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */,
@@ -1617,7 +1617,7 @@
 				933DF60C27886E4F005966AF /* FuneralAstheticViewModel.swift in Sources */,
 				93816BA32692D21D0060DC0C /* PDF.swift in Sources */,
 				93AC0285274761D900FD7285 /* ClothsDonationNew.swift in Sources */,
-				939CBDD1278471EA004520A3 /* FuneralAnnounce.swift in Sources */,
+				939CBDD1278471EA004520A3 /* FuneralAnnounceViewModel.swift in Sources */,
 				937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */,
 				9351CCD027A690640087C0E9 /* MessagesTextView.swift in Sources */,
 				9351CCCD27A65D750087C0E9 /* AudioRecorder.swift in Sources */,
@@ -1890,7 +1890,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -1913,7 +1913,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

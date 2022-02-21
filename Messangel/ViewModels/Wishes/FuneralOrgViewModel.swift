@@ -54,7 +54,7 @@ struct FuneralOrgData: Hashable, Codable {
     var company_contract_detail_note: String?
     var company_contract_num: String
     var company_contract_num_note: String?
-    var funeral_contract: FuneralContract
+    var funeral_contract: FuneralContract?
     var user: User
 }
 

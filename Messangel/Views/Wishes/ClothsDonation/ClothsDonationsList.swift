@@ -14,11 +14,11 @@ struct ClothsDonationsList: View {
     var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"ClothsDonationsList", menuTitle: "Vêtements et accessoires", newItemView: AnyView(ClothsDonationName(vm: ClothDonationViewModel()))) {
+        FuneralItemList(id: String(describing: Self.self), menuTitle: "Vêtements et accessoires", newItemView: AnyView(ClothsDonationCount(vm: ClothDonationViewModel()))) {
             ForEach(vm.donations, id: \.self) { donation in
                 FuneralItemCard(title: donation.clothing_name, icon: "ic_cloth")
                     .onTapGesture {
-                        navigationModel.pushContent("ClothsDonationsList") {
+                        navigationModel.pushContent(String(describing: Self.self)) {
                             ClothsDonationDetails(vm: vm, donation: donation)
                         }
                     }

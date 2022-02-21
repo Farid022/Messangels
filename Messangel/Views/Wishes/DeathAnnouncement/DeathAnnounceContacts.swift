@@ -14,7 +14,7 @@ struct DeathAnnounceContacts: View {
     @State private var loading = false
     @State private var note = ""
     @ObservedObject var vm: PriorityContactsViewModel
-    var title = "Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité."
+    private let title = "Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité."
     
     var body: some View {
         ZStack {
@@ -26,7 +26,6 @@ struct DeathAnnounceContacts: View {
             }
             FlowBaseView(isCustomAction: true, customAction: {
                 loading.toggle()
-                if !vm.updateRecord {
                     vm.addPriorityContacts() { success in
                         if success {
                             WishesViewModel.setProgress(tab: 6) { completed in
@@ -37,26 +36,32 @@ struct DeathAnnounceContacts: View {
                             }
                         }
                     }
-                } else {
-                    vm.update(id: vm.priorities[0].id) { success in
-                        loading.toggle()
-                        if success {
-                            successAction(title, navModel: navigationModel)
-                        }
-                    }
-                }
                 
             },note: true, showNote: $showNote, menuTitle: "Diffusion de la nouvelle", title: title, valid: .constant(!vm.priorityContacts.contact.isEmpty)) {
                 if vm.priorityContacts.contact.isEmpty {
                     Button(action: {
-                        navigationModel.presentContent("Ajoutez les personnes auxquelles vos Anges-Gardiens devront annoncer votre décès en priorité.") {
+                        navigationModel.presentContent(title) {
                             DeathAnnounceContactsList(vm: vm)
                         }
                     }, label: {
                         Image("list_contact")
                     })
                 } else {
-                    LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: vm.priorityContacts.contact.count), alignment: .leading, spacing: 16.0) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], alignment: .leading, spacing: 16.0) {
+                        Button {
+                            navigationModel.presentContent(title) {
+                                DeathAnnounceContactsList(vm: vm)
+                            }
+                        } label: {
+                            ZStack {
+                                Circle()
+                                    .foregroundColor(.white)
+                                    .frame(width: 56, height: 56)
+                                    .thinShadow()
+                                Image(systemName: "plus")
+                                    .foregroundColor(.black)
+                            }
+                        }
                         ForEach(vm.contacts, id: \.self) { contact in
                             FuneralCapsuleView(name: contact.first_name + " " + contact.last_name) {
                                 vm.priorityContacts.contact.remove(at: vm.priorityContacts.contact.firstIndex(of: contact.id)!)

@@ -49,7 +49,7 @@ struct FuneralTraditionsIntro: View {
                 if sucess {
                     if vm.spritualities.count > 0 {
                         let i = vm.spritualities[0]
-                        vm.sprituality = FuneralSprituality(spritual_ceremony: i.spritual_ceremony.id, ceremony_note: i.ceremony_note)
+                        vm.sprituality = FuneralSprituality(spritual_ceremony: i.spritual_ceremony.id, spritual_ceremony_note: i.spritual_ceremony_note, ceremony_note: i.ceremony_note)
                         vm.updateRecord = true
                     }
                 }

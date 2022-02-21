@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ServiceCategory: Hashable, Codable {
     var id: Int
@@ -17,7 +18,7 @@ struct OnlineService: Hashable, Codable {
     var name: String
     var url: String
     var type: String
-    var user: Int?
+    var user = getUserId()
     var category: Int?
 }
 
@@ -26,7 +27,7 @@ struct ServiceAccountFields: Codable {
     var onlineService: Int
     var mailAccount: Int
     var smartphone: Int
-    var deleteAccount: Bool
+    var deleteAccount: Bool?
     var manageAccountNote: String?
 
     enum CodingKeys: String, CodingKey {
@@ -58,17 +59,20 @@ struct ServiceAccountFieldsDetail: Hashable, Codable {
 }
 
 struct OnlineServiceAccount: Codable {
+    var id: Int?
     var accountId: Int
     var lastPostNote: String?
     var lastPostImage: String?
+    var lastPostImageNote: String?
     var leaveMsgTime: String?
     var memorialAccount: Bool?
-    var user: Int
+    var user = getUserId()
 
     enum CodingKeys: String, CodingKey {
         case accountId = "account_fields"
         case lastPostNote = "last_post_note"
         case lastPostImage = "last_post_image"
+        case lastPostImageNote = "last_post_image_note"
         case leaveMsgTime = "leave_msg_time"
         case memorialAccount = "memorial_account"
         case user
@@ -80,6 +84,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
     var id: Int
     var user: User
     var lastPostImage: String?
+    var lastPostImageNote: String?
     var lastPostNote, leaveMsgTime: String?
     var memorialAccount: Bool?
     var accountFields: ServiceAccountFieldsDetail
@@ -87,6 +92,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
     enum CodingKeys: String, CodingKey {
         case id, user
         case lastPostImage = "last_post_image"
+        case lastPostImageNote = "last_post_image_note"
         case lastPostNote = "last_post_note"
         case leaveMsgTime = "leave_msg_time"
         case memorialAccount = "memorial_account"
@@ -97,12 +103,14 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
 
 // MARK: - View Model
 class OnlineServiceViewModel: ObservableObject {
+    @Published var socialAccPic = UIImage()
+    @Published var updateRecord = false
     @Published var categories = [ServiceCategory]()
-    @Published var account = OnlineServiceAccount(accountId: 0, user: getUserId())
+    @Published var account = OnlineServiceAccount(accountId: 0)
     @Published var accounts = [OnlineServiceAccountDetail]()
-    @Published var accountFields = ServiceAccountFields(onlineService: 0, mailAccount: 0, smartphone: 0, deleteAccount: false)
+    @Published var accountFields = ServiceAccountFields(onlineService: 0, mailAccount: 0, smartphone: 0)
     @Published var services = [OnlineService]()
-    @Published var service = OnlineService(name: "", url: "", type: "listing", user: getUserId())
+    @Published var service = OnlineService(name: "", url: "", type: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func addService(completion: @escaping (Bool) -> Void) {
@@ -168,7 +176,7 @@ class OnlineServiceViewModel: ObservableObject {
     }
     
     func addAccount(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: account, response: account, endpoint: "users/\(getUserId())/account") { result in
+        APIService.shared.post(model: account, response: account, endpoint: "users/\(getUserId())/account\(updateRecord ? "/\(account.id ?? 0)" : "")", method: "\(updateRecord ? "PUT" : "POST")") { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
@@ -191,6 +199,20 @@ class OnlineServiceViewModel: ObservableObject {
             case .success(let items):
                 DispatchQueue.main.async {
                     self.accounts = items
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    func del(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.delete(endpoint: "users/\(getUserId())/account/\(id)") { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
                     completion(true)
                 }
             case .failure(let error):

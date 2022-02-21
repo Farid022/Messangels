@@ -14,11 +14,6 @@ struct FuneralBurialPlace: View {
     @ObservedObject var vm: FuneralSpritualityViewModel
     @EnvironmentObject var navModel: NavigationModel
     var title = "Indiquez le lieu d’inhumation (cimetière précis, caveau familial…)"
-    private func successFunc() {
-        navModel.pushContent("Indiquez si vous souhaitez emporter des objets ou accessoires") {
-            FuneralDoneView()
-        }
-    }
     
     var body: some View {
         FuneralNoteCutomActionView(showNote: $showNote, note: $vm.sprituality.ceremony_note, loading: $loading, menuTitle: "Spiritualité et traditions", title: title) {
@@ -29,7 +24,7 @@ struct FuneralBurialPlace: View {
                         WishesViewModel.setProgress(tab: 5) { completed in
                             loading.toggle()
                             if completed {
-                                successFunc()
+                                successAction(title, navModel: navModel)
                             }
                         }
                     }
@@ -38,7 +33,7 @@ struct FuneralBurialPlace: View {
                 vm.update(id: vm.spritualities[0].id) { success in
                     loading.toggle()
                     if success {
-                        successFunc()
+                        successAction(title, navModel: navModel)
                     }
                 }
             }

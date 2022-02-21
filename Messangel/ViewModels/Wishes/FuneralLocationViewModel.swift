@@ -25,7 +25,9 @@ struct FuneralLocation: Codable {
     var reunion_location_note: String?
     var special_ceremony_note: String?
     var bury_location: Int?
+    var bury_location_note: String?
     var resting_place: Int?
+    var resting_place_note: String?
     var user = getUserId()
 }
 
@@ -37,7 +39,9 @@ struct FuneralLocationData: Codable {
     var reunion_location_note: String?
     var special_ceremony_note: String?
     var bury_location: BuryLocation?
+    var bury_location_note: String?
     var resting_place: FuneralIntity?
+    var resting_place_note: String?
     var user: User
 }
 

@@ -14,11 +14,11 @@ struct ManagedContractsList: View {
     var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"ManagedContractsList", menuTitle: "Contrats à gérer", newItemView: AnyView(ManagedContractName(vm: ContractViewModel()))) {
+        FuneralItemList(id: String(describing: ManagedContractsList.self), menuTitle: "Contrats à gérer", newItemView: AnyView(ManagedContractName(vm: ContractViewModel()))) {
             ForEach(vm.contracts, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_contract")
                     .onTapGesture {
-                        navigationModel.pushContent("ManagedContractsList") {
+                        navigationModel.pushContent(String(describing: ManagedContractsList.self)) {
                             ManagedContractsDetails(vm: vm, contract: item)
                         }
                     }

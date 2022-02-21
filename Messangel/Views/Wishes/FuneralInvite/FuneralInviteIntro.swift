@@ -49,7 +49,7 @@ struct FuneralInviteIntro: View {
                 if sucess {
                     if vm.announcements.count > 0 {
                         let announcement = vm.announcements[0]
-                        vm.announcement = FuneralAnnounce(invitation_photo: announcement.invitation_note, invitation_photo_note: announcement.invitation_photo_note, invitation_note: announcement.invitation_note, theme_note: announcement.theme_note, newspaper_note: announcement.newspaper_note)
+                        vm.announcement = FuneralAnnounce(invitation_photo: announcement.invitation_photo, invitation_photo_note: announcement.invitation_photo_note, invitation_note: announcement.invitation_note, theme_note: announcement.theme_note, newspaper_note: announcement.newspaper_note)
                         vm.updateRecord = true
                     }
                 }

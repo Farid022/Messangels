@@ -41,11 +41,11 @@ struct SocialAndServicesHomeView: View {
                                         .onTapGesture {
                                             if account.accountFields.onlineService.type == "listing" {
                                                 navigationModel.pushContent(TabBarView.id) {
-                                                    ServiceDetailsView(serviceName: account.accountFields.onlineService.name, note: account.accountFields.manageAccountNote)
+                                                    ServiceDetailsView(vm: vmOnlineService, account: account)
                                                 }
                                             } else {
                                                 navigationModel.pushContent(TabBarView.id) {
-                                                    SocialDetailsView(serviceName: account.accountFields.onlineService.name, note: account.accountFields.manageAccountNote)
+                                                    SocialDetailsView(vm: vmOnlineService, account: account)
                                                 }
                                             }
                                         }

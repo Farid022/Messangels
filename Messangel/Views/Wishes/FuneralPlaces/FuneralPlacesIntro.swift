@@ -49,7 +49,7 @@ struct FuneralPlacesIntro: View {
                 if sucess {
                     if vm.locations.count > 0 {
                         let i = vm.locations[0]
-                        vm.location = FuneralLocation(location_of_ceremony: i.location_of_ceremony, location_of_ceremony_note: i.location_of_ceremony_note, route_convey_note: i.route_convey_note, reunion_location_note: i.reunion_location_note, special_ceremony_note: i.special_ceremony_note, bury_location: i.bury_location?.id, resting_place: i.resting_place?.id)
+                        vm.location = FuneralLocation(location_of_ceremony: i.location_of_ceremony, location_of_ceremony_note: i.location_of_ceremony_note, route_convey_note: i.route_convey_note, reunion_location_note: i.reunion_location_note, special_ceremony_note: i.special_ceremony_note, bury_location: i.bury_location?.id, bury_location_note: i.bury_location_note, resting_place: i.resting_place?.id, resting_place_note: i.resting_place_note)
                         if let place = i.bury_location {
                             vm.name = place.name
                         }

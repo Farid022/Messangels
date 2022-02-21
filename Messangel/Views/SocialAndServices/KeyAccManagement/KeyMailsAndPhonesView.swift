@@ -9,8 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct KeyMailsAndPhonesView: View {
+    @EnvironmentObject var keyAccState: AccStateViewModel
     @EnvironmentObject private var navigationModel: NavigationModel
-    @EnvironmentObject private var keyAccVM: KeyAccViewModel
     @StateObject private var vm = KeyAccViewModel()
     static let id = String(describing: Self.self)
     @State private var loading = true
@@ -62,6 +62,7 @@ struct KeyMailsAndPhonesView: View {
                             .font(.system(size: 17), weight: .bold)
                         Spacer()
                         Button {
+                            keyAccState.keyAccCase = .addEmail
                             navigationModel.pushContent(KeyMailsAndPhonesView.id) {
                                 KeyAccRegEmailView(keyAccCase: .addEmail)
                             }
@@ -77,7 +78,7 @@ struct KeyMailsAndPhonesView: View {
                             KeyAccountCapsule(email: account.email, selected: .constant(false))
                                 .onTapGesture {
                                     navigationModel.pushContent(KeyMailsAndPhonesView.id) {
-                                        KeyAccDetailsView(email: account.email, note: account.note)
+                                        KeyAccDetailsView(vm: vm, keyEmail: account)
                                     }
                                 }
                         }
@@ -89,8 +90,9 @@ struct KeyMailsAndPhonesView: View {
                             .font(.system(size: 17), weight: .bold)
                         Spacer()
                         Button {
+                            keyAccState.keyAccCase = .addPhone
                             navigationModel.pushContent(KeyMailsAndPhonesView.id) {
-                                KeyAccRegPhoneNameView()
+                                KeyAccRegPhoneNameView(vm: vm)
                             }
                         } label: {
                             Image(systemName: "plus")
@@ -104,7 +106,7 @@ struct KeyMailsAndPhonesView: View {
                             PhoneCapsule(name: phone.name, selected: .constant(false))
                                 .onTapGesture {
                                     navigationModel.pushContent(KeyMailsAndPhonesView.id) {
-                                        SmartphoneDetailsView(phoneName: phone.name)
+                                        SmartphoneDetailsView(vm: vm, keyPhone: phone)
                                     }
                                 }
                         }

@@ -13,11 +13,10 @@ struct FuneralCoffinMaterial: View {
         FuneralChoice(id: 2, name: "Sapin", image: ""),
         FuneralChoice(id: 3, name: "Pin", image: "")
     ]
-    @State private var noteText = ""
     @ObservedObject var vm: FeneralViewModel
     
     var body: some View {
-        FuneralChoicesView(noteText: $noteText, choices: choices, selectedChoice: $vm.funeral.coffin_material, menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)))
+        FuneralChoicesView(noteText: $vm.funeral.coffin_material_note.bound, choices: choices, selectedChoice: $vm.funeral.coffin_material, menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)))
     }
 }
 
@@ -38,7 +37,7 @@ struct FuneralChoicesView: View {
                  .background(.black.opacity(0.8))
                  .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination) {
+            FlowBaseView(noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: -70){
                         ForEach(choices, id: \.self) { choice in

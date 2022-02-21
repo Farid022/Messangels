@@ -10,18 +10,14 @@ import NavigationStack
 
 struct ServiceChoiceView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    var keyAccRegChoices = [KeyAccChoice.remove, KeyAccChoice.manage]
-    @State private var valid = false
-    @State private var selectedChoice = KeyAccChoice.none
     @State private var showNote = false
-    @State private var note = ""
     @ObservedObject var vm: OnlineServiceViewModel
-    var title = "QQue souhaitez-vous faire de votre compte?"
+    private let title = "QQue souhaitez-vous faire de votre compte?"
     
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.accountFields.manageAccountNote.bound)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
@@ -40,19 +36,15 @@ struct ServiceChoiceView: View {
                         }
                     }
                 }
-            }, note: true, showNote: $showNote, menuTitle: "Ajouter un service en ligne", title: title, valid: $valid) {
+            }, note: true, showNote: $showNote, menuTitle: "Ajouter un service en ligne", title: title, valid: .constant(vm.accountFields.deleteAccount != nil)) {
                 HStack {
-                    ForEach(keyAccRegChoices, id: \.self) { choice in
-                        ChoiceCard(text: choice == .remove ? "Supprimer le compte" : "Gérer le compte (Note)", selected: .constant(selectedChoice == choice))
+                    ForEach([true, false], id: \.self) { choice in
+                        ChoiceCard(text: choice ? "Supprimer le compte" : "Gérer le compte (Note)", selected: .constant(vm.accountFields.deleteAccount == choice))
                             .onTapGesture {
-                                selectedChoice = choice
-                                vm.accountFields.deleteAccount = choice == .remove
+                                vm.accountFields.deleteAccount = choice
                             }
                     }
                 }
-            }
-            .onChange(of: selectedChoice) { value in
-                valid = selectedChoice != .none
             }
         }
     }

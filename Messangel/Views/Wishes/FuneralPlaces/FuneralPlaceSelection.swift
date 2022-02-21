@@ -12,19 +12,18 @@ struct FuneralPlaceSelection: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var valid = false
     @State private var showNote = false
-    @State private var note = ""
     @ObservedObject var vm: FuneralLocationViewModel
     private let title = "Indiquez le lieu de cérémonie"
     
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.location.bury_location_note.bound)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(!vm.name.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
+            FlowBaseView(noteText: $vm.location.bury_location_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(!vm.name.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
                 if vm.name.isEmpty {
                     Button(action: {
                         navigationModel.presentContent(title) {

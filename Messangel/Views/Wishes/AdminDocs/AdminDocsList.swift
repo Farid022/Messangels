@@ -14,11 +14,11 @@ struct AdminDocsList: View {
     var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"AdminDocsList", menuTitle: "Pièces administratives", newItemView: AnyView(AdminDocsName(vm: AdminDocViewModel()))) {
+        FuneralItemList(id: String(describing: Self.self), menuTitle: "Pièces administratives", newItemView: AnyView(AdminDocsName(vm: AdminDocViewModel()))) {
             ForEach(vm.adminDocs, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_doc")
                     .onTapGesture {
-                        navigationModel.pushContent("AdminDocsList") {
+                        navigationModel.pushContent(String(describing: Self.self)) {
                             AdminDocsDetails(vm: vm, docs: item)
                         }
                     }

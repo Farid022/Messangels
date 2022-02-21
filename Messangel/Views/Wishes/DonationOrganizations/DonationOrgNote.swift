@@ -21,7 +21,7 @@ struct DonationOrgNote: View {
             if vm.updateRecord {
                 vm.update(id: vm.donationOrg.id ?? 0) { success in
                     if success {
-                        navModel.popContent("DonationOrgsList")
+                        navModel.popContent(String(describing: DonationOrgsList.self))
                         vm.getDonationOrgs { _ in }
                     }
                 }

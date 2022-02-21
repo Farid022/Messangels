@@ -15,6 +15,7 @@ enum SpiritualType: Int, CaseIterable {
 
 struct FuneralSprituality: Codable {
     var spritual_ceremony: Int
+    var spritual_ceremony_note: String?
     var ceremony_note: String
     var user = getUserId()
 }
@@ -22,7 +23,7 @@ struct FuneralSprituality: Codable {
 struct FuneralSpritualityData: Codable {
     var id: Int
     var spritual_ceremony: FuneralIntity
-    var spritual_ceremony_note: String
+    var spritual_ceremony_note: String?
     var ceremony_note: String
     var user: User
 }

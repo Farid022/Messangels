@@ -12,6 +12,7 @@ struct KeyAccRegPhoneCodeView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var keyAccVM: AccStateViewModel
     @ObservedObject var vm: KeyAccViewModel
+    @State private var loading = false
     
     var body: some View {
         NavigationStackView("KeyAccRegPhoneCodeView") {
@@ -68,6 +69,10 @@ struct KeyAccRegPhoneCodeView: View {
                     TextField("Code de dévérouillage", text: $vm.keySmartPhone.deviceUnlockCode)
                         .textFieldStyle(MyTextFieldStyle())
                         .normalShadow()
+                    if loading {
+                        Loader()
+                            .padding(.top)
+                    }
                     Spacer()
                     HStack {
                         Spacer()
@@ -80,16 +85,24 @@ struct KeyAccRegPhoneCodeView: View {
                                     if vm.keySmartPhone.deviceUnlockCode.isEmpty {
                                         return
                                     }
-                                    if keyAccVM.keyAccCase == .register {
-                                        vm.addPrimaryPhone { success in
-                                            if success {
+                                    loading.toggle()
+                                    vm.addPrimaryPhone { success in
+                                        loading.toggle()
+                                        if success {
+                                            if keyAccVM.keyAccCase == .register {
+                                                vm.getKeyAccounts { success in
+                                                    if success {
+                                                        vm.getKeyPhones()
+                                                    }
+                                                }
                                                 navigationModel.popContent(TabBarView.id)
                                                 keyAccVM.showSuccessScreen.toggle()
                                                 keyAccVM.keyAccRegistered.toggle()
+                                            } else {
+                                                vm.getKeyPhones()
+                                                navigationModel.popContent(KeyMailsAndPhonesView.id)
                                             }
                                         }
-                                    } else {
-                                        navigationModel.popContent("KeyMailsAndPhonesView")
                                     }
                                 }) {
                                     Image(systemName: "chevron.right").foregroundColor(!vm.keySmartPhone.deviceUnlockCode.isEmpty ? Color.white : Color.gray)

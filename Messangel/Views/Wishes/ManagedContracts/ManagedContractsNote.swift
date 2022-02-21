@@ -24,32 +24,30 @@ struct ManagedContractNote: View {
             }
             FlowBaseView(isCustomAction: true, customAction: {
                 loading.toggle()
-                vm.create() { success in
-                    loading.toggle()
-                    if vm.updateRecord {
-                        vm.update(id: vm.contract.id ?? 0) { success in
-                            if success {
-                                navModel.popContent("ManagedContractsList")
-                                vm.getAll { _ in }
-                            }
+                if vm.updateRecord {
+                    vm.update(id: vm.contract.id ?? 0) { success in
+                        loading.toggle()
+                        if success {
+                            navModel.popContent(String(describing: ManagedContractsList.self))
+                            vm.getAll { _ in }
                         }
-                    } else {
-                        vm.create { success in
-                            if success && vm.contracts.isEmpty {
-                                WishesViewModel.setProgress(tab: 15) { completed in
-                                    loading.toggle()
-                                    if completed {
-                                        navModel.pushContent(title) {
-                                            FuneralDoneView()
-                                        }
-                                    }
-                                }
-                            } else {
+                    }
+                } else {
+                    vm.create { success in
+                        if success && vm.contracts.isEmpty {
+                            WishesViewModel.setProgress(tab: 15) { completed in
                                 loading.toggle()
-                                if success {
+                                if completed {
                                     navModel.pushContent(title) {
                                         FuneralDoneView()
                                     }
+                                }
+                            }
+                        } else {
+                            loading.toggle()
+                            if success {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
                                 }
                             }
                         }

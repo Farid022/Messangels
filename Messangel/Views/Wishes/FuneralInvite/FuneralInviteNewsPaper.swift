@@ -13,6 +13,7 @@ struct FuneralInviteNewsPaper: View {
     @State private var loading = false
     @ObservedObject var vm: FuneralAnnounceViewModel
     @EnvironmentObject var navModel: NavigationModel
+    private let title = "Précisez un journal local dans lequel diffuser l’annonce"
 
     var body: some View {
         ZStack {
@@ -33,9 +34,7 @@ struct FuneralInviteNewsPaper: View {
                                 WishesViewModel.setProgress(tab: 3) { completed in
                                     loading.toggle()
                                     if completed {
-                                        navModel.pushContent("Précisez un journal local dans lequel diffuser l’annonce") {
-                                            FuneralDoneView()
-                                        }
+                                        successAction(title, navModel: navModel)
                                     }
                                 }
                             }
@@ -44,9 +43,7 @@ struct FuneralInviteNewsPaper: View {
                         vm.update(id: vm.announcements[0].id) { completed in
                             loading.toggle()
                             if completed {
-                                navModel.pushContent("Précisez un journal local dans lequel diffuser l’annonce") {
-                                    FuneralDoneView()
-                                }
+                                successAction(title, navModel: navModel)
                             }
                         }
                     }

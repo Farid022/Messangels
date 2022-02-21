@@ -11,8 +11,8 @@ import NavigationStack
 struct KeyAccDetailsView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @State private var showDeleteConfirm = false
-    var email: String
-    var note: String
+    @ObservedObject var vm: KeyAccViewModel
+    var keyEmail: PrimaryEmailAcc
     var confirmMessage = """
 ATTENTION
 En supprimant ce compte mail, vous supprimerez l’accès à 20 comptes (réseaux sociaux ou services en ligne)
@@ -20,17 +20,15 @@ En supprimant ce compte mail, vous supprimerez l’accès à 20 comptes (réseau
     
     var body: some View {
         ZStack {
-            if showDeleteConfirm {
-                Color.black.opacity(0.8)
-                    .ignoresSafeArea()
-                    .overlay(MyAlert(title: "Supprimer ce compte-clé", message: confirmMessage, action: {
-                        navigationModel.pushContent("KeyAccDetailsView") {
-                            KeyAccRegSecView(keyAccCase: .delEmail)
-                        }
-                    }, showAlert: $showDeleteConfirm))
-                    .zIndex(1.0)
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce compte-clé") {
+                vm.delKeyMail(id: keyEmail.id ?? 0) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: KeyMailsAndPhonesView.self))
+                        vm.getKeyAccounts { _ in }
+                    }
+                }
             }
-            NavigationStackView("KeyAccDetailsView") {
+            NavigationStackView(String(describing: Self.self)) {
                 ZStack(alignment:.top) {
                     Color.accentColor
                         .frame(height:70)
@@ -71,44 +69,20 @@ En supprimant ce compte mail, vous supprimerez l’accès à 20 comptes (réseau
                                 .overlay(Image("info"))
                         })
                         HStack {
-                            Text("< \(email)")
+                            BackButton(iconColor: .gray)
+                            Text("\(keyEmail.email)")
                                 .font(.system(size: 22), weight: .bold)
                             Spacer()
                         }
-                        ExtractedView()
-                        if !note.isEmpty {
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .foregroundColor(.gray.opacity(0.2))
-                                .frame(height: 400)
-                                .overlay(VStack {
-                                    HStack{
-                                        Image("ic_note")
-                                        Text("Note")
-                                            .font(.system(size: 15), weight: .bold)
-                                        Spacer()
-                                    }
-                                    Text(note)
-                                }
-                                .padding()
-                                )
-                            .padding(.bottom, 30)
-                        }
-                        HStack {
-                            Group {
-                                Button(action: {}, label: {
-                                    Text("Modifier")
-                                })
-                                Button(action: {
-                                    showDeleteConfirm.toggle()
-                                }, label: {
-                                    Text("Supprimer")
-                                })
+                        KeyAccDetailsSubView()
+                        DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                            vm.keyEmailAcc = PrimaryEmailAcc(id: keyEmail.id, email: keyEmail.email, password: keyEmail.password, note: keyEmail.note, deleteAccount: keyEmail.deleteAccount)
+                            vm.updateRecord = true
+                            navigationModel.pushContent(String(describing: Self.self)) {
+                                KeyAccRegEmailView(keyAccCase: .manage, vm: vm)
                             }
-                            .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                            .normalShadow()
-                            Spacer()
                         }
-                        Spacer()
+                       
                     }
                     .padding()
                 }
@@ -117,7 +91,7 @@ En supprimant ce compte mail, vous supprimerez l’accès à 20 comptes (réseau
     }
 }
 
-struct ExtractedView: View {
+struct KeyAccDetailsSubView: View {
     var body: some View {
         VStack {
             HStack {
@@ -125,11 +99,11 @@ struct ExtractedView: View {
                     .font(.system(size: 17), weight: .bold)
                 Spacer()
             }
-            HStack {
-                Image("ic_key_color_native")
-                Text("Associé à 5 comptes")
-                Spacer()
-            }
+//            HStack {
+//                Image("ic_key_color_native")
+//                Text("Associé à 5 comptes")
+//                Spacer()
+//            }
             HStack {
                 Image("ic_lock_color_native")
                 Text("••••••••")
