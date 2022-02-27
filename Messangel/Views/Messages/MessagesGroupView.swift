@@ -43,9 +43,8 @@ struct MessagesGroupView: View {
                             }
                         }
                 }
-                MiddleView(groupName: group.name)
+                GroupDestinationView(group: group)
                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: 2), spacing: 16.0) {
-                    CreateMessageCard()
                     if let groupTexts = group.texts {
                         ForEach(groupTexts, id: \.self) { text in
                             MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg", createdAt: unixStrToDateSring(text.created_at ?? ""))
@@ -126,28 +125,33 @@ struct GalleryPlaceHolder: View {
     }
 }
 
-struct MiddleView: View {
-    var groupName: String
+struct GroupDestinationView: View {
+    var group: MsgGroup
     var body: some View {
         HStack {
             HStack {
-                Text(groupName)
+                Text(group.name)
                     .fontWeight(.bold)
                 Spacer()
             }
         }
         HStack {
-            Capsule()
-                .foregroundColor(.white)
-                .normalShadow()
-                .frame(width: 160, height: 56)
-                .overlay(HStack {
-                    Text("0")
-                        .foregroundColor(.accentColor)
-                    Image("ic_contacts")
-                    Text("Destinataires")
-                        .font(.system(size: 13))
-                })
+            Button {
+               //TODO: - add contacts to the group
+                //TODO: - On top upload selected images and update the group gallery
+            } label: {
+                Capsule()
+                    .foregroundColor(.white)
+                    .normalShadow()
+                    .frame(width: 160, height: 56)
+                    .overlay(HStack {
+                        Text("0")
+                            .foregroundColor(.accentColor)
+                        Image("ic_contacts")
+                        Text("Destinataires")
+                            .font(.system(size: 13))
+                    })
+            }
             Spacer()
         }
         .padding(.bottom, 30)

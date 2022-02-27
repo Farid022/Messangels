@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct Attachement: Hashable, Codable {
-    var id: Int
+    var id: Int?
     var url: String
-    var user: Int
+    var user = getUserId()
 }
 
 struct ClothDonation: Codable {
@@ -20,9 +20,9 @@ struct ClothDonation: Codable {
     var clothing_name: String
     var clothing_contact_detail: Int?
     var clothing_organization_detail: Int?
-    var clothing_photo: String
+    var clothing_photo: String?
     var clothing_note: String
-    var clothing_note_attachment: [String]?
+    var clothing_note_attachment: [Int]?
     var user = getUserId()
 }
 
@@ -34,20 +34,39 @@ struct ClothingDonation: Hashable, Codable {
     var clothing_name: String
     var clothing_organization_detail: Organization?
     var clothing_contact_detail: Contact?
-    var clothing_photo: String
+    var clothing_photo: String?
     var clothing_note_attachment: [Attachement]?
     var clothing_note: String
 }
 
 class ClothDonationViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var contactName = ""
     @Published var orgName = ""
     @Published var localPhoto = UIImage()
     @Published var updateRecord = false
     @Published var donations = [ClothingDonation]()
-    @Published var clothDonation = ClothDonation(clothing_name: "", clothing_photo: "", clothing_note: "")
+    @Published var clothDonation = ClothDonation(clothing_name: "", clothing_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
+    
+    func attach(completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
+            switch result {
+            case .success(let attachements):
+                DispatchQueue.main.async {
+                    self.attachements = attachements
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
     
     func createClothDonation(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: clothDonation, response: clothDonation, endpoint: "users/\(getUserId())/clothing") { result in

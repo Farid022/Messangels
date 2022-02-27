@@ -28,7 +28,7 @@ struct MenuView: View {
                             Button(action: {
                                 if menuItem.ic == "ic_profile" {
                                     navigationModel.pushContent("MenuView") {
-                                        ProfileView(imageLoader: ImageLoader(urlString: auth.user.image_url ?? ""))
+                                        ProfileView()
                                     }
                                 }
                                 else if menuItem.ic == "ic_logout" {

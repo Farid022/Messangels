@@ -35,13 +35,17 @@ struct FuneralDoneView: View {
                 .font(.system(size: 15))
                 .multilineTextAlignment(.center)
                 Spacer().frame(height: 10)
-                Button("Voir mon Messangel", action: {
+                Button("Fermer", action: {
                     withAnimation {
                         navigationModel.popContent(TabBarView.id)
                     }
                 })
                     .buttonStyle(MyButtonStyle())
                     .accentColor(.black)
+                Button("Voir mon Messangel", action: {
+                    
+                })
+                    .buttonStyle(MyButtonStyle())
                 Spacer()
             }.padding()
         }

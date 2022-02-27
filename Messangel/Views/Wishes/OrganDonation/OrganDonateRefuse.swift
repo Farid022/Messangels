@@ -51,7 +51,7 @@ struct OrganDonateRefuse: View {
                         OrganDonateRefusalNotReg(vm: vm)
                     }
                 }
-            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: title, valid: .constant(vm.donation.register_to_national != nil)) {
+            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la#science", title: title, valid: .constant(vm.donation.register_to_national != nil)) {
                 HStack {
                     ForEach([true, false], id: \.self) { opt in
                         ChoiceCard(text: opt ? "Oui" : "Non", selected: .constant(vm.donation.register_to_national == opt))

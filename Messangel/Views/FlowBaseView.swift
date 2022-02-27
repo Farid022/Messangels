@@ -49,13 +49,7 @@ struct FlowBaseView<Content: View>: View {
                     .frame(height:70)
                     .edgesIgnoringSafeArea(.top)
                 VStack(spacing: 20) {
-                    if menuTitle.components(separatedBy: "#").count > 1 {
-                        NavbarButtonView(title: menuTitle.components(separatedBy: "#")[0], exitAction: exitAction)
-                        NavigationTitleView(menuTitle: menuTitle.components(separatedBy: "#")[1])
-                    } else {
-                        NavbarButtonView(exitAction: exitAction)
-                        NavigationTitleView(menuTitle: menuTitle)
-                    }
+                    NavigationTitleView(menuTitle: menuTitle, exitAction: exitAction)
                     if addToList {
                         Spacer()
                         Text(title)
@@ -91,62 +85,44 @@ struct FlowBaseView<Content: View>: View {
 }
 
 struct NavigationTitleView: View {
-    var menuTitle: String
-    
+    @EnvironmentObject var navigationModel: NavigationModel
+    var menuTitle = ""
+    var exitAction: (() -> Void)?
     var body: some View {
         VStack {
             Color.accentColor
-                .frame(height: 35)
-                .overlay(Text(menuTitle)
+                .frame(height:125)
+                .padding(.horizontal, -20)
+                .overlay(HStack {
+                    VStack(alignment: .leading) {
+                        Button {
+                            if let exitAction = exitAction {
+                                exitAction()
+                            }
+                            navigationModel.popContent(TabBarView.id)
+                        } label: {
+                           Image("ic_exit")
+                        }
+                        Spacer()
+                        Text(menuTitle)
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                            .padding([.leading, .bottom])
-                         ,
-                         alignment: .leading)
-            Color.white
-                .frame(height: 15)
-        }
-        .frame(height: 50)
-        .padding(.horizontal, -16)
-        .padding(.top, -16)
-        .overlay(HStack {
-            Spacer()
-            Rectangle()
-                .fill(Color.white)
-                .frame(width: 60, height: 60)
-                .cornerRadius(25)
-                .normalShadow()
-                .overlay(Image("info"))
-        })
-    }
-}
-
-struct NavbarButtonView: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    var title = ""
-    var exitAction: (() -> Void)?
-    var body: some View {
-        Color.accentColor
-            .frame(height:90)
-            .padding(.horizontal, -20)
-            .overlay(HStack {
-                VStack(alignment: .leading) {
-                    Button {
-                        if let exitAction = exitAction {
-                            exitAction()
-                        }
-                        navigationModel.popContent(TabBarView.id)
-                    } label: {
-                       Image("ic_exit")
+                            .padding(.bottom, 20)
                     }
-                    Text(title)
-                        .font(.system(size: 22))
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                }
-                Spacer()
+                    Spacer()
             }, alignment: .top)
+            HStack {
+                Spacer()
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 60, height: 60)
+                    .cornerRadius(25)
+                    .normalShadow()
+                    .overlay(Image("info"))
+            }
+            .padding(.top, -40)
+        }
     }
 }
 
@@ -168,6 +144,7 @@ struct FlowBaseTitleView: View {
             }
             .padding(.bottom)
         }
+        .padding(.top, -20)
     }
 }
 

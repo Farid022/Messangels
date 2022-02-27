@@ -99,6 +99,25 @@ struct HomeBottomView: View {
                 } else {
                     SubscribeView()
                 }
+                if gVM.protectedUsers.count > 0 {
+                    HStack {
+                        Text("Mes protégés")
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            .padding(.leading)
+                        Spacer()
+                    }
+                    .padding(.bottom)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(gVM.protectedUsers.filter( {$0.status == "1"}), id: \.self) { protectedUsers in
+                                PotectedUserCard(vm: gVM, protected: protectedUsers)
+                            }
+                            Spacer()
+                        }
+                        .padding()
+                    }
+                }
                 Spacer().frame(height: 100)
             }
         }
@@ -126,6 +145,9 @@ struct HomeBottomView: View {
                 loading.toggle()
                 gVM.guardiansUpdated = false
             }
+        }
+        gVM.getProtectedUsers { _ in
+            
         }
     }
 }
@@ -233,6 +255,40 @@ struct GuardianCard: View {
                     Text(guardian.last_name)
                         .font(.system(size: 13))
                     Text(guardian.first_name)
+                        .font(.system(size: 13), weight: .semibold)
+                }
+            })
+    }
+}
+
+struct PotectedUserCard: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: GuardianViewModel
+    var protected: MyProtected
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .fill(Color.white)
+            .frame(width: 166, height: 180)
+            .normalShadow()
+            .overlay(VStack {
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 56, height: 56)
+                    .cornerRadius(25)
+                    .thinShadow()
+                    .overlay(
+                        Button(action: {
+                            navigationModel.pushContent("Accueil") {
+//                                GuardianView(vm:vm, guardian: guardian)
+                            }
+                        }) {
+                            Image("gallery_preview")
+                        })
+                VStack {
+                    Text(protected.user.last_name)
+                        .font(.system(size: 13))
+                    Text(protected.user.first_name)
                         .font(.system(size: 13), weight: .semibold)
                 }
             })

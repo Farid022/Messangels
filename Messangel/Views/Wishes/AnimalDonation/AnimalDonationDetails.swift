@@ -14,6 +14,7 @@ struct AnimalDonationDetails: View {
     var donation: AnimalDonationDetail
     var confirmMessage = "Les informations liées seront supprimées définitivement"
     @State private var showDeleteConfirm = false
+    @State private var fullScreenPhoto = false
     
     var body: some View {
         ZStack {
@@ -25,14 +26,17 @@ struct AnimalDonationDetails: View {
                     }
                 }
             }
+            if fullScreenPhoto, let imageUrlString = donation.animal_photo {
+                DetailsFullScreenPhotoView(imageUrlString: imageUrlString, fullScreenPhoto: $fullScreenPhoto)
+            }
             NavigationStackView(String(describing: Self.self)) {
                 ZStack(alignment:.top) {
                     Color.accentColor
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "ANIMAUX")
+                        DetailsPhotoView(imageUrlString: donation.animal_photo, fullScreenPhoto: $fullScreenPhoto)
                         ScrollView {
                             HStack {
                                 BackButton(iconColor: .gray)
@@ -42,7 +46,7 @@ struct AnimalDonationDetails: View {
                             }
                             HStack {
                                 Image("ic_arrow_right")
-                                Text("Donner à \((donation.animal_contact_detail != nil ? "\(String(describing: donation.animal_contact_detail?.first_name)) \(String(describing: donation.animal_contact_detail?.last_name))" : donation.animal_organization_detail?.name) ?? "")")
+                                Text("Donner à \((donation.animal_contact_detail != nil ? "\(donation.animal_contact_detail?.first_name ?? "") \(donation.animal_contact_detail?.last_name ?? "")" : donation.animal_organization_detail?.name) ?? "")")
                                     .fontWeight(.bold)
                                 Spacer()
                             }
@@ -56,9 +60,9 @@ struct AnimalDonationDetails: View {
                                 Text("Plusieurs animaux")
                                 Spacer()
                             }
-                            DetailsNoteView(note: donation.animal_note)
+                            DetailsNoteView(note: donation.animal_note, attachments: vm.attachements, navId: String(describing: Self.self))
                             DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
-                                vm.animalDonation = AnimalDonation(id: donation.id, single_animal: donation.single_animal, single_animal_note: donation.single_animal_note, animal_name: donation.animal_name, animal_name_note: donation.animal_name_note, animal_contact_detail: donation.animal_contact_detail?.id, animal_organization_detail: donation.animal_organization_detail?.id, animal_species: donation.animal_species, animal_species_note: donation.animal_species_note, animal_photo: donation.animal_photo, animal_note: donation.animal_note, animal_note_attachment: donation.animal_note_attachment)
+                                vm.animalDonation = AnimalDonation(id: donation.id, single_animal: donation.single_animal, single_animal_note: donation.single_animal_note, animal_name: donation.animal_name, animal_name_note: donation.animal_name_note, animal_contact_detail: donation.animal_contact_detail?.id, animal_organization_detail: donation.animal_organization_detail?.id, animal_species: donation.animal_species, animal_species_note: donation.animal_species_note, animal_photo: donation.animal_photo, animal_note: donation.animal_note)
                                 if let firstName = donation.animal_contact_detail?.first_name, let lastName = donation.animal_contact_detail?.last_name {
                                     vm.contactName = "\(firstName) \(lastName)"
                                 }

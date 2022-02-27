@@ -81,23 +81,23 @@ struct FuneralPlacesList: View {
     //                }
                     
                     Spacer().frame(height: 20)
-                    Button(action: {
-//                        compainies.append("Nom de l’organisme")
-                    }) {
-                        RoundedRectangle(cornerRadius: 25.0)
-                            .fill(Color.accentColor)
-                            .frame(height: 56)
-                            .overlay(
-                                HStack {
-                                    Image("ic_add_org")
-                                        .padding(.leading)
-                                    Text("Nouvel lieu")
-                                        .foregroundColor(.white)
-                                    Spacer()
-                                }
-                            )
-                    }
-                    .padding(.bottom)
+//                    Button(action: {
+//
+//                    }) {
+//                        RoundedRectangle(cornerRadius: 25.0)
+//                            .fill(Color.accentColor)
+//                            .frame(height: 56)
+//                            .overlay(
+//                                HStack {
+//                                    Image("ic_add_org")
+//                                        .padding(.leading)
+//                                    Text("Nouvel lieu")
+//                                        .foregroundColor(.white)
+//                                    Spacer()
+//                                }
+//                            )
+//                    }
+//                    .padding(.bottom)
                 ForEach(vm.buryLocations.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { location in
                     ListItemView(name: location.name) {
                         vm.name = location.name

@@ -96,14 +96,14 @@ struct DeathAnnounceContactsList: View {
                                 HStack {
                                     Image("ic_add-user")
                                         .padding(.leading)
-                                    Text("Nouvel contact")
+                                    Text("Nouveau contact")
                                         .foregroundColor(.white)
                                     Spacer()
                                 }
                             )
                     }
                     .padding(.bottom)
-                ForEach(contactsVM.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
+                ForEach(contactsVM.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString) || $0.last_name.contains(searchString)}), id:\.self) { contact in
                     ListItemView(name: "\(contact.first_name) \(contact.last_name)", image: "ic_contact") {
                         if !vm.priorityContacts.contact.contains(contact.id) {
                             vm.contacts.append(contact)

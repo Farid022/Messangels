@@ -14,9 +14,9 @@ struct ObjectDonation: Codable {
     var object_name: String
     var object_contact_detail: Int?
     var organization_detail: Int?
-    var object_photo: String
+    var object_photo: String?
     var object_note: String
-    var object_note_attachment: [String]?
+    var object_note_attachment: [Int]?
     var user = getUserId()
 }
 
@@ -27,21 +27,40 @@ struct ObjectDonationDetails: Hashable, Codable {
     var object_name: String
     var object_contact_detail: Contact?
     var organization_detail: Organization?
-    var object_photo: String
+    var object_photo: String?
     var object_note: String
-    var object_note_attachment: [String]?
+    var object_note_attachment: [Attachement]?
     var user: User
 }
 
 class ObjectDonationViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var contactName = ""
     @Published var orgName = ""
     @Published var localPhoto = UIImage()
     @Published var updateRecord = false
     @Published var donations = [ObjectDonationDetails]()
-    @Published var objectDonation = ObjectDonation(object_name: "", object_photo: "", object_note: "")
+    @Published var objectDonation = ObjectDonation(object_name: "", object_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
+    
+    func attach(completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
+            switch result {
+            case .success(let attachements):
+                DispatchQueue.main.async {
+                    self.attachements = attachements
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
     
     func create(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: objectDonation, response: objectDonation, endpoint: "users/\(getUserId())/object") { result in

@@ -31,7 +31,6 @@ struct AdminDocsDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "Pièces administratives")
                         HStack {
                             BackButton(iconColor: .gray)
@@ -39,7 +38,7 @@ struct AdminDocsDetails: View {
                                 .font(.system(size: 22), weight: .bold)
                             Spacer()
                         }
-                        DetailsNoteView(note: docs.note)
+                        DetailsNoteView(note: docs.note, attachments: vm.attachements, navId: String(describing: Self.self))
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.adminDoc = AdminDocLocal(id: docs.id, document_name: docs.name, document_note: docs.note)
                             vm.updateRecord = true

@@ -66,6 +66,7 @@ struct OnlineServiceAccount: Codable {
     var lastPostImageNote: String?
     var leaveMsgTime: String?
     var memorialAccount: Bool?
+    var memorialAccountNote: String?
     var user = getUserId()
 
     enum CodingKeys: String, CodingKey {
@@ -75,6 +76,7 @@ struct OnlineServiceAccount: Codable {
         case lastPostImageNote = "last_post_image_note"
         case leaveMsgTime = "leave_msg_time"
         case memorialAccount = "memorial_account"
+        case memorialAccountNote = "memorial_account_note"
         case user
     }
 }
@@ -87,6 +89,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
     var lastPostImageNote: String?
     var lastPostNote, leaveMsgTime: String?
     var memorialAccount: Bool?
+    var memorialAccountNote: String?
     var accountFields: ServiceAccountFieldsDetail
 
     enum CodingKeys: String, CodingKey {
@@ -96,6 +99,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
         case lastPostNote = "last_post_note"
         case leaveMsgTime = "leave_msg_time"
         case memorialAccount = "memorial_account"
+        case memorialAccountNote = "memorial_account_note"
         case accountFields = "account_fields"
     }
 }

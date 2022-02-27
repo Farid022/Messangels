@@ -10,18 +10,11 @@ import SwiftUI
 struct AnimalDonationPlaceSelection: View {
     var donationTypes = [ClothsDonationPlace.contact, ClothsDonationPlace.organization]
     @State private var selectedDonation = ClothsDonationPlace.none
-    @State private var showNote = false
     @ObservedObject var vm: AnimalDonatiopnViewModel
 
     var body: some View {
         ZStack {
-//            if showNote {
-//               FuneralNote(showNote: $showNote, note: $note)
-//                .zIndex(1.0)
-//                .background(.black.opacity(0.8))
-//                .edgesIgnoringSafeArea(.top)
-//            }
-            FlowBaseView(menuTitle: "ANIMAUX", title: "À qui confier *votre animal *vos animaux?", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
+            FlowBaseView(menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) - À qui confier \(vm.animalDonation.single_animal! ? "votre animal?" : "vos animaux?")", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
                 HStack {
                     ForEach(donationTypes, id: \.self) { type in
                         ChoiceCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))

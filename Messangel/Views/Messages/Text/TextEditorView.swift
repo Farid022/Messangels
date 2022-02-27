@@ -59,7 +59,7 @@ struct TextEditorView: View {
 //                            .padding(.horizontal, -30)
 //                    }
                 }
-                .if(htmlText.length <= 10 ) {$0.padding(.bottom, -30)}
+//                .if(htmlText.length <= 10 ) {$0.padding(.bottom, -30)}
                 , alignment: .bottom)
                 VStack {
                     if showRichText {

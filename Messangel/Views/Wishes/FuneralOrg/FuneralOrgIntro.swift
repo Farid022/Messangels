@@ -49,7 +49,7 @@ struct FuneralOrgIntro: View {
                 if sucess {
                     if vm.funeralOrgs.count > 0 {
                         let i = vm.funeralOrgs[0]
-                        vm.funeralOrg = FuneralOrg(chose_funeral_home: i.chose_funeral_home, funeral_company: i.funeral_company?.id, funeral_company_note: i.funeral_company_note, company_contract_detail: i.company_contract_detail, company_contract_num: i.company_contract_num, funeral_contract: i.funeral_contract?.id)
+                        vm.funeralOrg = FuneralOrg(chose_funeral_home: i.chose_funeral_home, funeral_company: i.funeral_company?.id, funeral_company_note: i.funeral_company_note, company_contract_detail: i.company_contract_detail, company_contract_detail_note: i.company_contract_detail_note, company_contract_num: i.company_contract_num, funeral_contract: i.funeral_contract?.id)
                         if let orgName = i.funeral_company?.name {
                             vm.orgName = orgName
                         }

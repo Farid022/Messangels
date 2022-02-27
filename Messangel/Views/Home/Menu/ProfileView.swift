@@ -6,59 +6,18 @@
 //
 
 import SwiftUI
-import Combine
-import Kingfisher
 
 struct ProfileView: View {
     @EnvironmentObject var auth: Auth
     @StateObject var userVM = UserViewModel()
-    @ObservedObject var imageLoader:ImageLoader
     @State private var profileImage = UIImage()
-    @State private var isShowPhotoLibrary = false
-    @State private var cgImage = UIImage().cgImage
+    @State private var isShowImagePickerOptions = false
     @State private var isPerformingTask = false
     
     var body: some View {
         MenuBaseView(title:"Profil") {
-            Rectangle()
-                .fill(auth.user.image_url == nil ? Color.gray : Color.white)
-                .frame(width: 66, height: 66)
-                .cornerRadius(30)
-                .overlay(
-                    Button(action: {
-                        isShowPhotoLibrary.toggle()
-                    }, label: {
-                        ZStack {
-                            if auth.user.image_url == nil {
-                                Image("ic_camera")
-                            } else if let imageUrl = auth.user.image_url {
-                                ZStack {
-                                    Loader()
-                                    KFImage(URL(string: imageUrl))
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 66, height: 66)
-                                        .clipShape(Circle())
-                                }
-                            }
-                            Image(uiImage: profileImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 66, height: 66)
-                                .clipShape(Circle())
-                                .onReceive(imageLoader.didChange) { data in
-                                    self.profileImage = UIImage(data: data) ?? UIImage()
-                                    self.cgImage = self.profileImage.cgImage
-                                }
-                        }
-                    })
-                )
-            if auth.user.image_url == nil {
-                Text("Choisir une photo")
-                    .foregroundColor(.secondary)
-                    .font(.system(size: 13))
-                    .padding(.bottom)
-            }
+            ImageSelectionView(showImagePickerOptions: $isShowImagePickerOptions, localImage: $profileImage, remoteImage: auth.user.image_url ?? "")
+                .padding(.bottom)
             HStack {
                 Text("Né(e) le \(formatDateString(auth.user.dob, inFormat:"yyyy-MM-dd", outFormat: "d MMM yyyy")) à \(auth.user.city)")
                 Spacer()
@@ -75,7 +34,7 @@ struct ProfileView: View {
             .padding(.bottom)
             Button("Enregister") {
                 isPerformingTask = true
-                if self.cgImage != self.profileImage.cgImage {
+                if self.profileImage.cgImage != nil {
                     Task {
                         if let response = await Networking.shared.upload(profileImage.jpegData(compressionQuality: 1)!, fileName: "msgl_profil.jpeg", fileType: "image") {
                             DispatchQueue.main.async {
@@ -109,9 +68,6 @@ struct ProfileView: View {
         .onDidAppear() {
             self.userVM.profile = Profile(first_name: auth.user.first_name, last_name: auth.user.last_name, postal_code: auth.user.postal_code, gender: "1", image_url: auth.user.image_url)
         }
-        .sheet(isPresented: $isShowPhotoLibrary) {
-            ImagePicker(selectedImage: $profileImage)
-        }
     }
     
     func updateProfile(completion: @escaping (Bool) -> Void) {
@@ -131,26 +87,6 @@ struct ProfileView: View {
                 completion(false)
             }
         }
-    }
-}
-
-class ImageLoader: ObservableObject {
-    var didChange = PassthroughSubject<Data, Never>()
-    var data = Data() {
-        didSet {
-            didChange.send(data)
-        }
-    }
-
-    init(urlString:String) {
-        guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data else { return }
-            DispatchQueue.main.async {
-                self.data = data
-            }
-        }
-        task.resume()
     }
 }
 

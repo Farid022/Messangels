@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationStack
+import Kingfisher
 
 struct GuardianView: View {
     @State private var confirmAlert = false
@@ -16,10 +17,13 @@ struct GuardianView: View {
     
     var body: some View {
         MenuBaseView(title:"\(guardian.last_name) \(guardian.first_name)") {
-            Image("gallery_preview")
-                .frame(width: 64, height: 64)
-                .clipShape(Circle())
-                .padding(.vertical)
+            if let user = guardian.guardian, let imageUrlString = user.image_url {
+                KFImage(URL(string: imageUrlString))
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .clipShape(Circle())
+                    .padding(.vertical)
+            }
             Text(guardian.last_name + " " + guardian.first_name.uppercased())
                 .font(.system(size: 20), weight: .bold)
             Spacer().frame(height: 50)
@@ -27,18 +31,20 @@ struct GuardianView: View {
             VStack(spacing: 15) {
                 HStack(spacing: 15) {
                     Image("ic_hour_glass")
-                    Text("Ange gardien depuis le 09/02/2021.")
+                    Text("Ange gardien depuis le \(unixStrToDateSring(guardian.updated_at ?? guardian.created_at ?? "")).")
                     Spacer()
                 }
                 HStack(spacing: 15) {
                     Image("ic_mail")
-                    Text(guardian.email)
+                    Text(guardian.guardian?.email ?? guardian.email)
                     Spacer()
                 }
-                HStack(spacing: 15) {
-                    Image("ic_tel")
-                    Text("06 00 00 00 00")
-                    Spacer()
+                if let guardianUser = guardian.guardian {
+                    HStack(spacing: 15) {
+                        Image("ic_tel")
+                        Text(guardianUser.phone_number)
+                        Spacer()
+                    }
                 }
             }
             .font(.system(size: 13))
@@ -53,8 +59,8 @@ struct GuardianView: View {
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .black))
         }
         .alert(isPresented: $confirmAlert, content: {
-            Alert(title: Text("Supprimer l’Ange-gardien ?"), message: Text("Un mail sera envoyé à \(vm.guardian.last_name) pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {
-                vm.delete(id: guardian.id, userId: guardian.user_id) { success in
+            Alert(title: Text("Supprimer l’Ange-gardien ?"), message: Text("Un mail sera envoyé à \(guardian.last_name) pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {
+                vm.delete(id: guardian.id) { success in
                     if success {
                         DispatchQueue.main.async {
                             vm.guardiansUpdated = true

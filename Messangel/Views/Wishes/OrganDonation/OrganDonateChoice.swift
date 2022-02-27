@@ -12,19 +12,13 @@ struct OrganDonateChoice: View {
     @EnvironmentObject private var navModel: NavigationModel
     private let donationChoices = [OrganDonChoice.organs, OrganDonChoice.deny, OrganDonChoice.body]
     private let title = "Pour quel choix avez-vous opté ?"
-    @State private var showNote = false
+//    @State private var showNote = false
     @State private var loading = false
-    @State private var note = ""
+//    @State private var note = ""
     @ObservedObject var vm: OrganDonationViewModel
     
     var body: some View {
         ZStack {
-            if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
-                .zIndex(1.0)
-                .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
-            }
             FlowBaseView(isCustomAction: true, customAction: {
                 if vm.donation.donation == OrganDonChoice.organs.rawValue {
                     loading.toggle()
@@ -56,7 +50,7 @@ struct OrganDonateChoice: View {
                         OrganDonateBody(vm:vm)
                     }
                 }
-            }, note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: title, valid: .constant(vm.donation.donation != OrganDonChoice.none.rawValue)){
+            }, menuTitle: "Don d’organes ou du corps à la science", title: title, valid: .constant(vm.donation.donation != OrganDonChoice.none.rawValue)){
                 
                 LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 10.0), count: 2), spacing: 10.0) {
                     ForEach(donationChoices, id: \.self) { donChoice in

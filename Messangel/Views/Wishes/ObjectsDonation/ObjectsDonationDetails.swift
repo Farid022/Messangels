@@ -14,6 +14,7 @@ struct ObjectsDonationDetails: View {
     var donation: ObjectDonationDetails
     var confirmMessage = "Les informations liées seront supprimées définitivement"
     @State private var showDeleteConfirm = false
+    @State private var fullScreenPhoto = false
     
     var body: some View {
         ZStack {
@@ -25,14 +26,17 @@ struct ObjectsDonationDetails: View {
                     }
                 }
             }
+            if fullScreenPhoto, let imageUrlString = donation.object_photo {
+                DetailsFullScreenPhotoView(imageUrlString: imageUrlString, fullScreenPhoto: $fullScreenPhoto)
+            }
             NavigationStackView(String(describing: Self.self)) {
                 ZStack(alignment:.top) {
                     Color.accentColor
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "Objets")
+                        DetailsPhotoView(imageUrlString: donation.object_photo, fullScreenPhoto: $fullScreenPhoto)
                         ScrollView {
                             HStack {
                                 BackButton(iconColor: .gray)
@@ -42,7 +46,7 @@ struct ObjectsDonationDetails: View {
                             }
                             HStack {
                                 Image("ic_arrow_right")
-                                Text("Donner à \((donation.object_contact_detail != nil ? "\(String(describing: donation.object_contact_detail?.first_name)) \(String(describing: donation.object_contact_detail?.last_name))" : donation.organization_detail?.name) ?? "")")
+                                Text("Donner à \((donation.object_contact_detail != nil ? "\( donation.object_contact_detail?.first_name ?? "") \(donation.object_contact_detail?.last_name ?? "")" : donation.organization_detail?.name) ?? "")")
                                     .fontWeight(.bold)
                                 Spacer()
                             }
@@ -51,7 +55,7 @@ struct ObjectsDonationDetails: View {
                                 Text("Plusieurs objets")
                                 Spacer()
                             }
-                            DetailsNoteView(note: donation.object_note)
+                            DetailsNoteView(note: donation.object_note, attachments: vm.attachements, navId: String(describing: Self.self))
                             DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                                 vm.objectDonation = ObjectDonation(id: donation.id, single_object: donation.single_object, single_object_note: donation.single_object_note, object_name: donation.object_name, object_contact_detail: donation.object_contact_detail?.id, organization_detail: donation.organization_detail?.id, object_photo: donation.object_photo, object_note: donation.object_note)
                                 if let firstName = donation.object_contact_detail?.first_name, let lastName = donation.object_contact_detail?.last_name {

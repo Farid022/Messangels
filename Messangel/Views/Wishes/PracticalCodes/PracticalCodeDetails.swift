@@ -31,7 +31,6 @@ struct PracticalCodeDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "Codes pratiques")
                         HStack {
                             BackButton(iconColor: .gray)

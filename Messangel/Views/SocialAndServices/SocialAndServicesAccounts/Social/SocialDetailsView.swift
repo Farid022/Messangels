@@ -74,7 +74,7 @@ struct SocialDetailsView: View {
                         SocialDetailsSubView(email: account.accountFields.mailAccount.email, phoneName: account.accountFields.smartphone.name, url: account.accountFields.onlineService.url)
                         DetailsNoteView(note: account.accountFields.manageAccountNote)
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
-                            vm.account = OnlineServiceAccount(id: account.id, accountId: account.id, lastPostNote: account.lastPostNote, lastPostImage: account.lastPostImage, lastPostImageNote: account.lastPostImageNote, leaveMsgTime: account.leaveMsgTime, memorialAccount: account.memorialAccount)
+                            vm.account = OnlineServiceAccount(id: account.id, accountId: account.id, lastPostNote: account.lastPostNote, lastPostImage: account.lastPostImage, lastPostImageNote: account.lastPostImageNote, leaveMsgTime: account.leaveMsgTime, memorialAccount: account.memorialAccount, memorialAccountNote: account.memorialAccountNote)
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 SocialNoteView(vm: vm)

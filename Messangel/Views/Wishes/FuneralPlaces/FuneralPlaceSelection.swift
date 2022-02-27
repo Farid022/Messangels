@@ -25,17 +25,35 @@ struct FuneralPlaceSelection: View {
             }
             FlowBaseView(noteText: $vm.location.bury_location_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(!vm.name.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
                 if vm.name.isEmpty {
-                    Button(action: {
-                        navigationModel.presentContent(title) {
-                            FuneralPlacesList(vm: vm)
-                        }
-                    }, label: {
-                        Image("list_org")
-                    })
+                    HStack {
+                        Button(action: {
+                            navigationModel.presentContent(title) {
+                                FuneralPlacesList(vm: vm)
+                            }
+                        }, label: {
+                            ZStack {
+                                Capsule()
+                                    .foregroundColor(.accentColor)
+                                    .frame(width: 200, height: 56)
+                                HStack {
+                                    Image("ic_location")
+                                        .renderingMode(.template)
+                                        .foregroundColor(.white)
+                                    Text("Liste des lieux")
+                                        .foregroundColor(.white)
+                                }
+                            }
+                            
+                        })
+                        Spacer()
+                    }
                 } else {
-                    FuneralCapsuleView(name: vm.name) {
-                        vm.location.bury_location = nil
-                        vm.name = ""
+                    HStack {
+                        FuneralCapsuleView(name: vm.name) {
+                            vm.location.bury_location = nil
+                            vm.name = ""
+                        }
+                        Spacer()
                     }
                 }
             }

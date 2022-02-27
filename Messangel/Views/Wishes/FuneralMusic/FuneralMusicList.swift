@@ -16,7 +16,7 @@ struct FuneralMusicList: View {
     var body: some View {
         FuneralItemList(id: String(describing: Self.self), menuTitle: "Musique", newItemView: AnyView(FuneralMusicArtist(vm: FuneralMusicViewModel()))) {
             ForEach(vm.musics, id: \.self) { music in
-                FuneralItemCard(title: music.song_title, icon: "ic_music_white")
+                FuneralItemCard(title: "\(music.artist_name) - \(music.song_title)", icon: "ic_music_white")
                     .onTapGesture {
                         navigationModel.pushContent(String(describing: Self.self)) {
                             FuneralMusicDetails(vm: vm, music: music)
@@ -68,9 +68,6 @@ struct FuneralItemList<Content: View>: View {
                     }
                     .zIndex(1.0)
                     VStack(spacing: 20) {
-                        NavbarButtonView(exitAction: {
-                            navigationModel.popContent(TabBarView.id)
-                        })
                         NavigationTitleView(menuTitle: menuTitle)
                         Spacer().frame(height: 17)
                         ScrollView(showsIndicators: false) {

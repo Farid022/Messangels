@@ -19,7 +19,6 @@ struct GuardianFormLegalAgeView: View {
             }
             .buttonStyle(MyButtonStyle(padding: 0, foregroundColor: valid ? .white : .black, backgroundColor: valid ? .accentColor : .white))
             .normalShadow()
-            .keyboardType(.emailAddress)
         }
     }
 }

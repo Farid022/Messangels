@@ -19,7 +19,7 @@ struct KeyAccRegChoiceView: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.keyEmailAcc.note)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
                     .edgesIgnoringSafeArea(.top)

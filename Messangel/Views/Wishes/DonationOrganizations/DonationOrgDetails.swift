@@ -31,7 +31,6 @@ struct DonationOrgDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "Dons et collectes")
                         HStack {
                             BackButton(iconColor: .gray)
@@ -41,7 +40,7 @@ struct DonationOrgDetails: View {
                         }
                         HStack {
                             Image("ic_item_info")
-                            Text("Destinataire du don –  Croix Rouge")
+                            Text("Destinataire du don – \(org.donation_organization.name)")
                             Spacer()
                         }
                         DetailsNoteView(note: org.donation_note)

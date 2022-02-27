@@ -14,7 +14,9 @@ struct AudioImageView: View {
     @ObservedObject var player: Player
     @ObservedObject var vm: AudioViewModel
     @State private var valid = true
-    @State private var isShowPhotoLibrary = false
+    @State private var isShowImagePickerOptions = false
+    @State private var showImagePicker: Bool = false
+    @State private var sourceType = UIImagePickerController.SourceType.photoLibrary
     @State private var audioImage = UIImage()
 
     var fileUrl: URL
@@ -37,7 +39,7 @@ struct AudioImageView: View {
                     AudioPlayerButton(player: self.player)
                 }
                         Button(action: {
-                            isShowPhotoLibrary.toggle()
+                            isShowImagePickerOptions.toggle()
                         }, label: {
                             VStack {
                                 Rectangle()
@@ -66,8 +68,9 @@ struct AudioImageView: View {
                         )
                 }
             }
-            .sheet(isPresented: $isShowPhotoLibrary) {
-                ImagePicker(selectedImage: $audioImage)
+            .ActionSheet(showImagePickerOptions: $isShowImagePickerOptions, showImagePicker: $showImagePicker, sourceType: $sourceType)
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(image: $audioImage, isShown: $showImagePicker, sourceType: sourceType)
             }
         }
     }

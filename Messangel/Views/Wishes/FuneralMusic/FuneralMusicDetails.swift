@@ -31,7 +31,6 @@ struct FuneralMusicDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "Musique")
                         ScrollView {
                             DetailsTitleView(title: "\(music.artist_name) - \(music.song_title)")

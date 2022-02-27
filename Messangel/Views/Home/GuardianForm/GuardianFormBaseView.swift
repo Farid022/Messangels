@@ -13,15 +13,17 @@ struct GuardianFormBaseView<Content: View>: View {
     @Binding private var progress: Double
     @Binding private var valid: Bool
     private var title = ""
+    private var menuTitle = ""
     let content: Content
     private var destination: AnyView
     
-    init(title: String, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, @ViewBuilder content: () -> Content) {
+    init(menuTitle: String = "Ange-gardien", title: String, progress: Binding<Double>, valid: Binding<Bool>, destination: AnyView, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._progress = progress
         self._valid = valid
         self.destination = destination
         self.title = title
+        self.menuTitle = menuTitle
     }
     
     var body: some View {
@@ -46,7 +48,7 @@ struct GuardianFormBaseView<Content: View>: View {
                     VStack {
                         Color.accentColor
                             .frame(height: 35)
-                            .overlay(Text("Ange-gardien")
+                            .overlay(Text(menuTitle)
                                         .font(.system(size: 22))
                                         .fontWeight(.bold)
                                         .foregroundColor(.white)
@@ -68,13 +70,15 @@ struct GuardianFormBaseView<Content: View>: View {
                             .normalShadow()
                             .overlay(Image("info"))
                     })
-                    Text(title)
-                        .font(.system(size: 17))
-                        .fontWeight(.bold)
+                    ScrollView {
+                        Text(title)
+                            .font(.system(size: 17))
+                            .fontWeight(.bold)
                         .padding(.top)
-                    Spacer()
-                    content
-                    Spacer()
+                        Spacer()
+                        content
+                        Spacer()
+                    }
                     HStack {
                         Spacer()
                         Rectangle()

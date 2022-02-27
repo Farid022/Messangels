@@ -42,34 +42,3 @@ struct FuneralSelectCompanyView: View {
         }
     }
 }
-
-struct FuneralCapsuleView: View {
-    var name: String
-    var action: () -> Void
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 25.0)
-                .frame(height: 56)
-                .foregroundColor(.white)
-                .thinShadow()
-            HStack(spacing: 20) {
-                Text(name)
-                    .font(.system(size: 14))
-                Button(action: {
-                    action()
-                }, label: {
-                    ZStack {
-                        Circle()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(.white)
-                        Image("ic_remove")
-                    }
-                })
-                    .thinShadow()
-            }
-            .padding(.horizontal)
-        }
-        .fixedSize()
-    }
-}

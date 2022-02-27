@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Alamofire
 
 typealias APIService = Networking
 
@@ -180,6 +181,91 @@ class Networking {
         }
         return nil
     }
+    func uploadMultiple(_ fileUrls: [Data], fileNames:[String], fileTypes:[String]) async -> UploadResponse? {
+        await withCheckedContinuation { continuation in
+            uploadMultiple(fileUrls, fileNames: fileNames, fileTypes: fileTypes) { response in
+                continuation.resume(returning: response)
+            }
+        }
+    }
+    func uploadMultiple(_ fileUrls: [Data], fileNames:[String], fileTypes:[String], completion: @escaping (UploadResponse?) -> Void) {
+//        let url = URL(string: "http://51.83.41.210:4000/uploadfile")!
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "POST"
+//        let boundary:String = "Boundary-\(UUID().uuidString)"
+//        request.allHTTPHeaderFields = ["Content-Type": "multipart/form-data; boundary=----\(boundary)"]
+        let user = UserDefaults.standard.value(forKey: "user") as! [String: Any]
+        // START FORM DATA
+        var basePaths = [String]()
+        for fileType in fileTypes {
+            basePaths.append("/messangel/\(user["id"] ?? "0")/\(fileType)")
+        }
+//        let dic:[String:String] = [
+//            "artifect_type":fileTypes.joined(separator: ","),
+//            "base_path":basePaths.joined(separator: ",")
+//        ]
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data(fileTypes.joined(separator: ",").utf8), withName: "artifect_type")
+            multipartFormData.append(Data(basePaths.joined(separator: ",").utf8), withName: "base_path")
+            for url in fileUrls {
+//                multipartFormData.append(file, withName: "dataFiles")
+                    multipartFormData.append(url, withName: "dataFiles")
+//                    multipartFormData.append(url, withName: "dataFiles")
+            }
+        }, to: "http://51.83.41.210:4000/uploadfile")
+//            .responseData(completionHandler: { resData in
+//                resData.data
+//            })
+            .responseDecodable(of: UploadResponse.self) { response in
+                switch response.result {
+                case .success(let res):
+                    if let resData = response.data {
+                        debugPrint("Upload Reponse Data: \(String(data: resData, encoding: .utf8) ?? "")")
+                    }
+                    completion(res)
+                case .failure(let error):
+                    debugPrint(error.localizedDescription)
+                    completion(nil)
+                }
+            }
+//        var requestData = Data()
+//        for (key,value) in dic {
+//            requestData.append("------\(boundary)\r\n".data(using: .utf8)!)
+//            requestData.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+//            requestData.append("\(value)\r\n".data(using: .utf8)!)
+//        }
+//        requestData.append("------\(boundary)\r\n".data(using: .utf8)!)
+//        var i = 0
+//        for _ in fileNames {
+//            requestData.append("Content-Disposition: form-data; name=\"dataFiles\"; filename=\"\(fileNames[i])\"\r\n".data(using: .utf8)!)
+//            requestData.append("Content-Type: application/\(fileTypes[i])\r\n\r\n".data(using: .utf8)!)
+//            i += 1
+//        }
+//        requestData.append("\r\n".data(using: .utf8)!)
+//        for fileDatum in fileData {
+//            requestData.append(fileDatum)
+//        }
+//        requestData.append("------\(boundary)--".data(using: .utf8)!)
+        // END FORM DATA
+//        do {
+//            let (responseData, urlResponse) = try await URLSession.shared.upload(for: request, from: requestData)
+//            guard let httpUrlResponse = urlResponse as? HTTPURLResponse,
+//                  (200...299).contains(httpUrlResponse.statusCode) else {
+//                      print ("server error")
+//                      return nil
+//                  }
+//            if let mimeType = httpUrlResponse.mimeType,
+//               mimeType == "application/json",
+//               let dataString = String(data: responseData, encoding: .utf8) {
+//                print ("Upload Reponse Data: \(dataString)")
+//            }
+//            let uploadResponse = try JSONDecoder().decode(UploadResponse.self, from: responseData)
+//            return uploadResponse
+//        } catch (let error) {
+//            print(error.localizedDescription)
+//        }
+//        return nil
+    }
     
 } // END OF CLASS
 
@@ -203,13 +289,33 @@ func uploadImage(_ image: UIImage, type: String) async -> String {
     return ""
 }
 
-func uploadFile(_ fileUrl: URL, type: String) async -> String {
-    let data = try? Data(contentsOf: fileUrl)
-    if let data = data {
-        if let response = await Networking.shared.upload(data, fileName: "msgl_user_\(getUserId())_\(type)_\(fileUrl.lastPathComponent)", fileType: fileUrl.pathExtension) {
-            return response.files.first?.path ?? ""
+func uploadFiles(_ urls: [URL]) async -> [String] {
+    var filesData = [Data]()
+    var fileNames = [String]()
+    var fileTypes = [String]()
+    for url in urls {
+        if url.startAccessingSecurityScopedResource(), let data = NSData(contentsOfFile: url.path) {
+            filesData.append(data as Data)
+            fileNames.append(url.lastPathComponent)
+            fileTypes.append(url.pathExtension)
+            do { url.stopAccessingSecurityScopedResource() }
         }
     }
-    return ""
+    var uploadedFilesPaths = [String]()
+    var i = 0
+    for fileData in filesData {
+        if let response = await Networking.shared.upload(fileData, fileName: fileNames[i], fileType: fileTypes[i]) {
+            uploadedFilesPaths.append(response.files[0].path)
+        }
+        i += 1
+    }
+//    if let response = await Networking.shared.uploadMultiple(filesData, fileNames: fileNames, fileTypes: fileTypes) {
+//
+//        for uploadedFile in response.files {
+//            uploadedFilesPaths.append(uploadedFile.path)
+//        }
+//        return uploadedFilesPaths
+//    }
+    return uploadedFilesPaths
 }
 

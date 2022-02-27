@@ -45,6 +45,7 @@ func unixStrToDateSring(_ dateStr: String) -> String {
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
     if let date = dateFormatter.date(from: dateStr) {
         dateFormatter.dateStyle = .long
+        dateFormatter.locale = Locale(identifier: "fr")
         return dateFormatter.string(from: date)
     } else {
         return ""

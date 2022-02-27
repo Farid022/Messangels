@@ -31,7 +31,6 @@ struct ManagedContractsDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavbarButtonView()
                         NavigationTitleView(menuTitle: "Contrats à gérer")
                         DetailsTitleView(title: contract.name)
                         HStack {
@@ -39,7 +38,7 @@ struct ManagedContractsDetails: View {
                             Text(contract.organization.name)
                             Spacer()
                         }
-                        DetailsNoteView(note: contract.note)
+                        DetailsNoteView(note: contract.note, attachments: vm.attachements, navId: String(describing: Self.self))
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.contract = ContractLocal(id: contract.id, contract_name: contract.name, contract_organization: contract.organization.id ?? 1, contract_note: contract.note)
                             vm.orgName = contract.organization.name
@@ -51,34 +50,6 @@ struct ManagedContractsDetails: View {
                     }
                     .padding()
                 }
-            }
-        }
-    }
-}
-
-struct DetailsNoteView: View {
-    var note: String
-    var body: some View {
-        VStack {
-            if !note.isEmpty {
-                RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundColor(.gray.opacity(0.2))
-                    .frame(height: 420)
-                    .overlay(
-                        VStack(alignment: .leading) {
-                            HStack{
-                                Image("ic_note")
-                                Text("Note")
-                                    .font(.system(size: 15), weight: .bold)
-                                Spacer()
-                            }
-                            Text(note)
-                        }
-                            .padding(), alignment: .top
-                    )
-                    .padding(.bottom, 30)
-            } else {
-                EmptyView()
             }
         }
     }

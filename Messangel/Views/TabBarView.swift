@@ -12,6 +12,7 @@ struct TabBarView: View {
     @AppStorage("onboardingShown") var onboardingShown = false
     @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var keyAccRegVM: AccStateViewModel
+    @StateObject private var vmGroup = GroupViewModel()
     @StateObject private var vmKeyAcc = KeyAccViewModel()
     @StateObject private var vmOnlineService = OnlineServiceViewModel()
     @State private var selectedTab = "Accueil"
@@ -19,7 +20,8 @@ struct TabBarView: View {
     @State private var onboardingCompleted = false
     @State private var onboardingCancelled = false
     @State private var loading = true
-    @State private var showPopUp = false
+    @State private var showNewServicePopUp = false
+    @State private var showNewMessagePopUp = false
     static let id = String(describing: Self.self)
     
     init() {
@@ -38,9 +40,9 @@ struct TabBarView: View {
                                 .tag(tabs[0])
                             TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
                                 .tag(tabs[1])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesBottomView()))
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesMainView(showButtonsPopup: $showNewMessagePopUp, vm: vmGroup)))
                                 .tag(tabs[2])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showPopUp)))
+                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showNewServicePopUp)))
                                 .tag(tabs[3])
                         }
                     }
@@ -80,8 +82,11 @@ struct TabBarView: View {
                     if keyAccRegVM.showSuccessScreen {
                         KeyAccRegSuccessView()
                     }
-                    if showPopUp {
-                        NewAccPopupView(showPopUp: $showPopUp)
+                    if showNewServicePopUp {
+                        NewAccPopupView(showPopUp: $showNewServicePopUp)
+                    }
+                    if showNewMessagePopUp {
+                        PopupButtonsView(showPopUp: $showNewMessagePopUp, vm: vmGroup)
                     }
                     BottomTabBar(onboardingShown: $onboardingShown, onboardingStarted: $onboardingStarted, selectedTab: $selectedTab)
                         .if(!onboardingShown && !onboardingStarted) { $0.brightness(-0.2) }

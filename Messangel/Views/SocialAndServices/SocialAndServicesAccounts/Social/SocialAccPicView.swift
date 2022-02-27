@@ -10,7 +10,7 @@ import SwiftUI
 struct SocialAccPicView: View {
     @State private var valid = false
     @State private var showNote = false
-    @State private var isShowPhotoLibrary = false
+    @State private var isShowImagePickerOptions = false
     @ObservedObject var vm: OnlineServiceViewModel
     
     var body: some View {
@@ -22,12 +22,8 @@ struct SocialAccPicView: View {
                 .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(noteText: $vm.account.lastPostImageNote.bound, note: true, showNote: $showNote, menuTitle: "Ajouter un réseau social", title: "INSTAGRAM – Sélectionnez une photo pour accompagner ce message", valid: .constant(true), destination: AnyView(SocialPostTimeView(vm: vm))) {
-                ImageSelectionView(isShowPhotoLibrary: $isShowPhotoLibrary, localImage: vm.socialAccPic, remoteImage: vm.account.lastPostImage ?? "")
+                ImageSelectionView(showImagePickerOptions: $isShowImagePickerOptions, localImage: $vm.socialAccPic, remoteImage: vm.account.lastPostImage ?? "", imageSize: 128.0)
             }
-            
-        }
-        .sheet(isPresented: $isShowPhotoLibrary) {
-            ImagePicker(selectedImage: $vm.socialAccPic)
         }
     }
 }

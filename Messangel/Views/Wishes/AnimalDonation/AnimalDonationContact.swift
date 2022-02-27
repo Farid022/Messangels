@@ -12,11 +12,13 @@ struct AnimalDonationContact: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var valid = false
     @ObservedObject var vm: AnimalDonatiopnViewModel
-    private let title = "Sélectionnez un contact à qui confier *votre animal *vos animaux"
+    var title: String {
+        return "Sélectionnez un contact à qui confier \(vm.animalDonation.single_animal! ? "votre animal" : "vos animaux")"
+    }
 
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(AnimalDonationPic(vm: vm))) {
+            FlowBaseView(menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(AnimalDonationNote(vm: vm))) {
                 if vm.contactName.isEmpty {
                     Button(action: {
                         navigationModel.presentContent(title) {

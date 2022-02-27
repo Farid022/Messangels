@@ -9,9 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct OrganDonateBody: View {
-//    @State private var valid = false
-    @State private var showNote = false
-    @State private var note = ""
+//    @State private var showNote = false
+//    @State private var note = ""
     @State private var loading = false
     @ObservedObject var vm: OrganDonationViewModel
     @EnvironmentObject var navModel: NavigationModel
@@ -19,12 +18,6 @@ struct OrganDonateBody: View {
 
     var body: some View {
         ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-                    .edgesIgnoringSafeArea(.top)
-            }
             FlowBaseView(isCustomAction: true, customAction: {
                 loading.toggle()
                 if !vm.updateRecord {
@@ -44,7 +37,7 @@ struct OrganDonateBody: View {
                         }
                     }
                 }
-            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: title, valid: .constant(true)) {
+            }, menuTitle: "Don d’organes ou du corps à la#science", title: title, valid: .constant(true)) {
                 viewMessangelGuide()
                 if loading {
                     Loader()
