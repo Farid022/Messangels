@@ -272,11 +272,12 @@ struct PotectedUserCard: View {
                     .thinShadow()
                     .overlay(
                         Button {
-                            if vm.deaths.isEmpty { // TODO: - Think reject case what to do?!
+                            // TODO: - Think reject case what to do?!
+                            if vm.deaths.isEmpty || !vm.deaths.contains(where: { $0.user == protected.user.id }) {
                                 navigationModel.pushContent("Accueil") {
                                     ProtectedUserView(vm: vm, protected: protected)
                                 }
-                            } else if vm.deaths.contains(where: { $0.status == 2 && $0.guardian != getUserId() }) {
+                            } else if vm.deaths.contains(where: { $0.user == protected.user.id && $0.status == 2 && $0.guardian != getUserId() }) {
                                 navigationModel.pushContent("Accueil") {
                                     DeathConfirmationView(vm: vm, protected: protected)
                                 }
