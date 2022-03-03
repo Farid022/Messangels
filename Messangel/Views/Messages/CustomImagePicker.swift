@@ -61,6 +61,7 @@ struct CustomImagePicker : View {
         DispatchQueue.global(qos: .background).async {
             let fetchOptions = PHFetchOptions()
             fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
             let photos: PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
             for i in 0..<photos.count{
                 gridImages.append(ImageData(image: photos[i].getAssetThumbnail(size: CGSize(width: 150, height: 150)), selected: false, asset: photos[i]))

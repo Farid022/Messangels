@@ -40,8 +40,7 @@ struct DocGroupView: View {
                         showNewGroupBox.toggle()
                         if let text = result {
                             if !text.isEmpty && text.count > 2 {
-                                groupVM.group.name = text
-                                groupVM.group.user = getUserId()
+                                groupVM.group = MsgGroup(name: text)
                                 groupVM.create { success in
                                     print("Group \(text) created: \(success)")
                                         if success {

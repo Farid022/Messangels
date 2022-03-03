@@ -72,6 +72,16 @@ struct RecordingView: View {
     @Binding var isRecording:Bool
     @ObservedObject var cameraController: CameraController
     @ObservedObject var stopWatch: StopWatchManager
+    @State var showPicker = false
+    @State var videoUrl = NSURL()
+    
+    fileprivate func trimVideoAtUrl(_ url: URL) {
+        let asset = AVURLAsset(url: url, options: nil)
+        let playermanager = PlayerManager(videoUrl: url)
+        navigationModel.pushContent("VideoRecoderView") {
+            VideoTrimView(videoUrl: url, asset: asset, finishedObserver: PlayerFinishedObserver(player: playermanager.player), playerManager: playermanager, slider: CustomSlider(start: 1, end: asset.duration.seconds))
+        }
+    }
     
     var body: some View {
         Text("APPUYEZ POUR VOUS ENREGISTRER")
@@ -80,9 +90,15 @@ struct RecordingView: View {
             .fontWeight(.semibold)
             .if(isRecording) { $0.hidden() }
         HStack {
-            Image("gallery_preview")
-                .padding(.leading, -24)
-                .if(isRecording) { $0.hidden() }
+            Button {
+                showPicker.toggle()
+            } label: {
+                RoundedRectangle(cornerRadius: 25.0)
+                    .fill(Color.black.opacity(0.5))
+                    .frame(width: 56, height: 56)
+                    .overlay(Image("ic_gallery"))
+            }
+            .if(isRecording) { $0.hidden() }
             Spacer()
             Button(action: {
                 DispatchQueue.main.async {
@@ -96,11 +112,7 @@ struct RecordingView: View {
                             try? PHPhotoLibrary.shared().performChangesAndWait {
                                 PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
                             }
-                            let asset = AVURLAsset(url: url, options: nil)
-                            let playermanager = PlayerManager(videoUrl: url)
-                            navigationModel.pushContent("VideoRecoderView") {
-                                VideoTrimView(videoUrl: url, asset: asset, finishedObserver: PlayerFinishedObserver(player: playermanager.player), playerManager: playermanager, slider: CustomSlider(start: 1, end: asset.duration.seconds))
-                            }
+                            trimVideoAtUrl(url)
                         }
                     }
                 } else {
@@ -114,7 +126,6 @@ struct RecordingView: View {
             }, label: {
                 RecordButtonView(isRecording: $isRecording)
             })
-            .padding(.leading, -30)
             Spacer()
             Button(action:{
                 try? cameraController.switchCameras()
@@ -126,6 +137,14 @@ struct RecordingView: View {
             }
             .if(isRecording) { $0.hidden() }
         }
-        .padding(.trailing, 16)
+        .padding()
+        .sheet(isPresented: $showPicker) {
+            VideoPicker(videoUrl: $videoUrl, isShown: $showPicker)
+        }
+        .onChange(of: videoUrl) { value in
+            if value.isFileURL {
+                trimVideoAtUrl(value as URL)
+            }
+        }
     }
 }

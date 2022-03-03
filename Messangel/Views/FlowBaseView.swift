@@ -45,9 +45,11 @@ struct FlowBaseView<Content: View>: View {
     var body: some View {
         NavigationStackView(title) {
             ZStack(alignment:.top) {
-                Color.accentColor
-                    .frame(height:70)
+                GeometryReader { proxy in
+                    Color.accentColor
+                        .frame(height: proxy.safeAreaInsets.top)
                     .edgesIgnoringSafeArea(.top)
+                }
                 VStack(spacing: 20) {
                     NavigationTitleView(menuTitle: menuTitle, exitAction: exitAction)
                     if addToList {
@@ -77,7 +79,8 @@ struct FlowBaseView<Content: View>: View {
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.bottom)
             }
             .textFieldStyle(MyTextFieldStyle())
         }
@@ -91,9 +94,10 @@ struct NavigationTitleView: View {
     var body: some View {
         VStack {
             Color.accentColor
-                .frame(height:125)
+                .frame(height:140)
                 .padding(.horizontal, -20)
-                .overlay(HStack {
+                .overlay(
+                    HStack {
                     VStack(alignment: .leading) {
                         Button {
                             if let exitAction = exitAction {
@@ -103,6 +107,7 @@ struct NavigationTitleView: View {
                         } label: {
                            Image("ic_exit")
                         }
+                        .padding(.top)
                         Spacer()
                         Text(menuTitle)
                             .font(.system(size: 22))

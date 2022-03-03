@@ -199,12 +199,19 @@ extension UIApplication {
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    static var keyWindow: UIWindow? {
+        return UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+    }
 }
 
 extension UIDevice {
     var hasNotch: Bool {
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+//        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        return UIApplication.keyWindow?.safeAreaInsets.bottom ?? 0 > 0
     }
     
 }

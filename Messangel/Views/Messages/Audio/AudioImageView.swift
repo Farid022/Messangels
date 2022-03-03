@@ -29,6 +29,7 @@ struct AudioImageView: View {
                         Image(uiImage: audioImage)
                             .resizable()
                             .frame(width: 252, height: screenSize.width / 1.15)
+                            .scaledToFill()
                     } else {
                         Rectangle()
                             .foregroundColor(.gray.opacity(0.5))
@@ -70,7 +71,7 @@ struct AudioImageView: View {
             }
             .ActionSheet(showImagePickerOptions: $isShowImagePickerOptions, showImagePicker: $showImagePicker, sourceType: $sourceType)
             .sheet(isPresented: $showImagePicker) {
-                ImagePicker(image: $audioImage, isShown: $showImagePicker, sourceType: sourceType)
+                ImagePicker(image: $audioImage, isShown: $showImagePicker, sourceType: $sourceType)
             }
         }
     }

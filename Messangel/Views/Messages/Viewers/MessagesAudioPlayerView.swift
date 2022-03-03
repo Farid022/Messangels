@@ -99,7 +99,10 @@ struct AudioPlayerPreview: View {
                     .padding()
                     .zIndex(1.0)
                 AsyncImage(url: URL(string: bgImage)) { image in
-                    image.resizable()
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
                 } placeholder: {
                     Color.gray
                 }

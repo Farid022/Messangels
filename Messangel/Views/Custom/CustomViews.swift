@@ -743,7 +743,21 @@ struct PDFKitRepresentedView: UIViewRepresentable {
     }
 }
 
-//MARK: - ImageSelectionView
+//MARK: - Image Views
+struct ProfileImageView: View {
+    var imageUrlString: String?
+    var imageSize = 64.0
+    var body: some View {
+        if let imageUrlString = imageUrlString, let imageUrl = URL(string: imageUrlString) {
+            KFImage(imageUrl)
+                .resizable()
+                .scaledToFill()
+                .frame(width: imageSize, height: imageSize)
+                .clipShape(Circle())
+        }
+    }
+}
+
 struct ImageSelectionView: View {
     @State private var showImagePicker: Bool = false
     @State private var sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -789,7 +803,7 @@ struct ImageSelectionView: View {
         }
         .ActionSheet(showImagePickerOptions: $showImagePickerOptions, showImagePicker: $showImagePicker, sourceType: $sourceType)
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: self.$localImage, isShown: self.$showImagePicker, sourceType: self.sourceType)
+            ImagePicker(image: self.$localImage, isShown: self.$showImagePicker, sourceType: $sourceType)
         }
     }
 }
@@ -803,14 +817,15 @@ struct DetailsPhotoView: View {
             HStack {
                 KFImage(URL(string: imageUrlString))
                     .resizable()
+                    .scaledToFill()
                     .frame(width: 128, height: 128)
-                .clipShape(Circle())
-                .overlay(alignment: .bottomTrailing) {
-                    Image("ic_full_photo")
-                        .onTapGesture {
-                            fullScreenPhoto.toggle()
-                        }
-                }
+                    .clipShape(Circle())
+                    .overlay(alignment: .bottomTrailing) {
+                        Image("ic_full_photo")
+                            .onTapGesture {
+                                fullScreenPhoto.toggle()
+                            }
+                    }
                 Spacer()
             }
             .padding(.bottom)
@@ -837,7 +852,9 @@ struct DetailsFullScreenPhotoView: View {
             Spacer()
             KFImage(URL(string: imageUrlString))
                 .resizable()
+                .scaledToFill()
                 .frame(height: 310)
+                .clipped()
             Spacer()
         }
         .background(Color.black.opacity(0.5))

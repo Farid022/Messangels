@@ -28,8 +28,8 @@ struct ContentView: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            if !subVM.gotSubscription {
-                if let window = UIApplication.shared.windows.first {
+            if !auth.user.first_name.isEmpty && !subVM.gotSubscription {
+                if let window = UIApplication.keyWindow {
                     window.rootViewController = UIHostingController(rootView: ContentView())
                     window.makeKeyAndVisible()
                 }

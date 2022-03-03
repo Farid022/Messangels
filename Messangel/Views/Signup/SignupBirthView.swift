@@ -98,7 +98,7 @@ struct CustomActionSheet : View {
                 Text("OK")
             }
         }
-        .padding(.bottom, (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! )
+        .padding(.bottom, (UIApplication.keyWindow?.safeAreaInsets.bottom)! )
         .padding(.top)
         .background(Color(UIColor.systemBackground))
         .cornerRadius(25)

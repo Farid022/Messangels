@@ -7,7 +7,6 @@
 
 import SwiftUI
 import NavigationStack
-import Kingfisher
 
 struct GuardianView: View {
     @State private var confirmAlert = false
@@ -17,11 +16,8 @@ struct GuardianView: View {
     
     var body: some View {
         MenuBaseView(title:"\(guardian.last_name) \(guardian.first_name)") {
-            if let user = guardian.guardian, let imageUrlString = user.image_url {
-                KFImage(URL(string: imageUrlString))
-                    .resizable()
-                    .frame(width: 64, height: 64)
-                    .clipShape(Circle())
+            if let user = guardian.guardian {
+                ProfileImageView(imageUrlString: user.image_url)
                     .padding(.vertical)
             }
             Text(guardian.last_name + " " + guardian.first_name.uppercased())

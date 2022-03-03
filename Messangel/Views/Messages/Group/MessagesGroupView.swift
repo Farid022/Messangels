@@ -12,7 +12,7 @@ import AVKit
 struct MessagesGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var albumVM: AlbumViewModel
-    var group: MsgGroup
+    var group: MsgGroupDetail
     @State private var currentIndex: Int = 0
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State private var fadeOut = false
@@ -44,10 +44,10 @@ struct MessagesGroupView: View {
                         }
                 }
                 GroupDestinationView(group: group)
-                LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 16.0), count: 2), spacing: 16.0) {
+                VStack() {
                     if let groupTexts = group.texts {
                         ForEach(groupTexts, id: \.self) { text in
-                            MessageCard(image: "ic_contacts", name: text.name, icon: "ic_text_msg", createdAt: unixStrToDateSring(text.created_at ?? ""))
+                            MessageCard(name: text.name, icon: "ic_text_msg", createdAt: unixStrToDateSring(text.created_at ?? ""))
                                 .onTapGesture {
                                     navigationModel.presentContent(TabBarView.id) {
                                         MessagesTextView(htmlUrl: text.message, headerImage: "doc_header")
@@ -57,7 +57,7 @@ struct MessagesGroupView: View {
                     }
                     if let groupAudios = group.audios {
                         ForEach(groupAudios, id: \.self) { audio in
-                            MessageCard(image: "ic_contacts", name: audio.name, icon: "ic_audio", createdAt: unixStrToDateSring(audio.created_at ?? ""))
+                            MessageCard(name: audio.name, icon: "ic_audio", createdAt: unixStrToDateSring(audio.created_at ?? ""))
                                 .onTapGesture {
                                     if let url = URL(string:audio.audio_link) {
                                         let player = Player(avPlayer: AVPlayer(url: url))
@@ -70,7 +70,7 @@ struct MessagesGroupView: View {
                     }
                     if let groupVideos = group.videos {
                         ForEach(groupVideos, id: \.self) { video in
-                            MessageCard(image: "ic_contacts", name: video.name, icon: "ic_video", createdAt: unixStrToDateSring(video.created_at ?? ""))
+                            MessageCard(name: video.name, icon: "ic_video", createdAt: unixStrToDateSring(video.created_at ?? ""))
                                 .onTapGesture {
                                     navigationModel.presentContent(TabBarView.id) {
                                         VideoPlayer(player: AVPlayer(url: URL(string: video.video_link)!))
@@ -124,9 +124,12 @@ struct GalleryPlaceHolder: View {
             .padding(.bottom, 25)
     }
 }
-
+//TODO: - On top upload selected images and update the group gallery
 struct GroupDestinationView: View {
-    var group: MsgGroup
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var vm = GroupViewModel()
+    var group: MsgGroupDetail
+    
     var body: some View {
         HStack {
             HStack {
@@ -137,15 +140,25 @@ struct GroupDestinationView: View {
         }
         HStack {
             Button {
-               //TODO: - add contacts to the group
-                //TODO: - On top upload selected images and update the group gallery
+                vm.group = MsgGroup(id: self.group.id, name: self.group.name, texts: self.group.texts, audios: self.group.audios , videos: self.group.videos, galleries: self.group.galleries)
+                if let groupContacts = self.group.group_contacts {
+                    vm.groupContacts = groupContacts
+                    var ids = [Int]();
+                    groupContacts.forEach { c in
+                        ids.append(c.id)
+                    }
+                    vm.group.group_contacts = ids
+                }
+                navigationModel.presentContent(TabBarView.id) {
+                    MsgGroupContacts(vm: vm)
+                }
             } label: {
                 Capsule()
                     .foregroundColor(.white)
                     .normalShadow()
                     .frame(width: 160, height: 56)
                     .overlay(HStack {
-                        Text("0")
+                        Text("\(group.group_contacts?.count ?? 0)")
                             .foregroundColor(.accentColor)
                         Image("ic_contacts")
                         Text("Destinataires")
@@ -182,36 +195,49 @@ struct CreateMessageCard: View {
 }
 
 struct MessageCard: View {
-    var image = ""
     var name = ""
     var icon = ""
     var createdAt = ""
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25.0)
-            .frame(width: 160, height: 250)
+            .frame(height: 114)
             .foregroundColor(.white)
             .normalShadow()
-            .overlay(VStack {
-                Spacer().frame(height: 30)
-                RoundedRectangle(cornerRadius: 28.0)
-                    .frame(width: 66, height: 66)
-                    .foregroundColor(.white)
-                    .normalShadow()
-                    .overlay(Image(image))
-                    .padding(.bottom, 10)
-                Text(name)
-                Spacer()
-                Image(icon)
-                    .renderingMode(.template)
-                    .foregroundColor(.gray)
-                    .padding(.bottom)
-                Divider()
-                Text(createdAt)
-                    .font(.system(size: 11))
-                    .foregroundColor(.secondary.opacity(0.5))
-                    .padding(5)
-                    .padding(.bottom, 10)
-            })
+            .overlay(
+                HStack {
+                    RoundedRectangle(cornerRadius: 28.0)
+                        .frame(width: 66, height: 66)
+                        .foregroundColor(.white)
+                        .normalShadow()
+                        .overlay(
+                            Image(icon)
+                                .renderingMode(.template)
+                                .foregroundColor(.accentColor)
+                        )
+                    VStack(spacing: 10) {
+                        HStack {
+                            Text(name)
+                                .fontWeight(.bold)
+                            Spacer()
+                        }
+                        HStack {
+                            Image(icon)
+                                .renderingMode(.template)
+                                .foregroundColor(.gray)
+                                .padding(.bottom)
+                            Text(createdAt)
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                                .padding(5)
+                                .padding(.bottom, 10)
+                            Spacer()
+                        }
+                    }
+                    .padding()
+                    Spacer()
+                }
+                    .padding()
+            )
     }
 }

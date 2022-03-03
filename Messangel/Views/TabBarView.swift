@@ -28,6 +28,7 @@ struct TabBarView: View {
         UITabBar.appearance().isHidden = true
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(.accentColor)
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
+        UIScrollView.appearance().bounces = false
     }
     
     var body: some View {
@@ -36,13 +37,13 @@ struct TabBarView: View {
                 if onboardingShown {
                     NavigationStackView(selectedTab) {
                         TabView(selection: $selectedTab){
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
                                 .tag(tabs[0])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
                                 .tag(tabs[1])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesMainView(showButtonsPopup: $showNewMessagePopUp, vm: vmGroup)))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesMainView(showButtonsPopup: $showNewMessagePopUp, vm: vmGroup)))
                                 .tag(tabs[2])
-                            TabContent(selectedTab: $selectedTab, navBarContent: AnyView(NonHomeNavBar()), topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showNewServicePopUp)))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showNewServicePopUp)))
                                 .tag(tabs[3])
                         }
                     }
@@ -209,18 +210,6 @@ struct NonHomeTopView: View {
     }
 }
 
-struct NonHomeNavBar: View {
-    var body: some View {
-        HStack {
-            Spacer()
-//            Button(action: {}, label: {
-//                Image("help")
-//                    .padding(.horizontal, -30)
-//            })
-        }
-    }
-}
-
 struct NavBar: View {
     var body: some View {
         Color.accentColor
@@ -229,11 +218,29 @@ struct NavBar: View {
     }
 }
 
+struct HomeNavBar: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    var body: some View {
+        HStack {
+            Spacer()
+            Button(action: {
+                navigationModel.presentContent("Accueil") {
+                    MenuView()
+                }
+            }) {
+                Image("menu")
+                    .padding()
+            }
+        }
+        .padding(.top)
+    }
+}
+
 struct TopSection: View {
     @Binding var selectedTab: String
     var body: some View {
         Color.accentColor
-            .frame(height: selectedTab == "Accueil" ? 300 : 200)
+            .frame(height: selectedTab == "Accueil" ? 340 : 240)
     }
 }
 
@@ -244,19 +251,35 @@ struct BottomSection: View {
 }
 
 struct TabContent: View {
+    @Binding var showButtonsPopup: Bool
     @Binding var selectedTab: String
-    var navBarContent: AnyView
+    var navBarContent: AnyView?
     var topContent: AnyView
     var bottomContent: AnyView
     
     var body: some View {
-        VStack(spacing: 0.0) {
-            NavBar()
-                .overlay(navBarContent)
-            TopSection(selectedTab: $selectedTab)
-                .overlay(topContent, alignment: .bottom)
-            BottomSection()
-                .overlay(bottomContent.padding(.top))
+        ZStack(alignment: .top) {
+            Color.accentColor
+                .ignoresSafeArea()
+            ZStack(alignment: .bottom) {
+                VStack(spacing: 0.0) {
+                    Color.accentColor
+                        .ignoresSafeArea()
+                        .frame(height: 1)
+                    ScrollView {
+                        navBarContent
+                            .background(Color.accentColor)
+                        TopSection(selectedTab: $selectedTab)
+                            .overlay(topContent, alignment: .bottom)
+                            .padding(.top, -8)
+                        bottomContent
+                    }
+                }
+                if selectedTab == "Messages" {
+                    NewMessageButtonView(showButtonsPopup: $showButtonsPopup)
+                }
+            }
+            .background(Color.white)
         }
     }
 }

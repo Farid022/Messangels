@@ -13,7 +13,7 @@ struct MessagesMainView: View {
     @ObservedObject var vm: GroupViewModel
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             VStack {
                 if vm.groups.isEmpty {
                     VStack {
@@ -23,20 +23,19 @@ struct MessagesMainView: View {
                             .padding(.bottom)
                         Text("Créez votre premier message")
                             .font(.system(size: 17), weight: .bold)
-                        NewMessageButtonView(showButtonsPopup: $showButtonsPopup)
                     }
                 } else {
-                    ScrollView {
+//                    ScrollView {
                         VStack {
                             ForEach(vm.groups, id: \.self) { group in
-                               GroupCapsule(group: group)
+                                GroupCapsule(group: group)
                                     .environmentObject(vm)
                                     .padding(.vertical)
                             }
+                            Spacer().frame(height: 70)
                         }
                         .padding(.horizontal)
-                    }
-                    NewMessageButtonView(showButtonsPopup: $showButtonsPopup)
+//                    }
                 }
             }
         }
@@ -131,7 +130,7 @@ struct NewMessageButtonView: View {
 struct GroupCapsule: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var albumVM = AlbumViewModel()
-    var group: MsgGroup
+    var group: MsgGroupDetail
     var tappable = true
     var width = 0
     var body: some View {
@@ -152,7 +151,7 @@ struct GroupCapsule: View {
                             GroupItem(group: group)
                         }
                     } else {
-                        GroupItem(group: group, navigate: false)
+                        GroupItem(group: group)
                     }
                 }
                 .padding(.horizontal, 20),
@@ -162,8 +161,7 @@ struct GroupCapsule: View {
 }
 
 struct GroupItem: View {
-    var group: MsgGroup
-    var navigate = true
+    var group: MsgGroupDetail
     var body: some View {
         HStack {
             RoundedRectangle(cornerRadius: 25.0)
@@ -173,7 +171,9 @@ struct GroupItem: View {
             VStack(alignment: .leading, spacing: 7.0) {
                 Text(group.permission == "2" ? "Tout le monde (public)": group.name)
                     .fontWeight(.bold)
-                Text(group.permission == "2" ? "Pour votre cérémonie et tout autre diffusion publique" : "Inactif : Pas de destinataires")
+                    .foregroundColor(.primary)
+                Text(group.permission == "2" ? "Pour votre cérémonie et tout autre diffusion publique" : ((group.group_contacts?.isEmpty) != nil) ? "Inactif : Pas de destinataires" : "\(group.group_contacts?.count ?? 0) personnes")
+                    .multilineTextAlignment(.leading)
                     .foregroundColor(.secondary)
                     .font(.system(size: 13))
                 HStack {
@@ -187,10 +187,6 @@ struct GroupItem: View {
                             .foregroundColor(.secondary)
                     }
                 }
-            }
-            if navigate {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
             }
         }
     }

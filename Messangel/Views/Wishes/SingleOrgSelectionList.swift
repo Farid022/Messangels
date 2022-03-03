@@ -95,7 +95,7 @@ struct SingleOrgSelectionList: View {
         .onDidAppear {
             vm.getOrgs(orgType)
         }
-        .onChange(of: refreshList) { value in
+        .onChange(of: refreshList) { _ in
             vm.getOrgs(orgType)
         }
     }

@@ -28,17 +28,12 @@ struct DDConfirmView: View {
                         .fontWeight(.bold)
                     Spacer().frame(height: 10)
                     Button("Déclarer le décès") {
-                        APIService.shared.post(model: vm.death, response: vm.death, endpoint: "users/\(getUserId())/death_declaration") { result in
-                            switch result {
-                            case .success(_):
-                                DispatchQueue.main.async {
-                                    vm.guardiansUpdated = true
-                                    navigationModel.pushContent(String(describing: Self.self)) {
-                                        DDDoneView(vm: vm)
-                                    }
+                        APIService.shared.post(model: vm.death, response: vm.apiResponse, endpoint: "users/\(getUserId())/death_declaration") { result in
+                            DispatchQueue.main.async {
+                                vm.guardiansUpdated = true
+                                navigationModel.pushContent(String(describing: Self.self)) {
+                                    DDDoneView(vm: vm)
                                 }
-                            case .failure(let error):
-                                print(error.error_description)
                             }
                         }
                     }

@@ -13,11 +13,6 @@ enum FuneralRestPlace: Int, CaseIterable {
     case residence
 }
 
-struct BuryLocation: Hashable, Codable {
-    var id: Int?
-    var name: String
-}
-
 struct FuneralLocation: Codable {
     var location_of_ceremony: Bool?
     var location_of_ceremony_note: String?
@@ -38,7 +33,7 @@ struct FuneralLocationData: Codable {
     var route_convey_note: String?
     var reunion_location_note: String?
     var special_ceremony_note: String?
-    var bury_location: BuryLocation?
+    var bury_location: Organization?
     var bury_location_note: String?
     var resting_place: FuneralIntity?
     var resting_place_note: String?
@@ -48,8 +43,7 @@ struct FuneralLocationData: Codable {
 class FuneralLocationViewModel: ObservableObject {
     @Published var updateRecord = false
     @Published var name = ""
-    @Published var buryLocation = BuryLocation(name: "")
-    @Published var buryLocations = [BuryLocation]()
+    @Published var buryLocations = [Organization]()
     @Published var locations = [FuneralLocationData]()
     @Published var location = FuneralLocation()
     @Published var apiResponse = APIService.APIResponse(message: "")
@@ -124,17 +118,15 @@ class FuneralLocationViewModel: ObservableObject {
         }
     }
     
-    func getBuryLOcations(completion: @escaping (Bool) -> Void) {
-        APIService.shared.getJSON(model: buryLocations, urlString: "choices/bury_location") { result in
+    func getBuryLocations() {
+        APIService.shared.getJSON(model: buryLocations, urlString: "choices/\(getUserId())/organization?type=8") { result in
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {
                     self.buryLocations = items
-                    completion(true)
                 }
             case .failure(let error):
                 print(error)
-                completion(false)
             }
         }
     }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import NavigationStack
-import Kingfisher
 
 struct ProtectedUserView: View {
     @State private var confirmAlert = false
@@ -18,13 +17,8 @@ struct ProtectedUserView: View {
     var body: some View {
         NavigationStackView(String(describing: Self.self)) {
             MenuBaseView(title:"\(protected.user.last_name) \(protected.user.first_name)") {
-                if let imageUrlString = protected.user.image_url {
-                    KFImage(URL(string: imageUrlString))
-                        .resizable()
-                        .frame(width: 64, height: 64)
-                        .clipShape(Circle())
-                        .padding(.vertical)
-                }
+                ProfileImageView(imageUrlString: protected.user.image_url)
+                    .padding(.vertical)
                 Text(protected.user.last_name + " " + protected.user.first_name.uppercased())
                     .font(.system(size: 20), weight: .bold)
                 Spacer().frame(height: 50)
@@ -61,7 +55,7 @@ struct ProtectedUserView: View {
                     vm.death.user = protected.user.id ?? 0
                     vm.protectedUser.first_name = protected.user.first_name
                     vm.protectedUser.last_name = protected.user.last_name
-                    navigationModel.pushContent(String(describing: Self.self)) {
+                    navigationModel.pushContent(TabBarView.id) {
                         DeclareDeathIntro(vm: vm)
                     }
                 }, label: {

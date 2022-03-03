@@ -8,28 +8,6 @@
 import SwiftUI
 import NavigationStack
 
-struct HomeNavBar: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    var body: some View {
-        HStack {
-            Spacer()
-//            Button(action: {}, label: {
-//                Image("help")
-//                    .padding(.horizontal, -30)
-//            })
-            Button(action: {
-                navigationModel.presentContent("Accueil") {
-                    MenuView()
-                }
-            }) {
-                Image("menu")
-                    .padding()
-            }
-            .padding(.bottom, 10)
-        }
-    }
-}
-
 struct HomeTopView: View {
     @EnvironmentObject var auth: Auth
     var body: some View {
@@ -50,8 +28,8 @@ struct HomeTopView: View {
                     Text("Voir mon Messangel")
                         .font(.system(size: 15))
                 })
-                .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false))
-                .padding(.bottom)
+                    .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false))
+                    .padding(.bottom)
             }
             Spacer()
         }
@@ -71,55 +49,53 @@ struct HomeBottomView: View {
     @State private var loading = false
     
     var body: some View {
-        ScrollView {
-            VStack {
+        VStack {
+            HStack {
+                Text("Mes Anges-gardiens")
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
+                    .padding(.leading)
+                Spacer()
+            }
+            .padding(.bottom)
+            if subVM.checkingSubscription || !subVM.gotSubscription || loading  {
+                Loader()
+                    .padding(.top, 50)
+            }
+            else if subVM.subscriptions.count > 0 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(gVM.guardians, id: \.self) { guardian in
+                            GuardianCard(vm: gVM, guardian: guardian)
+                        }
+                        AddGuardianView(gVM: gVM)
+                        Spacer()
+                    }
+                    .padding()
+                }
+            } else {
+                SubscribeView()
+            }
+            if gVM.protectedUsers.count > 0 {
                 HStack {
-                    Text("Mes Anges-gardiens")
+                    Text("Mes protégés")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                         .padding(.leading)
                     Spacer()
                 }
                 .padding(.bottom)
-                if subVM.checkingSubscription || !subVM.gotSubscription || loading  {
-                    Loader()
-                        .padding(.top, 50)
-                }
-                else if subVM.subscriptions.count > 0 {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(gVM.guardians, id: \.self) { guardian in
-                                GuardianCard(vm: gVM, guardian: guardian)
-                            }
-                            AddGuardianView(gVM: gVM)
-                            Spacer()
-                        }
-                        .padding()
-                    }
-                } else {
-                    SubscribeView()
-                }
-                if gVM.protectedUsers.count > 0 {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        Text("Mes protégés")
-                            .font(.system(size: 20))
-                            .fontWeight(.bold)
-                            .padding(.leading)
+                        ForEach(gVM.protectedUsers.filter( {$0.status == "1"}), id: \.self) { protectedUsers in
+                            PotectedUserCard(vm: gVM, protected: protectedUsers)
+                        }
                         Spacer()
                     }
-                    .padding(.bottom)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(gVM.protectedUsers.filter( {$0.status == "1"}), id: \.self) { protectedUsers in
-                                PotectedUserCard(vm: gVM, protected: protectedUsers)
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                    }
+                    .padding()
                 }
-                Spacer().frame(height: 100)
             }
+            Spacer().frame(height: 100)
         }
         .onChange(of: subVM.checkingSubscription) { value in
             if !subVM.checkingSubscription && subVM.subscriptions.count > 0 {
@@ -146,8 +122,10 @@ struct HomeBottomView: View {
                 gVM.guardiansUpdated = false
             }
         }
-        gVM.getProtectedUsers { _ in
-            
+        gVM.getProtectedUsers { success in
+            if success {
+                gVM.getDeaths { _ in }
+            }
         }
     }
 }
@@ -231,6 +209,13 @@ struct GuardianCard: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: GuardianViewModel
     var guardian: Guardian
+    var buttonLabel: AnyView {
+        if let guardianUser = guardian.guardian {
+            return AnyView(ProfileImageView(imageUrlString: guardianUser.image_url, imageSize: 56.0))
+        } else {
+            return AnyView(Image("ic_person"))
+        }
+    }
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25)
@@ -249,7 +234,7 @@ struct GuardianCard: View {
                                 GuardianView(vm:vm, guardian: guardian)
                             }
                         }) {
-                            Image("gallery_preview")
+                            buttonLabel
                         })
                 VStack {
                     Text(guardian.last_name)
@@ -266,6 +251,14 @@ struct PotectedUserCard: View {
     @ObservedObject var vm: GuardianViewModel
     var protected: MyProtected
     
+    var buttonLabel: AnyView {
+        if let imageUrlString = protected.user.image_url {
+            return AnyView(ProfileImageView(imageUrlString: imageUrlString, imageSize: 56.0))
+        } else {
+            return AnyView(Image("ic_person"))
+        }
+    }
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 25)
             .fill(Color.white)
@@ -278,12 +271,18 @@ struct PotectedUserCard: View {
                     .cornerRadius(25)
                     .thinShadow()
                     .overlay(
-                        Button(action: {
-                            navigationModel.pushContent("Accueil") {
-//                                GuardianView(vm:vm, guardian: guardian)
+                        Button {
+                            if vm.deaths.isEmpty { // TODO: - Think reject case what to do?!
+                                navigationModel.pushContent("Accueil") {
+                                    ProtectedUserView(vm: vm, protected: protected)
+                                }
+                            } else if vm.deaths.contains(where: { $0.status == 2 && $0.guardian != getUserId() }) {
+                                navigationModel.pushContent("Accueil") {
+                                    DeathConfirmationView(vm: vm, protected: protected)
+                                }
                             }
-                        }) {
-                            Image("gallery_preview")
+                        } label: {
+                            buttonLabel
                         })
                 VStack {
                     Text(protected.user.last_name)

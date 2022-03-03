@@ -46,6 +46,7 @@ struct ModifyEmailView: View {
                 self.editing = isEditing
             }
             .textContentType(.emailAddress)
+            .autocapitalization(.none)
             .xTextFieldStyle()
             .normalShadow()
             .padding(.bottom, 30)

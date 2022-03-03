@@ -37,7 +37,13 @@ struct ProtectedUser {
     var last_name: String
 }
 
-struct Death: Codable{
+struct DeathDeclaration: Codable, Hashable {
+    var status: Int
+    var user: Int
+    var guardian: Int
+}
+
+struct Death: Codable {
     var user: Int
     var guardian = getUserId()
     var legal: Bool?
@@ -45,6 +51,7 @@ struct Death: Codable{
 }
 
 class GuardianViewModel: ObservableObject {
+    @Published var deaths = [DeathDeclaration]()
     @Published var guardiansUpdated = false
     @Published var death = Death(user: 0, death_text: "")
     @Published var guardian = Guardian(id: 0, user_id: 0, first_name: "", last_name: "", email: "", status: "2")
@@ -52,8 +59,21 @@ class GuardianViewModel: ObservableObject {
     @Published var protectedUser = ProtectedUser(first_name: "", last_name: "")
     @Published var protectedUsers = [MyProtected]()
     @Published var apiResponse = APIService.APIResponse(message: "")
-
     
+    func getDeaths(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: deaths, urlString: "users/\(getUserId())/death_declaration") { result in
+            switch result {
+            case .success(let deaths):
+                DispatchQueue.main.async {
+                    self.deaths = deaths
+                }
+            case .failure(let error):
+                print(error)
+            }
+            completion(true)
+        }
+    }
+
     func getGuardians(completion: @escaping (Bool) -> Void) {
         APIService.shared.getJSON(model: guardians, urlString: "users/guardian/\(getUserId())") { result in
             switch result {

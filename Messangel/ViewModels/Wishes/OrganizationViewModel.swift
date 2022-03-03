@@ -13,7 +13,7 @@ struct Organization: Hashable, Codable {
     var emailAddress, phoneNumber, contactName: String?
     var address, postalCode, city, website: String?
     var type: String
-    var user: Int
+    var user = getUserId()
 
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -28,7 +28,7 @@ struct Organization: Hashable, Codable {
 
 class OrgViewModel: ObservableObject {
     @Published var orgs = [Organization]()
-    @Published var newOrg = Organization(name: "", type: "1", user: getUserId())
+    @Published var newOrg = Organization(name: "", type: "1")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func create(completion: @escaping (Bool) -> Void) {
