@@ -49,7 +49,7 @@ struct SponsorView: View {
             .normalShadow()
         }
         .alert(isPresented: $alert, content: {
-            Alert(title: Text(vm.apiResponse.message.isEmpty ? vm.apiError.error : "Parrainer un proche"), message: Text(vm.apiResponse.message.isEmpty ? vm.apiError.error_description : vm.apiResponse.message))
+            Alert(title: Text(vm.apiResponse.message.isEmpty ? vm.apiError.error : "Parrainer un proche"), message: Text(vm.apiResponse.message.isEmpty ? vm.apiError.error_description : "Votre invitation a été envoyée avec succès"))
         })
     }
 }

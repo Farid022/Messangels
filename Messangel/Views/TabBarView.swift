@@ -37,13 +37,13 @@ struct TabBarView: View {
                 if onboardingShown {
                     NavigationStackView(selectedTab) {
                         TabView(selection: $selectedTab){
-                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
                                 .tag(tabs[0])
-                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
                                 .tag(tabs[1])
-                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesMainView(showButtonsPopup: $showNewMessagePopUp, vm: vmGroup)))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesMainView(showButtonsPopup: $showNewMessagePopUp, vm: vmGroup)))
                                 .tag(tabs[2])
-                            TabContent(showButtonsPopup: $showNewMessagePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showNewServicePopUp)))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Vie digitale", detail: socialAndServicesDesc)), bottomContent: AnyView(SocialAndServicesHomeView(vmOnlineService: vmOnlineService, loading: $loading, showPopUp: $showNewServicePopUp)))
                                 .tag(tabs[3])
                         }
                     }
@@ -251,7 +251,9 @@ struct BottomSection: View {
 }
 
 struct TabContent: View {
+    @EnvironmentObject private var keyAccRegVM: AccStateViewModel
     @Binding var showButtonsPopup: Bool
+    @Binding var showNewServicePopup: Bool
     @Binding var selectedTab: String
     var navBarContent: AnyView?
     var topContent: AnyView
@@ -277,6 +279,12 @@ struct TabContent: View {
                 }
                 if selectedTab == "Messages" {
                     NewMessageButtonView(showButtonsPopup: $showButtonsPopup)
+                } else if selectedTab == "Vie digitale" {
+                    if keyAccRegVM.keyAccRegistered {
+                        NewAccountServiceButtonView(showPopUp: $showNewServicePopup)
+                    } else {
+                        NewMainAccButtonView()
+                    }
                 }
             }
             .background(Color.white)

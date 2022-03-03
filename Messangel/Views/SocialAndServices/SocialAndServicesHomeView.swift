@@ -13,7 +13,6 @@ struct SocialAndServicesHomeView: View {
     @EnvironmentObject var keyAccVM: AccStateViewModel
     @State private var showKeyAccDesc = false
     @ObservedObject var vmOnlineService: OnlineServiceViewModel
-//    @ObservedObject var vmKeyAcc: KeyAccViewModel
     @Binding var loading: Bool
     @Binding var showPopUp: Bool
     
@@ -24,8 +23,11 @@ struct SocialAndServicesHomeView: View {
                     VStack {
                         VStack {
                             if vmOnlineService.accounts.count == 0 {
-                                Spacer()
+                                Spacer().frame(height: 150)
                                 Image(!keyAccVM.keyAccRegistered ? "ic_key" : "ic_plus")
+                                    .renderingMode(.template)
+                                    .foregroundColor(.gray)
+                                    .padding(.bottom)
                                 Text(!keyAccVM.keyAccRegistered ? """
                                          Pour commencer,
                                          enregistrez un compte-clé
@@ -93,40 +95,9 @@ struct SocialAndServicesHomeView: View {
                                         }
                                     }
                                     .opacity(showKeyAccDesc ? 1 : 0)
-                                HStack {
-                                    Spacer()
-                                    Button {
-                                        navigationModel.pushContent(TabBarView.id) {
-                                            KeyAccRegSecView(keyAccCase: .register)
-                                        }
-                                    } label: {
-                                        Image("btn_key")
-                                            .frame(width: 56, height: 56)
-                                    }
-                                }
-                                .padding(.top, 100)
                             }
                             .padding()
                         } //!keyAccRegVM.keyAccRegistered
-                        else {
-                            Spacer()
-                                .frame(height: 100)
-                            HStack {
-                                Spacer()
-                                Button {
-                                    withAnimation {
-                                        showPopUp.toggle()
-                                    }
-                                } label: {
-                                    Image("btn_add")
-                                        .frame(width: 56, height: 56)
-                                }
-                                .padding(.trailing)
-                                .padding(.bottom)
-                            }
-                        }
-                        Spacer()
-                            .frame(height: 70)
                     }
                 } else {
                     Loader()
@@ -166,7 +137,7 @@ struct NewAccPopupView: View {
                 } label: {
                     Image("btn_add_toggle")
                 }
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 90)
             }
             
         }
@@ -179,3 +150,47 @@ struct NewAccPopupView: View {
 private var keyAccDesc1 = "Vos comptes-clés sont les comptes email (Gmail, Hotmail…) avec lesquels vous gérez vos réseaux sociaux et vos services en ligne."
 
 private var keyAccDesc2 = "Enregistrez un compte-clé pour permettre à vos Anges-Gardiens d’y accéder et de gérer tous les comptes associés"
+
+struct NewAccountServiceButtonView: View {
+    @Binding var showPopUp: Bool
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation {
+                        showPopUp.toggle()
+                    }
+                } label: {
+                    Image("btn_add")
+                        .frame(width: 56, height: 56)
+                }
+            }
+            Spacer().frame(height: 90)
+        }
+        .padding(.horizontal)
+    }
+}
+
+struct NewMainAccButtonView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    navigationModel.pushContent(TabBarView.id) {
+                        KeyAccRegSecView(keyAccCase: .register)
+                    }
+                } label: {
+                    Image("btn_key")
+                        .frame(width: 56, height: 56)
+                }
+            }
+            Spacer().frame(height: 90)
+        }
+        .padding(.horizontal)
+    }
+}

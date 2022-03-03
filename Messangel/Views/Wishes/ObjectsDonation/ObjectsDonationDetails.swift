@@ -52,7 +52,7 @@ struct ObjectsDonationDetails: View {
                             }
                             HStack {
                                 Image("ic_item_info")
-                                Text("Plusieurs objets")
+                                Text(donation.single_object ? "Un objet" : "Plusieurs objets")
                                 Spacer()
                             }
                             DetailsNoteView(note: donation.object_note, attachments: vm.attachements, navId: String(describing: Self.self))
