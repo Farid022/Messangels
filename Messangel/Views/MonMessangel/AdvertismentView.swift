@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AdvertismentView: View {
+    @StateObject private var funeralAdvertisementViewModel = FuneralAdvertisementViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {

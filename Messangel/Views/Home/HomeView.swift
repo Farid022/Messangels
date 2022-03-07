@@ -9,6 +9,9 @@ import SwiftUI
 import NavigationStack
 
 struct HomeNavBar: View {
+    @StateObject var auth = Auth()
+    @EnvironmentObject var envAuth: Auth
+  
     @EnvironmentObject var navigationModel: NavigationModel
     var body: some View {
         HStack {
@@ -49,7 +52,8 @@ struct HomeTopView: View {
                 .foregroundColor(.white)
                 Button(action: {
                     navigationModel.pushContent(TabBarView.id) {
-                        MonMessangelView()
+                        MonMessangelView(imageLoader: ImageLoader(urlString: auth.user.image_url ?? ""))
+                   
                     }
                 }, label: {
                     

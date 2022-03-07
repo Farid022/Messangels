@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ManageContractsView: View {
+    
+    @StateObject private var manageContractViewModel = ManageContractViewModel()
     var list = ["Digicodes appartement Paris bureau","*NOMDUCODE","*NOMDUCODE","*NOMDUCODE","*NOMDUCODE","*NOMDUCODE"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -64,10 +66,10 @@ struct ManageContractsView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: list, id:\.self)
+                                ForEach(enumerating: manageContractViewModel.contracts, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_codePractice", item: item)
+                                ListItemImageTitle(type: "contractPlaceholder", item: item.name)
                                    
 
                             }
@@ -83,8 +85,12 @@ struct ManageContractsView: View {
                 }
             }
         }
+        .onAppear {
+            manageContractViewModel.getAll()
+        }
     }
 }
+
 
 struct ManageContractsView_Previews: PreviewProvider {
     static var previews: some View {

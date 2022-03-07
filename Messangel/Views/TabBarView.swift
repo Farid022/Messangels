@@ -9,11 +9,16 @@ import SwiftUI
 import NavigationStack
 
 struct TabBarView: View {
+    
+    @StateObject var auth = Auth()
+    @EnvironmentObject var envAuth: Auth
     @AppStorage("onboardingShown") var onboardingShown = false
     @EnvironmentObject private var navigationModel: NavigationModel
     @EnvironmentObject private var keyAccRegVM: AccStateViewModel
     @StateObject private var vmKeyAcc = KeyAccViewModel()
     @StateObject private var vmOnlineService = OnlineServiceViewModel()
+    
+    @StateObject private var userContacts = ContactViewModel()
     @State private var selectedTab = "Accueil"
     @State private var onboardingStarted = false
     @State private var onboardingCompleted = false
@@ -89,6 +94,7 @@ struct TabBarView: View {
             }
             .ignoresSafeArea()
         }
+        .onAppear(perform: auth.fetchUserData)
     }
 }
 

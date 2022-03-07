@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 import Combine
 struct SpiritualiteTraditionsView: View {
+    @StateObject private var spiritualiteViewModel = SpiritualiteViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {

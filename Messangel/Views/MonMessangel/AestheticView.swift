@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AestheticView: View {
+    @StateObject private var aestheticViewModel = AestheticViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {

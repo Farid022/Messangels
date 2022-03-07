@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AnimalsView: View {
-    
+    @StateObject private var animalsViewModel = AnimalsViewModel()
+
     var animalList = ["Snoop","Animal 2","Animal 3","Animal 4","Animal 5","Animal 6","Animal7"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -65,10 +66,10 @@ struct AnimalsView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: animalList, id:\.self)
+                                ForEach(enumerating: animalsViewModel.animals, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "snoop", item: item)
+                                ListItemImageTitle(type: item.animal_photo, item: item.animal_name)
                                    
 
                             }
@@ -84,7 +85,12 @@ struct AnimalsView: View {
                 }
             }
         }
+        .onAppear {
+            animalsViewModel.getAll()
+        }
     }
+      
+ 
 }
 
 struct ListItemImageTitle: View
@@ -98,6 +104,7 @@ struct ListItemImageTitle: View
         {
         HStack(alignment:.center)
         {
+            
             if type.count > 0
             {
                 Image(type)
@@ -114,6 +121,10 @@ struct ListItemImageTitle: View
             }
             else
             {
+                Image("animalPlaceholder")
+                .padding(.leading,24)
+                .cornerRadius(23)
+                .frame(width:56,height:56)
                
                 Text(item)
                        .font(.system(size: 15))
@@ -137,7 +148,7 @@ struct ListItemImageTitle: View
        
         }
         .frame(height:120)
- 
+       
         
     }
 }

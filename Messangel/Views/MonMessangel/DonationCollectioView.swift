@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DonationCollectioView: View {
+    @StateObject private var donationViewModel = DonationViewModel()
     var list = ["Nom Organisme","Nom Organisme","Nom Organisme","Nom Organisme","Nom Organisme","Nom Organisme","Nom Organisme"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -64,10 +65,10 @@ struct DonationCollectioView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: list, id:\.self)
+                                ForEach(enumerating: donationViewModel.donations, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_donation", item: item)
+                                ListItemImageTitle(type: "donationOrganization", item: item.donation_organization.name)
                                    
 
                             }
@@ -82,6 +83,9 @@ struct DonationCollectioView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            donationViewModel.getDonationOrgs()
         }
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AnimalDetailView: View {
+    @StateObject private var animalsViewModel = AnimalsViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {

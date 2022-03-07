@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ClothAccessoriesView: View {
+   
+    @StateObject private var clothAssesoriesViewModel = ClothAssesoriesViewModel()
     var list = ["Pull bleu","Vêtement","Vêtement","Vêtement","Vêtement","Vêtement"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -64,10 +66,10 @@ struct ClothAccessoriesView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: list, id:\.self)
+                                ForEach(enumerating: clothAssesoriesViewModel.cloths, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_clothlist", item: item)
+                                ClothItem(type: item.clothing_photo, item: item.clothing_name)
                                    
 
                             }
@@ -83,9 +85,71 @@ struct ClothAccessoriesView: View {
                 }
             }
         }
+        .onAppear {
+            clothAssesoriesViewModel.getAll()
+        }
     }
 }
 
+struct ClothItem: View
+{
+   
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+                .cornerRadius(23)
+                .frame(width:56,height:56)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+                Image("clothPlaceholder")
+                .padding(.leading,24)
+                .cornerRadius(23)
+                .frame(width:56,height:56)
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Rectangle()
+            .foregroundColor(.white)
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:96)
+        .background(.white)
+        .cornerRadius(22)
+        .shadow(color: Color.init(red: 0, green: 0, blue: 0,opacity: 0.08), radius: 22, x: 0, y: 3)
+       
+        }
+        .frame(height:120)
+       
+        
+    }
+}
 struct ClothAccessoriesView_Previews: PreviewProvider {
     static var previews: some View {
         ClothAccessoriesView()

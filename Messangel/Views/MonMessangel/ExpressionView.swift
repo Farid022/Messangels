@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExpressionView: View {
-    
+    @StateObject private var wishesListViewModel = WishesListViewModel()
     var animalList = ["Image.jpeg","Doc.pdf","Exemple3.jpeg","Doc.pdf"]
      
     let columns = [GridItem(.flexible()), GridItem(.flexible())]

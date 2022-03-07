@@ -19,7 +19,7 @@ struct OrganismesObsequesView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("Organisme obsèques")
+                        Text("Organismes spécialisés")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)

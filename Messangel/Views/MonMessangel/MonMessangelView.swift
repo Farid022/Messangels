@@ -12,7 +12,16 @@ import Combine
 
 struct MonMessangelView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var volontesViewModel = VolontesViewModel()
+    @StateObject var auth = Auth()
+    @EnvironmentObject var envAuth: Auth
+    @ObservedObject var imageLoader:ImageLoader
+    @State private var cgImage = UIImage().cgImage
     
+    @State private var profileImage = UIImage()
+
+
+  
     var body: some View {
         NavigationStackView("MonMessangelView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -44,15 +53,35 @@ struct MonMessangelView: View {
                          Image("logo_colored")
                                 .padding(.top,40)
                                 .padding(.bottom,40)
-                         Text("Sophie Carnero")
+                                Text(envAuth.user.first_name + " " + envAuth.user.last_name)
                                 .font(.system(size: 22))
                                 .fontWeight(.bold)
-                        Image("gallery_preview")
-                                .frame(width: 62, height: 62)
-                                .padding(.top,12)
-                                .padding(.bottom,12)
-                            
-                        Text("Née le 10 Novembre 1960 \nà Paris")
+                                
+                                if envAuth.user.image_url == nil {
+                                    Image("ic_camera")
+                                        .frame(width: 62, height: 62)
+                                        .padding(.top,12)
+                                        .padding(.bottom,12)
+                                        .cornerRadius(31)
+                                } else {
+                               
+                                    Loader()
+                                    
+                                    Image(uiImage: profileImage)
+                                            .frame(width: 62, height: 62)
+                                            .padding(.top,12)
+                                            .padding(.bottom,12)
+                                            .clipShape(Circle())
+                                            .onReceive(imageLoader.didChange) { data in
+                                                self.profileImage = UIImage(data: data) ?? UIImage()
+                                                self.cgImage = self.profileImage.cgImage
+                                            }
+                                            
+                                }
+                                
+                     
+                               
+                                Text("Née le " + envAuth.user.getDOB() + "\nà " + envAuth.user.city)
                                     .font(.system(size: 15))
                                     .fontWeight(.regular)
                                     .multilineTextAlignment(.center)
@@ -71,7 +100,7 @@ struct MonMessangelView: View {
                                    .padding(.bottom,40)
                             }
                           
-                            MesVoluntesView()
+                            MesVoluntesView(itemArray: volontesViewModel.tabs)
                             Group{
                            
                                 Image("ic_mesMessage")
@@ -121,7 +150,14 @@ struct MonMessangelView: View {
                 }
             }
         }
-        }
+        }.onAppear(perform: {
+            volontesViewModel.getTabs()
+      
+            
+           
+        })
+                    
+                  
        
     }
 }
@@ -186,7 +222,6 @@ struct documentView: View
         ZStack{
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
                 .ignoresSafeArea()
-              
                 .cornerRadius(22)
         
             VStack
@@ -258,25 +293,37 @@ struct documentView: View
     }
 }
 
+struct keyAccounts: View
+{
+    var body: some View {
+    
+        VStack{
+            
+        }
+    }
+}
 
 
 //MARK: - MesVoluntes List
 
 struct MesVoluntesView: View
 {
+    
+    var itemArray : [VolontesTab]
     var body: some View {
         Group{
-            MesVoluntesListView(items: [MesVolenteItem(title: "Choix funéraires", type:""),MesVolenteItem(title: "Organisme obsèques", type:""),MesVolenteItem(title: "Annonces", type:""),MesVolenteItem(title: "Don d’organes ou du corps", type:"")], title: "Mes choix personnels", description: "")
+            
+            MesVoluntesListView(items: itemArray.filter { $0.type == "1"}, title: "Mes choix personnels", description: "")
                 .padding(.bottom,40)
             
-            MesVoluntesListView(items: [MesVolenteItem(title: "Spiritualité et traditions", type:""),MesVolenteItem(title: "Lieux", type:""),MesVolenteItem(title: "Diffusion de la nouvelle", type:""),MesVolenteItem(title: "Esthétique", type:""),MesVolenteItem(title: "Musique", type:"")], title: "Pour ma cérémonie", description: "")
+            MesVoluntesListView(items: itemArray.filter { $0.type == "2"}, title: "Pour ma cérémonie", description: "")
                 .padding(.bottom,40)
             
             
-            MesVoluntesListView(items: [MesVolenteItem(title: "Vêtements et accessoires", type:""),MesVolenteItem(title: "Animaux", type:""),MesVolenteItem(title: "Objets", type:""),MesVolenteItem(title: "Dons et collectes", type:"")], title: "Pour ma transmission", description: "")
+            MesVoluntesListView(items:itemArray.filter { $0.type == "3"}, title: "Pour ma transmission", description: "")
                 .padding(.bottom,40)
                 
-            MesVoluntesListView(items: [MesVolenteItem(title: "Pièces administratives", type:""),MesVolenteItem(title: "Codes pratiques", type:""),MesVolenteItem(title: "Contrats à gérer", type:""),MesVolenteItem(title: "Expression libre", type:"")], title: "Mes compléments utiles", description: "")
+            MesVoluntesListView(items: itemArray.filter { $0.type == "4"}, title: "Mes compléments utiles", description: "")
                   
             }
     }
@@ -284,7 +331,7 @@ struct MesVoluntesView: View
 struct MesVoluntesListView: View
 {
     @EnvironmentObject var navigationModel: NavigationModel
-    var items: [MesVolenteItem]
+    var items: [VolontesTab]
     var title: String
     var description: String
     var body: some View {
@@ -323,12 +370,137 @@ struct MesVoluntesListView: View
                 ForEach(enumerating: items, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: item.type, item: item.title)
+                    MesVoluntesItem(type: item.type, item: item.name)
                         
 
                 }
                 .padding(.leading,24)
                 .padding(.trailing,24)
+            }
+            .padding(.bottom,40)
+        }
+        .padding(.leading,18)
+        .padding(.trailing,18)
+    }
+}
+
+struct DigitalLifeListView: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var emailItems: [PrimaryEmailAcc]
+    var phoneItems: [PrimaryPhone]
+    var title: String
+    var description: String
+    var body: some View {
+   
+        
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+              
+                .cornerRadius(22)
+        
+            VStack(alignment:.leading)
+            {
+                
+                Text(title)
+                        
+                       .font(.system(size: 15))
+                       .fontWeight(.bold)
+                       .padding(.top,40)
+                       .padding(.leading,24)
+                       .padding(.bottom,12)
+                       .multilineTextAlignment(.leading)
+                
+                if description.count > 0
+                {
+                Text(description)
+                        
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .padding(.top,12)
+                       .padding(.leading,24)
+                       .padding(.bottom,12)
+                       .multilineTextAlignment(.leading)
+                }
+                
+                ForEach(enumerating: emailItems, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: "ic_email", item: item.email)
+                        
+
+                }
+                .padding(.leading,24)
+                .padding(.trailing,24)
+                
+                ForEach(enumerating: phoneItems, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: "ic_mobile", item: item.phoneNum)
+                        
+
+                }
+                .padding(.leading,24)
+                .padding(.trailing,24)
+            }
+            .padding(.bottom,40)
+        }
+        .padding(.leading,18)
+        .padding(.trailing,18)
+    }
+}
+
+struct ServiceCategoryListView: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var items: [ServiceCategory]
+    
+    var title: String
+    var description: String
+    var body: some View {
+   
+        
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+              
+                .cornerRadius(22)
+        
+            VStack(alignment:.leading)
+            {
+                
+                Text(title)
+                        
+                       .font(.system(size: 15))
+                       .fontWeight(.bold)
+                       .padding(.top,40)
+                       .padding(.leading,24)
+                       .padding(.bottom,12)
+                       .multilineTextAlignment(.leading)
+                
+                if description.count > 0
+                {
+                Text(description)
+                        
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .padding(.top,12)
+                       .padding(.leading,24)
+                       .padding(.bottom,12)
+                       .multilineTextAlignment(.leading)
+                }
+                
+                ForEach(enumerating: items, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: "", item: item.name)
+                        
+
+                }
+                .padding(.leading,24)
+                .padding(.trailing,24)
+             
             }
             .padding(.bottom,40)
         }
@@ -388,10 +560,11 @@ struct MesVoluntesItem: View
         .onTapGesture {
             navigationModel.pushContent("MonMessangelView") {
                 
+                
                 switch(item)
                 {
                 case "Choix funéraires" :  ChoixfunerairesView()
-                case "Organisme obsèques" :  OrganismesObsequesView()
+                case "Organismes spécialisés" :  OrganismesObsequesView()
                 case "Animaux" : AnimalsView()
                 case "Annonces": AdvertismentView()
                 case "Don d’organes ou du corps": CorpsScienceView()
@@ -401,7 +574,7 @@ struct MesVoluntesItem: View
                 case   "Esthétique": AestheticView()
                 case  "Musique": MusicView()
                 case  "Pièces administratives": AdministrativePartsView()
-                case  "Dons et collectes": DonationCollectioView()
+                case  "Dons": DonationCollectioView()
                 case  "Vêtements et accessoires": ClothAccessoriesView()
                 case  "Objets": ObjectListView()
                 case  "Codes pratiques": CodePractiveView()
@@ -471,21 +644,38 @@ struct MesMessageViewItem: View
 
 struct MaVieDigitaleView: View
 {
+    @StateObject private var onlineServiceViewModel = OnlineServiceViewModel()
+    @StateObject private var vmKeyAcc = KeyAccViewModel()
     var body: some View {
         Group{
-            MesVoluntesListView(items: [MesVolenteItem(title: "sophie.carnero@gmail.com", type:"ic_email"),MesVolenteItem(title: "carnerosophie68@yahoo.fr", type:"ic_email"),MesVolenteItem(title: "iPhone de Sophie", type:"ic_mobile")], title: "Mes comptes-Clés", description: "Ces comptes mail et smartphone sont associés à mes réseaux sociaux et mes services en ligne")
+            DigitalLifeListView(emailItems: vmKeyAcc.keyAccounts, phoneItems: vmKeyAcc.smartphones, title: "Mes comptes-Clés", description: "Ces comptes mail et smartphone sont associés à mes réseaux sociaux et mes services en ligne")
                 .padding(.bottom,40)
-            MesVoluntesListView(items: [MesVolenteItem(title: "Réseau sociaux", type:""),MesVolenteItem(title: "Cloud", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:""),MesVolenteItem(title: "Catégorie", type:"")], title: "Mes réseaux sociaux et services en ligne", description: "Utilisez « Réinitialiser le mot de passe » ou « mot de passe oublié » pour gérer mes différents comptes")
+            ServiceCategoryListView(items: onlineServiceViewModel.categories, title: "Mes réseaux sociaux et services en ligne", description: "Utilisez « Réinitialiser le mot de passe » ou « mot de passe oublié » pour gérer mes différents comptes")
                 .padding(.bottom,40)
+        }
+        .onAppear {
+            onlineServiceViewModel.getCategories()
+            vmKeyAcc.getKeyAccounts { success in
+                
+            }
+            vmKeyAcc.getKeyPhones()
         }
     }
 }
 
-struct MonMessangelView_Previews: PreviewProvider {
+struct MonMessangelView_Previews:
+    PreviewProvider {
+
     static var previews: some View {
+        
         Group {
-            MonMessangelView()
+            
+            MonMessangelView(imageLoader: ImageLoader(urlString:""))
         }
     }
+    
+   
 }
+
+
 

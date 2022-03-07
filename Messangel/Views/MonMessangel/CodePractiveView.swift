@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CodePractiveView: View {
+    
+    @StateObject private var codePractiveViewModel = CodePractiveViewModel()
     var list = ["Digicodes appartement Paris bureau","*NOMDUCODE","*NOMDUCODE","*NOMDUCODE","*NOMDUCODE","*NOMDUCODE"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {

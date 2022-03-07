@@ -54,4 +54,27 @@ class Auth: ObservableObject {
             }
         }
     }
+
+    func fetchUserData()
+    {
+    
+        APIService.shared.getJSON(model: user, urlString: String(format: "users/%d/profile", getUserId() as! CVarArg)) { result in
+            switch result {
+            case .success(let user):
+                DispatchQueue.main.async {
+
+
+                }
+            case .failure(let err):
+                print(err)
+                DispatchQueue.main.async {
+
+                }
+            }
+        }
+
+
+
+
+    }
 }

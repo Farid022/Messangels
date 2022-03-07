@@ -36,7 +36,7 @@ class Networking {
                 completion(.failure(.error("Error: \(error.localizedDescription)")))
                 return
             }
-            
+          
             guard let data = data else {
                 completion(.failure(.error(NSLocalizedString("Error: Data us corrupt.", comment: ""))))
                 return

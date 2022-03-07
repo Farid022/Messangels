@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AdministrativePartsView: View {
+    
+    
+    @StateObject private var documentViewModel = DocumentViewModel()
     var animalList = ["Pièce d’identité","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {

@@ -11,6 +11,7 @@ import Combine
 
 struct ChoixfunerairesView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var funeralChoixViewModel = FuneralChoixViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
@@ -53,6 +54,7 @@ struct ChoixfunerairesView: View {
                                 
                                 FunerairesView(title: "Mon lieu de crémation", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.")
                                     .padding(.bottom,40)
+                               
                                 MonCercueilView()
                                     .padding(.bottom,40)
                                
@@ -65,6 +67,12 @@ struct ChoixfunerairesView: View {
                 }
             }
         }
+        .onAppear {
+            funeralChoixViewModel.get { success in
+                
+            }
+        }
+       
     }
 }
 

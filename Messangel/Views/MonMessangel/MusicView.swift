@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MusicView: View {
+    
+    @StateObject private var musicViewModel = MusicViewModel()
     var animalList = ["Sting – Rise & Fall","Artiste – Nom du morceau","Artiste – Nom du morceau","Artiste – Nom du morceau","Artiste – Nom du morceau"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
