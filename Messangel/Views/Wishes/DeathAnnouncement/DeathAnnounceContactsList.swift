@@ -105,7 +105,7 @@ struct DeathAnnounceContactsList: View {
                                 .onTapGesture {
                                     if !selectedContacts.contains(contact) {
                                         selectedContacts.append(contact)
-                                        vm.priorityContacts.contact.append(contact.id)
+                                        //vm.priorityContacts.contact.append(contact.id)
                                     }
                                     navigationModel.hideTopView()
                                 }

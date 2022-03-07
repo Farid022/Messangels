@@ -40,9 +40,9 @@ struct AestheticView: View {
                                    .padding(.bottom,40)
                                    .padding(.leading,24)
                         
-                            CoffinView()
-                                .cornerRadius(24)
+                            CoffinView(aesthetic: aestheticViewModel.asthetic)
                                 .padding(.bottom,40)
+                                .cornerRadius(24)
                             
                             ItemWithTitleListDescription(title: "Mes demandes concernant la décoration", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
                                 .padding(.bottom,40)
@@ -58,14 +58,20 @@ struct AestheticView: View {
                 }
             }
         }
+        .onAppear {
+            aestheticViewModel.getAesthetic { success in
+                
+            }
+        }
     }
 }
 struct CoffinView: View
 {
+    var aesthetic: [Aesthetic]
     var body: some View {
         ZStack{
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
-                .ignoresSafeArea()
+                
            
             VStack(alignment:.leading)
             {
@@ -76,11 +82,17 @@ struct CoffinView: View
                        .padding(.top,40)
                        .padding(.bottom,40)
                        .padding(.leading,24)
-                Group{
-                    FlowerItem(title: "Lys", description: "", image: "Lys")
-                    FlowerItem(title: "Tulipes", description: "", image: "Lys")
-                    FlowerItem(title: "Orchidées", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", image: "Lys")
-                }
+              
+                    
+                    ForEach(enumerating: aesthetic, id:\.self)
+                    {
+                        index, item in
+                       
+                        FlowerItem(title: item.flower?.name ?? "", description: item.flower_note ?? "", image: item.flower?.image ?? "")
+                    }
+                  
+              
+                
                 
                 
                 
@@ -88,6 +100,7 @@ struct CoffinView: View
         }
         .padding(.leading,18)
         .padding(.trailing,18)
+        
     }
 }
 
@@ -109,7 +122,13 @@ struct FlowerItem: View
             
             if image.count > 0
             {
-                Image(image)
+                AsyncImage(url: URL(string: image)) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                } placeholder: {
+                    ProgressView()
+                }
                 .padding(.bottom,24)
                 .cornerRadius(22)
                 .frame(width: 161, height: 207)
@@ -134,6 +153,8 @@ struct FlowerItem: View
         .padding(.trailing,24)
     }
 }
+
+
 
 struct AestheticView_Previews: PreviewProvider {
     static var previews: some View {

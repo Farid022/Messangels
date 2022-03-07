@@ -1,34 +1,52 @@
 //
-//  AnnouncementViewModel.swift
+//  DeathAnnouncementViewModel.swift
 //  Messangel
 //
-//  Created by Muhammad Ali  Pasha on 2/27/22.
+//  Created by Saad on 1/6/22.
 //
 
 import Foundation
 
-struct UserPriorityContacts: Codable {
-    var contact: [Int]
-    var user: Int
+struct PriorityContact: Codable {
+    var id : Int?
+    var priority_note: String?
+    var contact: [PriorityContactItem]?
+    var user: User?
 }
 
-class UserPriorityContactsViewModel: ObservableObject {
-    @Published var userPriorityContacts = UserPriorityContacts(contact: [Int](), user: getUserId())
+struct PriorityContactItem: Codable, Hashable {
+    var id: Int?
+    var first_name: String?
+    var last_name:String?
+    var email:String?
+    var phone_number:String?
+    var dob:String?
+    var priority: String?
+    var legal_age:Bool?
+    
+   
+}
+
+class PriorityContactViewModel: ObservableObject {
+    @Published var priorityContacts = PriorityContact()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func addPriorityContacts(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: userPriorityContacts, response: userPriorityContacts, endpoint: "users/\(getUserId())/priority_contact") { result in
+    func getPriorityContacts(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: [priorityContacts], urlString: "users/\(getUserId())/priority_contact") { result in
             switch result {
             case .success(let contacts):
                 DispatchQueue.main.async {
-                    self.userPriorityContacts = contacts
+                    if contacts.count>0
+                    {
+                        self.priorityContacts = contacts[0]
+                    }
                     completion(true)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
+                    print(error.localizedDescription)
+                  //  self.apiError = error
                     completion(false)
                 }
             }

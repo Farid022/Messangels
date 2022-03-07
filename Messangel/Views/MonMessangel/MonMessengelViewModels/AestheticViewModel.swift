@@ -7,21 +7,34 @@
 
 import Foundation
 
-struct Aesthetic: Codable {
-    var special_decoration_note: String
-    var attendence_dress_note: String
-    var guest_accessories_note: String
-    var flower: Int
-    var user: Int
+struct Aesthetic: Hashable,Codable {
+    var id: Int?
+    var special_decoration_note: String?
+    var attendence_dress_note: String?
+    var guest_accessories_note: String?
+    var flower_note: String?
+    
+    var user: User?
+    var flower: Flower?
+}
+
+struct Flower: Hashable,Codable
+{
+    var id: Int?
+    var is_deleted: Bool?
+    var name: String?
+    var image: String?
+    
+    
 }
 
 class AestheticViewModel: ObservableObject {
-    @Published var asthetic = Aesthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: 0, user: getUserId())
+    @Published var asthetic = [Aesthetic()]
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func create(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: asthetic, response: asthetic, endpoint: "users/\(getUserId())/asthetic") { result in
+    func getAesthetic(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: asthetic, urlString: "users/\(getUserId())/asthetic") { result in
             switch result {
             case .success(let asthetic):
                 DispatchQueue.main.async {
@@ -30,8 +43,8 @@ class AestheticViewModel: ObservableObject {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
+                    print(error.localizedDescription)
+                  //  self.apiError = error
                     completion(false)
                 }
             }

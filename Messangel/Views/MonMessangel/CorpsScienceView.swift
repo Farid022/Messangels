@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 import Combine
 struct CorpsScienceView: View {
+    @StateObject private var organViewModel = OrganViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
@@ -45,18 +46,26 @@ struct CorpsScienceView: View {
                             
                             Group
                             {
-                                FunerairesView(title: "Je choisis de donner mes organes", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
-                                    .padding(.bottom,40)
-                                FunerairesView(title: "Je refuse de donner mes organes : je suis enregistré au registre national des refus", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
-                                    .padding(.bottom,40)
                                 
-                                FunerairesView(title: "Je choisis de donner mon corps à la science", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
-                                    .padding(.bottom,40)
+                                
+                                ForEach(enumerating: organViewModel.organ, id:\.self)
+                                    {
+                                        index, item in
+                                        FunerairesView(title: item.donation?.name ?? "", description: item.donation_note ?? "")
+                                            .padding(.bottom,40)
+
+                                    }
+                              
                         }
                     }
                         
                     }
                 }
+            }
+        }
+        .onAppear {
+            organViewModel.getOrganDonation { success in
+                
             }
         }
     }

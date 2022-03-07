@@ -10,6 +10,7 @@ import NavigationStack
 import Combine
 
 struct DiffusionNouvelleView: View {
+    @StateObject private var priorityContactsViewModel = PriorityContactViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
@@ -45,11 +46,16 @@ struct DiffusionNouvelleView: View {
                                  
                           
                            
-                            FirstContactPeopleView()
+                            FirstContactPeopleView(priorityContacts: priorityContactsViewModel.priorityContacts)
                             
                         }
                     }
                 }
+            }
+        }
+        .onAppear {
+            priorityContactsViewModel.getPriorityContacts { success in
+                
             }
         }
     }
@@ -57,6 +63,7 @@ struct DiffusionNouvelleView: View {
 
 struct FirstContactPeopleView: View
 {
+    var priorityContacts: PriorityContact
     var body: some View {
         ZStack{
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
@@ -66,7 +73,7 @@ struct FirstContactPeopleView: View
          {
              
              
-             MonCercueilWithListView(title: "Les personnes à contacter prioritairement", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items:  [MesVolenteItem(title: "Prénom Nom 1", type:"ic_contact"),MesVolenteItem(title: "Prénom Nom 1", type:"ic_contact"),MesVolenteItem(title: "Prénom Nom 1", type:"ic_contact"),MesVolenteItem(title: "Prénom Nom 1", type:"ic_contact"),MesVolenteItem(title: "Prénom Nom 1", type:"ic_contact"),MesVolenteItem(title: "Prénom Nom 1", type:"ic_contact")])
+             PriorityContactListView(title: "Les personnes à contacter prioritairement", description: priorityContacts.priority_note ?? "", items:  priorityContacts.contact ?? [])
                  .padding(.top,24)
              
            
@@ -75,6 +82,72 @@ struct FirstContactPeopleView: View
         .cornerRadius(22)
         .padding(.leading,18)
         .padding(.trailing,18)
+    }
+}
+
+
+struct PriorityContactListView: View
+{
+    var title: String
+    var description: String
+    var items: [PriorityContactItem]
+    var body: some View {
+        
+        VStack(alignment:.leading)
+        {
+            PriorityContactListItem(title: title , description: description, items: items)
+        }
+                
+        
+    }
+}
+
+struct PriorityContactListItem: View
+{
+    var title: String
+    var description: String
+    var items: [PriorityContactItem]
+    var body: some View {
+        
+        VStack(alignment:.leading)
+        {
+            Text("+ " + title)
+                   .font(.system(size: 15))
+                   .fontWeight(.bold)
+                  
+                   .padding(.bottom,24)
+            
+            if items.count > 0
+            {
+                ForEach(enumerating: items, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: "ic_contact", item: ((item.first_name ?? "") + " " + (item.last_name ?? "")))
+
+                }
+                
+               
+                .padding(.bottom)
+            }
+            HStack(alignment:.top){
+                
+                if description.count > 0
+                {
+                 Image("ic_note")
+                
+                Text(description)
+                       .font(.system(size: 14))
+                       .fontWeight(.regular)
+                       .padding(.bottom,40)
+                       .padding(.leading,16)
+                       .padding(.trailing,24)
+                }
+                
+            }
+            
+        }
+        .padding(.leading,24)
+        .padding(.trailing,24)
     }
 }
 

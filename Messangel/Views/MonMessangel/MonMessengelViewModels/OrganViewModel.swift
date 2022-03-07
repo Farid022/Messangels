@@ -14,19 +14,34 @@ enum OrganChoix: Int, CaseIterable {
     case body
 }
 
-struct OrganItem: Codable {
+struct OrganDonationItem: Hashable,Codable
+{
+    var id: Int?
+    var is_deleted: Bool?
+    var name: String?
+    
+}
+
+struct OrganItem: Hashable,Codable {
     var register_to_national: Bool?
-    var donation: Int
-    var user: Int
+    var id: Int
+    var user: User?
+    var assign_user: [User]?
+    var register_to_nationa: Bool?
+    var donation: OrganDonationItem?
+    var register_to_national_note: String?
+    var donation_note: String?
+    
+    
 }
 
 class OrganViewModel: ObservableObject {
-    @Published var organ = OrganItem(donation: 0, user: getUserId())
+    @Published var organ = [OrganItem(id: 0)]
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func create(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: organ, response: organ, endpoint: "users/\(getUserId())/organ_donation") { result in
+    func getOrganDonation(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: organ, urlString: "users/\(getUserId())/organ_donation") { result in
             switch result {
             case .success(let organ_donation):
                 DispatchQueue.main.async {
@@ -35,8 +50,8 @@ class OrganViewModel: ObservableObject {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
+                    print(error.localizedDescription)
+                    //self.apiError = error
                     completion(false)
                 }
             }
