@@ -59,7 +59,7 @@ struct ExpressionView: View {
                             Group{
                                    
                                
-                                        MonCercueilItem(title: "", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "")
+                                MonCercueilItem(title: "", description: wishesListViewModel.wishlist.express_yourself_note, image: "")
                                             
                                             LazyVGrid(columns: columns) {
                                                 ForEach(enumerating: animalList, id:\.self)
@@ -87,6 +87,12 @@ struct ExpressionView: View {
                     }
                     }
                 }
+            }
+        }
+        .onAppear {
+            
+            wishesListViewModel.getExpressions { success in
+                
             }
         }
     }

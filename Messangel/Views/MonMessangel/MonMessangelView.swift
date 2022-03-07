@@ -62,20 +62,25 @@ struct MonMessangelView: View {
                                         .frame(width: 62, height: 62)
                                         .padding(.top,12)
                                         .padding(.bottom,12)
+                                        .background(Color.gray)
+                                        .clipShape(Circle())
                                         .cornerRadius(31)
                                 } else {
                                
-                                    Loader()
+                                 
                                     
-                                    Image(uiImage: profileImage)
+                                    AsyncImage(url: URL(string: envAuth.user.image_url ?? "")) { image in
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
                                             .frame(width: 62, height: 62)
                                             .padding(.top,12)
                                             .padding(.bottom,12)
                                             .clipShape(Circle())
-                                            .onReceive(imageLoader.didChange) { data in
-                                                self.profileImage = UIImage(data: data) ?? UIImage()
-                                                self.cgImage = self.profileImage.cgImage
-                                            }
+                                           
                                             
                                 }
                                 
@@ -566,7 +571,7 @@ struct MesVoluntesItem: View
                 case "Choix funéraires" :  ChoixfunerairesView()
                 case "Organismes spécialisés" :  OrganismesObsequesView()
                 case "Animaux" : AnimalsView()
-                case "Annonces": AdvertismentView()
+                case "Faire-part et annonce": AdvertismentView()
                 case "Don d’organes ou du corps": CorpsScienceView()
                 case "Spiritualité et traditions": SpiritualiteTraditionsView()
                 case  "Lieux": PremisesView()

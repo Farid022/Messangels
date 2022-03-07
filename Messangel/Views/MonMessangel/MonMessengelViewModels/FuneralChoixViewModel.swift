@@ -16,12 +16,13 @@ import Foundation
 struct FuneralItem: Hashable, Codable {
     var id: Int
     var name: String
-    var image: String
+    var image: String?
+    
 }
 
 
 
-struct FuneralChoix: Codable {
+struct FuneralChoix: Hashable,Codable {
     var place_burial_note: String
     var handle_note: String
     var religious_sign_note: String
@@ -37,24 +38,23 @@ struct FuneralChoix: Codable {
     var user: Int
 }
 
-struct FuneralChoixDetail: Codable {
+struct FuneralChoixDetail: Hashable,Codable {
     var id: Int
-    var user: User
     var placeBurialNote: String
     var handleNote: String
     var religiousSignNote: String
     var outfitNote: String
     var acessoriesNote: String
     var depositeAshesNote: String
-    var burialType: FuneralItem
-    var coffinMaterial: FuneralItem
-    var coffinFinish: FuneralItem
-    var internalMaterial: FuneralItem
+    var burialType: FuneralItem?
+    var coffinMaterial: FuneralItem?
+    var coffinFinish: FuneralItem?
+    var internalMaterial: FuneralItem?
     var urnMaterial: FuneralItem?
     var urnStyle: FuneralItem?
 
     enum CodingKeys: String, CodingKey {
-        case id, user
+        case id
         case placeBurialNote = "place_burial_note"
         case handleNote = "handle_note"
         case religiousSignNote = "religious_sign_note"
@@ -73,22 +73,26 @@ struct FuneralChoixDetail: Codable {
 class FuneralChoixViewModel: ObservableObject {
     @Published var updateRecord = false
     @Published var funeralChoixes = [FuneralChoixDetail]()
-    @Published var funeral = FuneralChoix(place_burial_note: "", handle_note: "", religious_sign_note: "", outfit_note: "", acessories_note: "", deposite_ashes_note: "", burial_type: 0, coffin_material: 0, coffin_finish: 0, internal_material: 0, user: getUserId())
+    @Published var funeral = FuneralChoixDetail(id: 0, placeBurialNote: "", handleNote: "", religiousSignNote: "", outfitNote: "", acessoriesNote: "", depositeAshesNote: "", burialType: FuneralItem(id: 0, name: "", image: ""), coffinMaterial: FuneralItem(id: 0, name: "", image: ""), coffinFinish: FuneralItem(id: 0, name: "", image: ""), internalMaterial: FuneralItem(id: 0, name: "", image: ""), urnMaterial: FuneralItem(id: 0, name: "", image: ""), urnStyle: FuneralItem(id: 0, name: "", image: ""))
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func create(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: funeral, response: funeral, endpoint: "users/\(getUserId())/funeral") { result in
+    func getFuneralChoix(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: funeralChoixes, urlString: "users/\(getUserId())/funeral") { result in
             switch result {
             case .success(let funeral):
                 DispatchQueue.main.async {
-                    self.funeral = funeral
+                    self.funeralChoixes = funeral
+                    if funeral.count > 0
+                    {
+                        self.funeral = funeral[0]
+                    }
                     completion(true)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
+                    print(error.localizedDescription)
+                  //  self.apiError = error
                     completion(false)
                 }
             }

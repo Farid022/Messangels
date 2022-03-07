@@ -67,11 +67,8 @@ struct ChoixfunerairesView: View {
                 }
             }
         }
-        .onAppear {
-            funeralChoixViewModel.get { success in
-                
-            }
-        }
+       
+       
        
     }
 }
@@ -126,7 +123,7 @@ struct MonCercueilItem: View
         {
             if title.count > 0
             {
-            Text("+ " + title)
+             Text("+ " + title)
                    .font(.system(size: 15))
                    .fontWeight(.bold)
                   
@@ -135,22 +132,47 @@ struct MonCercueilItem: View
             
             if image.count > 0
             {
-                Image(image)
-                .padding(.bottom,24)
-                .cornerRadius(22)
-                .frame(width: 161, height: 207, alignment: .leading)
+                
+                    AsyncImage(url: URL(string: image)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .padding(.bottom,24)
+                    .cornerRadius(22)
+                    .frame(width: 161, height: 207, alignment: .leading)
+               
             }
             if description.count > 0
             {
             HStack(alignment:.top){
-                Image("ic_note")
-              
-                Text(description)
-                       .font(.system(size: 14))
-                       .fontWeight(.regular)
-                       .padding(.bottom,40)
-                       .padding(.leading,16)
-                       .padding(.trailing,24)
+               
+                if title.count > 0
+                {
+                    Image("ic_note")
+                    Text(description)
+                           .font(.system(size: 14))
+                           .fontWeight(.regular)
+                           .padding(.bottom,40)
+                           .padding(.leading,16)
+                           .padding(.trailing,24)
+                }
+                else
+                {
+                    Image("ic_note")
+                        .padding(.top,24)
+                    Text(description)
+                           .font(.system(size: 14))
+                           .fontWeight(.regular)
+                           .padding(.bottom,40)
+                           .padding(.leading,16)
+                           .padding(.trailing,24)
+                           .padding(.top,24)
+                }
+                
+            
                 
             }
             }
@@ -163,6 +185,7 @@ struct MonCercueilItem: View
 
 struct MonCercueilView: View
 {
+    @StateObject private var funeralChoixViewModel = FuneralChoixViewModel()
     var body: some View {
         ZStack{
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
@@ -178,8 +201,8 @@ struct MonCercueilView: View
                        .padding(.bottom,40)
                        .padding(.leading,24)
                 Group{
-                MonCercueilItem(title: "Matériau de mon cercueil : Sapin", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "sapin1")
-                MonCercueilItem(title: "Forme de mon cercueil : Parisien", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "sapin1")
+                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeralChoixViewModel.funeral.coffinMaterial!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeralChoixViewModel.funeral.coffinMaterial!.image ?? "")
+                    MonCercueilItem(title: "Forme de mon cercueil : " + funeralChoixViewModel.funeral.coffinFinish!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeralChoixViewModel.funeral.coffinFinish!.image ?? "")
                 }
                 
                 
@@ -189,6 +212,12 @@ struct MonCercueilView: View
         .cornerRadius(22)
         .padding(.leading,18)
         .padding(.trailing,18)
+        .onAppear {
+            funeralChoixViewModel.getFuneralChoix { success in
+                
+            }
+        }
+        
     }
 }
 

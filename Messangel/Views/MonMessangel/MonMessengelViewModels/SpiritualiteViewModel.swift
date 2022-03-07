@@ -24,7 +24,7 @@ class SpiritualiteViewModel: ObservableObject {
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func createSprituality(completion: @escaping (Bool) -> Void) {
+    func getspiritualite(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: spiritualite, response: spiritualite, endpoint: "users/\(getUserId())/sprituality") { result in
             switch result {
             case .success(let sprituality):

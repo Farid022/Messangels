@@ -20,7 +20,7 @@ struct DonationDetail: Hashable, Codable {
 }
 
 class DonationViewModel: ObservableObject {
-    @Published var newOrganismes = Organismes(name: "", type: "1", user: getUserId())
+    @Published var newOrganismes = Organismes(name: "", type: "1")
     @Published var donations = [DonationDetail]()
     @Published var orgnismes = [Organismes]()
     @Published var donation = Donation(donation_organization: 0, donation_note: "", user: getUserId())

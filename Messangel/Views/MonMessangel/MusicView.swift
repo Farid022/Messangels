@@ -66,10 +66,10 @@ struct MusicView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: animalList, id:\.self)
+                                ForEach(enumerating: musicViewModel.musics, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_musiclist", item: item)
+                                ListItemImageTitle(type: "musicPlaceholder", item: item.song_title)
                                    
 
                             }
@@ -84,6 +84,9 @@ struct MusicView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            musicViewModel.getMusics()
         }
     }
 }

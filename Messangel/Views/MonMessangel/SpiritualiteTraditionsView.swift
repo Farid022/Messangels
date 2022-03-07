@@ -58,6 +58,11 @@ struct SpiritualiteTraditionsView: View {
                 }
             }
         }
+        .onAppear {
+            spiritualiteViewModel.getspiritualite { success in
+                
+            }
+        }
     }
 }
 

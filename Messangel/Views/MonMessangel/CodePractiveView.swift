@@ -66,10 +66,10 @@ struct CodePractiveView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: list, id:\.self)
+                                ForEach(enumerating: codePractiveViewModel.codesPractive, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_codePractice", item: item)
+                                ListItemImageTitle(type: "ic_codePractice", item: item.name)
                                    
 
                             }
@@ -83,6 +83,11 @@ struct CodePractiveView: View {
                         }
                     }
                 }
+            }
+        }
+        .onAppear {
+            codePractiveViewModel.getPracticalCodes { success in
+                
             }
         }
     }

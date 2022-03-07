@@ -67,10 +67,10 @@ struct AdministrativePartsView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: animalList, id:\.self)
+                                ForEach(enumerating: documentViewModel.documentUpload, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_partlist", item: item)
+                                ListItemImageTitle(type: "ic_partslist", item: item.name)
                                    
 
                             }
@@ -85,6 +85,9 @@ struct AdministrativePartsView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            documentViewModel.getAll()
         }
     }
 }

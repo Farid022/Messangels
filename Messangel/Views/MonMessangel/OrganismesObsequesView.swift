@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 import Combine
 struct OrganismesObsequesView: View {
+    @StateObject private var organismesViewModel = OrganismesViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
@@ -41,7 +42,7 @@ struct OrganismesObsequesView: View {
                                    .padding(.bottom,40)
                                    .padding(.horizontal)
                           
-                            ItemWithTitleListDescription(title: "Mon entreprise funéraire", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [MesVolenteItem(title: "Nom de l’organisme", type:"ic_company")])
+                            OrganismesItem(title: "Mon entreprise funéraire", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [organismesViewModel.organismes.funeral_company ?? Organismes()])
                                 .padding(.bottom,40)
                             
                             FuneralContractView()
@@ -55,6 +56,12 @@ struct OrganismesObsequesView: View {
                 }
             }
         }
+        .onAppear {
+            organismesViewModel.getOrganismes { success in
+                
+            }
+        }
+        
     }
 }
 
@@ -88,7 +95,57 @@ struct FuneralContractView: View
         .padding(.trailing,18)
     }
 }
+struct OrganismesItem: View
+{
+    var title: String
+    var description: String
+    var items: [Organismes]
+    var body: some View {
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+        VStack(alignment:.leading)
+        {
+            Text(title)
+                   .font(.system(size: 15))
+                   .fontWeight(.bold)
+                   .padding(.leading,24)
+                   .padding(.bottom,24)
+                   .padding(.top,40)
+            
+            if items.count > 0
+            {
+                ForEach(enumerating: items, id:\.self)
+                {
+                    index, item in
+                    MesVoluntesItem(type: "ic_company", item: item.name ?? "")
 
+                }
+                .padding(.trailing,24)
+                .padding(.leading,24)
+                .padding(.bottom)
+            }
+            HStack(alignment:.top){
+                Image("ic_note")
+                
+                Text(description)
+                       .font(.system(size: 14))
+                       .fontWeight(.regular)
+                       .padding(.bottom,40)
+                       .padding(.leading,16)
+                       .padding(.trailing,24)
+                
+            }
+            .padding(.leading,24)
+           
+            
+            }
+        }
+        .cornerRadius(24)
+        .padding(.leading,24)
+        .padding(.trailing,24)
+    }
+}
 struct ItemWithTitleListDescription: View
 {
     var title: String

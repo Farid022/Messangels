@@ -8,27 +8,31 @@
 import Foundation
 
 struct WishList: Codable {
+    var id: Int
     var express_yourself_note: String
-    var user: Int
+
 }
 
 class WishesListViewModel: ObservableObject {
-    @Published var wishlist = WishList(express_yourself_note: "", user: getUserId())
+    @Published var wishlist = WishList(id: 0, express_yourself_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func create(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: wishlist, response: wishlist, endpoint: "users/\(getUserId())/free_expression") { result in
+    func getExpressions(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: [wishlist], urlString: "users/\(getUserId())/free_expression") { result in
             switch result {
             case .success(let extraWish):
                 DispatchQueue.main.async {
-                    self.wishlist = extraWish
+                    if extraWish.count > 0
+                    {
+                        self.wishlist = extraWish[0]
+                    }
                     completion(true)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
+                    print(error.localizedDescription)
+                        //  self.apiError = error
                     completion(false)
                 }
             }

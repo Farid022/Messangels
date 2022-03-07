@@ -68,7 +68,7 @@ struct DonationCollectioView: View {
                                 ForEach(enumerating: donationViewModel.donations, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "donationOrganization", item: item.donation_organization.name)
+                                ListItemImageTitle(type: "donationOrganization", item: item.donation_organization.name ?? "")
                                    
 
                             }

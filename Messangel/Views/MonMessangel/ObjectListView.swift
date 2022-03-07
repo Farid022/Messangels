@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ObjectListView: View {
+    @StateObject private var objectListViewModel = ObjectListViewModel()
     var list = ["Livres bureau","Objet","Objet","Objet","Objet","Objet"]
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -64,10 +65,10 @@ struct ObjectListView: View {
                             
                             VStack{
                             
-                            ForEach(enumerating: list, id:\.self)
+                                ForEach(enumerating: objectListViewModel.objectlists, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "ic_objectlist", item: item)
+                                ObjectItem(type: item.object_photo, item: item.object_name)
                                    
 
                             }
@@ -83,6 +84,71 @@ struct ObjectListView: View {
                 }
             }
         }
+        .onAppear {
+            
+            objectListViewModel.getAll()
+            
+        }
+    }
+}
+
+struct ObjectItem: View
+{
+   
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+                .cornerRadius(23)
+                .frame(width:56,height:56)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+                Image("ic_objectlist")
+                .padding(.leading,24)
+                .cornerRadius(23)
+                .frame(width:56,height:56)
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Rectangle()
+            .foregroundColor(.white)
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:96)
+        .background(.white)
+        .cornerRadius(22)
+        .shadow(color: Color.init(red: 0, green: 0, blue: 0,opacity: 0.08), radius: 22, x: 0, y: 3)
+       
+        }
+        .frame(height:120)
+       
+        
     }
 }
 
