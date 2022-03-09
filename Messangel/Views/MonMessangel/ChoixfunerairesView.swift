@@ -46,16 +46,16 @@ struct ChoixfunerairesView: View {
                             
                             Group
                             {
-                                FunerairesView(title: "Mon rite funéraire : *Inhumation/*Crémation", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.")
+                                FunerairesView(title: "Mon rite funéraire : " + (funeralChoixViewModel.funeral.burialType?.name ?? ""), description: funeralChoixViewModel.funeral.burial_type_note ?? "")
                                     .padding(.bottom,40)
                                 
-                                FunerairesView(title: "Mon lieu d’inhumation", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.")
+                                FunerairesView(title: "Mon lieu d’inhumation", description: funeralChoixViewModel.funeral.placeBurialNote)
                                     .padding(.bottom,40)
                                 
                                 FunerairesView(title: "Mon lieu de crémation", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.")
                                     .padding(.bottom,40)
                                
-                                MonCercueilView()
+                                MonCercueilView(funeral: funeralChoixViewModel.funeral)
                                     .padding(.bottom,40)
                                
                                 FunerairesView(title: "Ma tenue", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.") .padding(.bottom,40)
@@ -65,6 +65,11 @@ struct ChoixfunerairesView: View {
                         }
                     }
                 }
+            }
+        }
+        .onAppear {
+            funeralChoixViewModel.getFuneralChoix { success in
+                
             }
         }
        
@@ -185,6 +190,7 @@ struct MonCercueilItem: View
 
 struct MonCercueilView: View
 {
+    var funeral: FuneralChoixDetail
     @StateObject private var funeralChoixViewModel = FuneralChoixViewModel()
     var body: some View {
         ZStack{
@@ -201,8 +207,8 @@ struct MonCercueilView: View
                        .padding(.bottom,40)
                        .padding(.leading,24)
                 Group{
-                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeralChoixViewModel.funeral.coffinMaterial!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeralChoixViewModel.funeral.coffinMaterial!.image ?? "")
-                    MonCercueilItem(title: "Forme de mon cercueil : " + funeralChoixViewModel.funeral.coffinFinish!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeralChoixViewModel.funeral.coffinFinish!.image ?? "")
+                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeral.coffinMaterial!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinMaterial!.image ?? "")
+                    MonCercueilItem(title: "Forme de mon cercueil : " + funeral.coffinFinish!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinFinish!.image ?? "")
                 }
                 
                 
@@ -212,11 +218,7 @@ struct MonCercueilView: View
         .cornerRadius(22)
         .padding(.leading,18)
         .padding(.trailing,18)
-        .onAppear {
-            funeralChoixViewModel.getFuneralChoix { success in
-                
-            }
-        }
+       
         
     }
 }

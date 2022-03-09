@@ -36,6 +36,7 @@ struct FuneralChoix: Hashable,Codable {
     var urn_material: Int?
     var urn_style: Int?
     var user: Int
+   
 }
 
 struct FuneralChoixDetail: Hashable,Codable {
@@ -52,6 +53,7 @@ struct FuneralChoixDetail: Hashable,Codable {
     var internalMaterial: FuneralItem?
     var urnMaterial: FuneralItem?
     var urnStyle: FuneralItem?
+    var burial_type_note: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -67,6 +69,7 @@ struct FuneralChoixDetail: Hashable,Codable {
         case internalMaterial = "internal_material"
         case urnMaterial = "urn_material"
         case urnStyle = "urn_style"
+        case burial_type_note
     }
 }
 

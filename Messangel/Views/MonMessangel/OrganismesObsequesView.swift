@@ -48,9 +48,17 @@ struct OrganismesObsequesView: View {
                             FuneralContractView()
                                 .padding(.bottom,40)
                             
+                            if organismesViewModel.organismes.chose_funeral_home == true
+                            {
+                            
                             MonCercueilTitleView(title: "Je n’ai pas choisi d’entreprise funéraire")
                                 .padding(.bottom,40)
-                            MonCercueilTitleView(title: "JJe n’ai pas souscrit de contrat obsèques")
+                            }
+                            
+                            if organismesViewModel.organismes.company_contract_detail == true
+                            {
+                                MonCercueilTitleView(title: "JJe n’ai pas souscrit de contrat obsèques")
+                            }
                         }
                     }
                 }

@@ -36,14 +36,15 @@ struct OgranismesData: Hashable, Codable
     var funeral_contract: String?
     var user: User?
     var assign_user: [User]?
+    var chose_funeral_home: Bool?
     var chose_funeral_home_note: String?
     var funeral_company_note1: String?
     var funeral_company_note: String?
     var company_contract_detail_note: String?
     var company_contract_num: String?
-   
+    var company_contract_detail: Bool?
     enum CodingKeys: String, CodingKey {
-        case id,funeral_company,company_contract_detail,funeral_contract,user,assign_user,chose_funeral_home_note,funeral_company_note1,funeral_company_note,company_contract_detail_note,company_contract_num
+        case id,funeral_company,company_contract_detail,funeral_contract,user,assign_user,chose_funeral_home_note,funeral_company_note1,funeral_company_note,company_contract_detail_note,company_contract_num,chose_funeral_home,company_contract_detail
     }
 
     
