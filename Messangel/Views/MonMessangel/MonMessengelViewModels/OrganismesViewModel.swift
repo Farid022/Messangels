@@ -42,9 +42,9 @@ struct OgranismesData: Hashable, Codable
     var funeral_company_note: String?
     var company_contract_detail_note: String?
     var company_contract_num: String?
-    var company_contract_detail: Bool?
+   
     enum CodingKeys: String, CodingKey {
-        case id,funeral_company,company_contract_detail,funeral_contract,user,assign_user,chose_funeral_home_note,funeral_company_note1,funeral_company_note,company_contract_detail_note,company_contract_num,chose_funeral_home,company_contract_detail
+        case id,funeral_company,company_contract_detail,funeral_contract,user,assign_user,chose_funeral_home_note,funeral_company_note1,funeral_company_note,company_contract_detail_note,company_contract_num,chose_funeral_home
     }
 
     
