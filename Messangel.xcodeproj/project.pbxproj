@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2311D88B27D9E9B0005CBDE2 /* PremisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */; };
 		2335C9D727D53D0200FCA5B4 /* Volontes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335C9D627D53D0200FCA5B4 /* Volontes.swift */; };
 		2335CA3827D5D07200FCA5B4 /* FuneralOrganizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335CA2527D5D07100FCA5B4 /* FuneralOrganizationViewModel.swift */; };
 		2335CA3927D5D07200FCA5B4 /* CodePractiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335CA2627D5D07100FCA5B4 /* CodePractiveViewModel.swift */; };
@@ -352,6 +353,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremisesViewModel.swift; sourceTree = "<group>"; };
 		2335C9D627D53D0200FCA5B4 /* Volontes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volontes.swift; sourceTree = "<group>"; };
 		2335CA2527D5D07100FCA5B4 /* FuneralOrganizationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralOrganizationViewModel.swift; sourceTree = "<group>"; };
 		2335CA2627D5D07100FCA5B4 /* CodePractiveViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodePractiveViewModel.swift; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 		2335C9D827D5CBA500FCA5B4 /* MonMessengelViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */,
 				2335CA2B27D5D07100FCA5B4 /* AestheticViewModel.swift */,
 				2335CA2A27D5D07100FCA5B4 /* AnimalsViewModel.swift */,
 				2335CA3227D5D07200FCA5B4 /* AnnouncementViewModel.swift */,
@@ -1813,6 +1816,7 @@
 				93AC01FE271FEB2800FD7285 /* FuneralDoneView.swift in Sources */,
 				93AC027C27465F8A00FD7285 /* AdminDocsIntro.swift in Sources */,
 				9313BA6F26846019008F566C /* TextEditorView.swift in Sources */,
+				2311D88B27D9E9B0005CBDE2 /* PremisesViewModel.swift in Sources */,
 				93AC02B3274B56DE00FD7285 /* ObjectsDonationContactsList.swift in Sources */,
 				93AC02742746175E00FD7285 /* FuneralMusicNote.swift in Sources */,
 				93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */,

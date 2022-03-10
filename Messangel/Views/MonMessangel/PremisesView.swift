@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct PremisesView: View {
+    @StateObject private var premisesViewModel = PremisesViewModel()
     var body: some View {
+        
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -43,13 +45,13 @@ struct PremisesView: View {
                                  
                           
                            
-                            ItemWithTitleListDescription(title: "Mon lieu de cérémonie", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [MesVolenteItem(title: "Nom de l’organisme", type:"ic_company")])
+                            ItemWithTitleListDescription(title: "Mon lieu de cérémonie", description: premisesViewModel.newPremises.bury_location_note ?? "", items: [MesVolenteItem(title: premisesViewModel.newPremises.bury_location?.name ?? "", type:"ic_company")])
                                 .padding(.bottom,40)
                             
-                            ItemWithTitleListDescription(title: "Je ne souhaite pas indiquer le lieu de ma cérémonie", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
+                            ItemWithTitleListDescription(title: "Je ne souhaite pas indiquer le lieu de ma cérémonie", description: premisesViewModel.newPremises.location_of_ceremony_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
-                            ItemWithTitleListDescription(title: "Mon lieu de repos : Funérarium", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
+                            ItemWithTitleListDescription(title: "Mon lieu de repos : Funérarium", description: premisesViewModel.newPremises.resting_place_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
                             ItemWithTitleListDescription(title: "Mon lieu de repos : Domicile", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
@@ -58,6 +60,11 @@ struct PremisesView: View {
                         }
                     }
                 }
+            }
+        }
+        .onAppear {
+            premisesViewModel.getPremises { success in
+                
             }
         }
     }
