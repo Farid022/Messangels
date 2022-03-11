@@ -14,18 +14,20 @@ enum SpiritualiteType: Int, CaseIterable {
 }
 
 struct FuneralSpiritualite: Codable {
-    var spritual_ceremony: Int
-    var ceremony_note: String
-    var user: Int
+    var id: Int?
+    var user: User?
+    var spirtual_cermony_note: String?
+    var ceremony_note: String?
+    var spritual_ceremony: FuneralItem?
 }
 
 class SpiritualiteViewModel: ObservableObject {
-    @Published var spiritualite = FuneralSpiritualite(spritual_ceremony: 0, ceremony_note: "", user: getUserId())
+    @Published var spiritualite = FuneralSpiritualite()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func getspiritualite(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: spiritualite, response: spiritualite, endpoint: "users/\(getUserId())/sprituality") { result in
+        APIService.shared.getJSON(model: spiritualite, urlString: "users/\(getUserId())/sprituality") { result in
             switch result {
             case .success(let sprituality):
                 DispatchQueue.main.async {
@@ -34,8 +36,8 @@ class SpiritualiteViewModel: ObservableObject {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
+                    print(error.localizedDescription)
+                  //  self.apiError = error
                     completion(false)
                 }
             }

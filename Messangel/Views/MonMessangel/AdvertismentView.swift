@@ -56,6 +56,11 @@ struct AdvertismentView: View {
                 }
             }
         }
+        .onAppear {
+            funeralAdvertisementViewModel.create { success in
+                
+            }
+        }
     }
 }
 

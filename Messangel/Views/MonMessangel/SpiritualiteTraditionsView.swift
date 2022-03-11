@@ -45,12 +45,11 @@ struct SpiritualiteTraditionsView: View {
                             
                             Group
                             {
-                                FunerairesView(title: "Je souhaite une cérémonie non-religieuse", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
+                                FunerairesView(title: "Je souhaite une cérémonie " + spiritualiteViewModel.spiritualite.spritual_ceremony!.name , description: spiritualiteViewModel.spiritualite.spirtual_cermony_note ?? "")
                                     .padding(.bottom,40)
-                                FunerairesView(title: "Je souhaite une cérémonie religieuse ou philosophique", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
-                                    .padding(.bottom,40)
+                
                                 
-                                FunerairesView(title: "Je souhaite faire appliquer des traditions", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
+                                FunerairesView(title: "Je souhaite faire appliquer des traditions", description: spiritualiteViewModel.spiritualite.ceremony_note ?? "")
                                     .padding(.bottom,40)
                         }
                     }

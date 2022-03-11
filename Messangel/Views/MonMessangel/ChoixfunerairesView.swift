@@ -52,15 +52,18 @@ struct ChoixfunerairesView: View {
                                 FunerairesView(title: "Mon lieu d’inhumation", description: funeralChoixViewModel.funeral.placeBurialNote)
                                     .padding(.bottom,40)
                                 
-                                FunerairesView(title: "Mon lieu de crémation", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.")
+                                FunerairesView(title: "Mon lieu de crémation", description: funeralChoixViewModel.funeral.depositeAshesNote)
                                     .padding(.bottom,40)
                                
                                 MonCercueilView(funeral: funeralChoixViewModel.funeral)
                                     .padding(.bottom,40)
-                               
-                                FunerairesView(title: "Ma tenue", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.") .padding(.bottom,40)
                                 
-                                FunerairesView(title: "Mes objets et accessoires", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.") .padding(.bottom,40)
+                                MonUrneView(funeral: funeralChoixViewModel.funeral)
+                                    .padding(.bottom,40)
+                               
+                                FunerairesView(title: "Ma tenue", description: funeralChoixViewModel.funeral.outfitNote ) .padding(.bottom,40)
+                                
+                                FunerairesView(title: "Mes objets et accessoires", description: funeralChoixViewModel.funeral.acessoriesNote ) .padding(.bottom,40)
                             }
                         }
                     }
@@ -97,20 +100,39 @@ struct FunerairesView: View
                        .padding(.top,40)
                        .padding(.leading,24)
                        .padding(.bottom,24)
-                HStack(alignment:.top){
-                    Image("ic_note")
-                    .padding(.leading,24)
-                    Text(description)
-                           .font(.system(size: 14))
-                           .fontWeight(.regular)
-                           .padding(.bottom,40)
-                           .padding(.leading,16)
-                           .padding(.trailing,24)
+                       .multilineTextAlignment(.leading)
+              
+                if description.count > 0
+                {
+                    HStack(alignment:.top){
+                     
+                            Image("ic_note")
+                                .padding(.leading,24)
+                       
+                            Text(description)
+                                .font(.system(size: 14))
+                                .fontWeight(.regular)
+                                .multilineTextAlignment(.leading)
+                                .frame(maxWidth:.infinity)
+                                .padding(.bottom,40)
+                                .padding(.leading,16)
+                                .padding(.trailing,24)
+                        
+                            Spacer()
+                          
+                        }
+                   
                     
+                 }
+                else
+                {
+                    Spacer()
                 }
+               
             }
          
         }
+        .frame(maxWidth:.infinity)
         .cornerRadius(22)
         .padding(.leading,18)
         .padding(.trailing,18)
@@ -223,6 +245,40 @@ struct MonCercueilView: View
     }
 }
 
+struct MonUrneView: View
+{
+    var funeral: FuneralChoixDetail
+    @StateObject private var funeralChoixViewModel = FuneralChoixViewModel()
+    var body: some View {
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+           
+            VStack(alignment:.leading)
+            {
+                
+                Text("Mon urne")
+                       .font(.system(size: 20))
+                       .fontWeight(.bold)
+                       .padding(.top,40)
+                       .padding(.bottom,40)
+                       .padding(.leading,24)
+                Group{
+                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeral.coffinMaterial!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinMaterial!.image ?? "")
+                    MonCercueilItem(title: "Forme de mon cercueil : " + funeral.coffinFinish!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinFinish!.image ?? "")
+                }
+                
+                
+                
+            }
+        }
+        .cornerRadius(22)
+        .padding(.leading,18)
+        .padding(.trailing,18)
+       
+        
+    }
+}
 
 struct ChoixfunerairesView_Previews: PreviewProvider {
     static var previews: some View {
