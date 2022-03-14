@@ -22,7 +22,7 @@ struct ExtraWishesDetails: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 1.0, totalSteps: 1.0, isCustomAction: true, customAction: {
                 loading.toggle()
                 if vm.updateRecord {
                     vm.update(id: vm.extraWishes[0].id) { success in

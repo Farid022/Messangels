@@ -17,7 +17,7 @@ struct ObjectsDonationContact: View {
     }
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "Objets", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(ObjectsDonationPic(vm: vm))) {
+            FlowBaseView(stepNumber: 5.0, totalSteps: 7.0, menuTitle: "Objets", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(ObjectsDonationPic(vm: vm))) {
                 if vm.contactName.isEmpty {
                     Button(action: {
                         navigationModel.presentContent(title) {

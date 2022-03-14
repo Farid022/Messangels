@@ -16,7 +16,7 @@ struct VideoTrimView: View {
     @State var videoUrl: URL
     var asset: AVURLAsset
     let finishedObserver: PlayerFinishedObserver
-    @State private var valid = false
+    @State private var valid = true
     @State private var loading = false
     @State private var frames = [UIImage]()
     @StateObject var playerManager: PlayerManager
@@ -40,7 +40,6 @@ struct VideoTrimView: View {
                     #endif
                     Button(action: {
                         playerManager.playPause()
-                        valid = true
                     }, label: {
                         RoundedRectangle(cornerRadius: 22.0)
                             .foregroundColor(.white)

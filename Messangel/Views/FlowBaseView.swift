@@ -9,23 +9,26 @@ import SwiftUI
 import NavigationStack
 
 struct FlowBaseView<Content: View>: View {
-    @EnvironmentObject var navigationModel: NavigationModel
-    @Binding private var valid: Bool
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @State private var showExitAlert = false
+    @Binding var valid: Bool
+    @Binding var noteText: String
+    @Binding var showNote: Bool
+    private var tab: Int
+    private var stepNumber: Double
+    private var totalSteps: Double
     private var title: String
     private var menuTitle: String
-    @Binding var noteText: String
     private var note: Bool
     private var addToList: Bool
-    @Binding var showNote: Bool
-    let content: Content
+    private let content: Content
     private var destination: AnyView
     private var popToParent: Bool
     private var parentId: String
-    var customAction: () -> Void = {}
     var isCustomAction: Bool
-    var exitAction: () -> Void
+    var customAction: () -> Void = {}
     
-    init(isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, popToParent: Bool = false, parentId: String = TabBarView.id, addToList: Bool = false, noteText: Binding<String> = .constant(""), note: Bool = false, showNote: Binding<Bool> = .constant(false), menuTitle: String, title: String, valid: Binding<Bool>, destination: AnyView = AnyView(EmptyView()), exitAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
+    init(tab: Int = 0, stepNumber: Double, totalSteps: Double, isCustomAction: Bool = false, customAction: @escaping () -> Void = {}, popToParent: Bool = false, parentId: String = TabBarView.id, addToList: Bool = false, noteText: Binding<String> = .constant(""), note: Bool = false, showNote: Binding<Bool> = .constant(false), menuTitle: String, title: String, valid: Binding<Bool>, destination: AnyView = AnyView(EmptyView()), exitAction: @escaping () -> Void = {}, @ViewBuilder content: () -> Content) {
         self.content = content()
         self._valid = valid
         self.destination = destination
@@ -38,85 +41,111 @@ struct FlowBaseView<Content: View>: View {
         self.popToParent = popToParent
         self.isCustomAction = isCustomAction
         self.customAction = customAction
-        self.exitAction = exitAction
         self._noteText = noteText
+        self.stepNumber = stepNumber
+        self.totalSteps = totalSteps
+        self.tab = tab
     }
     
     var body: some View {
-        NavigationStackView(title) {
-            ZStack(alignment:.top) {
-                GeometryReader { proxy in
-                    Color.accentColor
-                        .frame(height: proxy.safeAreaInsets.top)
-                    .edgesIgnoringSafeArea(.top)
-                }
-                VStack(spacing: 20) {
-                    NavigationTitleView(menuTitle: menuTitle, exitAction: exitAction)
-                    if addToList {
-                        Spacer()
-                        Text(title)
-                            .font(.system(size: 17))
-                            .fontWeight(.bold)
-                        Button(action: {
-                            navigationModel.pushContent(title) {
-                                destination
-                            }
-                        }, label: {
-                            Image("ic_add_btn")
-                        })
-                        Spacer()
+        ZStack {
+            NavigationStackView(title) {
+                ZStack(alignment:.top) {
+                    GeometryReader { proxy in
+                        Color.accentColor
+                            .frame(height: proxy.safeAreaInsets.top)
+                        .edgesIgnoringSafeArea(.top)
                     }
-                    else {
-                        FlowBaseTitleView(title: title)
-                        content
-                        Spacer()
-                        HStack {
-                            if note {
-                                FlowNoteButtonView(showNote: $showNote, note: $noteText)
-                            }
+                    VStack(spacing: 20) {
+                        NavigationTitleView(stepNumber: stepNumber, totalSteps: totalSteps, menuTitle: menuTitle, confirmExit: tab > 0, showExitAlert: $showExitAlert)
+                        if addToList {
                             Spacer()
-                            FlowNextButtonView(valid: $valid, title: title, destination: destination, popToParent: popToParent, parentId: parentId, customAction: customAction, isCustomAction: isCustomAction)
+                            Text(title)
+                                .font(.system(size: 17))
+                                .fontWeight(.bold)
+                            Button(action: {
+                                navigationModel.pushContent(title) {
+                                    destination
+                                }
+                            }, label: {
+                                Image("ic_add_btn")
+                            })
+                            Spacer()
+                        }
+                        else {
+                            FlowBaseTitleView(title: title)
+                            content
+                            Spacer()
+                            HStack {
+                                if note {
+                                    FlowNoteButtonView(showNote: $showNote, note: $noteText)
+                                }
+                                Spacer()
+                                FlowNextButtonView(valid: $valid, title: title, destination: destination, popToParent: popToParent, parentId: parentId, customAction: customAction, isCustomAction: isCustomAction)
+                            }
                         }
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom)
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
+                .textFieldStyle(MyTextFieldStyle())
             }
-            .textFieldStyle(MyTextFieldStyle())
+            if showExitAlert {
+                Color.black.opacity(0.8)
+                    .ignoresSafeArea()
+                    .overlay(MyAlert(title: "Quitter \(self.menuTitle)", message: "Vos modifications ne seront pas enregistrées.", ok: "Oui", cancel: "Non", action: {
+                        WishesViewModel.setProgress(Int((stepNumber/totalSteps)*100.0), tab: self.tab) { _ in
+                            navigationModel.popContent(TabBarView.id)
+                        }
+                    }, showAlert: $showExitAlert))
+            }
         }
     }
 }
 
 struct NavigationTitleView: View {
     @EnvironmentObject var navigationModel: NavigationModel
+    var stepNumber = 0.0
+    var totalSteps = 0.0
     var menuTitle = ""
-    var exitAction: (() -> Void)?
+    var confirmExit = false
+    @Binding var showExitAlert: Bool
+    
     var body: some View {
         VStack {
-            Color.accentColor
-                .frame(height:140)
-                .padding(.horizontal, -20)
-                .overlay(
-                    HStack {
-                    VStack(alignment: .leading) {
-                        Button {
-                            if let exitAction = exitAction {
-                                exitAction()
+            ZStack(alignment: .bottom) {
+                Color.accentColor
+                    .frame(height:140)
+                    .padding(.horizontal, -20)
+                    .overlay(
+                        HStack {
+                        VStack(alignment: .leading) {
+                            Button {
+//                                if confirmExit {
+//                                    showExitAlert.toggle()
+//                                } else
+//                                {
+                                    navigationModel.popContent(TabBarView.id)
+//                                }
+                            } label: {
+                               Image("ic_exit")
                             }
-                            navigationModel.popContent(TabBarView.id)
-                        } label: {
-                           Image("ic_exit")
+                            .padding(.top)
+                            Spacer()
+                            Text(menuTitle)
+                                .font(.system(size: 22))
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.bottom, 20)
                         }
-                        .padding(.top)
                         Spacer()
-                        Text(menuTitle)
-                            .font(.system(size: 22))
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding(.bottom, 20)
-                    }
-                    Spacer()
-            }, alignment: .top)
+                    }, alignment: .top)
+                if totalSteps > 0.0 {
+                    FlowProgressView(progress: .constant((100/totalSteps)*stepNumber), progressMultiplier: 100/totalSteps)
+                        .shadow(radius: 5)
+                        .offset(y: 2)
+                }
+            }
             HStack {
                 Spacer()
                 Rectangle()

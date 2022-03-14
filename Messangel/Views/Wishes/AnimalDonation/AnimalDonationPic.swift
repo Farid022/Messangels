@@ -14,7 +14,7 @@ struct AnimalDonationPic: View {
 
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) – Photo", valid: .constant(true), destination: AnyView(AnimalDonationPlaceSelection(vm: vm))) {
+            FlowBaseView(stepNumber: 5.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) – Photo", valid: .constant(true), destination: AnyView(AnimalDonationPlaceSelection(vm: vm))) {
                 ImageSelectionView(showImagePickerOptions: $isShowImagePickerOptions, localImage: $vm.localPhoto, remoteImage: vm.animalDonation.animal_photo ?? "", imageSize: 128.0)
             }
         }

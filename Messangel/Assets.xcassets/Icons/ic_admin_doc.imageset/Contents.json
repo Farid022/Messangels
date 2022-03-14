@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ic_animal.png",
+      "filename" : "ic_admin_doc.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ic_animal@2x.png",
+      "filename" : "ic_admin_doc@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ic_animal@3x.png",
+      "filename" : "ic_admin_doc@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

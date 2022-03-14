@@ -11,7 +11,7 @@ struct AnimalDonationSpecies: View {
     @ObservedObject var vm: AnimalDonatiopnViewModel
     
     var body: some View {
-        FlowBaseView(menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) – Indiquez le nom de son espèce", valid: .constant(!vm.animalDonation.animal_name.isEmpty), destination: AnyView(AnimalDonationPic(vm: vm))) {
+        FlowBaseView(stepNumber: 4.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) – Indiquez le nom de son espèce", valid: .constant(!vm.animalDonation.animal_name.isEmpty), destination: AnyView(AnimalDonationPic(vm: vm))) {
             TextField("Labrador, hamster", text: $vm.animalDonation.animal_species)
             .normalShadow()
         }

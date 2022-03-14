@@ -11,7 +11,6 @@ import NavigationStack
 struct AdminDocsNote: View {
     @State private var showNote = false
     @State private var loading = false
-    @State private var attachedFiles = [URL]()
     @EnvironmentObject var navModel: NavigationModel
     @ObservedObject var vm: AdminDocViewModel
     var title = "Joignez des scans ou photos des documents avec l’outil note"
@@ -48,31 +47,9 @@ struct AdminDocsNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(showNote: $showNote, note: $vm.adminDoc.document_note, loading: $loading, attachFiles: $attachedFiles, menuTitle: wishesExtras.first!.name, title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 3.0, showNote: $showNote, note: $vm.adminDoc.document_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.adminDoc.document_note_attachement, menuTitle: wishesExtras.first!.name, title: title) {
             loading.toggle()
-            Task {
-                if !attachedFiles.isEmpty {
-                    vm.attachements.removeAll()
-                    let uploadedFiles = await uploadFiles(attachedFiles)
-                    for uploadedFile in uploadedFiles {
-                        vm.attachements.append(Attachement(url: uploadedFile))
-                    }
-                    vm.attach { success in
-                        if success {
-                            var attachementIds = [Int]()
-                            for attachement in vm.attachements {
-                                if let id = attachement.id {
-                                    attachementIds.append(id)
-                                }
-                            }
-                            vm.adminDoc.document_note_attachement = attachementIds
-                            createOrUpdateRecord()
-                        }
-                    }
-                } else {
-                    createOrUpdateRecord()
-                }
-            }
+            createOrUpdateRecord()
         }
     }
 }

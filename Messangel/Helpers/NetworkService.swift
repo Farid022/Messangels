@@ -282,11 +282,11 @@ func getUserId() -> Int {
     return UserDefaults.standard.dictionary(forKey: "user")?["id"] as! Int
 }
 
-func uploadImage(_ image: UIImage, type: String) async -> String {
+func uploadImage(_ image: UIImage, type: String) async -> (String, Int) {
     if let response = await Networking.shared.upload(image.jpegData(compressionQuality: 1)!, fileName: "msgl_user_\(getUserId())_\(type)_\(UUID().uuidString).jpeg", fileType: "image") {
-        return response.files.first?.path ?? ""
+        return (response.files.first?.path ?? "", response.files.first?.size ?? 0)
     }
-    return ""
+    return ("", 0)
 }
 
 func uploadFiles(_ urls: [URL]) async -> [String] {

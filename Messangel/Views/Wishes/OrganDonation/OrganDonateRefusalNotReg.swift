@@ -18,7 +18,7 @@ struct OrganDonateRefusalNotReg: View {
     
     var body: some View {
         ZStack {
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 4.0, totalSteps: 4.0, isCustomAction: true, customAction: {
                 loading.toggle()
                 if !vm.updateRecord {
                     vm.create() { success in

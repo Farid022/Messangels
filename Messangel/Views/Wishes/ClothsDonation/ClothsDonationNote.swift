@@ -11,7 +11,6 @@ import NavigationStack
 struct ClothsDonationNote: View {
     @State private var showNote = false
     @State private var loading = false
-    @State private var attachedFiles = [URL]()
     @ObservedObject var vm: ClothDonationViewModel
     @EnvironmentObject var navModel: NavigationModel
     var title = "Ajoutez des informations complémentaires (exemples : vêtement fragile, cas particuliers)"
@@ -51,33 +50,13 @@ struct ClothsDonationNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(showNote: $showNote, note: $vm.clothDonation.clothing_note, loading: $loading, attachFiles: $attachedFiles, menuTitle: "Vêtements et accessoires", title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 7.0, showNote: $showNote, note: $vm.clothDonation.clothing_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.clothDonation.clothing_note_attachment, menuTitle: "Vêtements et accessoires", title: title) {
             loading.toggle()
             Task {
                 if vm.localPhoto.cgImage != nil {
-                    self.vm.clothDonation.clothing_photo = await uploadImage(vm.localPhoto, type: "clothing")
+                    self.vm.clothDonation.clothing_photo = await uploadImage(vm.localPhoto, type: "clothing").0
                 }
-                if !attachedFiles.isEmpty {
-                    vm.attachements.removeAll()
-                    let uploadedFiles = await uploadFiles(attachedFiles)
-                    for uploadedFile in uploadedFiles {
-                        vm.attachements.append(Attachement(url: uploadedFile))
-                    }
-                    vm.attach { success in
-                        if success {
-                            var attachementIds = [Int]()
-                            for attachement in vm.attachements {
-                                if let id = attachement.id {
-                                    attachementIds.append(id)
-                                }
-                            }
-                            vm.clothDonation.clothing_note_attachment = attachementIds
-                            createOrUpdateRecord()
-                        }
-                    }
-                } else {
-                    createOrUpdateRecord()
-                }
+                createOrUpdateRecord()
             }
         }
     }

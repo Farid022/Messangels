@@ -15,7 +15,7 @@ struct ObjectsDonationPic: View {
     
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "Objets", title: "\(vm.objectDonation.object_name) – Photo", valid: .constant(true), destination: AnyView(ObjectsDonationNote(vm: vm))) {
+            FlowBaseView(stepNumber: 6.0, totalSteps: 7.0, menuTitle: "Objets", title: "\(vm.objectDonation.object_name) – Photo", valid: .constant(true), destination: AnyView(ObjectsDonationNote(vm: vm))) {
                 ImageSelectionView(showImagePickerOptions: $isShowImagePickerOptions, localImage: $vm.localPhoto, remoteImage: vm.objectDonation.object_photo ?? "", imageSize: 128.0)
             }
             

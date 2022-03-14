@@ -35,7 +35,7 @@ struct ClothsDonationDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: "Vêtements et accessoires")
+                        NavigationTitleView(menuTitle: "Vêtements et accessoires", showExitAlert: .constant(false))
                         ScrollView {
                             DetailsTitleView(title: donation.clothing_name)
                             DetailsPhotoView(imageUrlString: donation.clothing_photo, fullScreenPhoto: $fullScreenPhoto)

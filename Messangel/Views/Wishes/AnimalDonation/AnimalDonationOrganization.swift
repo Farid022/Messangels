@@ -18,7 +18,7 @@ struct AnimalDonationOrganization: View {
     
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(AnimalDonationNote(vm: vm))) {
+            FlowBaseView(stepNumber: 7.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(AnimalDonationNote(vm: vm))) {
                 if vm.orgName.isEmpty {
                     Button(action: {
                         navigationModel.presentContent(title) {

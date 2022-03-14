@@ -68,7 +68,7 @@ struct FuneralItemList<Content: View>: View {
                     }
                     .zIndex(1.0)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: menuTitle)
+                        NavigationTitleView(menuTitle: menuTitle, showExitAlert: .constant(false))
                         Spacer().frame(height: 17)
                         ScrollView(showsIndicators: false) {
                             content

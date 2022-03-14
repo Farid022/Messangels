@@ -22,12 +22,12 @@ struct FuneralInviteNewsPaper: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 4.0, totalSteps: 4.0, isCustomAction: true, customAction: {
                 loading.toggle()
                 Task {
                     if !vm.updateRecord {
                         if vm.invitePhoto.cgImage != nil {
-                            vm.announcement.invitation_photo = await uploadImage(vm.invitePhoto, type: "invitation")
+                            vm.announcement.invitation_photo = await uploadImage(vm.invitePhoto, type: "invitation").0
                         }
                         vm.create() { success in
                             if success {

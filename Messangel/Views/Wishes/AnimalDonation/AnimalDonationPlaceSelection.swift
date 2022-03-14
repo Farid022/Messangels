@@ -14,7 +14,7 @@ struct AnimalDonationPlaceSelection: View {
 
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) - À qui confier \(vm.animalDonation.single_animal! ? "votre animal?" : "vos animaux?")", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
+            FlowBaseView(stepNumber: 6.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: "\(vm.animalDonation.animal_name) - À qui confier \(vm.animalDonation.single_animal! ? "votre animal?" : "vos animaux?")", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(AnimalDonationOrganization(vm: vm)) : AnyView(AnimalDonationContact(vm: vm))) {
                 HStack {
                     ForEach(donationTypes, id: \.self) { type in
                         ChoiceCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))

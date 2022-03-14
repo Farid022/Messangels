@@ -21,6 +21,8 @@ struct VideoRecoderView: View {
     var body: some View {
         NavigationStackView("VideoRecoderView") {
             ZStack {
+                Color.black
+                    .ignoresSafeArea()
                 CameraPreview(cameraController: cameraController)
                     .ignoresSafeArea()
                 VStack {

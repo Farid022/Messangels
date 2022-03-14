@@ -25,7 +25,6 @@ struct MessagesMainView: View {
                             .font(.system(size: 17), weight: .bold)
                     }
                 } else {
-//                    ScrollView {
                         VStack {
                             ForEach(vm.groups, id: \.self) { group in
                                 GroupCapsule(group: group)
@@ -35,7 +34,6 @@ struct MessagesMainView: View {
                             Spacer().frame(height: 70)
                         }
                         .padding(.horizontal)
-//                    }
                 }
             }
         }
@@ -57,7 +55,7 @@ struct PopupButtonsView: View {
             VStack(spacing: 40.0) {
                 Spacer()
                 Button {
-                    showPopUp.toggle()
+                    showPopUp = false
                     navigationModel.pushContent(TabBarView.id) {
                         AudioRecorderView()
                             .environmentObject(vm)
@@ -68,6 +66,7 @@ struct PopupButtonsView: View {
                         .overlay(Image("ic_audio"))
                 }
                 Button {
+                    showPopUp = false
                     navigationModel.pushContent(TabBarView.id) {
                         TextEditorView()
                             .environmentObject(vm)
@@ -78,6 +77,7 @@ struct PopupButtonsView: View {
                         .overlay(Image("ic_text"))
                 }
                 Button {
+                    showPopUp = false
                     navigationModel.pushContent(TabBarView.id) {
                         VideoRecoderView()
                             .environmentObject(vm)
@@ -95,7 +95,7 @@ struct PopupButtonsView: View {
                         .foregroundColor(.white)
                         .overlay(Image(systemName: "minus"))
                 }
-                Spacer().frame(height: 85)
+                Spacer().frame(height: UIDevice().hasNotch ? 85 : 80)
             }
             .padding(.trailing)
         }
@@ -108,20 +108,20 @@ struct NewMessageButtonView: View {
     var body: some View {
         VStack {
             Spacer()
-            Button {
-                withAnimation {
-                    showButtonsPopup.toggle()
-                }
-            } label: {
-                HStack {
-                    Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation {
+                        showButtonsPopup.toggle()
+                    }
+                } label: {
                     RoundedRectangle(cornerRadius: 25)
                         .frame(width: 56, height: 56)
                         .foregroundColor(.accentColor)
                         .overlay(Image(systemName: "plus").foregroundColor(.white))
                 }
             }
-            Spacer().frame(height: 90)
+            Spacer().frame(height: UIDevice().hasNotch ? 90 : 120)
         }
         .padding(.horizontal)
     }
@@ -162,6 +162,20 @@ struct GroupCapsule: View {
 
 struct GroupItem: View {
     var group: MsgGroupDetail
+    var mediaCount: Int {
+        var mediaCount = 0
+        if let texts = group.texts {
+            mediaCount += texts.count
+        }
+        if let audios = group.audios {
+            mediaCount += audios.count
+        }
+        if let videos = group.videos {
+            mediaCount += videos.count
+        }
+        return mediaCount
+    }
+    
     var body: some View {
         HStack {
             RoundedRectangle(cornerRadius: 25.0)
@@ -179,10 +193,7 @@ struct GroupItem: View {
                 HStack {
                     Image("ic_public_media")
                     if !group.name.isEmpty {
-                        let texts = group.texts?.count ?? 0
-                        let audios = group.audios?.count ?? 0
-                        let videos = group.audios?.count ?? 0
-                        Text("\(texts + audios + videos) MÉDIA")
+                        Text("\(mediaCount) MÉDIA")
                             .font(.system(size: 9))
                             .foregroundColor(.secondary)
                     }

@@ -13,7 +13,6 @@ struct AudioTitleView: View {
     @EnvironmentObject private var groupVM: GroupViewModel
     @ObservedObject var player: Player
     @StateObject private var vm = AudioViewModel()
-    @State private var valid = false
     @State private var fullScreen = false
 
     var fileUrl: URL
@@ -34,20 +33,21 @@ struct AudioTitleView: View {
                     Image("audio_preview_waves")
                     AudioPlayerPreview(bgImage: "bg_audio_default", fullScreen: $fullScreen, player: player)
                 }
-                TextField("Titre de la audéo", text: $vm.audio.name, onCommit: {
-                    valid = !vm.audio.name.isEmpty
-                })
+                TextField("Titre de la audéo", text: $vm.audio.name)
                     .textFieldStyle(MyTextFieldStyle())
                     .normalShadow()
                     .padding(.bottom)
                 HStack {
                     Spacer()
                     Rectangle()
-                        .fill(valid ? Color.accentColor : Color.accentColor.opacity(0.2))
+                        .fill(!vm.audio.name.isEmpty ? Color.accentColor : Color.accentColor.opacity(0.2))
                         .frame(width: 56, height: 56)
                         .cornerRadius(25)
                         .overlay(
                             Button(action: {
+                                if vm.audio.name.isEmpty {
+                                    return
+                                }
                                 navigationModel.pushContent("AudioTitleView") {
                                     AudioImageView(player: player, vm: vm, fileUrl: fileUrl)
                                 }

@@ -93,7 +93,7 @@ struct DocGroupView: View {
                         }
                         HStack {
                             Button(action: {
-                                if valid {
+                                if selectedGroup > 0 {
                                     Task {
                                         await uploadDoc()
                                     }
@@ -130,11 +130,12 @@ struct DocGroupView: View {
                 DispatchQueue.main.async {
                     vm.uploadResponse = response
                     vm.text.message = response.files.first?.path ?? ""
-                    vm.text.size = "\(response.files.first?.size ?? 0)"
+                    vm.text.size = response.files.first?.size ?? 0
                     vm.text.group = selectedGroup
-                }
-                vm.create {
-                    navigationModel.popContent(TabBarView.id)
+                    vm.create {
+                        groupVM.getAll()
+                        navigationModel.popContent(TabBarView.id)
+                    }
                 }
             }
         } catch let err {
@@ -142,10 +143,3 @@ struct DocGroupView: View {
         }
     }
 }
-
-//struct DocGroupView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DocGroupView(selectedTheme: .constant("Forêt"), htmlString: NSAttributedString())
-//        //        DocGroupView()
-//    }
-//}

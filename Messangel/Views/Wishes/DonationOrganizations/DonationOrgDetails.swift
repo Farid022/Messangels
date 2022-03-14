@@ -31,7 +31,7 @@ struct DonationOrgDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: "Dons et collectes")
+                        NavigationTitleView(menuTitle: "Dons et collectes", showExitAlert: .constant(false))
                         HStack {
                             BackButton(iconColor: .gray)
                             Text(org.donation_organization.name)

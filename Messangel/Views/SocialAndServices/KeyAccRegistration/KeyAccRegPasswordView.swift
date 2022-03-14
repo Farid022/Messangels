@@ -21,7 +21,7 @@ struct KeyAccRegPasswordView: View {
     }
     
     var body: some View {
-        FlowBaseView(menuTitle: "Comptes-clés", title: "\(vm.keyEmailAcc.email) - Saisissez le mot de passe de ce compte", valid: .constant(!vm.keyEmailAcc.password.isEmpty && vm.keyEmailAcc.password == conformPassword), destination: AnyView(KeyAccRegChoiceView(vm: vm, keyAccCase: keyAccCase))) {
+        FlowBaseView(stepNumber: 2.0, totalSteps: 6.0, menuTitle: "Comptes-clés", title: "\(vm.keyEmailAcc.email) - Saisissez le mot de passe de ce compte", valid: .constant(!vm.keyEmailAcc.password.isEmpty && vm.keyEmailAcc.password == conformPassword), destination: AnyView(KeyAccRegChoiceView(vm: vm, keyAccCase: keyAccCase))) {
             
             Group {
                 MyTextField(placeholder: "Mot de passe", text: $vm.keyEmailAcc.password, isSecureTextEntry: $hidePassword) {

@@ -12,7 +12,7 @@ struct ServicePhoneView: View {
     @ObservedObject var serviceVM: OnlineServiceViewModel
     
     var body: some View {
-        FlowBaseView(menuTitle: "Ajouter un réseau social ou un#service en ligne", title: "Sélectionnez le smartphone associé, le cas échant", valid: .constant(true), destination: serviceVM.service.type == "listing" ? AnyView(ServiceChoiceView(vm: serviceVM)) : AnyView(SocialChoiceView(vm: serviceVM))) {
+        FlowBaseView(stepNumber: 4.0, totalSteps: 5.0, menuTitle: "Ajouter un réseau social ou un#service en ligne", title: "Sélectionnez le smartphone associé, le cas échant", valid: .constant(true), destination: serviceVM.service.type == "listing" ? AnyView(ServiceChoiceView(vm: serviceVM)) : AnyView(SocialChoiceView(vm: serviceVM))) {
             
             ForEach(vm.smartphones, id: \.self) { phone in
                 PhoneCapsule(name: phone.name, selected: .constant(serviceVM.accountFields.smartphone == phone.id))

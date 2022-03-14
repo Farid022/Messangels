@@ -16,7 +16,7 @@ struct NewServiceTypeView: View {
     var name: String
     
     var body: some View {
-        FlowBaseView(menuTitle: "Ajouter un service en ligne", title: title, valid: .constant(!vm.service.type.isEmpty), destination: AnyView(NewServiceWebSiteView(vm: vm, name: name))) {
+        FlowBaseView(stepNumber: 1.0, totalSteps: 5.0, menuTitle: "Ajouter un service en ligne", title: title, valid: .constant(!vm.service.type.isEmpty), destination: AnyView(NewServiceWebSiteView(vm: vm, name: name))) {
             HStack {
                 ForEach(["listing", "social"], id: \.self) { choice in
                     ChoiceCard(text: choice == "listing" ? "Service en ligne" : "Réseau social", selected: .constant(vm.service.type == choice))

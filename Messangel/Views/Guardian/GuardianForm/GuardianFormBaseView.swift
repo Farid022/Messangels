@@ -95,7 +95,7 @@ struct GuardianFormBaseView<Content: View>: View {
                                 }
                             )
                     }
-                    SignupProgressView(progress: $progress, tintColor: .accentColor, progressMultiplier: 100/7)
+                    FlowProgressView(progress: $progress, tintColor: .accentColor, progressMultiplier: 100/7)
                 }
                 .padding()
             }

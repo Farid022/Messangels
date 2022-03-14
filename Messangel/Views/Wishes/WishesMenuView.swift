@@ -123,17 +123,17 @@ let wishesCeremony = [
 ]
 
 let wishesTransport = [
-    WishCategory(id: 9, name: "Vêtements et accessoires", desc: "Liste des vêtements et accessoires que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ClothsDonationIntro())),
-    WishCategory(id: 10, name: "Animaux", desc: "Liste des animaux que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(AnimalDonationIntro())),
-    WishCategory(id: 11, name: "Objets", desc: "Liste des objets que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ObjectsDonationIntro())),
-    WishCategory(id: 12, name: "Dons", desc: "Liste des associations auxquelles vous souhaitez faire un don", icon: "ic_organ", destination: AnyView(DonationOrgsIntro()))
+    WishCategory(id: 9, name: "Vêtements et accessoires", desc: "Liste des vêtements et accessoires que vous souhaitez transmettre", icon: "ic_cloth", destination: AnyView(ClothsDonationIntro())),
+    WishCategory(id: 10, name: "Animaux", desc: "Liste des animaux que vous souhaitez transmettre", icon: "ic_animal", destination: AnyView(AnimalDonationIntro())),
+    WishCategory(id: 11, name: "Objets", desc: "Liste des objets que vous souhaitez transmettre", icon: "ic_object", destination: AnyView(ObjectsDonationIntro())),
+    WishCategory(id: 12, name: "Dons", desc: "Liste des associations auxquelles vous souhaitez faire un don", icon: "ic_org", destination: AnyView(DonationOrgsIntro()))
 ]
 
  let wishesExtras = [
-    WishCategory(id: 13, name: "Pièces administratives", desc: "Liste des pièces administratives utiles : Carte d’identité, passeport, carte vitale…", icon: "ic_doc", destination: AnyView(AdminDocsIntro())),
+    WishCategory(id: 13, name: "Pièces administratives", desc: "Liste des pièces administratives utiles : Carte d’identité, passeport, carte vitale…", icon: "ic_admin_doc", destination: AnyView(AdminDocsIntro())),
     WishCategory(id: 14, name: "Codes pratiques", desc: "Liste de vos codes pratiques : Ordinateurs, alarmes, digicodes, coffres, cadenas…)", icon: "ic_lock_color_native", destination: AnyView(PracticalCodesIntro())),
-    WishCategory(id: 15, name: "Contrats à gérer", desc: "Liste des organismes qui gèrent les contrats liés à votre quotidien (Logement, banque, assurance…)", icon: "ic_contract", destination: AnyView(ManagedContractsIntro())),
-    WishCategory(id: 16, name: "Expression libre", desc: "Exprimez-vous librement pour compléter vos volontés", icon: "ic_organ", destination: AnyView(ExtraWishesIntro()))
+    WishCategory(id: 15, name: "Contrats à gérer", desc: "Liste des organismes qui gèrent les contrats liés à votre quotidien (Logement, banque, assurance…)", icon: "ic_wish_contract", destination: AnyView(ManagedContractsIntro())),
+    WishCategory(id: 16, name: "Expression libre", desc: "Exprimez-vous librement pour compléter vos volontés", icon: "ic_extra_wish", destination: AnyView(ExtraWishesIntro()))
 ]
 
 struct WishCategoryCard: View {
@@ -178,6 +178,8 @@ struct WishCategoryCard: View {
                                     }
                                     HStack {
                                         Image(icon)
+                                            .renderingMode(.template)
+                                            .foregroundColor(.accentColor)
                                         Text(desc)
                                             .font(.system(size: 13))
                                             .foregroundColor(.secondary)

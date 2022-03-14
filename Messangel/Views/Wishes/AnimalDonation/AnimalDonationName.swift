@@ -19,7 +19,7 @@ struct AnimalDonationName: View {
     }
     
     var body: some View {
-        FlowBaseView(menuTitle: "ANIMAUX", title: "\(!(vm.animalDonation.single_animal ?? true) ? "Indiquez un nom pour votre groupe d’animaux" : "Indiquez le nom de votre animal")", valid: .constant(!vm.animalDonation.animal_name.isEmpty), destination: destination) {
+        FlowBaseView(stepNumber: 3.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: "\(!(vm.animalDonation.single_animal ?? true) ? "Indiquez un nom pour votre groupe d’animaux" : "Indiquez le nom de votre animal")", valid: .constant(!vm.animalDonation.animal_name.isEmpty), destination: destination) {
             TextField("Nom de l’animal", text: $vm.animalDonation.animal_name)
             .normalShadow()
         }

@@ -14,7 +14,7 @@ struct ClothsDonationPlaceSelection: View {
     
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "Vêtements et accessoires", title: "\(vm.clothDonation.clothing_name) - À qui souhaitez vous donner \(vm.clothDonation.single_clothing! ? "cet article?" : "ces articles?")", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(ClothsDonationOrganization(vm: vm)) : AnyView(ClothsDonationContact(vm: vm))) {
+            FlowBaseView(stepNumber: 4.0, totalSteps: 7.0, menuTitle: "Vêtements et accessoires", title: "\(vm.clothDonation.clothing_name) - À qui souhaitez vous donner \(vm.clothDonation.single_clothing! ? "cet article?" : "ces articles?")", valid: .constant(selectedDonation != .none), destination: selectedDonation == .organization ? AnyView(ClothsDonationOrganization(vm: vm)) : AnyView(ClothsDonationContact(vm: vm))) {
                 HStack {
                     ForEach(donationTypes, id: \.self) { type in
                         ChoiceCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))

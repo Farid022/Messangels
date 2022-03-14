@@ -17,7 +17,7 @@ struct ClothsDonationContact: View {
     }
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "Vêtements et accessoires", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(ClothsDonationPic(vm: vm))) {
+            FlowBaseView(stepNumber: 5.0, totalSteps: 7.0, menuTitle: "Vêtements et accessoires", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(ClothsDonationPic(vm: vm))) {
                 if vm.contactName.isEmpty {
                     Button(action: {
                         navigationModel.presentContent(title) {

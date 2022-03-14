@@ -100,7 +100,7 @@ struct VideoGroupView: View {
                     }                       
                         HStack {
                             Button(action: {
-                                if valid {
+                                if selectedGroup > 0 {
                                     Task {
                                        await uploadVideo()
                                     }
@@ -136,11 +136,11 @@ struct VideoGroupView: View {
                 DispatchQueue.main.async {
                     vm.uploadResponse = response
                     vm.video.video_link = response.files.first?.path ?? ""
-                    vm.video.size = "\(response.files.first?.size ?? 0)"
+                    vm.video.size = response.files.first?.size ?? 0
                     vm.video.group = selectedGroup
-                }
-                vm.create {
-                    navigationModel.popContent(TabBarView.id)
+                    vm.create {
+                        navigationModel.popContent(TabBarView.id)
+                    }
                 }
             }
             

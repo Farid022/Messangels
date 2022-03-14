@@ -11,7 +11,6 @@ import NavigationStack
 struct AnimalDonationNote: View {
     @State private var showNote = false
     @State private var loading = false
-    @State private var attachedFiles = [URL]()
     @ObservedObject var vm: AnimalDonatiopnViewModel
     @EnvironmentObject var navModel: NavigationModel
     var title: String {
@@ -51,33 +50,13 @@ struct AnimalDonationNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(showNote: $showNote, note: $vm.animalDonation.animal_note, loading: $loading, attachFiles: $attachedFiles, menuTitle: "ANIMAUX", title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 8.0, showNote: $showNote, note: $vm.animalDonation.animal_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.animalDonation.animal_note_attachment, menuTitle: "ANIMAUX", title: title) {
             loading.toggle()
             Task {
                 if vm.localPhoto.cgImage != nil {
-                    self.vm.animalDonation.animal_photo = await uploadImage(vm.localPhoto, type: "animal")
+                    self.vm.animalDonation.animal_photo = await uploadImage(vm.localPhoto, type: "animal").0
                 }
-                if !attachedFiles.isEmpty {
-                    vm.attachements.removeAll()
-                    let uploadedFiles = await uploadFiles(attachedFiles)
-                    for uploadedFile in uploadedFiles {
-                        vm.attachements.append(Attachement(url: uploadedFile))
-                    }
-                    vm.attach { success in
-                        if success {
-                            var attachementIds = [Int]()
-                            for attachement in vm.attachements {
-                                if let id = attachement.id {
-                                    attachementIds.append(id)
-                                }
-                            }
-                            vm.animalDonation.animal_note_attachment = attachementIds
-                            insertOrUpdateRecord()
-                        }
-                    }
-                } else {
-                    insertOrUpdateRecord()
-                }
+                insertOrUpdateRecord()
             }
         }
     }

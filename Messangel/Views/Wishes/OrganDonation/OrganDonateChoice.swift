@@ -19,7 +19,7 @@ struct OrganDonateChoice: View {
     
     var body: some View {
         ZStack {
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 1.0, totalSteps: 4.0, isCustomAction: true, customAction: {
                 if vm.donation.donation == OrganDonChoice.organs.rawValue {
                     loading.toggle()
                     if !vm.updateRecord {

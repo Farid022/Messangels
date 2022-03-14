@@ -139,7 +139,7 @@ struct NewAccPopupView: View {
                 }
                 Spacer().frame(height: 90)
             }
-            
+            .padding(.trailing)
         }
         .zIndex(1)
     }

@@ -57,7 +57,7 @@ struct NextButton: View {
     }
 }
 
-struct SignupProgressView: View {
+struct FlowProgressView: View {
     @Binding var progress: Double
     var tintColor = Color.white
     var progressMultiplier = 12.5
@@ -356,97 +356,146 @@ struct NoteView: View {
 struct NoteWithAttachementView: View {
     @Binding var showNote: Bool
     @Binding var note:String
+    @Binding var attachements: [Attachement]
+    @Binding var noteAttachmentIds: [Int]?
     @State var expandedNote = false
+    @State var loading = false
     @FocusState private var isFocused: Bool
     @State private var showFileImporter = false
-    @Binding var files: [URL]
+    @State private var attachedFiles = [URL]()
+    @State private var oldAttachedFiles = [URL]()
     var multiple = true
     
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer().frame(height: 50)
-            HStack {
-                Button(action: {
-                    showNote.toggle()
-                }, label: {
-                    Image("ic_close_note")
-                })
+        ZStack {
+            VStack(spacing: 20) {
+                Spacer().frame(height: 50)
+                HStack {
+                    Button(action: {
+                        showNote.toggle()
+                    }, label: {
+                        Image("ic_close_note")
+                    })
+                    Spacer()
+                }
                 Spacer()
-            }
-            Spacer()
-            RoundedRectangle(cornerRadius: 25.0)
-                .foregroundColor(.gray)
-                .frame(height: 56)
-                .overlay(
-                    HStack {
-                        Image("ic_notes")
-                        Text("Notes")
-                            .font(.system(size: 17), weight: .semibold)
-                            .foregroundColor(.white)
-                        Spacer()
-                        Button(action: {
-                            expandedNote.toggle()
-                        }, label: {
-                            Image("ic_expand_notes")
-                        })
-                    }
-                        .padding(.horizontal)
-                )
-            RoundedRectangle(cornerRadius: 25.0)
-                .foregroundColor(.white)
-                .frame(height: expandedNote ? 295 : 160)
-                .overlay(
-                    VStack {
-                        TextEditor(text: $note)
-                            .focused($isFocused)
+                RoundedRectangle(cornerRadius: 25.0)
+                    .foregroundColor(.gray)
+                    .frame(height: 56)
+                    .overlay(
                         HStack {
-                            Button(action: {
-                                isFocused = false
-                                showFileImporter.toggle()
-                            }, label: {
-                                HStack {
-                                    Image("ic_attachement")
-                                    Text("Joindre un fichier")
-                                        .foregroundColor(.gray)
-                                        .underline()
-                                }
-                            })
+                            Image("ic_notes")
+                            Text("Notes")
+                                .font(.system(size: 17), weight: .semibold)
+                                .foregroundColor(.white)
                             Spacer()
                             Button(action: {
-                                showNote.toggle()
+                                expandedNote.toggle()
                             }, label: {
-                                Image("ic_save_note")
+                                Image("ic_expand_notes")
                             })
                         }
-                    }
-                        .padding(.horizontal)
-                        .padding(.vertical, 20)
-                )
-            if !files.isEmpty {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], alignment: .leading, spacing: 16.0)  {
-                    ForEach(files, id: \.self) { file in
-                        FuneralCapsuleView(name: file.lastPathComponent) {
-                            files.remove(at: files.firstIndex(of: file)!)
+                            .padding(.horizontal)
+                    )
+                RoundedRectangle(cornerRadius: 25.0)
+                    .foregroundColor(.white)
+                    .frame(height: expandedNote ? 295 : 160)
+                    .overlay(
+                        VStack {
+                            TextEditor(text: $note)
+                                .focused($isFocused)
+                            HStack {
+                                Button(action: {
+                                    isFocused = false
+                                    showFileImporter.toggle()
+                                }, label: {
+                                    HStack {
+                                        Image("ic_attachement")
+                                        Text("Joindre un fichier")
+                                            .foregroundColor(.gray)
+                                            .underline()
+                                    }
+                                })
+                                Spacer()
+                                Button(action: {
+                                    Task {
+                                        loading.toggle()
+                                        if !attachedFiles.isEmpty && (attachements.isEmpty || attachedFiles != oldAttachedFiles) {
+                                            attachements.removeAll()
+                                            let uploadedFiles = await uploadFiles(attachedFiles)
+                                            for uploadedFile in uploadedFiles {
+                                                attachements.append(Attachement(url: uploadedFile))
+                                            }
+                                            APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
+                                                switch result {
+                                                case .success(let attachements):
+                                                    DispatchQueue.main.async {
+                                                        self.attachements = attachements
+                                                        var attachementIds = [Int]()
+                                                        for attachement in self.attachements {
+                                                            if let id = attachement.id {
+                                                                attachementIds.append(id)
+                                                            }
+                                                        }
+                                                        noteAttachmentIds = attachementIds
+                                                        loading.toggle()
+                                                        showNote.toggle()
+                                                    }
+                                                case .failure(let error):
+                                                    DispatchQueue.main.async {
+                                                        print(error.error_description)
+                                                        loading.toggle()
+                                                        showNote.toggle()
+                                                    }
+                                                }
+                                            }
+                                        } else {
+                                            loading.toggle()
+                                            showNote.toggle()
+                                        }
+                                    }
+                                }, label: {
+                                    Image("ic_save_note")
+                                })
+                            }
+                        }
+                            .padding(.horizontal)
+                            .padding(.vertical, 20)
+                    )
+                if !attachedFiles.isEmpty {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], alignment: .leading, spacing: 16.0)  {
+                        ForEach(attachedFiles, id: \.self) { file in
+                            FuneralCapsuleView(name: file.lastPathComponent) {
+                                attachedFiles.remove(at: attachedFiles.firstIndex(of: file)!)
+                            }
                         }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
+                Spacer()
             }
-            Spacer()
-        }
-        .padding()
-        .onAppear() {
-            isFocused = true
-        }
-        
-        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.pdf, .image], allowsMultipleSelection: multiple) { result in
-            switch result {
-            case .success(let fileUrl):
-                fileUrl.forEach { url in
-                    self.files.append(url)
+            .padding()
+            .onAppear() {
+                isFocused = true
+                if !attachements.isEmpty {
+                    attachements.forEach { attachment in
+                        oldAttachedFiles.append(URL(string: attachment.url)!)
+                    }
+                    self.attachedFiles = oldAttachedFiles
                 }
-            case .failure(let error):
-                print(error.localizedDescription)
+            }
+            .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.pdf, .image], allowsMultipleSelection: multiple) { result in
+                switch result {
+                case .success(let fileUrl):
+                    fileUrl.forEach { url in
+                        self.attachedFiles.append(url)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            if loading {
+                UpdatingView(text: "Note enregistrée")
             }
         }
     }
@@ -460,46 +509,46 @@ struct DetailsNoteView: View {
     var body: some View {
         VStack {
             if !note.isEmpty {
-                RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundColor(.gray.opacity(0.2))
-                    .frame(height: 420)
-                    .overlay(
-                        VStack(alignment: .leading) {
-                            HStack{
-                                Image("ic_note")
-                                Text("Note")
-                                    .font(.system(size: 15), weight: .bold)
-                                Spacer()
-                            }
-                            Text(note)
-                            if !attachments.isEmpty {
-                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], alignment: .leading, spacing: 16.0) {
-                                    ForEach(attachments, id: \.self) { file in
-                                        FuneralCapsuleView(trailingButton: false, name: URL(string: file.url)?.lastPathComponent ?? "") {}
-                                        .onTapGesture {
-                                            if let fileUrl = URL(string: file.url), !navId.isEmpty {
-                                                navigationModel.presentContent(navId) {
-                                                    if fileUrl.pathExtension == "pdf" {
-                                                        VStack {
-                                                            HStack {
-                                                                BackButton(iconColor: .accentColor)
-                                                                    .padding(.leading)
-                                                                Spacer()
-                                                            }
-                                                            PDFKitRepresentedView(fileUrl)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25.0)
+                        .foregroundColor(.gray.opacity(0.2))
+                        .frame(maxHeight: .infinity)
+                    VStack(alignment: .leading) {
+                        HStack{
+                            Image("ic_note")
+                            Text("Note")
+                                .font(.system(size: 15), weight: .bold)
+                            Spacer()
+                        }
+                        Text(note)
+                        if !attachments.isEmpty {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], alignment: .leading, spacing: 16.0) {
+                                ForEach(attachments, id: \.self) { file in
+                                    FuneralCapsuleView(trailingButton: false, name: URL(string: file.url)?.lastPathComponent ?? "") {}
+                                    .onTapGesture(count: 2) {}
+                                    .onTapGesture(count: 1) {
+                                        if let fileUrl = URL(string: file.url), !navId.isEmpty {
+                                            navigationModel.presentContent(navId) {
+                                                if fileUrl.pathExtension == "pdf" {
+                                                    VStack {
+                                                        HStack {
+                                                            BackButton(iconColor: .accentColor)
+                                                                .padding(.leading)
+                                                            Spacer()
                                                         }
-                                                    } else {
-                                                        VStack {
-                                                            HStack {
-                                                                BackButton(iconColor: .accentColor)
-                                                                    .padding(.leading)
-                                                                Spacer()
-                                                            }
-                                                            AsyncImage(url: fileUrl) { image in
-                                                                image.resizable()
-                                                            } placeholder: {
-                                                                Loader()
-                                                            }
+                                                        PDFKitRepresentedView(fileUrl)
+                                                    }
+                                                } else {
+                                                    VStack {
+                                                        HStack {
+                                                            BackButton(iconColor: .accentColor)
+                                                                .padding(.leading)
+                                                            Spacer()
+                                                        }
+                                                        AsyncImage(url: fileUrl) { image in
+                                                            image.resizable()
+                                                        } placeholder: {
+                                                            Loader()
                                                         }
                                                     }
                                                 }
@@ -507,12 +556,14 @@ struct DetailsNoteView: View {
                                         }
                                     }
                                 }
-                                .padding(.horizontal)
                             }
+                            .padding(.horizontal)
                         }
-                            .padding(), alignment: .top
-                    )
-                    .padding(.bottom, 30)
+                    }
+                    .padding()
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.bottom, 30)
             }
         }
     }
@@ -548,7 +599,57 @@ struct ChoiceCard: View {
     }
 }
 
-// MARK: - Funeral Note Views
+struct FlowChoicesView: View {
+    @State var showNote = false
+    var tab = 0
+    var stepNumber: Double
+    var totalSteps: Double
+    @Binding var noteText: String
+    var choices: [FuneralChoice]
+    @Binding var selectedChoice: Int
+    var menuTitle: String
+    var title: String
+    var destination: AnyView
+    
+    var body: some View {
+        ZStack {
+            if showNote {
+                FuneralNote(showNote: $showNote, note: $noteText)
+                 .zIndex(1.0)
+                 .background(.black.opacity(0.8))
+                 .edgesIgnoringSafeArea(.top)
+            }
+            FlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: -70){
+                        ForEach(choices, id: \.self) { choice in
+                            VStack(spacing: 0) {
+                                Image(choice.name)
+                                Rectangle()
+                                    .foregroundColor(selectedChoice == choice.id ? .accentColor : .white)
+                                    .frame(width: 161, height: 44)
+                                    .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
+                                    .overlay(
+                                        Text(choice.name)
+                                            .foregroundColor(selectedChoice == choice.id ? .white : .black)
+                                    )
+                                    .padding(.top, -50)
+                            }
+                            .thinShadow()
+                            .onTapGesture {
+                                selectedChoice = choice.id
+                            }
+                        }
+                    }
+                    .padding(.leading, -20)
+                }
+                .padding(.top, -20)
+            }
+        }
+    }
+}
+
+// MARK: - Note Views
 
 struct FuneralNote: View {
     @Binding var showNote: Bool
@@ -615,6 +716,9 @@ struct FuneralNote: View {
 
 }
 struct FuneralNoteView: View {
+    var tab = 0
+    var stepNumber: Double
+    var totalSteps: Double
     @Binding var showNote: Bool
     @Binding var note: String
     var menuTitle: String
@@ -628,7 +732,7 @@ struct FuneralNoteView: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
+            FlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
               NoteView(showNote: $showNote, note: $note)
             }
         }
@@ -636,13 +740,14 @@ struct FuneralNoteView: View {
 }
 
 struct FuneralNoteCutomActionView: View {
+    var totalSteps: Double
     @Binding var showNote: Bool
     @Binding var note: String
     @Binding var loading: Bool
     var menuTitle: String
     var title: String
     var customAction: () -> Void
-    
+
     var body: some View {
         ZStack {
             if showNote {
@@ -650,7 +755,7 @@ struct FuneralNoteCutomActionView: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
+            FlowBaseView(stepNumber: totalSteps, totalSteps: totalSteps, isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
                 NoteView(showNote: $showNote, note: $note)
                 if loading {
                     Loader()
@@ -662,10 +767,12 @@ struct FuneralNoteCutomActionView: View {
 }
 
 struct FuneralNoteAttachCutomActionView: View {
+    var totalSteps: Double
     @Binding var showNote: Bool
     @Binding var note: String
     @Binding var loading: Bool
-    @Binding var attachFiles: [URL]
+    @Binding var attachements: [Attachement]
+    @Binding var noteAttachmentIds: [Int]?
     var menuTitle: String
     var title: String
     var customAction: () -> Void
@@ -673,11 +780,11 @@ struct FuneralNoteAttachCutomActionView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $note, files: $attachFiles)
+                NoteWithAttachementView(showNote: $showNote, note: $note, attachements: $attachements, noteAttachmentIds: $noteAttachmentIds)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
+            FlowBaseView(stepNumber: totalSteps, totalSteps: totalSteps, isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
                 NoteView(showNote: $showNote, note: $note)
                 if loading {
                     Loader()
@@ -813,9 +920,9 @@ struct DetailsPhotoView: View {
     @Binding var fullScreenPhoto: Bool
     
     var body: some View {
-        if let imageUrlString = imageUrlString {
+        if let imageUrlString = imageUrlString, let imageUrl = URL(string: imageUrlString) {
             HStack {
-                KFImage(URL(string: imageUrlString))
+                KFImage(imageUrl)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 128, height: 128)
@@ -838,7 +945,18 @@ struct DetailsFullScreenPhotoView: View {
     @Binding var fullScreenPhoto: Bool
     
     var body: some View {
-        VStack {
+        ZStack(alignment: .top) {
+            VStack {
+                Spacer()
+                KFImage(URL(string: imageUrlString))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 310)
+                    .clipped()
+                Spacer()
+            }
+            .background(Color.black.opacity(0.5))
+            .background(.ultraThinMaterial)
             HStack {
                 Button {
                     fullScreenPhoto.toggle()
@@ -849,16 +967,26 @@ struct DetailsFullScreenPhotoView: View {
                 Spacer()
             }
             .padding()
-            Spacer()
-            KFImage(URL(string: imageUrlString))
-                .resizable()
-                .scaledToFill()
-                .frame(height: 310)
-                .clipped()
-            Spacer()
         }
-        .background(Color.black.opacity(0.5))
-        .background(.ultraThinMaterial)
         .zIndex(1.0)
+    }
+}
+
+
+struct UpdatingView: View {
+    var text = "Ajouté"
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+            ZStack {
+                RoundedRectangle(cornerRadius: 25)
+                    .foregroundColor(.white)
+                    .frame(width: 236, height: 51)
+                Text(text)
+                    .font(.system(size: 17), weight: .semibold)
+                    .foregroundColor(.accentColor)
+            }
+        }
     }
 }

@@ -103,12 +103,12 @@ struct AudioGroupView: View {
                         }
                         HStack {
                             Button(action: {
-                                if valid {
+                                if selectedGroup > 0 {
                                     Task {
                                         loading.toggle()
                                         if audioImage.cgImage != nil {
-                                            let image = await uploadImage(audioImage, type: "audio")
-                                            vm.audio.audio_image = image
+                                            let (uploadedImage, _) = await uploadImage(audioImage, type: "audio")
+                                            vm.audio.audio_image = uploadedImage
                                         }
                                         await uploadAudio()
                                         loading.toggle()
@@ -144,7 +144,7 @@ struct AudioGroupView: View {
                 DispatchQueue.main.async {
                     vm.uploadResponse = response
                     vm.audio.audio_link = response.files.first?.path ?? ""
-                    vm.audio.size = "\(response.files.first?.size ?? 0)"
+                    vm.audio.size = response.files.first?.size ?? 0
                     vm.audio.group = selectedGroup
                     vm.create {
                         navigationModel.popContent(TabBarView.id)

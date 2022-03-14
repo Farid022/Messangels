@@ -22,7 +22,7 @@ struct ServiceChoiceView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 5.0, totalSteps: 5.0, isCustomAction: true, customAction: {
                 if let serviceId = vm.service.id {
                     vm.accountFields.onlineService = serviceId
                     vm.addAccountFields { success in

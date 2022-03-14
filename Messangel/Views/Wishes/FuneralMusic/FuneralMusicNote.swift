@@ -16,7 +16,7 @@ struct FuneralMusicNote: View {
     var title = "Indiquez si vous avez des souhaits en particulier concernant ce titre (moments de diffusion, interprétation live…)"
     
     var body: some View {
-        FuneralNoteCutomActionView(showNote: $showNote, note: $vm.music.broadcast_song_note, loading: $loading, menuTitle: wishesCeremony.last!.name, title: title) {
+        FuneralNoteCutomActionView(totalSteps: 4.0, showNote: $showNote, note: $vm.music.broadcast_song_note, loading: $loading, menuTitle: wishesCeremony.last!.name, title: title) {
             loading.toggle()
             if vm.updateRecord {
                 vm.update(id: vm.music.id ?? 0) { success in

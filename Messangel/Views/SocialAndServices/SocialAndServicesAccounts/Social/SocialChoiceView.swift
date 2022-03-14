@@ -25,7 +25,7 @@ struct SocialChoiceView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 5.0, totalSteps: 5.0, isCustomAction: true, customAction: {
                 vm.addAccountFields { success in
                     if success {
                         if selectedChoice == .leaveMessage {

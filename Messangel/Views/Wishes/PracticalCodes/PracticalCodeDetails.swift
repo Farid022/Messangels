@@ -31,7 +31,7 @@ struct PracticalCodeDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: "Codes pratiques")
+                        NavigationTitleView(menuTitle: "Codes pratiques", showExitAlert: .constant(false))
                         HStack {
                             BackButton(iconColor: .gray)
                             Text(practicalCode.name)

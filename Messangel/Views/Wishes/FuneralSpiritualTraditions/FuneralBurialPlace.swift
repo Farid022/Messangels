@@ -16,7 +16,7 @@ struct FuneralBurialPlace: View {
     var title = "Indiquez le lieu d’inhumation (cimetière précis, caveau familial…)"
     
     var body: some View {
-        FuneralNoteCutomActionView(showNote: $showNote, note: $vm.sprituality.ceremony_note, loading: $loading, menuTitle: "Spiritualité et traditions", title: title) {
+        FuneralNoteCutomActionView(totalSteps: 2.0, showNote: $showNote, note: $vm.sprituality.ceremony_note, loading: $loading, menuTitle: "Spiritualité et traditions", title: title) {
             loading.toggle()
             if !vm.updateRecord {
                 vm.createSprituality() { success in

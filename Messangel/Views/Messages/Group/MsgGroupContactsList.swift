@@ -150,20 +150,3 @@ struct MsgGroupContactsList: View {
         }
     }
 }
-
-struct UpdatingView: View {
-    var body: some View {
-        ZStack {
-            Color.black.opacity(0.8)
-                .ignoresSafeArea()
-            ZStack {
-                RoundedRectangle(cornerRadius: 25)
-                    .foregroundColor(.white)
-                    .frame(width: 236, height: 51)
-                Text("Ajouté")
-                    .font(.system(size: 17), weight: .semibold)
-                    .foregroundColor(.accentColor)
-            }
-        }
-    }
-}

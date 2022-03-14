@@ -15,7 +15,7 @@ struct DonationOrgsSelectionView: View {
 
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "Dons et collectes", title: "Indiquez l’organisme auquel vous souhaitez faire un don", valid: .constant(!vm.orgName.isEmpty), destination: AnyView(DonationOrgNote(vm: vm))) {
+            FlowBaseView(stepNumber: 2.0, totalSteps: 3.0, menuTitle: "Dons et collectes", title: "Indiquez l’organisme auquel vous souhaitez faire un don", valid: .constant(!vm.orgName.isEmpty), destination: AnyView(DonationOrgNote(vm: vm))) {
                 if vm.orgName.isEmpty {
                     Button(action: {
                         navigationModel.presentContent("Indiquez l’organisme auquel vous souhaitez faire un don") {

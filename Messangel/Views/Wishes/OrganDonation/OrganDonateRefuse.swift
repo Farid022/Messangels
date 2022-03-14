@@ -23,7 +23,7 @@ struct OrganDonateRefuse: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction:true, customAction: {                
+            FlowBaseView(stepNumber: 2.0, totalSteps: 4.0, isCustomAction:true, customAction: {                
                 if let register_to_national = vm.donation.register_to_national, register_to_national {
                     loading.toggle()
                     if !vm.updateRecord {

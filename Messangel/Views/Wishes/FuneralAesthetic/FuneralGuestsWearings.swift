@@ -23,7 +23,7 @@ struct FuneralGuestsWearings: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 4.0, totalSteps: 4.0, isCustomAction: true, customAction: {
                 loading.toggle()
                 if !vm.updateRecord {
                     vm.create() { success in

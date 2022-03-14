@@ -21,7 +21,7 @@ struct FuneralInvitePic: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(noteText: $vm.announcement.invitation_photo_note.bound, note: true, showNote: $showNote, menuTitle: "Annonces", title: "Vous pouvez si vous le souhaitez, faire apparaître une photo sur votre faire part", valid: .constant(true), destination: AnyView(FuneralInviteWishes(vm: vm))) {
+            FlowBaseView(stepNumber: 1.0, totalSteps: 4.0, noteText: $vm.announcement.invitation_photo_note.bound, note: true, showNote: $showNote, menuTitle: "Annonces", title: "Vous pouvez si vous le souhaitez, faire apparaître une photo sur votre faire part", valid: .constant(true), destination: AnyView(FuneralInviteWishes(vm: vm))) {
                 ImageSelectionView(showImagePickerOptions: $isShowImagePickerOptions, localImage: $vm.invitePhoto, remoteImage: vm.announcement.invitation_photo, imageSize: 128.0)
             }
             

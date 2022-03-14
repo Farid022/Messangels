@@ -7,7 +7,8 @@
 
 import SwiftUI
 import NavigationStack
-import AVKit
+import AVFoundation
+import Kingfisher
 
 struct MessagesGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
@@ -16,16 +17,13 @@ struct MessagesGroupView: View {
     @State private var currentIndex: Int = 0
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State private var fadeOut = false
-
+    
     var body: some View {
         NavigationStackView("MessagesGroupView") {
             MenuBaseView(title: group.name) {
-                if albumVM.albumImages.count == 0 {
-                    GalleryPlaceHolder()
-                } else {
+                if albumVM.albumImages.count > 0 {
                     Image(uiImage: albumVM.albumImages[currentIndex].image)
-                        .resizable()
-                        .animation(.spring())
+                        .centerCropped()
                         .frame(height: 190)
                         .padding(.horizontal, -16)
                         .padding(.top, -16)
@@ -42,6 +40,49 @@ struct MessagesGroupView: View {
                                 }
                             }
                         }
+                        .overlay(Button {
+                            navigationModel.pushContent(TabBarView.id) {
+                                PhotosSelectionView(group: group)
+                                    .environmentObject(albumVM)
+                            }
+                        } label: {
+                            Image("ic_edit_gallery")
+                                .padding(.bottom)
+                        }, alignment: .bottomTrailing)
+                } else if let galleries = group.galleries, !galleries.isEmpty  {
+                    KFImage.url(URL(string: galleries[currentIndex].image_link))
+                        .placeholder {
+                            Loader()
+                        }
+                        .centerCropped()
+                        .frame(height: 190)
+                        .padding(.horizontal, -16)
+                        .padding(.top, -16)
+                        .opacity(fadeOut ? 0.5 : 1)
+                        .animation(.easeInOut(duration: 0.5), value: fadeOut)
+                        .onReceive(timer) { _ in
+                            if currentIndex < galleries.count - 1 {
+                                fadeOut.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation {
+                                        currentIndex += 1
+                                        self.fadeOut.toggle()
+                                    }
+                                }
+                            }
+                        }
+                        .overlay(
+                            Button {
+                            navigationModel.pushContent(TabBarView.id) {
+                                PhotosSelectionView(group: group)
+                                    .environmentObject(albumVM)
+                            }
+                        } label: {
+                            Image("ic_edit_gallery")
+                                .padding(.bottom)
+                        }, alignment: .bottomTrailing)
+                } else {
+                    GalleryPlaceHolder(group: group)
                 }
                 GroupDestinationView(group: group)
                 VStack() {
@@ -50,7 +91,7 @@ struct MessagesGroupView: View {
                             MessageCard(name: text.name, icon: "ic_text_msg", createdAt: unixStrToDateSring(text.created_at ?? ""))
                                 .onTapGesture {
                                     navigationModel.presentContent(TabBarView.id) {
-                                        MessagesTextView(htmlUrl: text.message, headerImage: "doc_header")
+                                        MessagesTextView(text: text, headerImage: "doc_header")
                                     }
                                 }
                         }
@@ -62,7 +103,7 @@ struct MessagesGroupView: View {
                                     if let url = URL(string:audio.audio_link) {
                                         let player = Player(avPlayer: AVPlayer(url: url))
                                         navigationModel.presentContent(TabBarView.id) {
-                                            MessagesAudioPlayerView(player: player, bgImage: audio.audio_image ?? "https://google.com")
+                                            MessagesAudioPlayerView(player: player, audio: audio)
                                         }
                                     }
                                 }
@@ -73,8 +114,7 @@ struct MessagesGroupView: View {
                             MessageCard(name: video.name, icon: "ic_video", createdAt: unixStrToDateSring(video.created_at ?? ""))
                                 .onTapGesture {
                                     navigationModel.presentContent(TabBarView.id) {
-                                        VideoPlayer(player: AVPlayer(url: URL(string: video.video_link)!))
-                                            .overlay(BackButton(icon:"xmark", systemIcon: true), alignment: .top)
+                                        MessagesVideoPlayerView(video: video)
                                     }
                                 }
                         }
@@ -83,26 +123,14 @@ struct MessagesGroupView: View {
             }
         }
     }
-    
-    func mediaCount() -> Int {
-        var mediaCount = 0
-        if let texts = group.texts {
-            mediaCount += texts.count
-        }
-        if let audios = group.audios {
-            mediaCount += audios.count
-        }
-        if let videos = group.videos {
-            mediaCount += videos.count
-        }
-        return mediaCount
-    }
 }
 
 
 struct GalleryPlaceHolder: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var viewModel: AlbumViewModel
+    var group: MsgGroupDetail
+    
     var body: some View {
         Rectangle()
             .foregroundColor(.gray.opacity(0.5))
@@ -111,7 +139,7 @@ struct GalleryPlaceHolder: View {
             .overlay(
                 Button(action: {
                     navigationModel.pushContent(TabBarView.id) {
-                        PhotosSelectionView()
+                        PhotosSelectionView(group: group)
                             .environmentObject(viewModel)
                     }
                 }) {
@@ -124,7 +152,7 @@ struct GalleryPlaceHolder: View {
             .padding(.bottom, 25)
     }
 }
-//TODO: - On top upload selected images and update the group gallery
+
 struct GroupDestinationView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var vm = GroupViewModel()

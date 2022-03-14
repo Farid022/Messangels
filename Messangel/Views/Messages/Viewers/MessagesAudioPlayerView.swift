@@ -8,12 +8,17 @@
 import SwiftUI
 import AVFoundation
 import NavigationStack
+import Kingfisher
 
 struct MessagesAudioPlayerView: View {
-    @ObservedObject var player: Player
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var vm = AudioViewModel()
+    @State private var showDeleteConfirm = false
+    @State private var deleting = false
     @State private var fullScreen = false
+    @ObservedObject var player: Player
     var screenSize = UIScreen.main.bounds
-    var bgImage: String
+    var audio: MsgAudio
 
     var body: some View {
         
@@ -23,10 +28,26 @@ struct MessagesAudioPlayerView: View {
             VStack {
                 Spacer().frame(height: 30)
                 if !fullScreen {
-                    MessagesViewerTopbar()
+                    MessagesViewerTopbar {
+                        
+                    } deleteAction: {
+                        showDeleteConfirm.toggle()
+                    }
                 }
-                AudioPlayerPreview(bgImage: bgImage, fullScreen: $fullScreen, player: player)
+                AudioPlayerPreview(bgImage: audio.audio_image ?? "https://google.com", fullScreen: $fullScreen, player: player)
                 Spacer()
+            }
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce message", confirmMessage: "Êtes-vous sur de vouloir supprimer ce message audio ?") {
+                deleting.toggle()
+                vm.delete(id: audio.id) { success in
+                    deleting.toggle()
+                    if success {
+                        navigationModel.popContent(TabBarView.id)
+                    }
+                }
+            }
+            if deleting {
+                Loader()
             }
         }
     }
@@ -44,6 +65,9 @@ var durationFormatter: DateComponentsFormatter {
 
 struct MessagesViewerTopbar: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    var updateAction: () -> Void = {}
+    var deleteAction: () -> Void = {}
+    
     var body: some View {
         HStack(spacing: 20) {
             Button(action: {
@@ -53,10 +77,10 @@ struct MessagesViewerTopbar: View {
                     .foregroundColor(.white)
             }
             Spacer()
-            Button(action: {}) {
-                Image("ic_modify")
-            }
-            Button(action: {}) {
+//            Button(action: { updateAction() }) {
+//                Image("ic_modify")
+//            }
+            Button(action: { deleteAction() }) {
                 Image("ic_delete")
             }
         }
@@ -98,16 +122,13 @@ struct AudioPlayerPreview: View {
                     .foregroundColor(.white)
                     .padding()
                     .zIndex(1.0)
-                AsyncImage(url: URL(string: bgImage)) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                } placeholder: {
-                    Color.gray
-                }
-                .frame(width: fullScreen ? screenSize.width : 252, height: fullScreen ? screenSize.height - 100 : 463)
-                .overlay(
+                KFImage.url(URL(string: bgImage))
+                    .placeholder {
+                        Color.gray
+                    }
+                    .centerCropped()
+                    .frame(width: fullScreen ? screenSize.width : 252, height: fullScreen ? screenSize.height - 100 : 463)
+                    .overlay (
                     ZStack {
                         HStack {
                             if self.player.itemDuration > 0 {

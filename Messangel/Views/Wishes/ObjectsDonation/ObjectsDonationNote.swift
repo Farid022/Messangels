@@ -11,7 +11,6 @@ import NavigationStack
 struct ObjectsDonationNote: View {
     @State private var showNote = false
     @State private var loading = false
-    @State private var attachedFiles = [URL]()
     @ObservedObject var vm: ObjectDonationViewModel
     @EnvironmentObject var navModel: NavigationModel
     var title: String {
@@ -50,33 +49,13 @@ struct ObjectsDonationNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(showNote: $showNote, note: $vm.objectDonation.object_note, loading: $loading, attachFiles: $attachedFiles, menuTitle: "Objets", title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 7.0, showNote: $showNote, note: $vm.objectDonation.object_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.objectDonation.object_note_attachment, menuTitle: "Objets", title: title) {
             loading.toggle()
             Task {
                 if vm.localPhoto.cgImage != nil {
-                    self.vm.objectDonation.object_photo = await uploadImage(vm.localPhoto, type: "object")
+                    self.vm.objectDonation.object_photo = await uploadImage(vm.localPhoto, type: "object").0
                 }
-                if !attachedFiles.isEmpty {
-                    vm.attachements.removeAll()
-                    let uploadedFiles = await uploadFiles(attachedFiles)
-                    for uploadedFile in uploadedFiles {
-                        vm.attachements.append(Attachement(url: uploadedFile))
-                    }
-                    vm.attach { success in
-                        if success {
-                            var attachementIds = [Int]()
-                            for attachement in vm.attachements {
-                                if let id = attachement.id {
-                                    attachementIds.append(id)
-                                }
-                            }
-                            vm.objectDonation.object_note_attachment = attachementIds
-                            createOrUpdateRecord()
-                        }
-                    }
-                } else {
-                    createOrUpdateRecord()
-                }
+                createOrUpdateRecord()
             }
         }
     }

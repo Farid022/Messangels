@@ -20,7 +20,7 @@ struct FuneralRestingPlace: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(noteText: $vm.location.resting_place_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: "Quel lieu de repos souhaiteriez-vous privilégier avant la cérémonie ?", valid: .constant(vm.location.resting_place != nil), destination: AnyView(FuneralConvoyRoute(vm: vm))) {
+            FlowBaseView(stepNumber: 3.0, totalSteps: 6.0, noteText: $vm.location.resting_place_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: "Quel lieu de repos souhaiteriez-vous privilégier avant la cérémonie ?", valid: .constant(vm.location.resting_place != nil), destination: AnyView(FuneralConvoyRoute(vm: vm))) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
                         ChoiceCard(text: type == .funeral_place ? "Funérarium" : "Domicile", selected: .constant(vm.location.resting_place == type.rawValue))

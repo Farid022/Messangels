@@ -18,7 +18,7 @@ struct ManagedContractOrganization: View {
     
     var body: some View {
         ZStack {
-            FlowBaseView(menuTitle: "Contrats à gérer", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(ManagedContractNote(vm: vm))) {
+            FlowBaseView(stepNumber: 3.0, totalSteps: 4.0, menuTitle: "Contrats à gérer", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(ManagedContractNote(vm: vm))) {
                 if vm.orgName.isEmpty {
                     Button(action: {
                         navigationModel.presentContent(title) {

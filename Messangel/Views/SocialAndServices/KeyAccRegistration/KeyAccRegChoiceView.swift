@@ -24,7 +24,7 @@ struct KeyAccRegChoiceView: View {
                     .background(.black.opacity(0.8))
                     .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 3.0, totalSteps: 6.0, isCustomAction: true, customAction: {
                 loading.toggle()
                 vm.addPrimaryEmailAcc { success in
                     loading.toggle()

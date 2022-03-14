@@ -24,7 +24,7 @@ struct DeathAnnounceContacts: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 1.0, totalSteps: 1.0, isCustomAction: true, customAction: {
                 loading.toggle()
                     vm.addPriorityContacts() { success in
                         if success {

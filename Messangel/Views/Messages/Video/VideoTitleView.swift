@@ -16,7 +16,6 @@ struct VideoTitleView: View {
 
     var filename: URL
     var selectedFilter: Color
-    @State var valid = false
     
     var body: some View {
         NavigationStackView("VideoTitleView") {
@@ -34,22 +33,22 @@ struct VideoTitleView: View {
                     .fontWeight(.bold)
                     .padding(.bottom)
                     .padding(.top, -20)
-                TextField("Titre de la vidéo", text: $videoVM.video.name, onCommit: {
-                    valid = !videoVM.video.name.isEmpty
-                })
+                TextField("Titre de la vidéo", text: $videoVM.video.name)
                     .textFieldStyle(MyTextFieldStyle())
                     .normalShadow()
                     .padding(.bottom)
                 HStack {
                     Spacer()
                     Rectangle()
-                        .fill(valid ? Color.accentColor : Color.accentColor.opacity(0.2))
+                        .fill(!videoVM.video.name.isEmpty ? Color.accentColor : Color.accentColor.opacity(0.2))
                         .frame(width: 56, height: 56)
                         .cornerRadius(25)
                         .overlay(
                             Button(action: {
-                                navigationModel.pushContent("VideoTitleView") {
-                                    VideoGroupView(filename: filename, selectedFilter: selectedFilter, vm: videoVM)
+                                if !videoVM.video.name.isEmpty {
+                                    navigationModel.pushContent("VideoTitleView") {
+                                        VideoGroupView(filename: filename, selectedFilter: selectedFilter, vm: videoVM)
+                                    }
                                 }
                             }) {
                                 Image(systemName: "chevron.right").foregroundColor(Color.white)

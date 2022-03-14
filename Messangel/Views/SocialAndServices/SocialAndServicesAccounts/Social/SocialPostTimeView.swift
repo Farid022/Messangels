@@ -13,7 +13,7 @@ struct SocialPostTimeView: View {
     @ObservedObject var vm: OnlineServiceViewModel
     
     var body: some View {
-        FlowBaseView(menuTitle: "Ajouter un réseau social", title: "Avant de clôturer, laisser ce message pendant:", valid: .constant(true), destination: AnyView(SocialMemorialAccView(vm: vm))) {
+        FlowBaseView(stepNumber: 5.0, totalSteps: 5.0, menuTitle: "Ajouter un réseau social", title: "Avant de clôturer, laisser ce message pendant:", valid: .constant(true), destination: AnyView(SocialMemorialAccView(vm: vm))) {
             
             Slider(value: $postTime, in: 1...24)
                 .introspectSlider { slider in

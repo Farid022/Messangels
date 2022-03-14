@@ -23,7 +23,7 @@ struct FuneralPlaceType: View {
                     .background(.black.opacity(0.8))
                     .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 1.0, totalSteps: 6.0, isCustomAction: true, customAction: {
                 if let indicateLocation = vm.location.location_of_ceremony, indicateLocation {
                     navModel.pushContent(title) {
                         FuneralPlaceSelection(vm: vm)

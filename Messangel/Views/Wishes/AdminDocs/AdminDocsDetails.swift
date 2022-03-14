@@ -31,7 +31,7 @@ struct AdminDocsDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: "Pièces administratives")
+                        NavigationTitleView(menuTitle: "Pièces administratives", showExitAlert: .constant(false))
                         HStack {
                             BackButton(iconColor: .gray)
                             Text("Pièce d’identité")

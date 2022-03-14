@@ -35,7 +35,7 @@ struct AnimalDonationDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: "ANIMAUX")
+                        NavigationTitleView(menuTitle: "ANIMAUX", showExitAlert: .constant(false))
                         DetailsPhotoView(imageUrlString: donation.animal_photo, fullScreenPhoto: $fullScreenPhoto)
                         ScrollView {
                             HStack {

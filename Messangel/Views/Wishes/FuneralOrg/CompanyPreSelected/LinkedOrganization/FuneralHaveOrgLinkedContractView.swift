@@ -25,7 +25,7 @@ struct FuneralHaveOrgLinkedContractView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 3.0, totalSteps: 4.0, isCustomAction: true, customAction: {
                 if let subscribed = vm.funeralOrg.company_contract_detail, subscribed {
                     navModel.pushContent(title) {
                         FuneralContractCompanyView(vm: vm)

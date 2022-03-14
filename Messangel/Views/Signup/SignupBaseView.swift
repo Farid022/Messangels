@@ -60,7 +60,7 @@ struct SignupBaseView<Content: View>: View {
                             NextButton(isCustomAction: isCustomAction, customAction: customAction, source: currentView, destination: destination, active: $valid)
                         }
                     }
-                    SignupProgressView(progress: $progress)
+                    FlowProgressView(progress: $progress)
                 }.padding()
             }
             .foregroundColor(.white)

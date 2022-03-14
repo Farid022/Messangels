@@ -31,7 +31,7 @@ struct ManagedContractsDetails: View {
                         .frame(height:70)
                         .edgesIgnoringSafeArea(.top)
                     VStack(spacing: 20) {
-                        NavigationTitleView(menuTitle: "Contrats à gérer")
+                        NavigationTitleView(menuTitle: "Contrats à gérer", showExitAlert: .constant(false))
                         DetailsTitleView(title: contract.name)
                         HStack {
                             Image("ic_item_info")

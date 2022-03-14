@@ -153,9 +153,11 @@ struct ImageCard : View {
                     options.isSynchronous = true
                     // You can give your own Image size by replacing .init() to CGSize....
                     PHCachingImageManager.default().requestImage(for: self.imageData.asset, targetSize: .init(), contentMode: .default, options: options) { (image, _) in
-                        DispatchQueue.main.async {
-                            self.viewModel.albumImages.append(AlbumImage(id:imageData.asset.localIdentifier, image: image!))
-                            loading = false
+                        if let image = image {
+                            DispatchQueue.main.async {
+                                self.viewModel.albumImages.append(AlbumImage(id:imageData.asset.localIdentifier, image: image))
+                                loading = false
+                            }
                         }
                     }
                 }

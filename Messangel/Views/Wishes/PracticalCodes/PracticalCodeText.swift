@@ -23,7 +23,7 @@ struct PracticalCodeText: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 3.0, totalSteps: 3.0, isCustomAction: true, customAction: {
                 if vm.updateRecord {
                     vm.update(id: vm.practicalCode.id ?? 0) { success in
                         if success {

@@ -23,11 +23,11 @@ struct SocialMemorialAccView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
+            FlowBaseView(stepNumber: 5.0, totalSteps: 5.0, isCustomAction: true, customAction: {
                 loading.toggle()
                 Task {
                     if vm.socialAccPic.cgImage != nil {
-                        self.vm.account.lastPostImage = await uploadImage(vm.socialAccPic, type: "social_acc")
+                        self.vm.account.lastPostImage = await uploadImage(vm.socialAccPic, type: "social_acc").0
                     }
                     vm.addAccount { success in
                         loading.toggle()

@@ -12,6 +12,6 @@ struct FuneralAshPlace: View {
     @State private var note = ""
     @ObservedObject var vm: FeneralViewModel
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $vm.funeral.deposite_ashes_note, menuTitle: "Choix funéraires", title: "Choisissez un lieu de dépôt des cendres (columbarium, caveau, dispersion…)", destination: AnyView(FuneralOutfit(vm: vm)))
+        FuneralNoteView(tab: 1, stepNumber: 10.0, totalSteps: 12.0, showNote: $showNote, note: $vm.funeral.deposite_ashes_note, menuTitle: "Choix funéraires", title: "Choisissez un lieu de dépôt des cendres (columbarium, caveau, dispersion…)", destination: AnyView(FuneralOutfit(vm: vm)))
     }
 }

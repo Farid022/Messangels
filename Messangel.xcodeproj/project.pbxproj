@@ -151,6 +151,19 @@
 		938C232127CF28F400E509BA /* DeathConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C232027CF28F400E509BA /* DeathConfirmationView.swift */; };
 		938C232427CF2ABB00E509BA /* ConfirmDeathIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C232327CF2ABB00E509BA /* ConfirmDeathIntro.swift */; };
 		938C232627CF2B3A00E509BA /* ConfirmDeathDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C232527CF2B3A00E509BA /* ConfirmDeathDoneView.swift */; };
+		938C233D27D361EF00E509BA /* DeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C232C27D361EF00E509BA /* DeviceOrientation.swift */; };
+		938C233E27D361EF00E509BA /* ImageMoveAndScaleSheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C232D27D361EF00E509BA /* ImageMoveAndScaleSheet+Extensions.swift */; };
+		938C233F27D361EF00E509BA /* SystemImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C232E27D361EF00E509BA /* SystemImagePicker.swift */; };
+		938C234127D361EF00E509BA /* ImageManipulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233027D361EF00E509BA /* ImageManipulation.swift */; };
+		938C234227D361EF00E509BA /* ImageMoveAndScaleSheet+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233127D361EF00E509BA /* ImageMoveAndScaleSheet+ViewModel.swift */; };
+		938C234327D361EF00E509BA /* ImageAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233227D361EF00E509BA /* ImageAttributes.swift */; };
+		938C234427D361EF00E509BA /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233327D361EF00E509BA /* ViewModifiers.swift */; };
+		938C234527D361EF00E509BA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233427D361EF00E509BA /* Color+Extensions.swift */; };
+		938C234627D361EF00E509BA /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233527D361EF00E509BA /* Image+Extensions.swift */; };
+		938C234727D361EF00E509BA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 938C233827D361EF00E509BA /* Localizable.strings */; };
+		938C234827D361EF00E509BA /* ImagePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233B27D361EF00E509BA /* ImagePane.swift */; };
+		938C234927D361EF00E509BA /* ImageMoveAndScaleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C233C27D361EF00E509BA /* ImageMoveAndScaleSheet.swift */; };
+		938C234B27D9BDEE00E509BA /* MessagesVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938C234A27D9BDEE00E509BA /* MessagesVideoPlayerView.swift */; };
 		939CBDAC276CA5B6004520A3 /* KeyAccDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDAB276CA5B6004520A3 /* KeyAccDetailsView.swift */; };
 		939CBDAE276CA5D1004520A3 /* SmartphoneDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDAD276CA5D1004520A3 /* SmartphoneDetailsView.swift */; };
 		939CBDB22771E63F004520A3 /* NewServiceWebSiteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDB12771E63E004520A3 /* NewServiceWebSiteView.swift */; };
@@ -482,6 +495,20 @@
 		938C232027CF28F400E509BA /* DeathConfirmationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathConfirmationView.swift; sourceTree = "<group>"; };
 		938C232327CF2ABB00E509BA /* ConfirmDeathIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmDeathIntro.swift; sourceTree = "<group>"; };
 		938C232527CF2B3A00E509BA /* ConfirmDeathDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmDeathDoneView.swift; sourceTree = "<group>"; };
+		938C232C27D361EF00E509BA /* DeviceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceOrientation.swift; sourceTree = "<group>"; };
+		938C232D27D361EF00E509BA /* ImageMoveAndScaleSheet+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageMoveAndScaleSheet+Extensions.swift"; sourceTree = "<group>"; };
+		938C232E27D361EF00E509BA /* SystemImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemImagePicker.swift; sourceTree = "<group>"; };
+		938C233027D361EF00E509BA /* ImageManipulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManipulation.swift; sourceTree = "<group>"; };
+		938C233127D361EF00E509BA /* ImageMoveAndScaleSheet+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageMoveAndScaleSheet+ViewModel.swift"; sourceTree = "<group>"; };
+		938C233227D361EF00E509BA /* ImageAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAttributes.swift; sourceTree = "<group>"; };
+		938C233327D361EF00E509BA /* ViewModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		938C233427D361EF00E509BA /* Color+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		938C233527D361EF00E509BA /* Image+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Extensions.swift"; sourceTree = "<group>"; };
+		938C233927D361EF00E509BA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		938C233A27D361EF00E509BA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		938C233B27D361EF00E509BA /* ImagePane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePane.swift; sourceTree = "<group>"; };
+		938C233C27D361EF00E509BA /* ImageMoveAndScaleSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageMoveAndScaleSheet.swift; sourceTree = "<group>"; };
+		938C234A27D9BDEE00E509BA /* MessagesVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesVideoPlayerView.swift; sourceTree = "<group>"; };
 		939CBDAB276CA5B6004520A3 /* KeyAccDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccDetailsView.swift; sourceTree = "<group>"; };
 		939CBDAD276CA5D1004520A3 /* SmartphoneDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartphoneDetailsView.swift; sourceTree = "<group>"; };
 		939CBDB12771E63E004520A3 /* NewServiceWebSiteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServiceWebSiteView.swift; sourceTree = "<group>"; };
@@ -836,6 +863,7 @@
 			isa = PBXGroup;
 			children = (
 				9351CCC627A548D00087C0E9 /* MessagesAudioPlayerView.swift */,
+				938C234A27D9BDEE00E509BA /* MessagesVideoPlayerView.swift */,
 				9351CCCF27A690640087C0E9 /* MessagesTextView.swift */,
 			);
 			path = Viewers;
@@ -870,6 +898,7 @@
 				93553A84264701E60027BA06 /* Views */,
 				93553A80264701C50027BA06 /* Helpers */,
 				9313BA702689A467008F566C /* RichEditorView */,
+				938C233727D361EF00E509BA /* Resources */,
 				93553A75264701600027BA06 /* Assets.xcassets */,
 				93553A7A264701600027BA06 /* Info.plist */,
 				93553AB1264A22DA0027BA06 /* Launch Screen.storyboard */,
@@ -889,9 +918,11 @@
 		93553A80264701C50027BA06 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				938C232B27D361EF00E509BA /* PhotoSelectAndCrop */,
 				93EFE7C72695EA3700F50894 /* AttributedText */,
 				93DBCFFB27B28BE800E71C0B /* Constants.swift */,
 				934A21D626515EF300607821 /* NetworkService.swift */,
+				938C232C27D361EF00E509BA /* DeviceOrientation.swift */,
 				93553A81264701C50027BA06 /* KeyboardResponder.swift */,
 				933AA30F26674FD8000D6D48 /* ImagePicker.swift */,
 				933AA311266754F0000D6D48 /* PhotoPicker.swift */,
@@ -1123,6 +1154,31 @@
 				937CA4B52653E724004A0227 /* GuardianForm */,
 			);
 			path = Guardian;
+			sourceTree = "<group>";
+		};
+		938C232B27D361EF00E509BA /* PhotoSelectAndCrop */ = {
+			isa = PBXGroup;
+			children = (
+				938C232D27D361EF00E509BA /* ImageMoveAndScaleSheet+Extensions.swift */,
+				938C233127D361EF00E509BA /* ImageMoveAndScaleSheet+ViewModel.swift */,
+				938C232E27D361EF00E509BA /* SystemImagePicker.swift */,
+				938C233027D361EF00E509BA /* ImageManipulation.swift */,
+				938C233227D361EF00E509BA /* ImageAttributes.swift */,
+				938C233327D361EF00E509BA /* ViewModifiers.swift */,
+				938C233427D361EF00E509BA /* Color+Extensions.swift */,
+				938C233527D361EF00E509BA /* Image+Extensions.swift */,
+				938C233B27D361EF00E509BA /* ImagePane.swift */,
+				938C233C27D361EF00E509BA /* ImageMoveAndScaleSheet.swift */,
+			);
+			path = PhotoSelectAndCrop;
+			sourceTree = "<group>";
+		};
+		938C233727D361EF00E509BA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				938C233827D361EF00E509BA /* Localizable.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		939CBDC3277312C5004520A3 /* Social */ = {
@@ -1523,6 +1579,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 93553A652647015D0027BA06;
 			packageReferences = (
@@ -1551,6 +1608,7 @@
 				93553AB2264A22DA0027BA06 /* Launch Screen.storyboard in Resources */,
 				93553A79264701600027BA06 /* Preview Assets.xcassets in Resources */,
 				9313BA8A2689A467008F566C /* Assets.xcassets in Resources */,
+				938C234727D361EF00E509BA /* Localizable.strings in Resources */,
 				9313BA882689A467008F566C /* style.css in Resources */,
 				9313BA852689A467008F566C /* rich_editor.js in Resources */,
 				9313BA892689A467008F566C /* normalize.css in Resources */,
@@ -1610,6 +1668,7 @@
 				935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */,
 				934B0E0B26AE887B0008DCE5 /* GuardianViewModel.swift in Sources */,
 				939CBDAE276CA5D1004520A3 /* SmartphoneDetailsView.swift in Sources */,
+				938C234827D361EF00E509BA /* ImagePane.swift in Sources */,
 				937CA4C12654FC5E004A0227 /* GuardianFormLegalAgeView.swift in Sources */,
 				939CBDBC27730F13004520A3 /* SocialChoiceView.swift in Sources */,
 				93AC02892747658E00FD7285 /* ClothsDonationName.swift in Sources */,
@@ -1617,6 +1676,7 @@
 				939CBDBE27730F41004520A3 /* SocialDetailsView.swift in Sources */,
 				93AC01EA271D494900FD7285 /* FlowBaseView.swift in Sources */,
 				93AC01FC271FEADD00FD7285 /* FuneralTakeWithObjects.swift in Sources */,
+				938C233F27D361EF00E509BA /* SystemImagePicker.swift in Sources */,
 				93AC026E2746137800FD7285 /* FuneralMusicNew.swift in Sources */,
 				93AC01E32716E0D100FD7285 /* GuardianView.swift in Sources */,
 				939CBDBA2771E75A004520A3 /* ServiceDetailsView.swift in Sources */,
@@ -1635,6 +1695,7 @@
 				93AC02F6274B706C00FD7285 /* PracticalCodesList.swift in Sources */,
 				937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */,
 				9313BA93268ED05F008F566C /* DocThemeView.swift in Sources */,
+				938C233D27D361EF00E509BA /* DeviceOrientation.swift in Sources */,
 				93AC0202272168E800FD7285 /* FuneralUrnMaterial.swift in Sources */,
 				93279FC826EF0F110063A673 /* SoundRecorder.swift in Sources */,
 				938313992678966C00C71C98 /* VideoRecoderView.swift in Sources */,
@@ -1647,6 +1708,7 @@
 				938C232627CF2B3A00E509BA /* ConfirmDeathDoneView.swift in Sources */,
 				934B0E0F26AECDE50008DCE5 /* ContactViewModel.swift in Sources */,
 				938C230A27CA762D00E509BA /* DeclareDeathIntro.swift in Sources */,
+				938C234227D361EF00E509BA /* ImageMoveAndScaleSheet+ViewModel.swift in Sources */,
 				93AC02452727D79400FD7285 /* FuneralPlacesList.swift in Sources */,
 				933AA31426675B62000D6D48 /* CustomImagePicker.swift in Sources */,
 				935A5992265BAFDD005B0505 /* SponsorView.swift in Sources */,
@@ -1684,6 +1746,7 @@
 				935A598A265B6CA6005B0505 /* MenuBaseView.swift in Sources */,
 				939CBDB62771E699004520A3 /* ServicePhoneView.swift in Sources */,
 				937CA4B92653EC0C004A0227 /* GuardianFormLastNameView.swift in Sources */,
+				938C234327D361EF00E509BA /* ImageAttributes.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
 				93AC02042721693700FD7285 /* FuneralUrnStyle.swift in Sources */,
 				93671DB32767660C009A4CF1 /* KeyAccRegPhoneNameView.swift in Sources */,
@@ -1697,6 +1760,7 @@
 				937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */,
 				93AC021A2726769000FD7285 /* FuneralInviteIntro.swift in Sources */,
 				93AC01FA271FE9B100FD7285 /* FuneralOutfit.swift in Sources */,
+				938C233E27D361EF00E509BA /* ImageMoveAndScaleSheet+Extensions.swift in Sources */,
 				939CBDD72786F9D9004520A3 /* DeathAnnouncementViewModel.swift in Sources */,
 				93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */,
 				93553A722647015D0027BA06 /* MessangelApp.swift in Sources */,
@@ -1723,6 +1787,7 @@
 				93AC02432727D76C00FD7285 /* FuneralPlaceSelection.swift in Sources */,
 				93EFE7EB26A15D9700F50894 /* SignupTelView.swift in Sources */,
 				9351CCC327A43B790087C0E9 /* Utils.swift in Sources */,
+				938C234B27D9BDEE00E509BA /* MessagesVideoPlayerView.swift in Sources */,
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
 				93AC025D27326AA200FD7285 /* ClothsDonationIntro.swift in Sources */,
 				938C231727CB4D5400E509BA /* ActionSheet+Modifier.swift in Sources */,
@@ -1731,6 +1796,7 @@
 				93AC022C27268F5100FD7285 /* OrganDonateBody.swift in Sources */,
 				935A5996265BB02B005B0505 /* SuggestionsView.swift in Sources */,
 				93AD1DCD27BE0426007BBF81 /* FuneralHaveCompanyContractView.swift in Sources */,
+				938C234627D361EF00E509BA /* Image+Extensions.swift in Sources */,
 				93AC0206272169B700FD7285 /* FuneralAshPlace.swift in Sources */,
 				933DF61C278BFC61005966AF /* PracticalCodeViewModel.swift in Sources */,
 				932FF8B126C1309300DE52F9 /* VideoTitleView.swift in Sources */,
@@ -1738,6 +1804,7 @@
 				93671DB1276765EE009A4CF1 /* KeyAccRegChoiceView.swift in Sources */,
 				93AC02212726795B00FD7285 /* FuneralInviteText.swift in Sources */,
 				935FFCB22797E63F00290E4C /* OnlineServiceViewModel.swift in Sources */,
+				938C234127D361EF00E509BA /* ImageManipulation.swift in Sources */,
 				93EFE7E726A15D9700F50894 /* SignupPostcodeView.swift in Sources */,
 				939CBDCC27732AC2004520A3 /* SocialMemorialAccView.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
@@ -1759,6 +1826,7 @@
 				93671DB72767663B009A4CF1 /* KeyAccRegPhonePINView.swift in Sources */,
 				93671DAD2767657F009A4CF1 /* KeyAccRegEmailView.swift in Sources */,
 				937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */,
+				938C234527D361EF00E509BA /* Color+Extensions.swift in Sources */,
 				93AC02EF274B6C8B00FD7285 /* ManagedContractDetails.swift in Sources */,
 				93AC02252726817900FD7285 /* OrganDonateIntro.swift in Sources */,
 				93553AAC264845110027BA06 /* CustomNumberPad.swift in Sources */,
@@ -1822,6 +1890,7 @@
 				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
 				938C231E27CCA43000E509BA /* MsgGroupContacts.swift in Sources */,
 				93AC02F9274B73A100FD7285 /* PracticalCodeText.swift in Sources */,
+				938C234927D361EF00E509BA /* ImageMoveAndScaleSheet.swift in Sources */,
 				933DF61427887F86005966AF /* AnimalDonationViewModel.swift in Sources */,
 				93AC01EE271D873E00FD7285 /* FuneralPlaceView.swift in Sources */,
 				939CBDAC276CA5B6004520A3 /* KeyAccDetailsView.swift in Sources */,
@@ -1862,6 +1931,7 @@
 				934B0E1326B15ABE0008DCE5 /* ContactEditView.swift in Sources */,
 				93AC02582727E53700FD7285 /* FuneralGuestsWearings.swift in Sources */,
 				933AA312266754F0000D6D48 /* PhotoPicker.swift in Sources */,
+				938C234427D361EF00E509BA /* ViewModifiers.swift in Sources */,
 				93AD1DD527BE1A00007BBF81 /* FuneralContractLinkedOrgView.swift in Sources */,
 				93EFE7D7269D9CEE00F50894 /* User.swift in Sources */,
 				93AC02E4274B695B00FD7285 /* AdminDocsName.swift in Sources */,
@@ -1874,6 +1944,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		938C233827D361EF00E509BA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				938C233927D361EF00E509BA /* en */,
+				938C233A27D361EF00E509BA /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		93553A7B264701600027BA06 /* Debug */ = {
@@ -1998,7 +2080,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2021,7 +2103,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

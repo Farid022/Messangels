@@ -23,7 +23,7 @@ struct ServicesListView: View {
                     .edgesIgnoringSafeArea(.top)
                     .frame(height:70)
                 VStack(spacing: 20) {
-                    NavigationTitleView(menuTitle: "Ajouter un réseau social ou un service en ligne")
+                    NavigationTitleView(menuTitle: "Ajouter un réseau social ou un service en ligne", showExitAlert: .constant(false))
                     if !showSearchBox {
                         ScrollViewReader { scrollProxy in
                             ScrollView(.horizontal, showsIndicators: false) {
