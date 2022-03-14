@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExpressionView: View {
     @StateObject private var wishesListViewModel = WishesListViewModel()
-    var animalList = ["Image.jpeg","Doc.pdf","Exemple3.jpeg","Doc.pdf"]
+    var animalList : [String] = []
      
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
@@ -66,12 +66,12 @@ struct ExpressionView: View {
                                                 {
                                                     index, item in
                                                     gridItem(title: item)
-                                                    
+
                                                 }
                                             }
-                                            .padding(.leading,24)
-                                            .padding(.trailing,24)
-                                            .padding(.bottom,40)
+//                                            .padding(.leading,24)
+//                                            .padding(.trailing,24)
+//                                            .padding(.bottom,40)
                                         }
                                         
                                         

@@ -14,8 +14,8 @@
             filePath = "Messangel/Views/MonMessangel/MonMessangelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "785"
-            endingLineNumber = "785">
+            startingLineNumber = "847"
+            endingLineNumber = "847">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -28,8 +28,8 @@
             filePath = "Messangel/Views/MonMessangel/MonMessangelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "668"
-            endingLineNumber = "668"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -236,8 +236,8 @@
             filePath = "Messangel/Views/MonMessangel/MonMessangelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "671"
-            endingLineNumber = "671"
+            startingLineNumber = "731"
+            endingLineNumber = "731"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -284,10 +284,42 @@
             filePath = "Messangel/Views/MonMessangel/MonMessangelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "780"
-            endingLineNumber = "780"
+            startingLineNumber = "842"
+            endingLineNumber = "842"
             landmarkName = "MonMessangelView_Previews"
             landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "E7207379-B8E4-4014-A5A8-E755F209A8C7 - 13c45869198f6eb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Messangel.MonMessangelView_Previews.previews.getter : some"
+                  moduleName = "Messangel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alipasha/Documents/GitHub/Messangels/Messangel/Views/MonMessangel/MonMessangelView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "830"
+                  endingLineNumber = "830"
+                  offsetFromSymbolStart = "104">
+               </Location>
+               <Location
+                  uuid = "E7207379-B8E4-4014-A5A8-E755F209A8C7 - d751d36bf85b463b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Messangel.MonMessangelView in static Messangel.MonMessangelView_Previews.previews.getter : some"
+                  moduleName = "Messangel"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alipasha/Documents/GitHub/Messangels/Messangel/Views/MonMessangel/MonMessangelView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "830"
+                  endingLineNumber = "830"
+                  offsetFromSymbolStart = "244">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -524,8 +556,8 @@
             filePath = "Messangel/Views/MonMessangel/MonMessangelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -540,8 +572,8 @@
             filePath = "Messangel/Views/MonMessangel/MonMessangelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "667"
-            endingLineNumber = "667"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>

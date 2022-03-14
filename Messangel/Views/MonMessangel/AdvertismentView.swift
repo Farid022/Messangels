@@ -19,7 +19,7 @@ struct AdvertismentView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("Annonces")
+                        Text("Faire-part et annonce")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -45,9 +45,9 @@ struct AdvertismentView: View {
                             
                             Group
                             {
-                                MyAnnoucementView()
+                                MyAnnoucementView(advertisement: funeralAdvertisementViewModel.advertisement)
                              .padding(.bottom,40)
-                                FunerairesView(title: "Journal local", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ")
+                                FunerairesView(title: "Journal local", description: funeralAdvertisementViewModel.advertisement.newspaper_note)
                                     .padding(.bottom,40)
                                
                         }
@@ -57,7 +57,7 @@ struct AdvertismentView: View {
             }
         }
         .onAppear {
-            funeralAdvertisementViewModel.create { success in
+            funeralAdvertisementViewModel.getAnnounce { success in
                 
             }
         }
@@ -67,8 +67,8 @@ struct AdvertismentView: View {
 
 struct MyAnnoucementView: View
 {
-    var animalList = ["Image.jpeg","Doc.pdf","Exemple3.jpeg","Doc.pdf"]
-     
+    var animalList : [String] = []
+    var advertisement: FuneralAdvertisement
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View {
         ZStack{
@@ -89,9 +89,9 @@ struct MyAnnoucementView: View
                 
                 Group{
                    
-                MonCercueilItem(title: "Faire apparaitre la photo ci-dessous", description: "", image: "announcementImage")
-                MonCercueilItem(title: "Apparence de mon faire-part", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "")
-                MonCercueilItem(title: "Texte à faire apparaître", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: "")
+                    MonCercueilItem(title: "Faire apparaitre la photo ci-dessous", description: "", image: advertisement.invitation_photo)
+                    MonCercueilItem(title: "Apparence de mon faire-part", description: advertisement.invitation_photo_note ?? "", image: "")
+                    MonCercueilItem(title: "Texte à faire apparaître", description: advertisement.theme_note, image: "")
                     
                     LazyVGrid(columns: columns) {
                         ForEach(enumerating: animalList, id:\.self)

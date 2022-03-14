@@ -22,7 +22,7 @@ struct MonMessangelView: View {
     @State private var cgImage = UIImage().cgImage
     
     @State private var profileImage = UIImage()
-
+    @StateObject private var vmKeyAcc = KeyAccViewModel()
 
   
     var body: some View {
@@ -140,6 +140,20 @@ struct MonMessangelView: View {
                                    .multilineTextAlignment(.center)
                                    .padding(.bottom,40)
                             
+                                if vmKeyAcc.smartphones.count < 1 && vmKeyAcc.keyAccounts.count < 1
+                                {
+                                    Text("Vous n'avez pas renseigne d'information concermant votre vie digitale")
+                                        
+                                        .font(.system(size: 15))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.gray)
+                                        .padding(.top,40)
+                                        .padding(.leading,24)
+                                        .padding(.bottom,12)
+                                        .multilineTextAlignment(.leading)
+                                   
+                                }
+                                
                             MaVieDigitaleView()
                             }
                             
@@ -169,6 +183,10 @@ struct MonMessangelView: View {
                 
             }
       
+            vmKeyAcc.getKeyAccounts { success in
+                
+            }
+            vmKeyAcc.getKeyPhones()
             
            
         })
@@ -329,7 +347,15 @@ struct documentView: View
                         
                         Text("Ajoutez un deuxieme Ange-gardien pour activer votre Messangel")
                                .font(.system(size: 15))
-                               .fontWeight(.bold)
+                               .fontWeight(.regular)
+                               .multilineTextAlignment(.center)
+                               .padding(.bottom,20)
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        
+                        Text("Séquence - Soucription abonnement")
+                               .font(.system(size: 15))
+                               .fontWeight(.regular)
                                .multilineTextAlignment(.center)
                                .padding(.bottom,20)
                                .padding(.leading,24)
@@ -358,26 +384,42 @@ struct documentView: View
                 }
                 else
                 {
-                    Text("Ajoutez un deuxieme Ange-gardien pour activer votre Messangel")
+                    Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
                            .font(.system(size: 15))
-                           .fontWeight(.bold)
+                           .fontWeight(.regular)
+                           .multilineTextAlignment(.center)
+                           .padding(.bottom,20)
+                           .padding(.leading,24)
+                           .padding(.trailing,24)
+                    
+                    Text("Séquence - Soucription abonnement")
+                           .font(.system(size: 15))
+                           .fontWeight(.regular)
                            .multilineTextAlignment(.center)
                            .padding(.bottom,20)
                            .padding(.leading,24)
                            .padding(.trailing,24)
                     
                     
-                        Image("add-user")
-                        .opacity(1)
-                        .frame(width: 50, height:50)
-                        .background(.white)
-                        .clipShape(Circle())
-                        .thinShadow()
-                        .onTapGesture {
-                            navigationModel.pushContent("MonMessangelView") {
-                                GuardianFormIntroView(vm: GuardianViewModel())
-                            }
+                    
+                    Button {
+                        navigationModel.pushContent("MonMessangelView") {
+                            GuardianFormIntroView(vm: GuardianViewModel())
                         }
+                    }label: {
+                        Text("Je m’abonne (2€/mois)")
+                            .font(.system(size: 15))
+                            .padding(20)
+                            .foregroundColor(.white)
+                        
+                    }
+                    .background(Color.accentColor)
+                    .cornerRadius(20)
+                    .frame(width: 280, height:50)
+                    
+                    
+                    
+                    
                   
                    
                 }
@@ -416,17 +458,17 @@ struct MesVoluntesView: View
     var body: some View {
         Group{
             
-            MesVoluntesListView(items: itemArray.filter { $0.type == "1"}, title: "Mes choix personnels", description: "")
+            MesVoluntesListView(items: itemArray.filter { $0.type == "1"}, title: "Mes choix personnels", description: "", noItemDescription: "Vous n'avez pas renseigne d'information concermant vos volontes")
                 .padding(.bottom,40)
             
-            MesVoluntesListView(items: itemArray.filter { $0.type == "2"}, title: "Pour ma cérémonie", description: "")
+            MesVoluntesListView(items: itemArray.filter { $0.type == "2"}, title: "Pour ma cérémonie", description: "", noItemDescription: "Vous n'avez pas cree de messages pour I'instant")
                 .padding(.bottom,40)
             
             
-            MesVoluntesListView(items:itemArray.filter { $0.type == "3"}, title: "Pour ma transmission", description: "")
+            MesVoluntesListView(items:itemArray.filter { $0.type == "3"}, title: "Pour ma transmission", description: "", noItemDescription: "")
                 .padding(.bottom,40)
                 
-            MesVoluntesListView(items: itemArray.filter { $0.type == "4"}, title: "Mes compléments utiles", description: "")
+            MesVoluntesListView(items: itemArray.filter { $0.type == "4"}, title: "Mes compléments utiles", description: "", noItemDescription: "")
                   
             }
     }
@@ -437,6 +479,7 @@ struct MesVoluntesListView: View
     var items: [VolontesTab]
     var title: String
     var description: String
+    var noItemDescription: String?
     var body: some View {
    
         
@@ -458,9 +501,26 @@ struct MesVoluntesListView: View
                        .padding(.bottom,12)
                        .multilineTextAlignment(.leading)
                 
+                if items.count < 1
+                {
+                    if noItemDescription?.count ?? 0 > 0
+                    {
+                        Text(noItemDescription ?? "")
+                            
+                            .font(.system(size: 15))
+                            .fontWeight(.bold)
+                            .foregroundColor(.gray)
+                            .padding(.top,40)
+                            .padding(.leading,24)
+                            .padding(.bottom,12)
+                            .multilineTextAlignment(.leading)
+                    }
+                    
+                }
+                
                 if description.count > 0
                 {
-                Text(description)
+                 Text(description)
                         
                        .font(.system(size: 15))
                        .fontWeight(.regular)
@@ -751,6 +811,8 @@ struct MaVieDigitaleView: View
     @StateObject private var vmKeyAcc = KeyAccViewModel()
     var body: some View {
         Group{
+            
+           
             DigitalLifeListView(emailItems: vmKeyAcc.keyAccounts, phoneItems: vmKeyAcc.smartphones, title: "Mes comptes-Clés", description: "Ces comptes mail et smartphone sont associés à mes réseaux sociaux et mes services en ligne")
                 .padding(.bottom,40)
             ServiceCategoryListView(items: onlineServiceViewModel.categories, title: "Mes réseaux sociaux et services en ligne", description: "Utilisez « Réinitialiser le mot de passe » ou « mot de passe oublié » pour gérer mes différents comptes")
