@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct AnimalsView: View {
     @StateObject private var animalsViewModel = AnimalsViewModel()
-
+    @EnvironmentObject private var navigationModel: NavigationModel
     var animalList = ["Snoop","Animal 2","Animal 3","Animal 4","Animal 5","Animal 6","Animal7"]
     var body: some View {
+        NavigationStackView("AnimalsView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -70,6 +72,13 @@ struct AnimalsView: View {
                             {
                                 index, item in
                                 ListItemImageTitle(type: item.animal_photo, item: item.animal_name)
+                                    .onTapGesture {
+                                        navigationModel.pushContent("AnimalsView") {
+                                            
+                                            AnimalDetailView(animal: item)
+                                        }
+                                        
+                                    }
                                    
 
                             }
@@ -87,6 +96,7 @@ struct AnimalsView: View {
         }
         .onAppear {
             animalsViewModel.getAll()
+        }
         }
     }
       
@@ -107,7 +117,13 @@ struct ListItemImageTitle: View
             
             if type.count > 0
             {
-                Image(type)
+                AsyncImage(url: URL(string: type)) { image in
+                    image
+                    .resizable()
+                    .scaledToFill()
+                } placeholder: {
+                    ProgressView()
+                }
                 .padding(.leading,24)
                 .cornerRadius(23)
                 .frame(width:56,height:56)

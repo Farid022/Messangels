@@ -45,7 +45,7 @@ struct SpiritualiteTraditionsView: View {
                             
                             Group
                             {
-                                FunerairesView(title: "Je souhaite une cérémonie " + spiritualiteViewModel.spiritualite.spritual_ceremony!.name , description: spiritualiteViewModel.spiritualite.spirtual_cermony_note ?? "")
+                                FunerairesView(title: "Je souhaite une cérémonie " + spiritualiteViewModel.spiritualite.spritual_ceremony.name, description: spiritualiteViewModel.spiritualite.spirtual_cermony_note ?? "")
                                     .padding(.bottom,40)
                 
                                 

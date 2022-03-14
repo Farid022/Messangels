@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 
@@ -48,12 +49,17 @@ struct FuneralChoixDetail: Hashable,Codable {
     var acessoriesNote: String
     var depositeAshesNote: String
     var burialType: FuneralItem?
-    var coffinMaterial: FuneralItem?
-    var coffinFinish: FuneralItem?
+    var coffinMaterial: FuneralItem
+    var coffinFinish: FuneralItem
     var internalMaterial: FuneralItem?
-    var urnMaterial: FuneralItem?
-    var urnStyle: FuneralItem?
+    var urnMaterial: FuneralItem
+    var urnStyle: FuneralItem
     var burial_type_note: String?
+    var coffin_material_note: String?
+    var coffin_finish_note: String?
+    var urn_material_note: String?
+    var urn_style_note: String?
+    
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -70,6 +76,10 @@ struct FuneralChoixDetail: Hashable,Codable {
         case urnMaterial = "urn_material"
         case urnStyle = "urn_style"
         case burial_type_note
+        case coffin_material_note
+        case coffin_finish_note
+        case urn_material_note
+        case urn_style_note
     }
 }
 

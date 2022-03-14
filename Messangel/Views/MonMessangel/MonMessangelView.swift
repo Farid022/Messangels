@@ -8,10 +8,13 @@
 import SwiftUI
 import NavigationStack
 import Combine
-
+import SwiftUIX
 
 struct MonMessangelView: View {
+    @State private var stored: Int = 0
+    @State private var current: [Int] = []
     @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var guardianViewModel = GuardianViewModel()
     @StateObject private var volontesViewModel = VolontesViewModel()
     @StateObject var auth = Auth()
     @EnvironmentObject var envAuth: Auth
@@ -23,6 +26,7 @@ struct MonMessangelView: View {
 
   
     var body: some View {
+     
         NavigationStackView("MonMessangelView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
@@ -46,6 +50,7 @@ struct MonMessangelView: View {
                 
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                     ScrollView {
+                       
                         VStack{
                             
                          dateView()
@@ -92,7 +97,7 @@ struct MonMessangelView: View {
                                     .multilineTextAlignment(.center)
                                     .padding(.bottom,40)
                             }
-                            documentView()
+                            documentView(guardians: guardianViewModel.guardians)
                            
                             Group{
                             Image("ic_mesVolontes")
@@ -147,22 +152,29 @@ struct MonMessangelView: View {
                             
                           
                         }
-                       
+                        
+                        
+                        
                     
                         
                     }
+                    
                    
                 }
             }
         }
         }.onAppear(perform: {
             volontesViewModel.getTabs()
+            guardianViewModel.getGuardians { success in
+                
+            }
       
             
            
         })
                     
-                  
+        
+       
        
     }
 }
@@ -222,6 +234,8 @@ struct dateView: View{
 
 struct documentView: View
 {
+    @EnvironmentObject private var navigationModel: NavigationModel
+    var guardians: [Guardian]
     var body: some View {
    
         ZStack{
@@ -256,35 +270,119 @@ struct documentView: View
                        .padding(.leading,24)
                        .padding(.trailing,24)
                 
-                Text("Mme Marianne Milon")
-                       .font(.system(size: 15))
-                       .fontWeight(.bold)
-                       .multilineTextAlignment(.center)
-                      
-                       .padding(.leading,24)
-                       .padding(.trailing,24)
-                Text(" Née le 7 octobre 1968 \nà Strasbourg")
-                       .font(.system(size: 15))
-                       .fontWeight(.regular)
-                       .multilineTextAlignment(.center)
-                       .padding(.bottom,20)
-                       .padding(.leading,24)
-                       .padding(.trailing,24)
-                
-                Text("Mme Amélie Poulain")
-                       .font(.system(size: 15))
-                       .fontWeight(.bold)
-                       .multilineTextAlignment(.center)
-                      
-                       .padding(.leading,24)
-                       .padding(.trailing,24)
-                Text("Née le 15 décembre 1956 \nà Lyon")
-                       .font(.system(size: 15))
-                       .fontWeight(.regular)
-                       .multilineTextAlignment(.center)
-                       .padding(.bottom,18)
-                       .padding(.leading,24)
-                       .padding(.trailing,24)
+                if guardians.count > 0
+                {
+                   
+                    
+                    if guardians.count > 1
+                    {
+                        Text(guardians[0].first_name + " " + guardians[0].last_name)
+                               .font(.system(size: 15))
+                               .fontWeight(.bold)
+                               .multilineTextAlignment(.center)
+                              
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        Text(" Née le 7 octobre 1968 \nà Strasbourg")
+                               .font(.system(size: 15))
+                               .fontWeight(.regular)
+                               .multilineTextAlignment(.center)
+                               .padding(.bottom,20)
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        
+                        
+                        Text(guardians[1].first_name + " " + guardians[1].last_name)
+                               .font(.system(size: 15))
+                               .fontWeight(.bold)
+                               .multilineTextAlignment(.center)
+                              
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        Text("Née le 15 décembre 1956 \nà Lyon")
+                               .font(.system(size: 15))
+                               .fontWeight(.regular)
+                               .multilineTextAlignment(.center)
+                               .padding(.bottom,18)
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        
+                    }
+                    else
+                    {
+                        Text(guardians[0].first_name + " " + guardians[0].last_name)
+                               .font(.system(size: 15))
+                               .fontWeight(.bold)
+                               .multilineTextAlignment(.center)
+                              
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        Text(" Née le 7 octobre 1968 \nà Strasbourg")
+                               .font(.system(size: 15))
+                               .fontWeight(.regular)
+                               .multilineTextAlignment(.center)
+                               .padding(.bottom,20)
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        
+                        
+                        
+                        Text("Ajoutez un deuxieme Ange-gardien pour activer votre Messangel")
+                               .font(.system(size: 15))
+                               .fontWeight(.bold)
+                               .multilineTextAlignment(.center)
+                               .padding(.bottom,20)
+                               .padding(.leading,24)
+                               .padding(.trailing,24)
+                        
+                        VStack
+                        {
+                        
+                            Image("add-user")
+                            .opacity(1)
+                        }
+                        .background(.white)
+                        .clipShape(Circle())
+                        .frame(width: 50, height:50)
+                        .background(.white)
+                        .clipShape(Circle())
+                        .thinShadow()
+                        .onTapGesture {
+                            navigationModel.pushContent("MonMessangelView") {
+                                GuardianFormIntroView(vm: GuardianViewModel())
+                            }
+                        }
+                  
+                    }
+                    
+                }
+                else
+                {
+                    Text("Ajoutez un deuxieme Ange-gardien pour activer votre Messangel")
+                           .font(.system(size: 15))
+                           .fontWeight(.bold)
+                           .multilineTextAlignment(.center)
+                           .padding(.bottom,20)
+                           .padding(.leading,24)
+                           .padding(.trailing,24)
+                    
+                    
+                        Image("add-user")
+                        .opacity(1)
+                        .frame(width: 50, height:50)
+                        .background(.white)
+                        .clipShape(Circle())
+                        .thinShadow()
+                        .onTapGesture {
+                            navigationModel.pushContent("MonMessangelView") {
+                                GuardianFormIntroView(vm: GuardianViewModel())
+                            }
+                        }
+                  
+                   
+                }
+              
+              
                
                 Spacer()
                

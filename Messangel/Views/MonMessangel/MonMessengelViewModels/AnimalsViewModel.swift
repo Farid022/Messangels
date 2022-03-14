@@ -21,11 +21,12 @@ struct AnimalDetail: Hashable, Codable {
     var single_animal: Bool
     var animal_name: String
     var animal_contact_detail: Contact?
-    var animal_organization_detail: Organization?
+    var animal_organization_detail: Organismes?
     var animal_species: String
     var animal_note: String
     var animal_photo: String
     var user: User
+    var animal_note_attachment: [String]?
 }
 
 class AnimalsViewModel: ObservableObject {
@@ -35,7 +36,7 @@ class AnimalsViewModel: ObservableObject {
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func create(completion: @escaping (Bool) -> Void) {
+    func getAnimal(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: animalDonation, response: animalDonation, endpoint: "users/\(getUserId())/animal") { result in
             switch result {
             case .success(let animal):

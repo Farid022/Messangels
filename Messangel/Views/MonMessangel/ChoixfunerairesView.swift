@@ -87,7 +87,7 @@ struct FunerairesView: View
     var description: String
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .leading){
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
                 .ignoresSafeArea()
            
@@ -104,23 +104,26 @@ struct FunerairesView: View
               
                 if description.count > 0
                 {
+                   
                     HStack(alignment:.top){
                      
                             Image("ic_note")
                                 .padding(.leading,24)
-                       
+                        VStack(alignment:.leading)
+                        {
                             Text(description)
                                 .font(.system(size: 14))
                                 .fontWeight(.regular)
                                 .multilineTextAlignment(.leading)
-                                .frame(maxWidth:.infinity)
                                 .padding(.bottom,40)
                                 .padding(.leading,16)
                                 .padding(.trailing,24)
+                        }
                         
                             Spacer()
                           
-                        }
+                      
+                    }
                    
                     
                  }
@@ -132,6 +135,7 @@ struct FunerairesView: View
             }
          
         }
+        
         .frame(maxWidth:.infinity)
         .cornerRadius(22)
         .padding(.leading,18)
@@ -153,7 +157,7 @@ struct MonCercueilItem: View
              Text("+ " + title)
                    .font(.system(size: 15))
                    .fontWeight(.bold)
-                  
+                   .multilineTextAlignment(.leading)
                    .padding(.bottom,24)
             }
             
@@ -174,7 +178,7 @@ struct MonCercueilItem: View
             }
             if description.count > 0
             {
-            HStack(alignment:.top){
+             HStack(alignment:.top){
                
                 if title.count > 0
                 {
@@ -182,6 +186,7 @@ struct MonCercueilItem: View
                     Text(description)
                            .font(.system(size: 14))
                            .fontWeight(.regular)
+                           .multilineTextAlignment(.leading)
                            .padding(.bottom,40)
                            .padding(.leading,16)
                            .padding(.trailing,24)
@@ -194,6 +199,7 @@ struct MonCercueilItem: View
                            .font(.system(size: 14))
                            .fontWeight(.regular)
                            .padding(.bottom,40)
+                           .multilineTextAlignment(.leading)
                            .padding(.leading,16)
                            .padding(.trailing,24)
                            .padding(.top,24)
@@ -229,8 +235,8 @@ struct MonCercueilView: View
                        .padding(.bottom,40)
                        .padding(.leading,24)
                 Group{
-                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeral.coffinMaterial!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinMaterial!.image ?? "")
-                    MonCercueilItem(title: "Forme de mon cercueil : " + funeral.coffinFinish!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinFinish!.image ?? "")
+                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeral.coffinMaterial.name , description: funeral.coffin_material_note ?? "", image: funeral.coffinMaterial.image ?? "")
+                    MonCercueilItem(title: "Forme de mon cercueil : " + funeral.coffinFinish.name , description: funeral.coffin_finish_note ?? "", image: funeral.coffinFinish.image ?? "")
                 }
                 
                 
@@ -264,8 +270,8 @@ struct MonUrneView: View
                        .padding(.bottom,40)
                        .padding(.leading,24)
                 Group{
-                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeral.coffinMaterial!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinMaterial!.image ?? "")
-                    MonCercueilItem(title: "Forme de mon cercueil : " + funeral.coffinFinish!.name , description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum.", image: funeral.coffinFinish!.image ?? "")
+                    MonCercueilItem(title: "Matériau de mon cercueil : " + funeral.urnMaterial.name, description: funeral.urn_material_note ?? "", image: funeral.urnMaterial.image ?? "")
+                    MonCercueilItem(title: "Forme de mon cercueil : " + funeral.urnStyle.name , description: funeral.coffin_finish_note ?? "", image: funeral.urnStyle.image ?? "")
                 }
                 
                 

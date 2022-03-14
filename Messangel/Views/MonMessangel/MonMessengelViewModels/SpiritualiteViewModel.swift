@@ -18,11 +18,11 @@ struct FuneralSpiritualite: Codable {
     var user: User?
     var spirtual_cermony_note: String?
     var ceremony_note: String?
-    var spritual_ceremony: FuneralItem?
+    var spritual_ceremony: FuneralItem
 }
 
 class SpiritualiteViewModel: ObservableObject {
-    @Published var spiritualite = FuneralSpiritualite()
+    @Published var spiritualite = FuneralSpiritualite( spritual_ceremony: FuneralItem(id: 0, name: "", image: ""))
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
