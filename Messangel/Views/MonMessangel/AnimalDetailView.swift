@@ -61,7 +61,9 @@ struct AnimalDetailView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width:128, height: 128)
+                                .clipShape(Circle())
                             }
+                            .clipShape(Circle())
                             .frame(width:128, height: 128)
                             .padding(.leading,18)
                             }
@@ -72,6 +74,7 @@ struct AnimalDetailView: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width:128, height: 128)
                                 .padding(.leading,18)
+                                .clipShape(Circle())
                             }
                                
                             HStack{
