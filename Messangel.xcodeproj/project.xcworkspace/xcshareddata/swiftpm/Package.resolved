@@ -1,43 +1,41 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "NavigationStack",
-        "repositoryURL": "https://github.com/indieSoftware/NavigationStack.git",
-        "state": {
-          "branch": "master",
-          "revision": "900b75924f218a68c2487ab8a9c3fc7c42130705",
-          "version": null
-        }
-      },
-      {
-        "package": "Peppermint",
-        "repositoryURL": "https://github.com/nsagora/peppermint",
-        "state": {
-          "branch": null,
-          "revision": "2689147e5e2d6f26019c3968aa5f3173359a02e2",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "Introspect",
-        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
-        "state": {
-          "branch": null,
-          "revision": "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
-          "version": "0.1.3"
-        }
-      },
-      {
-        "package": "SwiftUIX",
-        "repositoryURL": "https://github.com/SwiftUIX/SwiftUIX",
-        "state": {
-          "branch": "master",
-          "revision": "299442b529a7507302c8a3c7153b74f8dab33ea4",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "navigationstack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/indieSoftware/NavigationStack.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "900b75924f218a68c2487ab8a9c3fc7c42130705"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "peppermint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nsagora/peppermint",
+      "state" : {
+        "revision" : "2689147e5e2d6f26019c3968aa5f3173359a02e2",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "revision" : "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
+        "version" : "0.1.3"
+      }
+    },
+    {
+      "identity" : "swiftuix",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftUIX/SwiftUIX",
+      "state" : {
+        "branch" : "master",
+        "revision" : "9ddd5330db4539ae364c4afc722ab586a86e7320"
+      }
+    }
+  ],
+  "version" : 2
 }

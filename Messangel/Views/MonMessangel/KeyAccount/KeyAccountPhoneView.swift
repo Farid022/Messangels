@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct KeyAccountPhoneView: View {
-    
+    @EnvironmentObject private var navigationModel: NavigationModel
+    var isVisible: Bool
     @State var password: String = "1234"
     @State var code: String = "123456"
+    @State private var hidePassword = true
+    var phoneDetail : PrimaryPhone
     var body: some View {
-        
+        NavigationStackView("KeyAccountPhoneView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -79,6 +83,21 @@ struct KeyAccountPhoneView: View {
                                HStack
                                 {
                               
+                                    if isVisible
+                                    {
+                                        TextField("", text: $password)
+                                                .font(.system(size: 15))
+                                                .disabled(true)
+                                                .frame(width:40)
+                                    }
+                                    else
+                                    {
+                                        SecureField("", text: $password)
+                                                .font(.system(size: 15))
+                                                .disabled(true)
+                                                .frame(width:40)
+                                    }
+                                        
                                 SecureField("", text: $password)
                                         .font(.system(size: 15))
                                         .disabled(true)
@@ -164,6 +183,12 @@ struct KeyAccountPhoneView: View {
                                 Spacer()
                             }
                             .frame(width:.infinity)
+                            .onTapGesture {
+                                navigationModel.pushContent("KeyAccountPhoneView") {
+                                    
+                                    EnterPasswordView(isEmail: false, emailDetail: PrimaryEmailAcc(email: "", password: "", note: "", deleteAccount: false), phoneDetail: phoneDetail)
+                                }
+                            }
                            
                            
                             Text("Numéro")
@@ -200,11 +225,12 @@ struct KeyAccountPhoneView: View {
            
             
         }
+        }
     }
 }
 
 struct KeyAccountPhoneView_Previews: PreviewProvider {
     static var previews: some View {
-        KeyAccountPhoneView()
+        KeyAccountPhoneView(isVisible: false, phoneDetail: PrimaryPhone(id: 0, name: "", phoneNum: "", pincode: "", deviceUnlockCode: ""))
     }
 }

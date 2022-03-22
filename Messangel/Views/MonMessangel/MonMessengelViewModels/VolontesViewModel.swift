@@ -78,4 +78,21 @@ class VolontesViewModel: ObservableObject {
             }
         }
     }
+    
+    func getCategories()
+    {
+        APIService.shared.getJSON(model: volontesProgresses, urlString: "users/service_category") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.volontesProgresses = items
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    
 }
+

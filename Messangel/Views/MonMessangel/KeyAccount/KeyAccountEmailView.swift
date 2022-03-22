@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct KeyAccountEmailView: View {
-
+    @EnvironmentObject private var navigationModel: NavigationModel
+    var isVisible: Bool
     @State var code: String = "Sophi64!"
+    var emailDetail : PrimaryEmailAcc
     var body: some View {
-        
+        NavigationStackView("KeyAccountEmailView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -63,9 +66,19 @@ struct KeyAccountEmailView: View {
                                HStack
                                 {
                               
-                                SecureField("", text: $code)
-                                        .font(.system(size: 15))
-                                        .disabled(true)
+                                    if isVisible
+                                    {
+                                        TextField("", text: $code)
+                                                .font(.system(size: 15))
+                                                .disabled(true)
+                                    }
+                                    else
+                                    {
+                                        SecureField("", text: $code)
+                                                .font(.system(size: 15))
+                                                .disabled(true)
+                                    }
+                               
                                         
                                     
                                         
@@ -106,6 +119,12 @@ struct KeyAccountEmailView: View {
                                 .frame(width: 133.5, height: 56)
                                 .background(Color.accentColor)
                                 .cornerRadius(22)
+                                .onTapGesture {
+                                    navigationModel.pushContent("KeyAccountEmailView") {
+                                        
+                                        EnterPasswordView(isEmail: true, emailDetail: emailDetail, phoneDetail: PrimaryPhone(id: 0, name: "", phoneNum: "", pincode: "", deviceUnlockCode: ""))
+                                    }
+                                }
                                 
                                 Spacer()
                             }
@@ -149,6 +168,7 @@ struct KeyAccountEmailView: View {
             
            
             
+        }
         }
     }
 }
@@ -224,6 +244,6 @@ struct KeyAccountDetailNoteView: View
 
 struct KeyAccountEmailView_Previews: PreviewProvider {
     static var previews: some View {
-        KeyAccountEmailView()
+        KeyAccountEmailView(isVisible: false, emailDetail: PrimaryEmailAcc(email: "", password: "", note: "", deleteAccount: true))
     }
 }

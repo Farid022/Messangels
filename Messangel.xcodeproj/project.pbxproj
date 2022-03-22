@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2311D88B27D9E9B0005CBDE2 /* PremisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */; };
+		231B6E9727E8E36500916A0D /* SocialNetworkSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231B6E9627E8E36500916A0D /* SocialNetworkSheetView.swift */; };
+		233522CE27E7BECE00C9FF46 /* categoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522CD27E7BECE00C9FF46 /* categoryDetailViewModel.swift */; };
+		233522D227E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522D127E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift */; };
+		233522D427E7C28F00C9FF46 /* EnterPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522D327E7C28F00C9FF46 /* EnterPasswordView.swift */; };
+		233522D627E7C29A00C9FF46 /* EnterOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522D527E7C29A00C9FF46 /* EnterOTPView.swift */; };
 		2335C9D727D53D0200FCA5B4 /* Volontes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335C9D627D53D0200FCA5B4 /* Volontes.swift */; };
 		2335CA3827D5D07200FCA5B4 /* FuneralOrganizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335CA2527D5D07100FCA5B4 /* FuneralOrganizationViewModel.swift */; };
 		2335CA3927D5D07200FCA5B4 /* CodePractiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2335CA2627D5D07100FCA5B4 /* CodePractiveViewModel.swift */; };
@@ -357,6 +362,11 @@
 
 /* Begin PBXFileReference section */
 		2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremisesViewModel.swift; sourceTree = "<group>"; };
+		231B6E9627E8E36500916A0D /* SocialNetworkSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkSheetView.swift; sourceTree = "<group>"; };
+		233522CD27E7BECE00C9FF46 /* categoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryDetailViewModel.swift; sourceTree = "<group>"; };
+		233522D127E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyAccountPhoneViewModel.swift; sourceTree = "<group>"; };
+		233522D327E7C28F00C9FF46 /* EnterPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordView.swift; sourceTree = "<group>"; };
+		233522D527E7C29A00C9FF46 /* EnterOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterOTPView.swift; sourceTree = "<group>"; };
 		2335C9D627D53D0200FCA5B4 /* Volontes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Volontes.swift; sourceTree = "<group>"; };
 		2335CA2527D5D07100FCA5B4 /* FuneralOrganizationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuneralOrganizationViewModel.swift; sourceTree = "<group>"; };
 		2335CA2627D5D07100FCA5B4 /* CodePractiveViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodePractiveViewModel.swift; sourceTree = "<group>"; };
@@ -781,8 +791,11 @@
 		239AE89627E2551E00955702 /* KeyAccount */ = {
 			isa = PBXGroup;
 			children = (
+				233522D527E7C29A00C9FF46 /* EnterOTPView.swift */,
+				233522D327E7C28F00C9FF46 /* EnterPasswordView.swift */,
 				239AE89227E2543F00955702 /* KeyAccountPhoneView.swift */,
 				239AE89427E2547400955702 /* KeyAccountEmailView.swift */,
+				233522D127E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift */,
 			);
 			path = KeyAccount;
 			sourceTree = "<group>";
@@ -791,6 +804,8 @@
 			isa = PBXGroup;
 			children = (
 				239AE89827E2554D00955702 /* CategoryDetailView.swift */,
+				233522CD27E7BECE00C9FF46 /* categoryDetailViewModel.swift */,
+				231B6E9627E8E36500916A0D /* SocialNetworkSheetView.swift */,
 			);
 			path = CategoryDetailView;
 			sourceTree = "<group>";
@@ -1647,6 +1662,7 @@
 				93671DAF276765C1009A4CF1 /* KeyAccRegPasswordView.swift in Sources */,
 				934A21D726515EF300607821 /* NetworkService.swift in Sources */,
 				93AC01F4271D87D800FD7285 /* FuneralCoffinInterior.swift in Sources */,
+				231B6E9727E8E36500916A0D /* SocialNetworkSheetView.swift in Sources */,
 				933911022768A80A00E262B3 /* KeyAccViewModel.swift in Sources */,
 				93AC02CA274B5B4000FD7285 /* AnimalDonationOrgList.swift in Sources */,
 				235A58C427BAC572007FF930 /* AestheticView.swift in Sources */,
@@ -1723,6 +1739,7 @@
 				93AC02C2274B5B4000FD7285 /* AnimalDonationsList.swift in Sources */,
 				235A58D027BAC6C8007FF930 /* ExpressionView.swift in Sources */,
 				933DF61027887E0A005966AF /* ClothDonationViewModel.swift in Sources */,
+				233522D627E7C29A00C9FF46 /* EnterOTPView.swift in Sources */,
 				93EFE7D5269BD73500F50894 /* DocGroupView.swift in Sources */,
 				939CBDC0277311B1004520A3 /* SocialNoteView.swift in Sources */,
 				933AA30A2664B563000D6D48 /* MessagesGroupView.swift in Sources */,
@@ -1772,9 +1789,11 @@
 				93AC02092721952F00FD7285 /* FuneralOrgIntro.swift in Sources */,
 				93AC026C2732702800FD7285 /* ExtraWishesDetails.swift in Sources */,
 				935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */,
+				233522CE27E7BECE00C9FF46 /* categoryDetailViewModel.swift in Sources */,
 				23D3CFC927BD751C009CDBF4 /* ManageContractsView.swift in Sources */,
 				2335CA4A27D5D07200FCA5B4 /* FuneralChoixViewModel.swift in Sources */,
 				23D3CFC527BD6C07009CDBF4 /* ObjectListView.swift in Sources */,
+				233522D227E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
 				235A58C827BAC597007FF930 /* AnimalDetailView.swift in Sources */,
 				939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */,
@@ -1931,6 +1950,7 @@
 				934B0E1926B28FFC0008DCE5 /* AudioViewModel.swift in Sources */,
 				93AC02DA274B64B400FD7285 /* DonationOrganization.swift in Sources */,
 				93671DB52767661E009A4CF1 /* KeyAccRegTelView.swift in Sources */,
+				233522D427E7C28F00C9FF46 /* EnterPasswordView.swift in Sources */,
 				93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */,
 				934B0E1126B119EB0008DCE5 /* SponsorViewModel.swift in Sources */,
 				2335CA4027D5D07200FCA5B4 /* ObjectListViewModel.swift in Sources */,

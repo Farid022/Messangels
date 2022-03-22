@@ -591,9 +591,17 @@ struct DigitalLifeListView: View
                 {
                     index, item in
                     MesVoluntesItem(type: "ic_email", item: item.email)
+                        .onTapGesture {
+                            navigationModel.pushContent("MonMessangelView") {
+                                
+                                
+                                
+                                KeyAccountEmailView(isVisible: false, emailDetail: item)
+                                
                         
 
-                }
+                                }
+                        }
                 .padding(.leading,24)
                 .padding(.trailing,24)
                 
@@ -601,6 +609,17 @@ struct DigitalLifeListView: View
                 {
                     index, item in
                     MesVoluntesItem(type: "ic_mobile", item: item.phoneNum)
+                        .onTapGesture {
+                            navigationModel.pushContent("MonMessangelView") {
+                                
+                                
+                                
+                                KeyAccountPhoneView(isVisible: false, phoneDetail: item)
+                                
+                        
+
+                                }
+                        }
                         
 
                 }
@@ -612,6 +631,7 @@ struct DigitalLifeListView: View
         .padding(.leading,18)
         .padding(.trailing,18)
     }
+}
 }
 
 struct ServiceCategoryListView: View
@@ -658,6 +678,18 @@ struct ServiceCategoryListView: View
                 {
                     index, item in
                     MesVoluntesItem(type: "", item: item.name)
+                        .onTapGesture {
+                            navigationModel.pushContent("MonMessangelView") {
+                                
+                                
+                                
+                                    CategoryDetailView()
+                                
+                        
+
+                                }
+                        }
+                        
                         
 
                 }

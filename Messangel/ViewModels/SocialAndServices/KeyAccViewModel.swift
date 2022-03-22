@@ -12,7 +12,7 @@ struct PrimaryEmailAcc: Hashable, Codable {
     var id: Int?
     var email, password, note: String
     var deleteAccount: Bool
-    var user: Int
+    var user: Int?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -28,7 +28,7 @@ struct PrimaryEmailAcc: Hashable, Codable {
 struct PrimaryPhone: Hashable, Codable {
     var id: Int?
     var name, phoneNum, pincode, deviceUnlockCode: String
-    var user: Int
+    var user: Int?
 
     enum CodingKeys: String, CodingKey {
         case id

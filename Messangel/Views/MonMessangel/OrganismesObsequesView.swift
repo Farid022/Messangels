@@ -42,10 +42,10 @@ struct OrganismesObsequesView: View {
                                    .padding(.bottom,40)
                                    .padding(.horizontal)
                           
-                            OrganismesItem(title: "Mon entreprise funéraire", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [organismesViewModel.organismes.funeral_company ?? Organismes()])
+                            OrganismesItem(title: "Mon entreprise funéraire", description: organismesViewModel.organismes.chose_funeral_home_note ?? "", items: [organismesViewModel.organismes.funeral_company ?? Organismes()])
                                 .padding(.bottom,40)
                             
-                            FuneralContractView()
+                            FuneralContractView(data: organismesViewModel.organismes)
                                 .padding(.bottom,40)
                             
                             if organismesViewModel.organismes.chose_funeral_home == true
@@ -76,6 +76,7 @@ struct OrganismesObsequesView: View {
 
 struct FuneralContractView: View
 {
+    var data: OgranismesData
     var body: some View {
         ZStack{
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
@@ -93,9 +94,9 @@ struct FuneralContractView: View
              
         
              
-             MonCercueilWithListView(title: "Organisme", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items:  [MesVolenteItem(title: "Nom de l’organisme", type:"ic_company")])
+             MonCercueilWithListView(title: "Organisme", description: "", items:  [data.funeral_company ?? Organismes()])
              
-             MonCercueilWithListView(title: "Numéro de contrat", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items:  [])
+             MonCercueilWithListView(title: "Numéro de contrat", description: "", items:  [])
          }
         }
         .cornerRadius(22)
@@ -134,14 +135,18 @@ struct OrganismesItem: View
                 .padding(.bottom)
             }
             HStack(alignment:.top){
-                Image("ic_note")
+               
+                if description.count > 0
+                {
+                    Image("ic_note")
                 
-                Text(description)
+                    Text(description)
                        .font(.system(size: 14))
                        .fontWeight(.regular)
                        .padding(.bottom,40)
                        .padding(.leading,16)
                        .padding(.trailing,24)
+                }
                 
             }
             .padding(.leading,24)
@@ -209,7 +214,7 @@ struct MonCercueilWithListItem: View
 {
     var title: String
     var description: String
-    var items: [MesVolenteItem]
+    var items: [Organismes]
     var body: some View {
         
         VStack(alignment:.leading)
@@ -225,7 +230,7 @@ struct MonCercueilWithListItem: View
                 ForEach(enumerating: items, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: item.type, item: item.title)
+                    MesVoluntesItem(type: "ic_company", item: item.name ?? "")
 
                 }
                 
@@ -254,7 +259,8 @@ struct MonCercueilWithListView: View
 {
     var title: String
     var description: String
-    var items: [MesVolenteItem]
+    var items: [Organismes]
+    //var items: [MesVolenteItem]
     var body: some View {
         
         VStack(alignment:.leading)
