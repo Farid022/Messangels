@@ -10,9 +10,8 @@ import NavigationStack
 
 struct KeyAccRegChoiceView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @State private var selectedChoice = KeyAccChoice.none
-    @State private var valid = false
     @State private var showNote = false
+    @State private var loading = false
     @State private var note = ""
     @ObservedObject var vm: KeyAccViewModel
     var keyAccCase: KeyAccCase
@@ -20,48 +19,43 @@ struct KeyAccRegChoiceView: View {
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
-                .zIndex(1.0)
-                .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
+                FuneralNote(showNote: $showNote, note: $vm.keyEmailAcc.note)
+                    .zIndex(1.0)
+                    .background(.black.opacity(0.8))
+                    .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction: true, customAction: {
-                if valid {
-                    vm.addPrimaryEmailAcc { success in
-                        if success {
-                            if keyAccCase == .register {
-                                navigationModel.pushContent("\(vm.keyEmailAcc.email) - Que souhaitez-vous faire de ce compte après votre départ?") {
-                                    KeyAccRegPhoneNameView()
+            FlowBaseView(stepNumber: 3.0, totalSteps: 6.0, isCustomAction: true, customAction: {
+                loading.toggle()
+                vm.addPrimaryEmailAcc { success in
+                    loading.toggle()
+                    if success {
+                        if keyAccCase == .register {
+                            navigationModel.pushContent("\(vm.keyEmailAcc.email) - Que souhaitez-vous faire de ce compte après votre départ?") {
+                                KeyAccRegPhoneNameView(vm: vm)
+                            }
+                        } else {
+                            vm.getKeyAccounts { success in
+                                if success {
+                                    navigationModel.popContent(KeyMailsAndPhonesView.id)
                                 }
-                            } else {
-                                navigationModel.popContent("navigationModel")
                             }
                         }
                     }
                 }
-            }, note: true, showNote: $showNote, menuTitle: "Comptes-clés", title: "\(vm.keyEmailAcc.email) - Que souhaitez-vous faire de ce compte après votre départ?", valid: $valid) {
+            }, note: true, showNote: $showNote, menuTitle: "Comptes-clés", title: "\(vm.keyEmailAcc.email) - Que souhaitez-vous faire de ce compte après votre départ?", valid: .constant(vm.keyEmailAcc.deleteAccount != nil)) {
                 
-                KeyAccRegChoiceChildView(selectedChoice: $selectedChoice, vm: vm)
-            }
-            .onChange(of: selectedChoice) { value in
-                valid = selectedChoice != .none
-            }
-        }
-    }
-}
-
-struct KeyAccRegChoiceChildView: View {
-    var keyAccRegChoices = [KeyAccChoice.remove, KeyAccChoice.manage]
-    @Binding var selectedChoice: KeyAccChoice
-    @ObservedObject var vm: KeyAccViewModel
-    var body: some View {
-        HStack {
-            ForEach(keyAccRegChoices, id: \.self) { choice in
-                ChoiceCard(text: choice == .remove ? "Supprimer le compte" : "Gérer le compte (Note)", selected: .constant(selectedChoice == choice))
-                    .onTapGesture {
-                        selectedChoice = choice
-                        vm.keyEmailAcc.deleteAccount = choice == .remove
+                HStack {
+                    ForEach([true, false], id: \.self) { choice in
+                        ChoiceCard(text: choice ? "Supprimer le compte" : "Gérer le compte (Note)", selected: .constant(vm.keyEmailAcc.deleteAccount == choice))
+                            .onTapGesture {
+                                vm.keyEmailAcc.deleteAccount = choice
+                            }
                     }
+                }
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

@@ -13,6 +13,7 @@ struct PhotosSelectionView: View {
     @EnvironmentObject var viewModel: AlbumViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     @State var showGallery = false
+    var group: MsgGroupDetail
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -46,9 +47,8 @@ struct PhotosSelectionView: View {
                             LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 3.0), count: 2), spacing: 3.0) {
                                 ForEach(viewModel.albumImages, id: \.self) { i in
                                     Image(uiImage: i.image)
-                                        .resizable()
+                                        .centerCropped()
                                         .frame(width: (UIScreen.main.bounds.width-15)/2, height: 250)
-                                        .aspectRatio(contentMode: .fit)
                                 }
                             }
                             .padding(.horizontal, -10)
@@ -58,7 +58,7 @@ struct PhotosSelectionView: View {
                 .padding(.top, -47)
             }
             if showGallery {
-                BottomView(viewModel: viewModel, showGallery: $showGallery)
+                BottomView(viewModel: viewModel, showGallery: $showGallery, group: group)
             }
         }
         .edgesIgnoringSafeArea(.bottom)
@@ -69,26 +69,67 @@ struct BottomView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var viewModel: AlbumViewModel
     @Binding var showGallery: Bool
-    var body: some View {
-        HStack(alignment: .top) {
-            Button(action: {
-                DispatchQueue.main.async {
-                    withAnimation() {
-                        showGallery.toggle()
-                    }
-                }
-            }) {
-                Text("Valider")
-                    .foregroundColor(.white)
-                    .padding(.vertical,10)
-                    .frame(width: UIScreen.main.bounds.width / 2)
+    @StateObject private var glrVM = GalleryViewModel()
+    @State private var isPerformingTask = false
+    var group: MsgGroupDetail
+    
+    private func uploadAndCreate() {
+        Task {
+            var totalSize = 0
+            for album in viewModel.albumImages {
+                let (uploadedImage, size) = await uploadImage(album.image, type: "gallery")
+                glrVM.gallery.images.append(GImage(imageLink: uploadedImage, size: size))
+                totalSize += size
             }
-            .background(Color.accentColor)
-            .clipShape(Capsule())
-            .padding(.bottom)
-            .disabled(self.viewModel.albumImages.count == 0 ? true : false)
+            glrVM.gallery.group = group.id
+            glrVM.gallery.size = totalSize
+            glrVM.create { _ in
+                isPerformingTask.toggle()
+                withAnimation() {
+                    showGallery.toggle()
+                }
+            }
         }
-        .frame(width: UIScreen.main.bounds.width, height: 120)
-        .background(Color.white)
+    }
+    
+    var body: some View {
+        ZStack {
+            if !isPerformingTask {
+                HStack(alignment: .top) {
+                    Button(action: {
+                        isPerformingTask.toggle()
+                        if let gallery = group.galleries, gallery.isEmpty {
+                            uploadAndCreate()
+                        } else {
+                            glrVM.gallery.group = group.id
+                            glrVM.gallery.size = 0
+                            glrVM.gallery.images = []
+                            glrVM.create { success in
+                                if success {
+                                    uploadAndCreate()
+                                }
+                            }
+                        }
+                    }) {
+                        Text("Valider")
+                            .foregroundColor(.white)
+                            .padding(.vertical,10)
+                            .frame(width: UIScreen.main.bounds.width / 2)
+                    }
+                    .background(Color.accentColor)
+                    .clipShape(Capsule())
+                    .padding(.bottom)
+                    .disabled(self.viewModel.albumImages.count == 0)
+                    .hidden(isPerformingTask)
+                }
+                .frame(width: UIScreen.main.bounds.width, height: 120)
+                .background(Color.white)
+            }
+            else {
+                Color.white.opacity(0.7)
+                    .ignoresSafeArea()
+                Loader()
+            }
+        }
     }
 }

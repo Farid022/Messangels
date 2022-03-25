@@ -11,7 +11,7 @@ struct MsgVideo: Codable, Hashable {
     var id: Int
     var name: String
     var video_link: String
-    var size: String?
+    var size: Int?
     var group: Int
     var created_at: String?
 }
@@ -36,6 +36,38 @@ class VideoViewModel: ObservableObject {
                     self.apiError = error
                     completion()
                 }
+            }
+        }
+    }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: video, response: video, endpoint: "mon-messages/video/\(id)", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.video = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    func delete(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.delete(endpoint: "mon-messages/video/\(id)") { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
             }
         }
     }

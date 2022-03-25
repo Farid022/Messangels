@@ -13,6 +13,7 @@ struct CreateOrgView: View {
     @StateObject var vm = OrgViewModel()
     @State private var isValid = false
     @State private var alert = false
+    @State private var loading = false
     var type: String
     @Binding var refresh: Bool
     
@@ -43,7 +44,9 @@ struct CreateOrgView: View {
             Button(action: {
                 if isValid {
                     vm.newOrg.type = type
+                    loading.toggle()
                     vm.create { success in
+                        loading.toggle()
                         if success {
                             refresh.toggle()
                             navigationModel.hideTopViewWithReverseAnimation()
@@ -59,6 +62,10 @@ struct CreateOrgView: View {
                 }
             }
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
+            if loading {
+                Loader()
+                    .padding(.top)
+            }
         }
         .alert(isPresented: $alert, content: {
             Alert(title: Text(vm.apiError.error), message: Text(vm.apiError.error_description))

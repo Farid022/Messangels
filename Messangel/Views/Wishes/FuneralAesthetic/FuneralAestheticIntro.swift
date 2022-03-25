@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct FuneralAestheticIntro: View {
+    @StateObject private var vm = FueneralAstheticViewModel()
 
     var body: some View {
         NavigationStackView("FuneralAestheticIntro") {
@@ -37,11 +38,22 @@ struct FuneralAestheticIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralAestheticIntro", destination: AnyView(FuneralFlowers()), active: .constant(true))
+                        NextButton(source: "FuneralAestheticIntro", destination: AnyView(FuneralFlowers(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.asthetics.count > 0 {
+                        let i = vm.asthetics[0]
+                        vm.asthetic = FueneralAsthetic(special_decoration_note: i.special_decoration_note, attendence_dress_note: i.attendence_dress_note, guest_accessories_note: i.guest_accessories_note, flower: i.flower.id)
+                        vm.updateRecord = true
+                    }
+                }
+            }
         }
     }
 }

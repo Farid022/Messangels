@@ -5,57 +5,65 @@
 //  Created by Saad on 10/18/21.
 //
 
-import SwiftUIX
 import SwiftUI
 import NavigationStack
 
 struct OrganDonateRefuse: View {
-    var funeralTypes = [FuneralBool.yes, FuneralBool.no]
-    @State private var valid = false
-    @State private var selectedFuneral = FuneralBool.none
+    private let title = "Avez-vous enregistré ce choix dans le registre national des refus ?"
     @State private var showNote = false
-    @State private var note = ""
+    @State private var loading = false
     @ObservedObject var vm: OrganDonationViewModel
     @EnvironmentObject var navModel: NavigationModel
     
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
+                FuneralNote(showNote: $showNote, note: $vm.donation.register_to_national_note.bound)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(isCustomAction:true, customAction: {
-                if !valid { return; }
-                
-                if selectedFuneral == .yes {
-                    vm.create() { success in
-                        if success {
-                            navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
-                                FuneralDoneView()
+            FlowBaseView(stepNumber: 2.0, totalSteps: 4.0, isCustomAction:true, customAction: {                
+                if let register_to_national = vm.donation.register_to_national, register_to_national {
+                    loading.toggle()
+                    if !vm.updateRecord {
+                        vm.create() { success in
+                            if success {
+                                WishesViewModel.setProgress(tab: 4) { completed in
+                                    loading.toggle()
+                                    if completed {
+                                        wishChoiceSuccessAction(title, navModel: navModel)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        vm.update(id: vm.donations[0].id) { success in
+                            loading.toggle()
+                            if success {
+                                wishChoiceSuccessAction(title, navModel: navModel)
                             }
                         }
                     }
                     
                 } else {
-                    navModel.pushContent("Avez-vous enregistré ce choix dans le registre national des refus ?") {
+                    navModel.pushContent(title) {
                         OrganDonateRefusalNotReg(vm: vm)
                     }
                 }
-            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Avez-vous enregistré ce choix dans le registre national des refus ?", valid: $valid) {
+            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la#science", title: title, valid: .constant(vm.donation.register_to_national != nil)) {
                 HStack {
-                    ForEach(funeralTypes, id: \.self) { type in
-                        ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
+                    ForEach([true, false], id: \.self) { opt in
+                        ChoiceCard(text: opt ? "Oui" : "Non", selected: .constant(vm.donation.register_to_national == opt))
                             .onTapGesture {
-                                selectedFuneral = type
-                                vm.donation.register_to_national = type == .yes
+                                vm.donation.register_to_national = opt
                             }
                     }
                 }
-            }
-            .onChange(of: selectedFuneral) { value in
-                valid = selectedFuneral != .none
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

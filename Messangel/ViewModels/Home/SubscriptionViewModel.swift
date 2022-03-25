@@ -36,13 +36,14 @@ struct Card: Codable {
 struct Subscription: Codable {
     var id: Int?
     var userID, planID: Int
-    var startDate, endDate, consumptionInMB: String?
+    var status, startDate, endDate, consumptionInMB: String?
     var card: Card?
 
     enum CodingKeys: String, CodingKey {
         case id
         case userID = "user_id"
         case planID = "plan_id"
+        case status
         case startDate = "start_date"
         case endDate = "end_date"
         case consumptionInMB = "consumption_in_mb"
@@ -51,19 +52,24 @@ struct Subscription: Codable {
 }
 
 class SubscriptionViewModel: ObservableObject {
+    @Published var checkingSubscription = false
     @Published var gotSubscription = false
     @Published var subscriptions = [Subscription] ()
-    @Published var subscription = Subscription(userID: 0, planID: 4, card: Card(number: 0,expMonth: 1,expYear: 2022, cvc: 33, currency: "eur"))
+    @Published var subscription = Subscription(userID: 0, planID: 1, card: Card(number: 0,expMonth: 1,expYear: 2022, cvc: 33, currency: "eur"))
     @Published var plans = [SubscriptionPlan]()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func checkSubscription() {
+        self.checkingSubscription.toggle()
         self.subscription.userID = getUserId()
         self.getSubscriptions { success in
-            if success {
-                print("\(self.subscriptions.count > 0 ? "User has subscription" : "No Subscriptions available!")")
-                self.gotSubscription.toggle()
+            DispatchQueue.main.async {
+                self.checkingSubscription.toggle()
+                self.gotSubscription = true
+                if success {
+                    print("\(self.subscriptions.filter( {$0.status == "1"} ).count > 0 ? "User has subscription" : "No Subscriptions available!")")
+                }
             }
         }
     }
@@ -83,6 +89,23 @@ class SubscriptionViewModel: ObservableObject {
                     completion(false)
                 }
             }
+        }
+    }
+    
+    func unsubscribe() async {
+        var request = URLRequest(url: URL(string: "https://messangel.caansoft.com/api/v1/users/subscriptions/\(getUserId())/cancel")!)
+        request.setValue("Bearer \(UserDefaults.standard.string(forKey: "token") ?? "")", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "PATCH"
+        do {
+            let (data, response) = try await URLSession.shared.upload(for: request, from: Data())
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Unsubscribe Status code: \(httpResponse.statusCode)")
+            }
+            print(String(data: data, encoding: .utf8) ?? "")
+//            let decoder = JSONDecoder()
+//            let decodedData = try decoder.decode(Networking.APIResponse.self, from: data)
+        } catch (let error) {
+            print("Unsubscribe error: " + error.localizedDescription)
         }
     }
     

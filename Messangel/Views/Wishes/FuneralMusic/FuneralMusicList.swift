@@ -11,32 +11,40 @@ import NavigationStack
 struct FuneralMusicList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: FuneralMusicViewModel
+    var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"FuneralMusicList", menuTitle: "Musique") {
+        FuneralItemList(id: String(describing: Self.self), menuTitle: "Musique", newItemView: AnyView(FuneralMusicArtist(vm: FuneralMusicViewModel()))) {
             ForEach(vm.musics, id: \.self) { music in
-                FuneralItemCard(title: music.song_title, icon: "ic_music_white")
+                FuneralItemCard(title: "\(music.artist_name) - \(music.song_title)", icon: "ic_music_white")
                     .onTapGesture {
-                        navigationModel.pushContent("FuneralMusicList") {
+                        navigationModel.pushContent(String(describing: Self.self)) {
                             FuneralMusicDetails(vm: vm, music: music)
                         }
                     }
             }
         }
         .onDidAppear() {
-            vm.getMusics()
+            if refresh {
+                vm.getMusics { _ in
+                    
+                }
+            }
         }
     }
 }
 
 struct FuneralItemList<Content: View>: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
     let id: String
     let menuTitle: String
+    let newItemView: AnyView
     let content: Content
-    init(id: String, menuTitle: String, @ViewBuilder content: () -> Content) {
+    init(id: String, menuTitle: String, newItemView: AnyView, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.id = id
         self.menuTitle = menuTitle
+        self.newItemView = newItemView
     }
     var body: some View {
         NavigationStackView(id) {
@@ -49,41 +57,18 @@ struct FuneralItemList<Content: View>: View {
                        Spacer()
                         HStack {
                             Spacer()
-                            NextButton(source: id,destination: AnyView(FuneralDoneView()), color: .accentColor,iconColor: .white, active: .constant(true))
+                            Button(action: {
+                                navigationModel.pushContent(id) {
+                                    newItemView
+                                }
+                            }, label: {
+                                Image("ic_add_btn")
+                            })
                         }
-                        .padding(.trailing)
                     }
                     .zIndex(1.0)
                     VStack(spacing: 20) {
-                        Color.accentColor
-                            .frame(height:90)
-                            .padding(.horizontal, -20)
-                        
-                        VStack {
-                            Color.accentColor
-                                .frame(height: 35)
-                                .overlay(Text(menuTitle)
-                                            .font(.system(size: 22))
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                            .padding([.leading, .bottom])
-                                         ,
-                                         alignment: .leading)
-                            Color.white
-                                .frame(height: 15)
-                        }
-                        .frame(height: 50)
-                        .padding(.horizontal, -16)
-                        .padding(.top, -16)
-                        .overlay(HStack {
-                            Spacer()
-                            Rectangle()
-                                .fill(Color.white)
-                                .frame(width: 60, height: 60)
-                                .cornerRadius(25)
-                                .normalShadow()
-                                .overlay(Image("info"))
-                        })
+                        NavigationTitleView(menuTitle: menuTitle, showExitAlert: .constant(false))
                         Spacer().frame(height: 17)
                         ScrollView(showsIndicators: false) {
                             content

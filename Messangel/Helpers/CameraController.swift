@@ -71,21 +71,21 @@ extension CameraController {
         func configureDeviceInputs() throws {
             guard let captureSession = self.captureSession else { throw CameraControllerError.captureSessionIsMissing }
             
-            if let rearCamera = self.rearCamera {
-                self.rearCameraInput = try AVCaptureDeviceInput(device: rearCamera)
-                
-                if captureSession.canAddInput(self.rearCameraInput!) { captureSession.addInput(self.rearCameraInput!) }
-                
-                self.currentCameraPosition = .rear
-            }
-            
-            else if let frontCamera = self.frontCamera {
+            if let frontCamera = self.frontCamera {
                 self.frontCameraInput = try AVCaptureDeviceInput(device: frontCamera)
                 
                 if captureSession.canAddInput(self.frontCameraInput!) { captureSession.addInput(self.frontCameraInput!) }
                 else { throw CameraControllerError.inputsAreInvalid }
                 
                 self.currentCameraPosition = .front
+            }
+
+            else if let rearCamera = self.rearCamera {
+                self.rearCameraInput = try AVCaptureDeviceInput(device: rearCamera)
+                
+                if captureSession.canAddInput(self.rearCameraInput!) { captureSession.addInput(self.rearCameraInput!) }
+                
+                self.currentCameraPosition = .rear
             }
             
             else { throw CameraControllerError.noCamerasAvailable }

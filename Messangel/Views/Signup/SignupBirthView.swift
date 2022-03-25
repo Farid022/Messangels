@@ -5,18 +5,19 @@
 //  Created by Saad on 5/6/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import NavigationStack
 
 struct SignupBirthView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @State private var dob = Calendar.current.date(byAdding: .year, value: -18, to: Date())!
+    @State private var dob = Date()
     @State private var progress = 12.5
     @State private var valid = false
     @State private var dobSelected = false
     @State private var editing = true
     @State var offset : CGFloat = UIScreen.main.bounds.height
     @ObservedObject var userVM: UserViewModel
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         ZStack {
@@ -40,19 +41,14 @@ struct SignupBirthView: View {
                 Text("Dans la ville de")
                     .font(.system(size: 22))
                     .fontWeight(.bold)
-                CocoaTextField("Ville", text: $userVM.user.city, onCommit:  {
-                    if valid {
-                        navigationModel.pushContent("SignupBirthView") {
-                            SignupPostcodeView(userVM: userVM)
-                        }
-                    }
-                })
-                .font(.systemFont(ofSize: 17))
-                .xTextFieldStyle()
+                TextField("Ville", text: $userVM.user.city)
+                    .textContentType(.addressCity)
+                    .submitLabel(.next)
+                    .focused($isFocused)
             }
             VStack {
                 Spacer()
-                CustomActionSheet(dob: $dob, dob_str: $userVM.user.dob, offset: $offset)
+                CustomActionSheet(dob: $dob, dob_str: $userVM.user.dob, offset: $offset, isFocused: _isFocused, city: userVM.user.city)
                     .onTapGesture {}
                     .offset(y: self.offset)
             }
@@ -66,11 +62,18 @@ struct SignupBirthView: View {
                 }
             }
         }
-        .animation(.default)
+        .animation(.default, value: offset)
         .onChange(of: userVM.user.city) { value in
             self.validate()
         }
         .onDidAppear {
+            if userVM.user.dob.isEmpty {
+                self.dob = Calendar.current.date(byAdding: .year, value: -18, to: Date())!
+                self.offset = 0
+                self.dobSelected = true
+            } else if let date = strToDate(userVM.user.dob) {
+                self.dob = date
+            }
             self.validate()
         }
     }
@@ -84,6 +87,8 @@ struct CustomActionSheet : View {
     @Binding var dob: Date
     @Binding var dob_str: String
     @Binding var offset : CGFloat
+    @FocusState var isFocused: Bool
+    var city: String
     
     var body : some View{
         VStack(){
@@ -95,25 +100,16 @@ struct CustomActionSheet : View {
             Button(action: {
                 offset = UIScreen.main.bounds.height
                 dob_str = dateToStr(dob)
+                if city.isEmpty {
+                    isFocused = true
+                }
             }) {
                 Text("OK")
             }
         }
-        .padding(.bottom, (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! )
+        .padding(.bottom, (UIApplication.keyWindow?.safeAreaInsets.bottom)! )
         .padding(.top)
         .background(Color(UIColor.systemBackground))
         .cornerRadius(25)
     }
 }
-
-func dateToStr(_ date: Date, dateFormat: String = "yyyy-MM-dd") -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = dateFormat
-    return dateFormatter.string(from: date)
-}
-
-//struct SignupBirthView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupBirthView()
-//    }
-//}

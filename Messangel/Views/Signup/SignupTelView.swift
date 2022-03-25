@@ -5,7 +5,7 @@
 //  Created by Saad on 5/7/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import Combine
 
 struct SignupTelView: View {
@@ -14,42 +14,42 @@ struct SignupTelView: View {
     @State private var valid = false
     @State private var editing = true
     @State private var phone_number = ""
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupCodeView(userVM: userVM)), currentView: "SignupTelView", footer: AnyView(MyLink(url: "https://www.google.com", text: "Politique de confidentialité"))) {
             Text("Mon numéro de téléphone mobile")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            CocoaTextField("Numéro de téléphone", text: $phone_number)
+            TextField("Numéro de téléphone", text: $phone_number)
                 .keyboardType(.numberPad)
-                .isFirstResponder(true)
                 .textContentType(.telephoneNumber)
-                .xTextFieldStyle()
+                .focused($isFocused)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
                 .onReceive(Just(phone_number)) { inputValue in
-                    if inputValue.count > 14 {
+                    if inputValue.count > 17 {
                         phone_number.removeLast()
                     }
                 }
         }
+        .onDidAppear {
+            isFocused = true
+        }
         .onChange(of: phone_number) { value in
-            phone_number = value.applyPatternOnNumbers(pattern: "## ## ## ## ##", replacmentCharacter: "#")
+            phone_number = value.applyPatternOnNumbers(pattern: "## ## ## ## ## ##", replacmentCharacter: "#")
             self.validate()
+            if valid {
+                isFocused = false
+            }
         }
     }
     
     private func validate() {
         userVM.user.phone_number = phone_number.replacingOccurrences(of: " ", with: "")
-        valid = userVM.user.phone_number.count == 10
+        valid = userVM.user.phone_number.count == 10 || userVM.user.phone_number.count == 12
     }
 }
-
-//struct SignupTelView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupTelView(userVM: UserViewModel())
-//    }
-//}
 
 extension String {
 

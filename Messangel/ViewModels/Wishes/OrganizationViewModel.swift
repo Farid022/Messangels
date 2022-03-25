@@ -13,7 +13,7 @@ struct Organization: Hashable, Codable {
     var emailAddress, phoneNumber, contactName: String?
     var address, postalCode, city, website: String?
     var type: String
-    var user: Int
+    var user = getUserId()
 
     enum CodingKeys: String, CodingKey {
         case id, name
@@ -27,7 +27,8 @@ struct Organization: Hashable, Codable {
 }
 
 class OrgViewModel: ObservableObject {
-    @Published var newOrg = Organization(name: "", type: "1", user: getUserId())
+    @Published var orgs = [Organization]()
+    @Published var newOrg = Organization(name: "", type: "1")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func create(completion: @escaping (Bool) -> Void) {
@@ -44,6 +45,19 @@ class OrgViewModel: ObservableObject {
                     self.apiError = error
                     completion(false)
                 }
+            }
+        }
+    }
+    
+    func getOrgs(_ type: Int) {
+        APIService.shared.getJSON(model: orgs, urlString: "choices/\(getUserId())/organization?type=\(type)") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.orgs = items
+                }
+            case .failure(let error):
+                print(error)
             }
         }
     }

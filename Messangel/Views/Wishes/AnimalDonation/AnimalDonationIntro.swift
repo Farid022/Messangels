@@ -9,9 +9,11 @@ import SwiftUI
 import NavigationStack
 
 struct AnimalDonationIntro: View {
-
+    @StateObject private var vm = AnimalDonatiopnViewModel()
+    @State private var gotList = false
+    @EnvironmentObject private var navigationModel: NavigationModel
     var body: some View {
-        NavigationStackView("AnimalDonationIntro") {
+        NavigationStackView(String(describing: Self.self)) {
             ZStack(alignment: .topLeading) {
                 Color.accentColor
                     .ignoresSafeArea()
@@ -37,11 +39,25 @@ struct AnimalDonationIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "AnimalDonationIntro", destination: AnyView(AnimalDonationNew()), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent(String(describing: Self.self)) {
+                                if vm.donations.isEmpty {
+                                    AnimalDonationNew(vm: vm)
+                                } else {
+                                    AnimalDonationsList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.getAll { _ in
+                gotList.toggle()
+            }
         }
     }
 }

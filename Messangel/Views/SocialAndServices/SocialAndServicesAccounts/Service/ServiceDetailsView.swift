@@ -11,23 +11,21 @@ import NavigationStack
 struct ServiceDetailsView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @State private var showDeleteConfirm = false
-    var serviceName: String
-    var note: String
-    var confirmMessage = "Les informations liées seront supprimées définitivement"
+    @ObservedObject var vm: OnlineServiceViewModel
+    var account: OnlineServiceAccountDetail
+    private let confirmMessage = "Les informations liées seront supprimées définitivement"
     
     var body: some View {
         ZStack {
-            if showDeleteConfirm {
-                Color.black.opacity(0.8)
-                    .ignoresSafeArea()
-                    .overlay(MyAlert(title: "Supprimer ce compte-clé", message: confirmMessage, action: {
-                        navigationModel.pushContent("ServiceDetailsView") {
-                            KeyAccRegSecView(keyAccCase: .delEmail)
-                        }
-                    }, showAlert: $showDeleteConfirm))
-                    .zIndex(1.0)
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce compte-clé") {
+                vm.del(id: account.id) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: ServicesListView.self))
+                        vm.getAccounts { _ in }
+                    }
+                }
             }
-            NavigationStackView("ServiceDetailsView") {
+            NavigationStackView(String(describing: Self.self)) {
                 ZStack(alignment:.top) {
                     Color.accentColor
                         .frame(height:70)
@@ -68,46 +66,20 @@ struct ServiceDetailsView: View {
                                 .overlay(Image("info"))
                         })
                         HStack {
-                            Text("< \(serviceName)")
+                            BackButton(iconColor: .gray)
+                            Text("\(account.accountFields.onlineService.name)")
                                 .font(.system(size: 22), weight: .bold)
                             Spacer()
                         }
                         ServiceDetailsSubView()
-                        if !note.isEmpty {
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .foregroundColor(.gray.opacity(0.2))
-                                .frame(height: 430)
-                                .overlay(VStack {
-                                    HStack{
-                                        Image("ic_note")
-                                        Text("Note")
-                                            .font(.system(size: 15), weight: .bold)
-                                        Spacer()
-                                    }
-                                    Text(note)
-                                }
-                                .padding()
-                                )
-                            .padding(.bottom, 30)
-                        } else {
-                            /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
+                        DetailsNoteView(note: account.accountFields.manageAccountNote)
+                        DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+//                            vm.account = OnlineServiceAccount(id: account.id, accountId: account.id, lastPostNote: account.lastPostNote, lastPostImage: account.lastPostImage, leaveMsgTime: account.leaveMsgTime, memorialAccount: account.memorialAccount)
+//                            vm.updateRecord = true
+//                            navigationModel.pushContent(String(describing: Self.self)) {
+//
+//                            }
                         }
-                        HStack {
-                            Group {
-                                Button(action: {}, label: {
-                                    Text("Modifier")
-                                })
-                                Button(action: {
-                                    showDeleteConfirm.toggle()
-                                }, label: {
-                                    Text("Supprimer")
-                                })
-                            }
-                            .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                            .normalShadow()
-                            Spacer()
-                        }
-                        Spacer()
                     }
                     .padding()
                 }

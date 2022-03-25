@@ -6,86 +6,74 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct ObjectsDonationDetails: View {
-    var title: String
-    var note: String
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @ObservedObject var vm: ObjectDonationViewModel
+    var donation: ObjectDonationDetails
+    var confirmMessage = "Les informations liées seront supprimées définitivement"
+    @State private var showDeleteConfirm = false
+    @State private var fullScreenPhoto = false
     
     var body: some View {
-        ZStack(alignment:.top) {
-            Color.accentColor
-                .frame(height:70)
-                .edgesIgnoringSafeArea(.top)
-            VStack(spacing: 20) {
-                Color.accentColor
-                    .frame(height:90)
-                    .padding(.horizontal, -20)
-                    .overlay(
-                        HStack {
-                            BackButton()
-                            Spacer()
-                        }, alignment: .top)
-                
-                VStack {
-                    Color.accentColor
-                        .frame(height: 35)
-                        .overlay(Text("Objets")
-                                    .font(.system(size: 22))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding([.leading, .bottom])
-                                 ,
-                                 alignment: .leading)
-                    Color.white
-                        .frame(height: 15)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, -16)
-                .padding(.top, -16)
-                .overlay(HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(25)
-                        .normalShadow()
-                        .overlay(Image("info"))
-                })
-                //
-                HStack {
-                    // <
-                    Text(title)
-                        .font(.system(size: 22), weight: .bold)
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_arrow_right")
-                    Text("Donner à Mourad Essafi")
-                        .fontWeight(.bold)
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_item_info")
-                    Text("Plusieurs objets")
-                    Spacer()
-                }
-                DetailsNoteView(note: note)
-                HStack {
-                    Group {
-                        Button(action: {}, label: {
-                            Text("Modifier")
-                        })
-                        Button(action: {}, label: {
-                            Text("Supprimer")
-                        })
+        ZStack {
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce donation") {
+                vm.del(id: donation.id) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: ObjectsDonationsList.self))
+                        vm.getAll { _ in }
                     }
-                    .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                    .normalShadow()
-                    Spacer()
                 }
-                Spacer()
             }
-            .padding()
+            if fullScreenPhoto, let imageUrlString = donation.object_photo {
+                DetailsFullScreenPhotoView(imageUrlString: imageUrlString, fullScreenPhoto: $fullScreenPhoto)
+            }
+            NavigationStackView(String(describing: Self.self)) {
+                ZStack(alignment:.top) {
+                    Color.accentColor
+                        .frame(height:70)
+                        .edgesIgnoringSafeArea(.top)
+                    VStack(spacing: 20) {
+                        NavigationTitleView(menuTitle: "Objets", showExitAlert: .constant(false))
+                        DetailsPhotoView(imageUrlString: donation.object_photo, fullScreenPhoto: $fullScreenPhoto)
+                        ScrollView {
+                            HStack {
+                                BackButton(iconColor: .gray)
+                                Text(donation.object_name)
+                                    .font(.system(size: 22), weight: .bold)
+                                Spacer()
+                            }
+                            HStack {
+                                Image("ic_arrow_right")
+                                Text("Donner à \((donation.object_contact_detail != nil ? "\( donation.object_contact_detail?.first_name ?? "") \(donation.object_contact_detail?.last_name ?? "")" : donation.organization_detail?.name) ?? "")")
+                                    .fontWeight(.bold)
+                                Spacer()
+                            }
+                            HStack {
+                                Image("ic_item_info")
+                                Text(donation.single_object ? "Un objet" : "Plusieurs objets")
+                                Spacer()
+                            }
+                            DetailsNoteView(note: donation.object_note, attachments: vm.attachements, navId: String(describing: Self.self))
+                            DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                                vm.objectDonation = ObjectDonation(id: donation.id, single_object: donation.single_object, single_object_note: donation.single_object_note, object_name: donation.object_name, object_contact_detail: donation.object_contact_detail?.id, organization_detail: donation.organization_detail?.id, object_photo: donation.object_photo, object_note: donation.object_note)
+                                if let firstName = donation.object_contact_detail?.first_name, let lastName = donation.object_contact_detail?.last_name {
+                                    vm.contactName = "\(firstName) \(lastName)"
+                                }
+                                if let orgName = donation.organization_detail?.name {
+                                    vm.orgName = orgName
+                                }
+                                vm.updateRecord = true
+                                navigationModel.pushContent(String(describing: Self.self)) {
+                                    ObjectsDonationCount(vm: vm)
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
         }
     }
 }

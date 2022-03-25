@@ -15,53 +15,41 @@ struct AdminDocsNote: View {
     @ObservedObject var vm: AdminDocViewModel
     var title = "Joignez des scans ou photos des documents avec l’outil note"
     
-    var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.adminDoc.document_note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
+    fileprivate func createOrUpdateRecord() {
+        if vm.updateRecord {
+            vm.update(id: vm.adminDoc.id ?? 0) { success in
+                if success {
+                    navModel.popContent("AdminDocsList")
+                    vm.getAll { _ in }
+                }
             }
-            FlowBaseView(isCustomAction: true, customAction: {
-                loading.toggle()
-                vm.create() { success in
+        } else {
+            vm.create { success in
+                if success && vm.adminDocs.isEmpty {
+                    WishesViewModel.setProgress(tab: 13) { completed in
+                        loading.toggle()
+                        if completed {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
+                        }
+                    }
+                } else {
                     loading.toggle()
                     if success {
                         navModel.pushContent(title) {
-                            AdminDocsList(vm: vm)
+                            FuneralDoneView()
                         }
                     }
                 }
-            },note: false, showNote: .constant(false), menuTitle: wishesExtras.first!.name, title: title, valid: .constant(true)) {
-                VStack(spacing: 0.0) {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 161, height: 207.52)
-                        .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .fill(Color.gray)
-                                .frame(width: 56, height: 56)
-                                .overlay(
-                                    Button(action: {
-                                        showNote.toggle()
-                                    }) {
-                                        Image("ic_add_note")
-                                    }
-                                )
-                        )
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 161, height: 44)
-                        .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
-                        .overlay(Text("Note"))
-                    if loading {
-                        Loader()
-                            .padding(.top)
-                    }
-                }
-                .thinShadow()
             }
+        }
+    }
+    
+    var body: some View {
+        FuneralNoteAttachCutomActionView(totalSteps: 3.0, showNote: $showNote, note: $vm.adminDoc.document_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.adminDoc.document_note_attachement, menuTitle: wishesExtras.first!.name, title: title) {
+            loading.toggle()
+            createOrUpdateRecord()
         }
     }
 }

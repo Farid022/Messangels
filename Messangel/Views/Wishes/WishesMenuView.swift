@@ -11,6 +11,7 @@ import NavigationStack
 struct WishesMenuView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @StateObject private var vm = WishesViewModel()
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -90,6 +91,11 @@ struct WishesMenuView: View {
         .task {
             vm.getProgress()
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            if vm.wishesProgresses.isEmpty {
+                vm.getProgress()
+            }
+        }
     }
 }
 
@@ -110,24 +116,24 @@ let wishesPersonal = [
 
 let wishesCeremony = [
     WishCategory(id: 5, name: "Spiritualité et traditions", desc: "Vos indications concernant la spiritualité et les traditions liées de votre cérémonie", icon: "ic_tradition", destination: AnyView(FuneralTraditionsIntro())),
-    WishCategory(id: 6, name: "Lieux", desc: "Vos indications sur le lieu de la cérémonie et les différents temps de partage", icon: "ic_location", destination: AnyView(FuneralPlacesIntro())),
-    WishCategory(id: 7, name: "Diffusion de la nouvelle", desc: "Liste des personnes susceptibles de relayer la nouvelle.", icon: "ic_people", destination: AnyView(DeathAnnounceIntro())),
-    WishCategory(id: 8, name: "Esthétique", desc: "Vos souhaits concernant les fleurs, la décoration et la tenue des invités", icon: "ic_aesthetic", destination: AnyView(FuneralAestheticIntro())),
-    WishCategory(id: 9, name: "Musique", desc: "Liste des titres à diffuser lors de votre cérémonie", icon: "ic_music", destination: AnyView(FuneralMusicIntro()))
+    WishCategory(id: 17, name: "Lieux", desc: "Vos indications sur le lieu de la cérémonie et les différents temps de partage", icon: "ic_location", destination: AnyView(FuneralPlacesIntro())),
+    WishCategory(id: 6, name: "Diffusion de la nouvelle", desc: "Liste des personnes susceptibles de relayer la nouvelle.", icon: "ic_people", destination: AnyView(DeathAnnounceIntro())),
+    WishCategory(id: 7, name: "Esthétique", desc: "Vos souhaits concernant les fleurs, la décoration et la tenue des invités", icon: "ic_aesthetic", destination: AnyView(FuneralAestheticIntro())),
+    WishCategory(id: 8, name: "Musique", desc: "Liste des titres à diffuser lors de votre cérémonie", icon: "ic_music", destination: AnyView(FuneralMusicIntro()))
 ]
 
 let wishesTransport = [
-    WishCategory(id: 10, name: "Vêtements et accessoires", desc: "Liste des vêtements et accessoires que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ClothsDonationIntro())),
-    WishCategory(id: 11, name: "Animaux", desc: "Liste des animaux que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(AnimalDonationIntro())),
-    WishCategory(id: 12, name: "Objets", desc: "Liste des objets que vous souhaitez transmettre", icon: "ic_organ", destination: AnyView(ObjectsDonationIntro())),
-    WishCategory(id: 13, name: "Dons", desc: "Liste des associations auxquelles vous souhaitez faire un don", icon: "ic_organ", destination: AnyView(DonationOrgsIntro()))
+    WishCategory(id: 9, name: "Vêtements et accessoires", desc: "Liste des vêtements et accessoires que vous souhaitez transmettre", icon: "ic_cloth", destination: AnyView(ClothsDonationIntro())),
+    WishCategory(id: 10, name: "Animaux", desc: "Liste des animaux que vous souhaitez transmettre", icon: "ic_animal", destination: AnyView(AnimalDonationIntro())),
+    WishCategory(id: 11, name: "Objets", desc: "Liste des objets que vous souhaitez transmettre", icon: "ic_object", destination: AnyView(ObjectsDonationIntro())),
+    WishCategory(id: 12, name: "Dons", desc: "Liste des associations auxquelles vous souhaitez faire un don", icon: "ic_org", destination: AnyView(DonationOrgsIntro()))
 ]
 
  let wishesExtras = [
-    WishCategory(id: 14, name: "Pièces administratives", desc: "Liste des pièces administratives utiles : Carte d’identité, passeport, carte vitale…", icon: "ic_doc", destination: AnyView(AdminDocsIntro())),
-    WishCategory(id: 15, name: "Codes pratiques", desc: "Liste de vos codes pratiques : Ordinateurs, alarmes, digicodes, coffres, cadenas…)", icon: "ic_lock_color_native", destination: AnyView(PracticalCodesIntro())),
-    WishCategory(id: 16, name: "Contrats à gérer", desc: "Liste des organismes qui gèrent les contrats liés à votre quotidien (Logement, banque, assurance…)", icon: "ic_contract", destination: AnyView(ManagedContractsIntro())),
-    WishCategory(id: 17, name: "Expression libre", desc: "Exprimez-vous librement pour compléter vos volontés", icon: "ic_organ", destination: AnyView(ExtraWishesIntro()))
+    WishCategory(id: 13, name: "Pièces administratives", desc: "Liste des pièces administratives utiles : Carte d’identité, passeport, carte vitale…", icon: "ic_admin_doc", destination: AnyView(AdminDocsIntro())),
+    WishCategory(id: 14, name: "Codes pratiques", desc: "Liste de vos codes pratiques : Ordinateurs, alarmes, digicodes, coffres, cadenas…)", icon: "ic_lock_color_native", destination: AnyView(PracticalCodesIntro())),
+    WishCategory(id: 15, name: "Contrats à gérer", desc: "Liste des organismes qui gèrent les contrats liés à votre quotidien (Logement, banque, assurance…)", icon: "ic_wish_contract", destination: AnyView(ManagedContractsIntro())),
+    WishCategory(id: 16, name: "Expression libre", desc: "Exprimez-vous librement pour compléter vos volontés", icon: "ic_extra_wish", destination: AnyView(ExtraWishesIntro()))
 ]
 
 struct WishCategoryCard: View {
@@ -162,7 +168,6 @@ struct WishCategoryCard: View {
                         }
                         Rectangle()
                             .foregroundColor(.white)
-                            .frame(width: 300)
                             .overlay(
                                 VStack {
                                     HStack {
@@ -172,6 +177,8 @@ struct WishCategoryCard: View {
                                     }
                                     HStack {
                                         Image(icon)
+                                            .renderingMode(.template)
+                                            .foregroundColor(.accentColor)
                                         Text(desc)
                                             .font(.system(size: 13))
                                             .foregroundColor(.secondary)

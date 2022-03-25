@@ -11,7 +11,8 @@ struct MsgAudio: Codable, Hashable {
     var id: Int
     var name: String
     var audio_link: String
-    var size: String?
+    var audio_image: String?
+    var size: Int?
     var group: Int
     var created_at: String?
 }
@@ -36,6 +37,38 @@ class AudioViewModel: ObservableObject {
                     self.apiError = error
                     completion()
                 }
+            }
+        }
+    }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: audio, response: audio, endpoint: "mon-messages/audio/\(id)", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.audio = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
+            }
+        }
+    }
+    
+    func delete(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.delete(endpoint: "mon-messages/audio/\(id)") { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
             }
         }
     }

@@ -21,7 +21,6 @@ struct User: Hashable, Codable {
     var is_active: Bool
     var image_url: String?
     var registration_date: String?
-    
     func getDOB() -> String
     {
         let inputFormatter = DateFormatter()
@@ -31,6 +30,7 @@ struct User: Hashable, Codable {
         let resultString = inputFormatter.string(from: showDate!)
         return resultString
     }
+    var referral_code: String?
 }
 
 struct Profile: Codable {

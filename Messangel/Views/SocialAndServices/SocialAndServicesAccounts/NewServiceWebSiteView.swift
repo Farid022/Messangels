@@ -14,7 +14,7 @@ struct NewServiceWebSiteView: View {
     var title = "Indiquez un site web"
     var name: String
     var body: some View {
-        FlowBaseView(isCustomAction: true, customAction: {
+        FlowBaseView(stepNumber: 2.0, totalSteps: 5.0, isCustomAction: true, customAction: {
             vm.service.name = name
             vm.addService { success in
                 if success {

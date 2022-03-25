@@ -12,7 +12,7 @@ struct PracticalCode: Codable {
     var name: String
     var codes: [Int]
     var note: String
-    var user: Int
+    var user = getUserId()
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -40,14 +40,15 @@ struct PracticalCodeDetail: Hashable, Codable {
 struct CodeModel: Hashable, Codable {
     var id: Int?
     var code: String
-    var user: Int
+    var user = getUserId()
 }
 
 class PracticalCodeViewModel: ObservableObject {
+    @Published var updateRecord = false
     @Published var codes = [CodeModel]()
-    @Published var code = CodeModel(code: "", user: getUserId())
+    @Published var code = CodeModel(code: "")
     @Published var practicalCodes = [PracticalCodeDetail]()
-    @Published var practicalCode = PracticalCode(name: "", codes: [Int](), note: "", user: getUserId())
+    @Published var practicalCode = PracticalCode(name: "", codes: [Int](), note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -113,6 +114,38 @@ class PracticalCodeViewModel: ObservableObject {
             case .failure(let error):
                 print(error)
                 success(false)
+            }
+        }
+    }
+    
+    func del(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.delete(endpoint: "users/\(getUserId())/code/\(id)/practical_code") { result in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
+    func update(id: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: practicalCode, response: practicalCode, endpoint: "users/\(getUserId())/code/\(id)/practical_code", method: "PUT") { result in
+            switch result {
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.practicalCode = item
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
             }
         }
     }

@@ -13,13 +13,25 @@ struct KeyAccRegPasswordView: View {
     @State private var valid = false
     var keyAccCase: KeyAccCase
     @ObservedObject var vm: KeyAccViewModel
+    @FocusState private var focusedField: PasswordField?
+    
+    enum PasswordField {
+        case password
+        case confirmPassword
+    }
     
     var body: some View {
-        FlowBaseView(menuTitle: "Comptes-clés", title: "\(vm.keyEmailAcc.email) - Saisissez le mot de passe de ce compte", valid: .constant(true), destination: AnyView(KeyAccRegChoiceView(vm: vm, keyAccCase: keyAccCase))) {
+        FlowBaseView(stepNumber: 2.0, totalSteps: 6.0, menuTitle: "Comptes-clés", title: "\(vm.keyEmailAcc.email) - Saisissez le mot de passe de ce compte", valid: .constant(!vm.keyEmailAcc.password.isEmpty && vm.keyEmailAcc.password == conformPassword), destination: AnyView(KeyAccRegChoiceView(vm: vm, keyAccCase: keyAccCase))) {
             
             Group {
-                MyTextField(placeholder: "Mot de passe", text: $vm.keyEmailAcc.password, isSecureTextEntry: $hidePassword)
-                MyTextField(placeholder: "Confirmez mot de passe", text: $conformPassword, isSecureTextEntry: $hidePassword)
+                MyTextField(placeholder: "Mot de passe", text: $vm.keyEmailAcc.password, isSecureTextEntry: $hidePassword) {
+                    focusedField = .confirmPassword
+                }
+                .focused($focusedField, equals: .password)
+                MyTextField(placeholder: "Confirmez mot de passe", text: $conformPassword, isSecureTextEntry: $hidePassword) {
+                    hideKeyboard()
+                }
+                .focused($focusedField, equals: .confirmPassword)
             }
             .xTextFieldStyle()
             .normalShadow()
@@ -28,7 +40,7 @@ struct KeyAccRegPasswordView: View {
                 Image(systemName: hidePassword ? "eye" : "eye.slash")
                     .foregroundColor(.black)
                     .padding(.trailing, 20)
-                    .animation(.default)
+                    .animation(.default, value: hidePassword)
                     .onTapGesture {
                         hidePassword.toggle()
                     }
@@ -38,14 +50,8 @@ struct KeyAccRegPasswordView: View {
             Text("Rappel : l’ensemble des données Messangel sont sécurisées. Consultez notre politique de confidentialité en cliquant ici.")
                 .foregroundColor(.secondary)
         }
-//        .onChange(of: password) { value in
-//            self.validate()
-//        }
-//        .onChange(of: conformPassword) { value in
-//            self.validate()
-//        }
+        .onDidAppear {
+            focusedField = .password
+        }
     }
-//    private func validate() {
-//        self.valid = password.count >= 8 && password == conformPassword
-//    }
 }

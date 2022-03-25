@@ -16,7 +16,7 @@ struct FuneralUrnStyle: View {
     ]
     @ObservedObject var vm: FeneralViewModel
     var body: some View {
-        FuneralChoicesView(noteText: $noteText, choices: choices, selectedChoice: $vm.funeral.urn_style.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un style d’urne", destination: AnyView(FuneralAshPlace(vm: vm)))
+        FlowChoicesView(tab: 1, stepNumber: 9.0, totalSteps: 12.0, noteText: $noteText, choices: choices, selectedChoice: $vm.funeral.urn_style.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un style d’urne", destination: AnyView(FuneralAshPlace(vm: vm)))
             .onDidAppear {
                 UserDefaults.standard.set(75.0, forKey: wishesPersonal.first!.name)
             }

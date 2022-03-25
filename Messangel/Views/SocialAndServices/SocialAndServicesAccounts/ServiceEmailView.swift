@@ -12,7 +12,7 @@ struct ServiceEmailView: View {
     @ObservedObject var serviceVM: OnlineServiceViewModel
     
     var body: some View {
-        FlowBaseView(menuTitle: "Ajouter un réseau social ou un#service en ligne", title: "Sélectionnez le compte-clé associé", valid: .constant(true), destination: AnyView(ServicePhoneView(vm: vm, serviceVM: serviceVM))) {
+        FlowBaseView(stepNumber: 3.0, totalSteps: 5.0, menuTitle: "Ajouter un réseau social ou un#service en ligne", title: "Sélectionnez le compte-clé associé", valid: .constant(true), destination: AnyView(ServicePhoneView(vm: vm, serviceVM: serviceVM))) {
             
             ForEach(vm.keyAccounts, id: \.self) { account in
                 KeyAccountCapsule(email: account.email, selected: .constant(serviceVM.accountFields.mailAccount == account.id))

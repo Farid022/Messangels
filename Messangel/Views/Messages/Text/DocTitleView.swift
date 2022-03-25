@@ -15,7 +15,6 @@ struct DocTitleView: View {
     @Binding var selectedTheme: String
     var htmlString: NSAttributedString
     var filename: URL
-    @State var valid = false
     
     var body: some View {
         NavigationStackView("DocTitleView") {
@@ -29,22 +28,22 @@ struct DocTitleView: View {
                     .fontWeight(.bold)
                     .padding(.bottom)
                     .padding(.top, -20)
-                TextField("Titre de du texte", text: $textVM.text.name, onCommit: {
-                    valid = !textVM.text.name.isEmpty
-                })
+                TextField("Titre de du texte", text: $textVM.text.name)
                     .textFieldStyle(MyTextFieldStyle())
                     .normalShadow()
                     .padding(.bottom)
                 HStack {
                     Spacer()
                     Rectangle()
-                        .fill(valid ? Color.accentColor : Color.accentColor.opacity(0.2))
+                        .fill(!textVM.text.name.isEmpty ? Color.accentColor : Color.accentColor.opacity(0.2))
                         .frame(width: 56, height: 56)
                         .cornerRadius(25)
                         .overlay(
                             Button(action: {
-                                navigationModel.pushContent("DocTitleView") {
-                                    DocGroupView(selectedTheme: $selectedTheme, htmlString: htmlString, filename: filename, vm: textVM)
+                                if !textVM.text.name.isEmpty {
+                                    navigationModel.pushContent("DocTitleView") {
+                                        DocGroupView(selectedTheme: $selectedTheme, htmlString: htmlString, filename: filename, vm: textVM)
+                                    }
                                 }
                             }) {
                                 Image(systemName: "chevron.right").foregroundColor(Color.white)

@@ -18,7 +18,6 @@ struct MonMessangelView: View {
     @StateObject private var volontesViewModel = VolontesViewModel()
     @StateObject var auth = Auth()
     @EnvironmentObject var envAuth: Auth
-    @ObservedObject var imageLoader:ImageLoader
     @State private var cgImage = UIImage().cgImage
     
     @State private var profileImage = UIImage()
@@ -858,20 +857,6 @@ struct MaVieDigitaleView: View
             vmKeyAcc.getKeyPhones()
         }
     }
-}
-
-struct MonMessangelView_Previews:
-    PreviewProvider {
-
-    static var previews: some View {
-        
-        Group {
-            
-            MonMessangelView(imageLoader: ImageLoader(urlString:""))
-        }
-    }
-    
-   
 }
 
 

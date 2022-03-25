@@ -13,52 +13,29 @@ struct FuneralBurialPlace: View {
     @State private var loading = false
     @ObservedObject var vm: FuneralSpritualityViewModel
     @EnvironmentObject var navModel: NavigationModel
+    var title = "Indiquez le lieu d’inhumation (cimetière précis, caveau familial…)"
+    
     var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.sprituality.ceremony_note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-            }
-            FlowBaseView(isCustomAction: true, customAction: {
-                loading.toggle()
+        FuneralNoteCutomActionView(totalSteps: 2.0, showNote: $showNote, note: $vm.sprituality.ceremony_note, loading: $loading, menuTitle: "Spiritualité et traditions", title: title) {
+            loading.toggle()
+            if !vm.updateRecord {
                 vm.createSprituality() { success in
-                    loading.toggle()
                     if success {
-                        navModel.pushContent("Indiquez si vous souhaitez emporter des objets ou accessoires") {
-                            FuneralDoneView()
+                        WishesViewModel.setProgress(tab: 5) { completed in
+                            loading.toggle()
+                            if completed {
+                                successAction(title, navModel: navModel)
+                            }
                         }
                     }
                 }
-            },note: false, showNote: .constant(false), menuTitle: "Spiritualité et traditions", title: "Indiquez le lieu d’inhumation (cimetière précis, caveau familial…)", valid: .constant(true)) {
-                VStack(spacing: 0.0) {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 161, height: 207.52)
-                        .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .fill(Color.gray)
-                                .frame(width: 56, height: 56)
-                                .overlay(
-                                    Button(action: {
-                                        showNote.toggle()
-                                    }) {
-                                        Image("ic_add_note")
-                                    }
-                                )
-                        )
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 161, height: 44)
-                        .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
-                        .overlay(Text("Note"))
-                    if loading {
-                        Loader()
-                            .padding(.top)
+            } else {
+                vm.update(id: vm.spritualities[0].id) { success in
+                    loading.toggle()
+                    if success {
+                        successAction(title, navModel: navModel)
                     }
                 }
-                .thinShadow()
             }
         }
     }
