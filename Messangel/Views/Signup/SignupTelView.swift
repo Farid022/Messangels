@@ -28,7 +28,7 @@ struct SignupTelView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
                 .onReceive(Just(phone_number)) { inputValue in
-                    if inputValue.count > 14 {
+                    if inputValue.count > 17 {
                         phone_number.removeLast()
                     }
                 }
@@ -37,7 +37,7 @@ struct SignupTelView: View {
             isFocused = true
         }
         .onChange(of: phone_number) { value in
-            phone_number = value.applyPatternOnNumbers(pattern: "## ## ## ## ##", replacmentCharacter: "#")
+            phone_number = value.applyPatternOnNumbers(pattern: "## ## ## ## ## ##", replacmentCharacter: "#")
             self.validate()
             if valid {
                 isFocused = false
@@ -47,15 +47,9 @@ struct SignupTelView: View {
     
     private func validate() {
         userVM.user.phone_number = phone_number.replacingOccurrences(of: " ", with: "")
-        valid = userVM.user.phone_number.count == 10
+        valid = userVM.user.phone_number.count == 10 || userVM.user.phone_number.count == 12
     }
 }
-
-//struct SignupTelView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupTelView(userVM: UserViewModel())
-//    }
-//}
 
 extension String {
 

@@ -10,9 +10,9 @@ import NavigationStack
 
 struct SignupBaseView<Content: View>: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @ObservedObject private var keyboardResponder = KeyboardResponder()
     @Binding private var progress: Double
     @Binding private var valid: Bool
+    @State private var progressMultiplier = 0.0
     private let content: Content
     private let destination: AnyView
     private let currentView: String
@@ -47,12 +47,12 @@ struct SignupBaseView<Content: View>: View {
                             .frame(width: 139.67, height: 35.1)
                         Spacer()
                     }
-                    
-                    Spacer().frame(height: 15)
+                    .padding(.bottom)
                     content
                     Spacer()
                     HStack {
                         footer
+                            .fixedSize(horizontal: false, vertical: true)
                         Spacer()
                         if !isCustomAction {
                             NextButton(source: currentView, destination: destination, active: $valid)
@@ -60,11 +60,17 @@ struct SignupBaseView<Content: View>: View {
                             NextButton(isCustomAction: isCustomAction, customAction: customAction, source: currentView, destination: destination, active: $valid)
                         }
                     }
-                    FlowProgressView(progress: $progress)
+                    SignupProgressView(progress: $progress, progressMultiplier: progressMultiplier)
                 }.padding()
             }
             .foregroundColor(.white)
             .if(myTextFieldStyle) { $0.textFieldStyle(MyTextFieldStyle()) }
+        }
+        .onAppear {
+            progressMultiplier = 12.5
+            withAnimation {
+                progress += progressMultiplier
+            }
         }
     }
 }

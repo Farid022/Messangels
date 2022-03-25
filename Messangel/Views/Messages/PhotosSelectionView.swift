@@ -94,36 +94,38 @@ struct BottomView: View {
     
     var body: some View {
         ZStack {
-            HStack(alignment: .top) {
-                Button(action: {
-                    isPerformingTask.toggle()
-                    if let gallery = group.galleries, gallery.isEmpty {
-                        uploadAndCreate()
-                    } else {
-                        glrVM.gallery.group = group.id
-                        glrVM.gallery.size = 0
-                        glrVM.gallery.images = []
-                        glrVM.create { success in
-                            if success {
-                                uploadAndCreate()
+            if !isPerformingTask {
+                HStack(alignment: .top) {
+                    Button(action: {
+                        isPerformingTask.toggle()
+                        if let gallery = group.galleries, gallery.isEmpty {
+                            uploadAndCreate()
+                        } else {
+                            glrVM.gallery.group = group.id
+                            glrVM.gallery.size = 0
+                            glrVM.gallery.images = []
+                            glrVM.create { success in
+                                if success {
+                                    uploadAndCreate()
+                                }
                             }
                         }
+                    }) {
+                        Text("Valider")
+                            .foregroundColor(.white)
+                            .padding(.vertical,10)
+                            .frame(width: UIScreen.main.bounds.width / 2)
                     }
-                }) {
-                    Text("Valider")
-                        .foregroundColor(.white)
-                        .padding(.vertical,10)
-                        .frame(width: UIScreen.main.bounds.width / 2)
+                    .background(Color.accentColor)
+                    .clipShape(Capsule())
+                    .padding(.bottom)
+                    .disabled(self.viewModel.albumImages.count == 0)
+                    .hidden(isPerformingTask)
                 }
-                .background(Color.accentColor)
-                .clipShape(Capsule())
-                .padding(.bottom)
-                .disabled(self.viewModel.albumImages.count == 0)
-                .hidden(isPerformingTask)
+                .frame(width: UIScreen.main.bounds.width, height: 120)
+                .background(Color.white)
             }
-            .frame(width: UIScreen.main.bounds.width, height: 120)
-            .background(Color.white)
-            if isPerformingTask {
+            else {
                 Color.white.opacity(0.7)
                     .ignoresSafeArea()
                 Loader()

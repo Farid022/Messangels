@@ -57,58 +57,51 @@ struct CustomImagePicker : View {
         }
     }
     
-    private func fetchImagesFromGallery() {
-        DispatchQueue.global(qos: .background).async {
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            let photos: PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
-            for i in 0..<photos.count{
-                gridImages.append(ImageData(image: photos[i].getAssetThumbnail(size: CGSize(width: 150, height: 150)), selected: false, asset: photos[i]))
-            }
-        }
-    }
-    
-//    private func fetchImagesFromGallery(){
-//        let opt = PHFetchOptions()
-//        opt.includeHiddenAssets = false
-//
-//        let req = PHAsset.fetchAssets(with: .image, options: .none)
-//
+//    private func fetchImagesFromGallery() {
 //        DispatchQueue.global(qos: .background).async {
-//            print("fetch started")
-//            let options = PHImageRequestOptions()
-//            options.isSynchronous = true
-//
-//            for i in stride(from: 0, to: req.count, by: 3){
-//
-//                var iteration : [ImageData] = []
-//
-//                for j in i..<i+3{
-//
-//                    if j < req.count{
-//
-//                        PHCachingImageManager.default().requestImage(for: req[j], targetSize: CGSize(width: 150, height: 150), contentMode: .default, options: options) { (image, _) in
-//
-//                            let data1 = ImageData(image: image!, selected: false, asset: req[j])
-//
-//                            iteration.append(data1)
-//
-//                        }
-//                    }
-//                }
-//                self.gridImages.append(iteration)
+//            let fetchOptions = PHFetchOptions()
+//            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+//            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+//            let photos: PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
+//            for i in 0..<photos.count{
+//                gridImages.append(ImageData(image: photos[i].getAssetThumbnail(size: CGSize(width: 150, height: 150)), selected: false, asset: photos[i]))
 //            }
-//            print("fetch ended")
 //        }
 //    }
-}
+    
+    private func fetchImagesFromGallery(){
+        let opt = PHFetchOptions()
+        opt.includeHiddenAssets = false
+        opt.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
 
-struct Loader : View {
-    var tintColor = Color.accentColor
-    var body: some View{
-        ProgressView()
-            .progressViewStyle(CircularProgressViewStyle(tint: tintColor))
+        let req = PHAsset.fetchAssets(with: .image, options: .none)
+
+        DispatchQueue.global(qos: .background).async {
+            print("fetch started")
+            let options = PHImageRequestOptions()
+            options.isSynchronous = true
+
+            for i in stride(from: 0, to: req.count, by: 3){
+
+                var iteration : [ImageData] = []
+
+                for j in i..<i+3{
+
+                    if j < req.count{
+
+                        PHCachingImageManager.default().requestImage(for: req[j], targetSize: .init(), contentMode: .default, options: options) { (image, _) in
+                            if let image = image {
+                                let imageData = ImageData(image: image, selected: false, asset: req[j])
+                                iteration.append(imageData)
+                            }
+
+                        }
+                    }
+                }
+                self.gridImages.append(contentsOf: iteration)
+            }
+            print("fetch ended")
+        }
     }
 }
 
@@ -127,7 +120,7 @@ struct ImageCard : View {
                     Image(systemName: "checkmark")
                         .resizable()
                         .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
+                        .foregroundColor(.accentColor)
                 }
             }
             if loading {
@@ -140,27 +133,28 @@ struct ImageCard : View {
         .onTapGesture {
             if !self.imageData.selected {
                 self.imageData.selected = true
+                self.viewModel.albumImages.append(AlbumImage(id:imageData.asset.localIdentifier, image: imageData.image))
                 // Extracting Orginal Size of Image from Asset
-                loading = true
-                DispatchQueue.global(qos: .background).async {
+//                loading = true
+//                DispatchQueue.global(qos: .background).async {
 //                    imageData.asset.getOrginalImage { image in
 ////                        DispatchQueue.main.async {
 //                        self.selectedImages.append(SelectedImages(id:imageData.asset.localIdentifier, image: image))
 //                            loading = false
 ////                        }
 //                    }
-                    let options = PHImageRequestOptions()
-                    options.isSynchronous = true
+//                    let options = PHImageRequestOptions()
+//                    options.isSynchronous = true
                     // You can give your own Image size by replacing .init() to CGSize....
-                    PHCachingImageManager.default().requestImage(for: self.imageData.asset, targetSize: .init(), contentMode: .default, options: options) { (image, _) in
-                        if let image = image {
-                            DispatchQueue.main.async {
-                                self.viewModel.albumImages.append(AlbumImage(id:imageData.asset.localIdentifier, image: image))
-                                loading = false
-                            }
-                        }
-                    }
-                }
+//                    PHCachingImageManager.default().requestImage(for: self.imageData.asset, targetSize: .init(), contentMode: .default, options: options) { (image, _) in
+//                        if let image = image {
+//                            DispatchQueue.main.async {
+//                                self.viewModel.albumImages.append(AlbumImage(id:imageData.asset.localIdentifier, image: image))
+//                                loading = false
+//                            }
+//                        }
+//                    }
+//                }
             }
             else {
                 for i in 0..<self.viewModel.albumImages.count{

@@ -128,6 +128,7 @@
 		937CA4C32654FD03004A0227 /* GuardianFormNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */; };
 		937CA4C52654FE63004A0227 /* GuardianFormDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */; };
 		937CA4C7265500A8004A0227 /* GuardianFormConfirmSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */; };
+		937D386327EC964B0058E96A /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 937D386227EC964B0058E96A /* AuthenticationServices.framework */; };
 		937F465826FC202D00128F9E /* SignupCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93553A8F264701E60027BA06 /* SignupCodeView.swift */; };
 		93816BA32692D21D0060DC0C /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93816BA12692D21D0060DC0C /* PDF.swift */; };
 		93816BA42692D21D0060DC0C /* HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93816BA22692D21D0060DC0C /* HTML.swift */; };
@@ -473,6 +474,8 @@
 		937CA4C22654FD03004A0227 /* GuardianFormNoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormNoteView.swift; sourceTree = "<group>"; };
 		937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormDoneView.swift; sourceTree = "<group>"; };
 		937CA4C6265500A8004A0227 /* GuardianFormConfirmSendView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFormConfirmSendView.swift; sourceTree = "<group>"; };
+		937D386027EC95960058E96A /* Messangel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Messangel.entitlements; sourceTree = "<group>"; };
+		937D386227EC964B0058E96A /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		93816BA12692D21D0060DC0C /* PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
 		93816BA22692D21D0060DC0C /* HTML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTML.swift; sourceTree = "<group>"; };
 		938313902671E46E00C71C98 /* PHAssetCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAssetCollection.swift; sourceTree = "<group>"; };
@@ -680,6 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				939CBDCA27732650004520A3 /* Introspect in Frameworks */,
+				937D386327EC964B0058E96A /* AuthenticationServices.framework in Frameworks */,
 				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
 				93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */,
 				935A80F127C51B3000E202BE /* Alamofire in Frameworks */,
@@ -874,6 +878,7 @@
 			children = (
 				93553A702647015D0027BA06 /* Messangel */,
 				93553A6F2647015D0027BA06 /* Products */,
+				937D386127EC964B0058E96A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -888,6 +893,7 @@
 		93553A702647015D0027BA06 /* Messangel */ = {
 			isa = PBXGroup;
 			children = (
+				937D386027EC95960058E96A /* Messangel.entitlements */,
 				93553A712647015D0027BA06 /* MessangelApp.swift */,
 				93553A732647015D0027BA06 /* ContentView.swift */,
 				93553A83264701E60027BA06 /* Styles.swift */,
@@ -1082,6 +1088,14 @@
 				937CA4C42654FE63004A0227 /* GuardianFormDoneView.swift */,
 			);
 			path = GuardianForm;
+			sourceTree = "<group>";
+		};
+		937D386127EC964B0058E96A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				937D386227EC964B0058E96A /* AuthenticationServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9383138E2671E44500C71C98 /* Extensions */ = {
@@ -2079,8 +2093,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2102,8 +2117,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

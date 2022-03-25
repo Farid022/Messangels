@@ -57,15 +57,29 @@ struct NextButton: View {
     }
 }
 
+struct SignupProgressView: View {
+    @Binding var progress: Double
+    var tintColor = Color.white
+    var progressMultiplier: Double
+    
+    var body: some View {
+        Rectangle()
+            .foregroundColor(tintColor)
+            .frame(width: screenSize.width * (progress/100), height: 4.5)
+            .padding(.horizontal, -17)
+            .padding(.bottom, -17)
+    }
+}
+
 struct FlowProgressView: View {
     @Binding var progress: Double
     var tintColor = Color.white
-    var progressMultiplier = 12.5
+    var progressMultiplier: Double
     
     var body: some View {
         ProgressView(value: progress, total: 100.0)
             .progressViewStyle(LinearProgressViewStyle(tint: tintColor))
-            .padding(.horizontal, -15)
+            .padding(.horizontal, -17)
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                     withAnimation {
@@ -987,6 +1001,112 @@ struct UpdatingView: View {
                     .font(.system(size: 17), weight: .semibold)
                     .foregroundColor(.accentColor)
             }
+        }
+    }
+}
+
+struct Loader : View {
+    var tintColor = Color.accentColor
+    var body: some View{
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: tintColor))
+    }
+}
+
+struct AlertMessageView: View {
+    var message: String
+    @Binding var showAlert: Bool
+    var body: some View {
+        VStack {
+            if showAlert {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25)
+                        .foregroundColor(.black.opacity(0.42))
+                    HStack(alignment: .top) {
+                        Text(message)
+                            .font(.system(size: 13))
+                            .foregroundColor(.white)
+                            .padding(.leading)
+                            .padding(.vertical, 25)
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.white)
+                            .padding(.trailing, 15)
+                            .padding(.top)
+                            .onTapGesture {
+                                showAlert = false
+                            }
+                    }
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+            }
+        }
+    }
+}
+
+// MARK: - MyTextField
+struct MyTextField: UIViewRepresentable {
+    var placeholder = ""
+    @Binding var text: String
+    @Binding var isSecureTextEntry: Bool
+//    var textContentType: UITextContentType = .newPassword
+    var onCommit: () -> Void = { }
+    
+    func makeUIView(context: Context) -> UITextField {
+        let textField = UITextField(frame: .zero)
+        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        textField.placeholder = placeholder
+        textField.delegate = context.coordinator
+        textField.returnKeyType = .next
+        textField.textContentType = .username
+        textField.text = self.text
+        textField.passwordRules = UITextInputPasswordRules(descriptor: "required: upper; required: digit; max-consecutive: 2; minlength: 8;")
+
+        
+        _ = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: textField)
+            .compactMap {
+                guard let field = $0.object as? UITextField else {
+                    return nil
+                }
+                return field.text
+            }
+            .sink {
+                self.text = $0
+            }
+        
+        return textField
+    }
+    
+    func updateUIView(_ uiView: UITextField, context: Context) {
+        uiView.isSecureTextEntry = isSecureTextEntry
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: MyTextField
+        
+        init(_ textField: MyTextField) {
+            self.parent = textField
+        }
+        
+        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            if let currentValue = textField.text as NSString? {
+                let proposedValue = currentValue.replacingCharacters(in: range, with: string) as String
+                self.parent.text = proposedValue
+            }
+            return true
+        }
+//        func textFieldDidEndEditing(_ textField: UITextField) {
+//            parent.onCommit()
+//        }
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            parent.onCommit()
+            return true
         }
     }
 }

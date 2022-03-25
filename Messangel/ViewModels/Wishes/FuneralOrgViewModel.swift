@@ -13,11 +13,11 @@ struct FuneralCompany: Hashable, Codable {
 }
 
 struct FuneralContract: Hashable, Codable {
-    var id: Int
-    var hasFuneralContract: Bool
-    var funeralContractNote: String
-    var funeralLinkedCompanyNote: String
-    var linkedCompanyContractNote: String
+    var id: Int?
+    var hasFuneralContract: Bool?
+    var funeralContractNote: String?
+    var funeralLinkedCompanyNote: String?
+    var linkedCompanyContractNote: String?
     var funeralLinkedCompany: FuneralCompany?
 
     enum CodingKeys: String, CodingKey {
@@ -63,6 +63,7 @@ class FuneralOrgViewModel: ObservableObject {
     @Published var updateRecord = false
     @Published var funeralOrgs = [FuneralOrgData]()
     @Published var funeralOrg = FuneralOrg()
+    @Published var funeralContract = FuneralContract()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     

@@ -10,35 +10,48 @@ import NavigationStack
 
 struct HomeTopView: View {
     @EnvironmentObject var auth: Auth
+    @State private var showConfirmEmailAlert = false
+    @AppStorage("showConfirmEmailAlertShown") var showConfirmEmailAlertShown = false
+    
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Group {
-                    Text("Bonjour,")
-                        .font(.system(size: 34))
-                        .fontWeight(.bold)
-                        .padding(.bottom, 5)
-                    Text(auth.user.first_name)
-                        .font(.system(size: 20))
-                        .fontWeight(.light)
-                        .padding(.bottom, 30)
+        ZStack (alignment: .top) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Group {
+                        Text("Bonjour,")
+                            .font(.system(size: 34))
+                            .fontWeight(.bold)
+                            .padding(.bottom, 5)
+                        Text(auth.user.first_name)
+                            .font(.system(size: 20))
+                            .fontWeight(.light)
+                            .padding(.bottom, 30)
+                    }
+                    .foregroundColor(.white)
+                    Button(action: {}, label: {
+                        Text("Voir mon Messangel")
+                            .font(.system(size: 15))
+                    })
+                        .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false))
+                        .padding(.bottom)
                 }
-                .foregroundColor(.white)
-                Button(action: {}, label: {
-                    Text("Voir mon Messangel")
-                        .font(.system(size: 15))
-                })
-                    .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false))
-                    .padding(.bottom)
+                Spacer()
             }
-            Spacer()
-        }
-        .padding()
-        .padding(.top, 70)
-        .overlay(Image("backgroundLogo")
-                    .resizable()
-                    .frame(width: 280.05, height: 251.9)
+            .padding()
+            .padding(.top, 70)
+            .overlay(Image("backgroundLogo")
+                        .resizable()
+                        .frame(width: 280.05, height: 251.9)
                     .offset(x: 180))
+            AlertMessageView(message: "Bienvenue sur Messangel ! Merci de confirmer votre inscription avec le lien que nous vous avons envoyé par mail.", showAlert: $showConfirmEmailAlert)
+                .offset(y: -50)
+        }
+        .onAppear() {
+            if !showConfirmEmailAlertShown && !auth.user.is_active {
+                showConfirmEmailAlert = true
+                showConfirmEmailAlertShown = true
+            }
+        }
     }
 }
 

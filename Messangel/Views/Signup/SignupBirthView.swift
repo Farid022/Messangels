@@ -17,6 +17,7 @@ struct SignupBirthView: View {
     @State private var editing = true
     @State var offset : CGFloat = UIScreen.main.bounds.height
     @ObservedObject var userVM: UserViewModel
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         ZStack {
@@ -43,10 +44,11 @@ struct SignupBirthView: View {
                 TextField("Ville", text: $userVM.user.city)
                     .textContentType(.addressCity)
                     .submitLabel(.next)
+                    .focused($isFocused)
             }
             VStack {
                 Spacer()
-                CustomActionSheet(dob: $dob, dob_str: $userVM.user.dob, offset: $offset)
+                CustomActionSheet(dob: $dob, dob_str: $userVM.user.dob, offset: $offset, isFocused: _isFocused, city: userVM.user.city)
                     .onTapGesture {}
                     .offset(y: self.offset)
             }
@@ -67,6 +69,8 @@ struct SignupBirthView: View {
         .onDidAppear {
             if userVM.user.dob.isEmpty {
                 self.dob = Calendar.current.date(byAdding: .year, value: -18, to: Date())!
+                self.offset = 0
+                self.dobSelected = true
             } else if let date = strToDate(userVM.user.dob) {
                 self.dob = date
             }
@@ -83,6 +87,8 @@ struct CustomActionSheet : View {
     @Binding var dob: Date
     @Binding var dob_str: String
     @Binding var offset : CGFloat
+    @FocusState var isFocused: Bool
+    var city: String
     
     var body : some View{
         VStack(){
@@ -94,6 +100,9 @@ struct CustomActionSheet : View {
             Button(action: {
                 offset = UIScreen.main.bounds.height
                 dob_str = dateToStr(dob)
+                if city.isEmpty {
+                    isFocused = true
+                }
             }) {
                 Text("OK")
             }

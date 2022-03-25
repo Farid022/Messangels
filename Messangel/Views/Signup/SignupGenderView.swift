@@ -44,9 +44,3 @@ struct SignupGenderView: View {
         }
     }
 }
-
-//struct SignupGenderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupGenderView()
-//    }
-//}

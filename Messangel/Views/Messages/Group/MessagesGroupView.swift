@@ -17,9 +17,10 @@ struct MessagesGroupView: View {
     @State private var currentIndex: Int = 0
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State private var fadeOut = false
+    static let id = String(describing: Self.self)
     
     var body: some View {
-        NavigationStackView("MessagesGroupView") {
+        NavigationStackView(MessagesGroupView.id) {
             MenuBaseView(title: group.name) {
                 if albumVM.albumImages.count > 0 {
                     Image(uiImage: albumVM.albumImages[currentIndex].image)
@@ -41,7 +42,7 @@ struct MessagesGroupView: View {
                             }
                         }
                         .overlay(Button {
-                            navigationModel.pushContent(TabBarView.id) {
+                            navigationModel.pushContent(MessagesGroupView.id) {
                                 PhotosSelectionView(group: group)
                                     .environmentObject(albumVM)
                             }
@@ -73,7 +74,7 @@ struct MessagesGroupView: View {
                         }
                         .overlay(
                             Button {
-                            navigationModel.pushContent(TabBarView.id) {
+                            navigationModel.pushContent(MessagesGroupView.id) {
                                 PhotosSelectionView(group: group)
                                     .environmentObject(albumVM)
                             }
@@ -90,7 +91,7 @@ struct MessagesGroupView: View {
                         ForEach(groupTexts, id: \.self) { text in
                             MessageCard(name: text.name, icon: "ic_text_msg", createdAt: unixStrToDateSring(text.created_at ?? ""))
                                 .onTapGesture {
-                                    navigationModel.presentContent(TabBarView.id) {
+                                    navigationModel.presentContent(MessagesGroupView.id) {
                                         MessagesTextView(text: text, headerImage: "doc_header")
                                     }
                                 }
@@ -102,7 +103,7 @@ struct MessagesGroupView: View {
                                 .onTapGesture {
                                     if let url = URL(string:audio.audio_link) {
                                         let player = Player(avPlayer: AVPlayer(url: url))
-                                        navigationModel.presentContent(TabBarView.id) {
+                                        navigationModel.presentContent(MessagesGroupView.id) {
                                             MessagesAudioPlayerView(player: player, audio: audio)
                                         }
                                     }
@@ -113,7 +114,7 @@ struct MessagesGroupView: View {
                         ForEach(groupVideos, id: \.self) { video in
                             MessageCard(name: video.name, icon: "ic_video", createdAt: unixStrToDateSring(video.created_at ?? ""))
                                 .onTapGesture {
-                                    navigationModel.presentContent(TabBarView.id) {
+                                    navigationModel.presentContent(MessagesGroupView.id) {
                                         MessagesVideoPlayerView(video: video)
                                     }
                                 }
@@ -138,7 +139,7 @@ struct GalleryPlaceHolder: View {
             .padding(-16)
             .overlay(
                 Button(action: {
-                    navigationModel.pushContent(TabBarView.id) {
+                    navigationModel.pushContent(MessagesGroupView.id) {
                         PhotosSelectionView(group: group)
                             .environmentObject(viewModel)
                     }
@@ -177,7 +178,7 @@ struct GroupDestinationView: View {
                     }
                     vm.group.group_contacts = ids
                 }
-                navigationModel.presentContent(TabBarView.id) {
+                navigationModel.presentContent(MessagesGroupView.id) {
                     MsgGroupContacts(vm: vm)
                 }
             } label: {

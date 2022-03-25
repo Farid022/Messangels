@@ -143,7 +143,7 @@ struct GroupCapsule: View {
                 Group {
                     if tappable {
                         Button(action: {
-                                navigationModel.pushContent("Messages") {
+                            navigationModel.pushContent(TabBarView.id) {
                                     MessagesGroupView(group: group)
                                         .environmentObject(albumVM)
                             }
