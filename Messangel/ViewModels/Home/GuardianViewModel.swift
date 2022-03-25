@@ -14,7 +14,23 @@ struct Guardian: Codable, Hashable {
     var last_name: String
     var email: String
     var status: String
+    var dob: String?
+    var guardian : GuardianDetail?
 }
+
+
+struct GuardianDetail: Codable, Hashable {
+    var id: Int
+  
+    var first_name: String?
+    var last_name: String?
+    var email: String?
+    var phone_number: String?
+    var dob: String?
+    var city: String?
+}
+
+
 
 class GuardianViewModel: ObservableObject {
     @Published var guardian = Guardian(id: 0, user_id: 0, first_name: "", last_name: "", email: "", status: "1")

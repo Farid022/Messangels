@@ -291,58 +291,18 @@ struct documentView: View
                 if guardians.count > 0
                 {
                    
-                    
-                    if guardians.count > 1
-                    {
-                        Text(guardians[0].first_name + " " + guardians[0].last_name)
-                               .font(.system(size: 15))
-                               .fontWeight(.bold)
-                               .multilineTextAlignment(.center)
-                              
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        Text(" Née le 7 octobre 1968 \nà Strasbourg")
-                               .font(.system(size: 15))
-                               .fontWeight(.regular)
-                               .multilineTextAlignment(.center)
-                               .padding(.bottom,20)
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
+                   
+                        ForEach(enumerating: guardians, id:\.self)
+                        {
+                            index, item in
+                            
+                            GuardiansView(name: item.first_name + " " + item.last_name, dateofBirth: item.guardian?.dob ?? "", address: item.guardian?.city ?? "")
+                                .padding(.bottom,20)
+                        }
+                        .padding(.leading,24)
+                        .padding(.trailing,24)
                         
-                        
-                        Text(guardians[1].first_name + " " + guardians[1].last_name)
-                               .font(.system(size: 15))
-                               .fontWeight(.bold)
-                               .multilineTextAlignment(.center)
-                              
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        Text("Née le 15 décembre 1956 \nà Lyon")
-                               .font(.system(size: 15))
-                               .fontWeight(.regular)
-                               .multilineTextAlignment(.center)
-                               .padding(.bottom,18)
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        
-                    }
-                    else
-                    {
-                        Text(guardians[0].first_name + " " + guardians[0].last_name)
-                               .font(.system(size: 15))
-                               .fontWeight(.bold)
-                               .multilineTextAlignment(.center)
-                              
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        Text(" Née le 7 octobre 1968 \nà Strasbourg")
-                               .font(.system(size: 15))
-                               .fontWeight(.regular)
-                               .multilineTextAlignment(.center)
-                               .padding(.bottom,20)
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        
+                      
                         
                         
                         Text("Ajoutez un deuxieme Ange-gardien pour activer votre Messangel")
@@ -366,6 +326,7 @@ struct documentView: View
                         
                             Image("add-user")
                             .opacity(1)
+                            .frame(width: 50, height:50)
                         }
                         .background(.white)
                         .clipShape(Circle())
@@ -377,7 +338,7 @@ struct documentView: View
                             navigationModel.pushContent("MonMessangelView") {
                                 GuardianFormIntroView(vm: GuardianViewModel())
                             }
-                        }
+                        
                   
                     }
                     
@@ -437,14 +398,41 @@ struct documentView: View
     
     }
 }
+struct GuardiansView: View
+{
+    var name: String
+    var dateofBirth: String
+    var address: String
+    var body: some View {
+    
+        VStack{
+            
+                Text(name)
+                       .font(.system(size: 15))
+                       .fontWeight(.bold)
+                       .multilineTextAlignment(.center)
+                      
+                       .padding(.leading,24)
+                       .padding(.trailing,24)
+                Text(" Née le \(dateofBirth) \nà \(address)")
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .lineLimit(2)
+                       .multilineTextAlignment(.center)
+                       .padding(.bottom,20)
+                       .padding(.leading,24)
+                       .padding(.trailing,24)
+                
+                
+        }
+    }
+}
 
 struct keyAccounts: View
 {
     var body: some View {
     
-        VStack{
-            
-        }
+        VStack{}
     }
 }
 
@@ -590,7 +578,7 @@ struct DigitalLifeListView: View
                 ForEach(enumerating: emailItems, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: "ic_email", item: item.email)
+                    KeyAccountItem(type: "ic_email", item: item.email)
                         .onTapGesture {
                             navigationModel.pushContent("MonMessangelView") {
                                 
@@ -608,7 +596,7 @@ struct DigitalLifeListView: View
                 ForEach(enumerating: phoneItems, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: "ic_mobile", item: item.phoneNum)
+                    KeyAccountItem(type: "ic_mobile", item: item.phoneNum)
                         .onTapGesture {
                             navigationModel.pushContent("MonMessangelView") {
                                 
@@ -780,6 +768,59 @@ struct MesVoluntesItem: View
               }
                 }
         }
+        
+    }
+}
+
+struct KeyAccountItem: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Button(action: {}) {
+                Image("ic_nextArrow")
+            }
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:56)
+        .background(.white)
+        .cornerRadius(22)
+       
+        }
+        .frame(height:68)
+       
         
     }
 }

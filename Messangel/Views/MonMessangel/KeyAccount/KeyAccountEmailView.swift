@@ -24,7 +24,7 @@ struct KeyAccountEmailView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("carnerosophie68@yahoo.fr")
+                        Text(emailDetail.email)
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -38,7 +38,7 @@ struct KeyAccountEmailView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text("carnerosophie68@yahoo.fr")
+                            Text(emailDetail.email)
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
@@ -156,7 +156,7 @@ struct KeyAccountEmailView: View {
                             .padding(.bottom,24)
                             
                             
-                            KeyAccountDetailNoteView(title: "Note", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")
+                            KeyAccountDetailNoteView(title: "Note", description: emailDetail.note)
                                 .padding(.bottom,40)
                             
                         }
@@ -166,7 +166,7 @@ struct KeyAccountEmailView: View {
         }
         .onAppear {
             
-           
+            code = emailDetail.password
             
         }
         }

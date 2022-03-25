@@ -26,7 +26,7 @@ struct KeyAccountPhoneView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("Iphone de Sophie")
+                        Text(phoneDetail.name)
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -40,7 +40,7 @@ struct KeyAccountPhoneView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text("Iphone de Sophie")
+                            Text(phoneDetail.name)
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
@@ -203,7 +203,7 @@ struct KeyAccountPhoneView: View {
                                 Image("phoneNumberIcon")
                                     .frame(width:26,height:13)
                             
-                                Text("06 00 00 00 00")
+                                Text(phoneDetail.phoneNum)
                                        .font(.system(size: 15))
                                        .fontWeight(.regular)
                                        
@@ -223,7 +223,8 @@ struct KeyAccountPhoneView: View {
         .onAppear {
             
            
-            
+            code = phoneDetail.deviceUnlockCode
+            password = phoneDetail.pincode
         }
         }
     }

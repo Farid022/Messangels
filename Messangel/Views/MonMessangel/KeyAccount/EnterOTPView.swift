@@ -93,27 +93,68 @@ struct EnterOTPView: View {
                                     .background(.white)
                                     .cornerRadius(22)
                                     .frame(width:56, height:56)
+                                    .multilineTextAlignment(.center)
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .background(.white)
-                                
-                                 .cornerRadius(22)
+                                    .keyboardType(.numberPad)
+                                    .cornerRadius(22)
                                     .padding(.horizontal,16)
+                                    .introspectTextField { textField in
+                                                    if self.code1.count >= 1 {
+                                                           textField.resignFirstResponder()
+                                                         } else if self.code1.count < 1 {
+                                                           textField.becomeFirstResponder()
+                                                         }
+                                                     }
+                                
                                 TextField( text: $code2)
                                     .background(.white)
                                     .cornerRadius(22)
+                                    .multilineTextAlignment(.center)
                                     .frame(width:56, height:56)
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .background(.white)
-                                
-                                 .cornerRadius(22)
+                                    .keyboardType(.numberPad)
+                                    .cornerRadius(22)
                                     .padding(.horizontal,16)
+                                    .introspectTextField { textField in
+                                               
+                                                        if self.code2.count >= 1
+                                                        {
+                                                            textField.resignFirstResponder()
+                                                        
+                                                           
+                                                         } else if self.code2.count < 1 {
+                                                             if self.code1.count >= 1 {
+                                                                 textField.becomeFirstResponder()
+                                                             }
+                                                          
+                                                         }
+                                                     }
                                 
                                 TextField( text: $code3)
                                     .background(.white)
                                     .cornerRadius(22)
                                     .frame(width:56, height:56)
+                                    .multilineTextAlignment(.center)
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .background(.white)
+                                    .keyboardType(.numberPad)
+                                    .introspectTextField { textField in
+                                               
+                                                        if self.code3.count >= 1
+                                                        {
+                                                            textField.resignFirstResponder()
+                                                        
+                                                           
+                                                         } else if self.code3.count < 1 {
+                                                             
+                                                             if self.code2.count >= 1 {
+                                                                 textField.becomeFirstResponder()
+                                                             }
+                                                          
+                                                         }
+                                                     }
                                 
                                  .cornerRadius(22)
                                     .padding(.horizontal,16)
@@ -122,11 +163,29 @@ struct EnterOTPView: View {
                                     .background(.white)
                                     .cornerRadius(22)
                                     .frame(width:56, height:56)
+                                    .multilineTextAlignment(.center)
                                     .textFieldStyle(PlainTextFieldStyle())
                                     .background(.white)
+                                    .keyboardType(.numberPad)
                                 
                                  .cornerRadius(22)
                                     .padding(.horizontal,16)
+                                    .introspectTextField { textField in
+                                               
+                                                        if self.code4.count >= 1
+                                                        {
+                                                            textField.resignFirstResponder()
+                                                        
+                                                           
+                                                         } else if self.code4.count < 1 {
+                                                             
+                                                             if self.code3.count >= 1 {
+                                                                 textField.becomeFirstResponder()
+                                                             }
+                                                          
+                                                         }
+                                                     }
+
                         
                         
                             }
@@ -149,65 +208,66 @@ struct EnterOTPView: View {
                                 .padding(.leading,16)
                                 .padding(.trailing,24)
                                 .foregroundColor(.white)
+                                .padding(.top,10)
                             
                             Rectangle()
                                 .frame(width: 56, height: 1, alignment: .center)
                                 .foregroundColor(.white)
+                                .padding(.top,-5)
                            
                             Spacer()
                            HStack
                             {
                             Spacer()
-                                Rectangle()
-                                    .foregroundColor(.white)
-                                    .frame(width: 56, height: 56)
-                                    .cornerRadius(25)
-                                    .padding(.trailing,18)
-                                    .padding(.top,100)
-                                    .opacity(1)
-                                    .padding(.trailing,18)
-                                    .padding(.top,100)
-                                    .overlay(
-                                        Button(action: {
-                                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                            
-                                            
-                                            self.KeyAccountVerficationViewModel.verifyOTP(otp: code1+code2+code3+code4) { success in
-                                                if success
+                                
+                                
+                                VStack{
+                                    Button(action: {
+                                        
+                                        
+                                        self.KeyAccountVerficationViewModel.verifyOTP(otp: code1+code2+code3+code4) { success in
+                                            if success
+                                            {
+                                                if isEmail
                                                 {
-                                                    if isEmail
-                                                    {
-                                                        navigationModel.pushContent("EnterPasswordView") {
-                                                           KeyAccountEmailView(isVisible: true,emailDetail: emailDetail)
-                                                        }
+                                                    navigationModel.pushContent("EnterPasswordView") {
+                                                       KeyAccountEmailView(isVisible: true,emailDetail: emailDetail)
                                                     }
-                                                    else
-                                                    {
-                                                        navigationModel.pushContent("EnterPasswordView") {
-                                                           KeyAccountPhoneView(isVisible: true,phoneDetail: phoneDetail)
-                                                        }
-                                                    }
-                                                   
                                                 }
                                                 else
                                                 {
-                                                
+                                                    navigationModel.pushContent("EnterPasswordView") {
+                                                       KeyAccountPhoneView(isVisible: true,phoneDetail: phoneDetail)
+                                                    }
                                                 }
+                                               
                                             }
-                                          
-//                                                if active && isCustomAction {
-//                                                    customAction()
-//                                                } else if active {
-//                                                    navigationModel.pushContent() {
-//                                                        destination
-//
-//                                                    }
-//                                                }
-                                        }) {
-                                            Image(systemName: "chevron.right").foregroundColor(Color.accentColor)
+                                            else
+                                            {
+                                            
+                                            }
                                         }
-                                    )
+
+
+                                        
+                                    }) {
+                                        Image("ic_nextArrow")
+                                        .frame(width: 56, height: 56)
+                                        .foregroundColor(Color.accentColor)
+                                    }
+                                    .frame(width: 56, height: 56)
+                                    .foregroundColor(.white)
+                                    .background(.white)
+                                    .cornerRadius(23)
+                                    .padding(.top,100)
+                                    .padding(.trailing,24)
+                                    
+                                  
                                 
+                        //NextButton(source: EnterPasswordView.id, destination: AnyView(EnterOTPView()), active: $valid)
+                                   
+                            
+                            }
                                 
                               //  NextButton(source: EnterPasswordView.id, destination: AnyView(EnterOTPView()), active: $valid)
                                    

@@ -64,7 +64,7 @@ class keyAccountVerficationViewModel: ObservableObject {
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    if data.message == "Password Matched"
+                    if data.message == "1"
                     {
                         completion(true)
                     }

@@ -14,15 +14,17 @@ struct EnterPasswordView: View {
     
     @EnvironmentObject private var navigationModel: NavigationModel
     @State var code: String = ""
+    @State var navigate: Bool = false
     @State private var valid = true
     @State private var hidePassword = true
     static let id = String(describing: Self.self)
-    
+    @State private var alert = false
+    @State private var apiError = APIService.APIErr(error: "", error_description: "")
     var isEmail: Bool
     var emailDetail: PrimaryEmailAcc
     var phoneDetail: PrimaryPhone
     var body: some View {
-        NavigationStackView("EnterPasswordView") {
+        NavigationStackView("EnterThePasswordView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -43,7 +45,7 @@ struct EnterPasswordView: View {
                     .padding(.leading))
                 
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-                    Color.accentColor
+                         Color.accentColor
                         .ignoresSafeArea()
                         
                     ScrollView {
@@ -98,13 +100,10 @@ struct EnterPasswordView: View {
                                 .padding(.trailing,24)
                             HStack(alignment: .center)
                             {
-                                MyTextField(placeholder: "Mot de passe", text: $code, isSecureTextEntry: $hidePassword)
-                                    .foregroundColor(.white)
+                                SecureField("Mot de passe", text: $code)
+                                 
                                     .frame(height:60)
-                                    .textFieldStyle(PlainTextFieldStyle())
-                                    .background(.white)
-                                
-                                 .cornerRadius(22)
+                                 
                                     .padding(.horizontal,18)
                             }
                             
@@ -129,36 +128,52 @@ struct EnterPasswordView: View {
                                 Spacer()
                                     
                                     
-                                    Rectangle()
-                                        .foregroundColor(.white)
-                                        .frame(width: 56, height: 56)
-                                        .cornerRadius(25)
-                                        .padding(.trailing,18)
-                                        .padding(.top,100)
-                                        .opacity(1)
-                                        .overlay(
-                                            Button(action: {
-                                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                                
-                                                
-                                                self.KeyAccountVerficationViewModel.verifyPassword(password: code) { success in
-                                                    if success
-                                                    {  navigationModel.pushContent("EnterPasswordView") {
-                                                        EnterOTPView(isEmail: isEmail, emailDetail: emailDetail, phoneDetail: phoneDetail)
+                                    VStack{
+                                        Button(action: {
+                                            
+                                            
+                                            APIService.shared.post(model: passwordItem(password: code), response: messageItem(), endpoint: "users/\(getUserId())/access") { result in
+                                                switch result {
+                                                case .success(let data):
+                                                    DispatchQueue.main.async {
+                                                        if data.message == "1"
+                                                        {
+                                                            navigationModel.pushContent("EnterThePasswordView") {
+                                                        
+                                                                EnterOTPView(isEmail: isEmail, emailDetail: emailDetail, phoneDetail: phoneDetail)
+                                                            }
                                                         }
+                                                        else
+                                                        {
+                                                            
+                                                        }
+                                                    }
+                                                case .failure(let error):
+                                                    DispatchQueue.main.async {
+                                                        print(error.error_description)
+                                                        self.apiError = error
                                                        
                                                     }
-                                                    else
-                                                    {
-                                                    
-                                                    }
                                                 }
-
-                                            }) {
-                                                Image(systemName: "chevron.right").foregroundColor(Color.accentColor)
                                             }
-                                        )
-                              //   NextButton(source: EnterPasswordView.id, destination: AnyView(EnterOTPView()), active: $valid)
+
+
+                                            
+                                        }) {
+                                            Image("ic_nextArrow")
+                                            .frame(width: 56, height: 56)
+                                            .foregroundColor(Color.accentColor)
+                                        }
+                                        .frame(width: 56, height: 56)
+                                        .foregroundColor(.white)
+                                        .background(.white)
+                                        .cornerRadius(23)
+                                        .padding(.top,100)
+                                        .padding(.trailing,24)
+                                        
+                                      
+                                    
+                            //NextButton(source: EnterPasswordView.id, destination: AnyView(EnterOTPView()), active: $valid)
                                        
                                 
                                 }
@@ -172,12 +187,25 @@ struct EnterPasswordView: View {
                 
             }
         }
+        .textFieldStyle(MyTextFieldStyle())
+        .foregroundColor(.white)
+        .alert(isPresented: $alert, content: {
+            Alert(title: Text(apiError.error), message: Text(apiError.error_description))
+        })
+        .onChange(of: code) { value in
+            self.validate()
+        }
         .onAppear {
             
+          
            
-            
         }
         }
+    }
+    }
+    
+    func validate() {
+        self.valid = !code.isEmpty
     }
 }
 
