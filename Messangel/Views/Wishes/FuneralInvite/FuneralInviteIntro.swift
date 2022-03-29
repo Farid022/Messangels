@@ -10,7 +10,7 @@ import NavigationStack
 
 struct FuneralInviteIntro: View {
     @StateObject private var vm = FuneralAnnounceViewModel()
-    
+    @EnvironmentObject var wishVM: WishesViewModel
     var body: some View {
         NavigationStackView("FuneralInviteIntro") {
             ZStack(alignment: .topLeading) {
@@ -51,6 +51,8 @@ struct FuneralInviteIntro: View {
                         let announcement = vm.announcements[0]
                         vm.announcement = FuneralAnnounce(invitation_photo: announcement.invitation_photo, invitation_photo_note: announcement.invitation_photo_note, invitation_note: announcement.invitation_note, theme_note: announcement.theme_note, newspaper_note: announcement.newspaper_note)
                         vm.updateRecord = true
+                        vm.recordId = announcement.id
+                        vm.progress = wishVM.wishesProgresses.last(where: {$0.tab == Wishes.announce.rawValue})?.progress ?? 0
                     }
                 }
             }

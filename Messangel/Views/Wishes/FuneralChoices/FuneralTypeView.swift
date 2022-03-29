@@ -22,7 +22,7 @@ struct FuneralTypeView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(stepNumber: 1.0, totalSteps: 12.0, noteText: $vm.funeral.burial_type_note.bound, note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: .constant(vm.funeral.burial_type != 0), destination: AnyView(FuneralPlaceView(vm: vm))) {
+            WishesFlowBaseView(stepNumber: 1.0, totalSteps: 12.0, noteText: $vm.funeral.burial_type_note.bound, note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: .constant(vm.funeral.burial_type != 0), destination: AnyView(FuneralPlaceView(vm: vm)), viewModel: vm) {
                 HStack {
                     ForEach(funeralTypes, id: \.self) { type in
                         ChoiceCard(text: type == .burial ? "Inhumation" : "Crématisation", selected: .constant(vm.funeral.burial_type == type.rawValue))

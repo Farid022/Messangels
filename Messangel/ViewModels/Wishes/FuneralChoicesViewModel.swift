@@ -99,8 +99,18 @@ struct FuneralChoiceDetail: Codable {
     }
 }
 
-class FeneralViewModel: ObservableObject {
+protocol CUViewModel: ObservableObject {
+    var updateRecord: Bool { get }
+    var recordId: Int { get }
+    var progress: Int { get }
+    func create(completion: @escaping (Bool) -> Void)
+    func update(id: Int, completion: @escaping (Bool) -> Void)
+}
+
+class FeneralViewModel: CUViewModel {
     @Published var updateRecord = false
+    @Published var recordId = 0
+    @Published var progress = 0
     @Published var funeralChoices = [FuneralChoiceDetail]()
     @Published var funeral = Funeral(place_burial_note: "", handle_note: "", religious_sign_note: "", outfit_note: "", acessories_note: "", deposite_ashes_note: "", burial_type: 0, coffin_material: 0, coffin_finish: 0, internal_material: 0, user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")

@@ -369,6 +369,7 @@
 		93ADF5B1268060D100BB9F14 /* StopWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADF5B0268060D100BB9F14 /* StopWatchManager.swift */; };
 		93AEEF512670A52300D99BC2 /* AlbumImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEEF502670A52300D99BC2 /* AlbumImage.swift */; };
 		93AEEF542670C94200D99BC2 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEEF532670C94200D99BC2 /* AlbumViewModel.swift */; };
+		93BDAE2D27F1DD5C0091BF5A /* WishesFlowBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDAE2C27F1DD5B0091BF5A /* WishesFlowBaseView.swift */; };
 		93CC8A3C265FBEA200A28455 /* OnboardingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */; };
 		93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */; };
 		93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFFB27B28BE800E71C0B /* Constants.swift */; };
@@ -767,6 +768,7 @@
 		93ADF5B0268060D100BB9F14 /* StopWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchManager.swift; sourceTree = "<group>"; };
 		93AEEF502670A52300D99BC2 /* AlbumImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImage.swift; sourceTree = "<group>"; };
 		93AEEF532670C94200D99BC2 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
+		93BDAE2C27F1DD5B0091BF5A /* WishesFlowBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishesFlowBaseView.swift; sourceTree = "<group>"; };
 		93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViews.swift; sourceTree = "<group>"; };
 		93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		93DBCFFB27B28BE800E71C0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -1142,6 +1144,7 @@
 				93553AB3264A992F0027BA06 /* TabBarView.swift */,
 				93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */,
 				93AC01E9271D494900FD7285 /* FlowBaseView.swift */,
+				93BDAE2C27F1DD5B0091BF5A /* WishesFlowBaseView.swift */,
 				93553A88264701E60027BA06 /* Signup */,
 				2396201C27AD038100CE3CCD /* MonMessangel */,
 				9369D53F265639FB00650AA7 /* Menu */,
@@ -2115,6 +2118,7 @@
 				933DF60A27886640005966AF /* FuneralLocationViewModel.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
 				235A58CA27BAC62E007FF930 /* WishListView.swift in Sources */,
+				93BDAE2D27F1DD5C0091BF5A /* WishesFlowBaseView.swift in Sources */,
 				935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */,
 				939CBDC727732303004520A3 /* SocialPostTimeView.swift in Sources */,
 				93AC02142721989900FD7285 /* FuneralContractNo.swift in Sources */,
@@ -2335,7 +2339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2345,7 +2349,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.caansoft.Messangell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.caansoft.Messangel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2359,7 +2363,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2369,7 +2373,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.caansoft.Messangell;
+				PRODUCT_BUNDLE_IDENTIFIER = com.caansoft.Messangel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

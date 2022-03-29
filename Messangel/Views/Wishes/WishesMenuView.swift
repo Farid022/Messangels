@@ -30,6 +30,7 @@ struct WishesMenuView: View {
                                 .onTapGesture {
                                     navigationModel.pushContent(TabBarView.id) {
                                         wish.destination
+                                            .environmentObject(vm)
                                     }
                                 }
                         }
@@ -47,6 +48,7 @@ struct WishesMenuView: View {
                             .onTapGesture {
                                 navigationModel.pushContent(TabBarView.id) {
                                     wish.destination
+                                        .environmentObject(vm)
                                 }
                             }
                     }
@@ -63,6 +65,7 @@ struct WishesMenuView: View {
                             .onTapGesture {
                                 navigationModel.pushContent(TabBarView.id) {
                                     wish.destination
+                                        .environmentObject(vm)
                                 }
                             }
                     }
@@ -79,6 +82,7 @@ struct WishesMenuView: View {
                             .onTapGesture {
                                 navigationModel.pushContent(TabBarView.id) {
                                     wish.destination
+                                        .environmentObject(vm)
                                 }
                             }
                     }

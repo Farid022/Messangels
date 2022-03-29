@@ -613,7 +613,7 @@ struct ChoiceCard: View {
     }
 }
 
-struct FlowChoicesView: View {
+struct FlowChoicesView<VM: CUViewModel>: View {
     @State var showNote = false
     var tab = 0
     var stepNumber: Double
@@ -624,6 +624,7 @@ struct FlowChoicesView: View {
     var menuTitle: String
     var title: String
     var destination: AnyView
+    @ObservedObject var vm: VM
     
     var body: some View {
         ZStack {
@@ -633,7 +634,7 @@ struct FlowChoicesView: View {
                  .background(.black.opacity(0.8))
                  .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination) {
+            WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination, viewModel: vm) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: -70){
                         ForEach(choices, id: \.self) { choice in
@@ -729,7 +730,7 @@ struct FuneralNote: View {
     }
 
 }
-struct FuneralNoteView: View {
+struct FuneralNoteView<VM: CUViewModel>: View {
     var tab = 0
     var stepNumber: Double
     var totalSteps: Double
@@ -738,6 +739,7 @@ struct FuneralNoteView: View {
     var menuTitle: String
     var title: String
     var destination: AnyView
+    @ObservedObject var vm: VM
     
     var body: some View {
         ZStack {
@@ -746,7 +748,7 @@ struct FuneralNoteView: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination) {
+            WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination, viewModel: vm) {
               NoteView(showNote: $showNote, note: $note)
             }
         }

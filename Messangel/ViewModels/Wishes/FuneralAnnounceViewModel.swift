@@ -26,9 +26,11 @@ struct FuneralAnnounceData: Hashable, Codable {
     var user: User
 }
 
-class FuneralAnnounceViewModel: ObservableObject {
+class FuneralAnnounceViewModel: CUViewModel {
     @Published var invitePhoto = UIImage()
     @Published var updateRecord = false
+    @Published var recordId = 0
+    @Published var progress = 0
     @Published var announcements = [FuneralAnnounceData]()
     @Published var announcement = FuneralAnnounce(invitation_photo: "", invitation_note: "", theme_note: "", newspaper_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")

@@ -24,8 +24,10 @@ struct FueneralAstheticData: Codable {
     var user: User
 }
 
-class FueneralAstheticViewModel: ObservableObject {
+class FueneralAstheticViewModel: CUViewModel {
     @Published var updateRecord = false
+    @Published var recordId = 0
+    @Published var progress = 0
     @Published var asthetics = [FueneralAstheticData]()
     @Published var asthetic = FueneralAsthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: 0)
     @Published var apiResponse = APIService.APIResponse(message: "")

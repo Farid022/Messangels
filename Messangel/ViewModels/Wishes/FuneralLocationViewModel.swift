@@ -40,8 +40,10 @@ struct FuneralLocationData: Codable {
     var user: User
 }
 
-class FuneralLocationViewModel: ObservableObject {
+class FuneralLocationViewModel: CUViewModel {
     @Published var updateRecord = false
+    @Published var recordId = 0
+    @Published var progress = 0
     @Published var name = ""
     @Published var buryLocations = [Organization]()
     @Published var locations = [FuneralLocationData]()

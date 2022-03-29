@@ -57,7 +57,7 @@ struct FlowBaseView<Content: View>: View {
                         .edgesIgnoringSafeArea(.top)
                     }
                     VStack(spacing: 20) {
-                        NavigationTitleView(stepNumber: stepNumber, totalSteps: totalSteps, menuTitle: menuTitle, confirmExit: tab > 0, showExitAlert: $showExitAlert)
+                        NavigationTitleView(stepNumber: stepNumber, totalSteps: totalSteps, menuTitle: menuTitle, confirmExit: false, showExitAlert: $showExitAlert)
                         if addToList {
                             Spacer()
                             Text(title)
@@ -121,12 +121,12 @@ struct NavigationTitleView: View {
                         HStack {
                         VStack(alignment: .leading) {
                             Button {
-//                                if confirmExit {
-//                                    showExitAlert.toggle()
-//                                } else
-//                                {
+                                if confirmExit {
+                                    showExitAlert.toggle()
+                                } else
+                                {
                                     navigationModel.popContent(TabBarView.id)
-//                                }
+                                }
                             } label: {
                                Image("ic_exit")
                             }

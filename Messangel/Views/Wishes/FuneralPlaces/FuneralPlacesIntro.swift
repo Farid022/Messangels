@@ -10,7 +10,7 @@ import NavigationStack
 
 struct FuneralPlacesIntro: View {
     @StateObject private var vm = FuneralLocationViewModel()
-
+    @EnvironmentObject var wishVM: WishesViewModel
     var body: some View {
         NavigationStackView("FuneralPlacesIntro") {
             ZStack(alignment: .topLeading) {
@@ -54,6 +54,8 @@ struct FuneralPlacesIntro: View {
                             vm.name = place.name
                         }
                         vm.updateRecord = true
+                        vm.recordId = i.id
+                        vm.progress = wishVM.wishesProgresses.last(where: {$0.tab == Wishes.locations.rawValue})?.progress ?? 0
                     }
                 }
             }
