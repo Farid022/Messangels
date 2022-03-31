@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="93" height="93" viewBox="0 0 93 93">
+  <defs>
+    <filter id="jonas-kakaroto-KIPqvvTOC1s-unsplash" x="0" y="0" width="93" height="93" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feFlood flood-opacity="0.078"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_198_10" data-name="Component 198 – 10" transform="translate(24 19)">
+    <g transform="matrix(1, 0, 0, 1, -24, -19)" filter="url(#jonas-kakaroto-KIPqvvTOC1s-unsplash)">
+      <path id="jonas-kakaroto-KIPqvvTOC1s-unsplash-2" data-name="jonas-kakaroto-KIPqvvTOC1s-unsplash" d="M22.5,0A22.5,22.5,0,1,1,0,22.5,22.5,22.5,0,0,1,22.5,0Z" transform="translate(24 19)" fill="#b30b80"/>
+    </g>
+    <path id="Path_1315" data-name="Path 1315" d="M8.75,7A3.25,3.25,0,1,1,12,10.25,3.25,3.25,0,0,1,8.75,7ZM12,2.25A4.75,4.75,0,1,0,16.75,7,4.75,4.75,0,0,0,12,2.25ZM5.75,19A3.25,3.25,0,0,1,9,15.75h6A3.25,3.25,0,0,1,18.25,19,1.25,1.25,0,0,1,17,20.25H7A1.25,1.25,0,0,1,5.75,19ZM9,14.25A4.75,4.75,0,0,0,4.25,19,2.75,2.75,0,0,0,7,21.75H17A2.75,2.75,0,0,0,19.75,19,4.75,4.75,0,0,0,15,14.25Z" transform="translate(10.75 10.5)" fill="#fff" fill-rule="evenodd"/>
+  </g>
+</svg>

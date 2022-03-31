@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct SocialNetworkSheetView: View {
+    
     var body: some View {
         NavigationStackView("SocialNetworkSheetView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
