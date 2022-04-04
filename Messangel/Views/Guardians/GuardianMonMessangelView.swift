@@ -110,7 +110,7 @@ struct GuardianMonMessangelView: View {
                                    .padding(.bottom,40)
                             }
                           
-                            MesVoluntesView(itemArray: volontesViewModel.tabs)
+                            GuardianMesVoluntesView(itemArray: volontesViewModel.tabs)
                             Group{
                            
                                 Image("ic_mesMessage")
@@ -194,6 +194,183 @@ struct GuardianMonMessangelView: View {
         
        
        
+    }
+}
+
+struct GuardianMesVoluntesView: View
+{
+    
+    var itemArray : [VolontesTab]
+    var body: some View {
+        Group{
+            
+            GuardianMesVoluntesListView(items: itemArray.filter { $0.type == "1"}, title: "Mes choix personnels", description: "", noItemDescription: "Vous n'avez pas renseigne d'information concermant vos volontes")
+                .padding(.bottom,40)
+            
+            GuardianMesVoluntesListView(items: itemArray.filter { $0.type == "2"}, title: "Pour ma cérémonie", description: "", noItemDescription: "Vous n'avez pas cree de messages pour I'instant")
+                .padding(.bottom,40)
+            
+            
+            GuardianMesVoluntesListView(items:itemArray.filter { $0.type == "3"}, title: "Pour ma transmission", description: "", noItemDescription: "")
+                .padding(.bottom,40)
+                
+            GuardianMesVoluntesListView(items: itemArray.filter { $0.type == "4"}, title: "Mes compléments utiles", description: "", noItemDescription: "")
+                  
+            }
+    }
+}
+
+struct GuardianMesVoluntesItem: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Button(action: {}) {
+                Image("ic_nextArrow")
+            }
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:56)
+        .background(.white)
+        .cornerRadius(22)
+       
+        }
+        .frame(height:68)
+        .onTapGesture {
+            navigationModel.pushContent("MonMessangelView") {
+                
+                
+                switch(item)
+                {
+                case "Choix funéraires" :  ChoixfunerairesView()
+                case "Organismes spécialisés" :  OrganismesObsequesView()
+                case "Animaux" : GuardianAnimalView()
+                case "Faire-part et annonce": AdvertismentView()
+                case "Don d’organes ou du corps": CorpsScienceView()
+                case "Spiritualité et traditions": SpiritualiteTraditionsView()
+                case  "Lieux": PremisesView()
+                case "Diffusion de la nouvelle" : DiffusionNouvelleView()
+                case   "Esthétique": AestheticView()
+                case  "Musique": MusicView()
+                case  "Pièces administratives": AdministrativePartsView()
+                case  "Dons": DonationCollectioView()
+                case  "Vêtements et accessoires": ClothAccessoriesView()
+                case  "Objets": ObjectListView()
+                case  "Codes pratiques": CodePractiveView()
+                case  "Contrats à gérer": ManageContractsView()
+                case  "Expression libre": ExpressionView()
+                default: MusicView()
+                    
+              }
+                }
+        }
+        
+    }
+}
+
+struct GuardianMesVoluntesListView: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var items: [VolontesTab]
+    var title: String
+    var description: String
+    var noItemDescription: String?
+    var body: some View {
+   
+        
+        ZStack{
+            Color.init(red: 242/255, green: 242/255, blue: 247/255)
+                .ignoresSafeArea()
+              
+                .cornerRadius(22)
+        
+            VStack(alignment:.leading)
+            {
+                
+                Text(title)
+                        
+                       .font(.system(size: 15))
+                       .fontWeight(.bold)
+                       .padding(.top,40)
+                       .padding(.leading,24)
+                       .padding(.bottom,12)
+                       .multilineTextAlignment(.leading)
+                
+                if items.count < 1
+                {
+                    if noItemDescription?.count ?? 0 > 0
+                    {
+                        Text(noItemDescription ?? "")
+                            
+                            .font(.system(size: 15))
+                            .fontWeight(.bold)
+                            .foregroundColor(.gray)
+                            .padding(.top,40)
+                            .padding(.leading,24)
+                            .padding(.bottom,12)
+                            .multilineTextAlignment(.leading)
+                    }
+                    
+                }
+                
+                if description.count > 0
+                {
+                 Text(description)
+                        
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .padding(.top,12)
+                       .padding(.leading,24)
+                       .padding(.bottom,12)
+                       .multilineTextAlignment(.leading)
+                }
+                
+                ForEach(enumerating: items, id:\.self)
+                {
+                    index, item in
+                    GuardianMesVoluntesItem(type: item.type, item: item.name)
+                        
+
+                }
+                .padding(.leading,24)
+                .padding(.trailing,24)
+            }
+            .padding(.bottom,40)
+        }
+        .padding(.leading,18)
+        .padding(.trailing,18)
     }
 }
 

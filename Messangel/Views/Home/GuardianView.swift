@@ -57,7 +57,7 @@ struct GuardianView: View {
             .padding(.bottom, 20)
           
             Button(action: {
-                navigationModel.pushContent("AnimalsView") {
+                navigationModel.pushContent("GuardianView") {
                     
                    GuardianMonMessangelView(imageLoader: ImageLoader(urlString:""))
                 }
