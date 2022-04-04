@@ -11,20 +11,26 @@ import NavigationStack
 struct ManagedContractsList: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: ContractViewModel
+    var refresh: Bool
     
     var body: some View {
-        FuneralItemList(id:"ManagedContractsList", menuTitle: "Contrats à gérer") {
+        FuneralItemList(id: String(describing: ManagedContractsList.self), menuTitle: "Contrats à gérer", newItemView: AnyView(ManagedContractName(vm: ContractViewModel()))) {
             ForEach(vm.contracts, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_contract")
                     .onTapGesture {
-                        navigationModel.pushContent("ManagedContractsList") {
-                            ManagedContractsDetails(title: item.name, note: item.note)
+                        if let attachments = item.attachments {
+                            vm.attachements = attachments
+                        }
+                        navigationModel.pushContent(String(describing: ManagedContractsList.self)) {
+                            ManagedContractsDetails(vm: vm, contract: item)
                         }
                     }
             }
         }
-        .onAppear {
-            vm.getAll()
+        .task {
+            if refresh {
+                vm.getAll { _ in }
+            }
         }
     }
 }

@@ -10,12 +10,13 @@ import Combine
 import AVKit
 import MobileCoreServices
 import NavigationStack
+import UniformTypeIdentifiers
 
 struct VideoTrimView: View {
     @State var videoUrl: URL
     var asset: AVURLAsset
     let finishedObserver: PlayerFinishedObserver
-    @State private var valid = false
+    @State private var valid = true
     @State private var loading = false
     @State private var frames = [UIImage]()
     @StateObject var playerManager: PlayerManager
@@ -39,7 +40,6 @@ struct VideoTrimView: View {
                     #endif
                     Button(action: {
                         playerManager.playPause()
-                        valid = true
                     }, label: {
                         RoundedRectangle(cornerRadius: 22.0)
                             .foregroundColor(.white)
@@ -138,7 +138,8 @@ struct VideoTrimView: View {
         
         guard let documentDirectory = try? manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {return}
         let mediaType = "mp4"
-        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
+//        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
+        if mediaType == UTType.movie.identifier as String || mediaType == "mp4" as String {
             let asset = AVAsset(url: sourceURL1 as URL)
             let length = Float(asset.duration.value) / Float(asset.duration.timescale)
             print("video length: \(length) seconds")

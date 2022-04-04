@@ -5,24 +5,24 @@
 //  Created by Saad on 5/7/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import Combine
 
 struct SignupPostcodeView: View {
     @State private var progress = 12.5 * 2
     @State private var valid = false
     @ObservedObject var userVM: UserViewModel
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         SignupBaseView(progress: $progress, valid: $valid, destination: AnyView(SignupGenderView(userVM: userVM)), currentView: "SignupPostcodeView", footer: AnyView(MyLink(url: "https://www.google.com", text: "Politique de confidentialité"))) {
             Text("Indiquez votre code postal actuel")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
-            CocoaTextField("", text: $userVM.user.postal_code)
+            TextField("", text: $userVM.user.postal_code)
                 .keyboardType(.numberPad)
-                .isFirstResponder(true)
                 .textContentType(.postalCode)
-                .xTextFieldStyle()
+                .focused($isFocused)
 //                .overlay(HStack {
 //                    Spacer()
 //                    Image("ic_checkmark")
@@ -37,11 +37,15 @@ struct SignupPostcodeView: View {
                     }
                 }
         }
-        .onChange(of: userVM.user.postal_code) { value in
+        .onDidAppear {
+            isFocused = true
             self.validate()
         }
-        .onAppear() {
+        .onChange(of: userVM.user.postal_code) { value in
             self.validate()
+            if valid {
+                isFocused = false
+            }
         }
     }
     
@@ -49,9 +53,3 @@ struct SignupPostcodeView: View {
         self.valid = userVM.user.postal_code.count == 5
     }
 }
-
-//struct SignupPostcodeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SignupPostcodeView()
-//    }
-//}

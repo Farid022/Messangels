@@ -6,86 +6,69 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct ClothsDonationDetails: View {
-    var title: String
-    var note: String
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @ObservedObject var vm: ClothDonationViewModel
+    @State private var showDeleteConfirm = false
+    @State private var fullScreenPhoto = false
+    var donation: ClothingDonation
+    let  confirmMessage = "Les informations liées seront supprimées définitivement"
     
     var body: some View {
-        ZStack(alignment:.top) {
-            Color.accentColor
-                .frame(height:70)
-                .edgesIgnoringSafeArea(.top)
-            VStack(spacing: 20) {
-                Color.accentColor
-                    .frame(height:90)
-                    .padding(.horizontal, -20)
-                    .overlay(
-                        HStack {
-                            BackButton()
-                            Spacer()
-                        }, alignment: .top)
-                
-                VStack {
-                    Color.accentColor
-                        .frame(height: 35)
-                        .overlay(Text("Vêtements et accessoires")
-                                    .font(.system(size: 22))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding([.leading, .bottom])
-                                 ,
-                                 alignment: .leading)
-                    Color.white
-                        .frame(height: 15)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, -16)
-                .padding(.top, -16)
-                .overlay(HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(25)
-                        .normalShadow()
-                        .overlay(Image("info"))
-                })
-                //
-                HStack {
-                    // <
-                    Text(title)
-                        .font(.system(size: 22), weight: .bold)
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_arrow_right")
-                    Text("Donner à Mourad Essafi")
-                        .fontWeight(.bold)
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_item_info")
-                    Text("Plusieurs vêtements ou accessoires")
-                    Spacer()
-                }
-                DetailsNoteView(note: note)
-                HStack {
-                    Group {
-                        Button(action: {}, label: {
-                            Text("Modifier")
-                        })
-                        Button(action: {}, label: {
-                            Text("Supprimer")
-                        })
+        ZStack {
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce donation") {
+                vm.del(id: donation.id) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: ClothsDonationsList.self))
+                        vm.getAll { _ in }
                     }
-                    .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                    .normalShadow()
-                    Spacer()
                 }
-                Spacer()
             }
-            .padding()
+            if fullScreenPhoto, let imageUrlString = donation.clothing_photo {
+                DetailsFullScreenPhotoView(imageUrlString: imageUrlString, fullScreenPhoto: $fullScreenPhoto)
+            }
+            NavigationStackView(String(describing: Self.self)) {
+                ZStack(alignment:.top) {
+                    Color.accentColor
+                        .frame(height:70)
+                        .edgesIgnoringSafeArea(.top)
+                    VStack(spacing: 20) {
+                        NavigationTitleView(menuTitle: "Vêtements et accessoires", showExitAlert: .constant(false))
+                        ScrollView {
+                            DetailsTitleView(title: donation.clothing_name)
+                            DetailsPhotoView(imageUrlString: donation.clothing_photo, fullScreenPhoto: $fullScreenPhoto)
+                            HStack {
+                                Image("ic_arrow_right")
+                                Text("Donner à \((donation.clothing_contact_detail != nil ? "\( donation.clothing_contact_detail?.first_name ?? "") \( donation.clothing_contact_detail?.last_name ?? "")" : donation.clothing_organization_detail?.name) ?? "")")
+                                    .fontWeight(.bold)
+                                Spacer()
+                            }
+                            HStack {
+                                Image("ic_item_info")
+                                Text("Plusieurs vêtements ou accessoires")
+                                Spacer()
+                            }
+                            DetailsNoteView(note: donation.clothing_note, attachments: vm.attachements, navId: String(describing: Self.self))
+                            DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                                vm.clothDonation = ClothDonation(id: donation.id, single_clothing: donation.single_clothing, single_clothing_note: donation.single_clothing_note, clothing_name: donation.clothing_name, clothing_contact_detail: donation.clothing_contact_detail?.id, clothing_organization_detail: donation.clothing_organization_detail?.id, clothing_photo: donation.clothing_photo, clothing_note: donation.clothing_note)
+                                if let firstName = donation.clothing_contact_detail?.first_name, let lastName = donation.clothing_contact_detail?.last_name {
+                                    vm.contactName = "\(firstName) \(lastName)"
+                                }
+                                if let orgName = donation.clothing_organization_detail?.name {
+                                    vm.orgName = orgName
+                                }
+                                vm.updateRecord = true
+                                navigationModel.pushContent(String(describing: Self.self)) {
+                                    ClothsDonationCount(vm: vm)
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
         }
     }
 }

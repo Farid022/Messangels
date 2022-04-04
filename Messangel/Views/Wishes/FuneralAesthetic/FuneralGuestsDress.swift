@@ -12,6 +12,6 @@ struct FuneralGuestsDress: View {
     @ObservedObject var vm: FueneralAstheticViewModel
     
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $vm.asthetic.attendence_dress_note, menuTitle: "Esthétique", title: "Indiquez vos souhaits concernant la tenue des invités", destination: AnyView(FuneralGuestsWearings(vm: vm)))
+        FuneralNoteView(stepNumber: 3.0, totalSteps: 4.0, showNote: $showNote, note: $vm.asthetic.attendence_dress_note, menuTitle: "Esthétique", title: "Indiquez vos souhaits concernant la tenue des invités", destination: AnyView(FuneralGuestsWearings(vm: vm)), vm: vm)
     }
 }

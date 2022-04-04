@@ -9,7 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct FuneralInviteIntro: View {
-
+    @StateObject private var vm = FuneralAnnounceViewModel()
+    @EnvironmentObject var wishVM: WishesViewModel
     var body: some View {
         NavigationStackView("FuneralInviteIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,11 +38,24 @@ struct FuneralInviteIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralInviteIntro", destination: AnyView(FuneralInvitePic()), active: .constant(true))
+                        NextButton(source: "FuneralInviteIntro", destination: AnyView(FuneralInvitePic(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.announcements.count > 0 {
+                        let announcement = vm.announcements[0]
+                        vm.announcement = FuneralAnnounce(invitation_photo: announcement.invitation_photo, invitation_photo_note: announcement.invitation_photo_note, invitation_note: announcement.invitation_note, theme_note: announcement.theme_note, newspaper_note: announcement.newspaper_note)
+                        vm.updateRecord = true
+                        vm.recordId = announcement.id
+                        vm.progress = wishVM.wishesProgresses.last(where: {$0.tab == Wishes.announce.rawValue})?.progress ?? 0
+                    }
+                }
+            }
         }
     }
 }

@@ -23,13 +23,36 @@ struct PracticalCodeText: View {
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
-            FlowBaseView(isCustomAction: true, customAction: {
-                vm.createPracticalCode { success in
-                    navModel.pushContent(title) {
-                        PracticalCodesList(vm: vm)
+            FlowBaseView(stepNumber: 3.0, totalSteps: 3.0, isCustomAction: true, customAction: {
+                if vm.updateRecord {
+                    vm.update(id: vm.practicalCode.id ?? 0) { success in
+                        if success {
+                            navModel.popContent("PracticalCodesList")
+                            vm.getPracticalCodes { _ in }
+                        }
+                    }
+                } else {
+                    vm.createPracticalCode { success in
+                        if success && vm.practicalCodes.isEmpty {
+                            WishesViewModel.setProgress(tab: 14) { completed in
+                                loading.toggle()
+                                if completed {
+                                    navModel.pushContent(title) {
+                                        FuneralDoneView()
+                                    }
+                                }
+                            }
+                        } else {
+                            loading.toggle()
+                            if success {
+                                navModel.pushContent(title) {
+                                    FuneralDoneView()
+                                }
+                            }
+                        }
                     }
                 }
-            }, note: true, showNote: $showNote, menuTitle: "Codes pratiques", title: title, valid: .constant(!vm.code.code.isEmpty)) {
+            }, note: true, showNote: $showNote, menuTitle: "Codes pratiques", title: title, valid: .constant(!vm.practicalCode.codes.isEmpty)) {
 //                ForEach(0 ..< codeCount, id: \.self) { item in
                     SecureField("Code", text: $vm.code.code)
                         .normalShadow()

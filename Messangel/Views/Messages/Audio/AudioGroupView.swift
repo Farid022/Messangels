@@ -12,9 +12,12 @@ struct AudioGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var selectedGroup = 0
     var fileUrl: URL
+    var audioImage: UIImage
     @State private var valid = false
     @State private var loading = false
     @State private var showNewGroupBox = false
+    @State private var fullScreen = false
+    @ObservedObject var player: Player
     @ObservedObject var vm: AudioViewModel
     @EnvironmentObject var groupVM: GroupViewModel
     
@@ -58,13 +61,23 @@ struct AudioGroupView: View {
                             .zIndex(1.0)
                     }
                     MenuBaseView(height: 60, title: "Destinataires") {
-                        Text("Aperçu")
-                            .font(.system(size: 17))
-                            .fontWeight(.bold)
+                        ZStack {
+                            if audioImage.cgImage == nil {
+                                Rectangle()
+                                    .foregroundColor(.gray.opacity(0.5))
+                                    .frame(width: 252, height: screenSize.width / 1.15)
+                                    .padding(.bottom, 30)
+                                Image("audio_preview_waves")
+                            } else {
+                                Image(uiImage: audioImage)
+                                    .resizable()
+                                    .frame(width: 252, height: screenSize.width / 1.15)
+                                    .padding(.bottom, 30)
+                            }
+                            AudioPlayerButton(player: self.player)
+                        }
                     }
                     VStack {
-                        Text("Choisir ou créer un groupe")
-                            .font(.system(size: 17), weight: .semibold)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 0.0){
                                 ForEach(groupVM.groups, id: \.self) { group in
@@ -90,8 +103,16 @@ struct AudioGroupView: View {
                         }
                         HStack {
                             Button(action: {
-                                if valid {
-                                    upload()
+                                if selectedGroup > 0 {
+                                    Task {
+                                        loading.toggle()
+                                        if audioImage.cgImage != nil {
+                                            let (uploadedImage, _) = await uploadImage(audioImage, type: "audio")
+                                            vm.audio.audio_image = uploadedImage
+                                        }
+                                        await uploadAudio()
+                                        loading.toggle()
+                                    }
                                 }
                             }, label: {
                                 Text("Valider")
@@ -115,25 +136,19 @@ struct AudioGroupView: View {
         }
     }
     
-    func upload() {
-        loading = true
+    func uploadAudio() async {
         do {
             let data = try Data(contentsOf: fileUrl)
-            Networking.shared.upload(data, fileName: fileUrl.lastPathComponent, fileType: "audio") { result in
-                loading = false
-                switch result {
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        vm.uploadResponse = response
-                        vm.audio.audio_link = response.files.first?.path ?? ""
-                        vm.audio.size = "\(response.files.first?.size ?? 0)"
-                        vm.audio.group = selectedGroup
-                        vm.create {
-                            navigationModel.popContent(TabBarView.id)
-                        }
+            let response = await Networking.shared.upload(data, fileName: fileUrl.lastPathComponent, fileType: "audio")
+            if let response = response {
+                DispatchQueue.main.async {
+                    vm.uploadResponse = response
+                    vm.audio.audio_link = response.files.first?.path ?? ""
+                    vm.audio.size = response.files.first?.size ?? 0
+                    vm.audio.group = selectedGroup
+                    vm.create {
+                        navigationModel.popContent(TabBarView.id)
                     }
-                case .failure(_):
-                   return
                 }
             }
         } catch let err {

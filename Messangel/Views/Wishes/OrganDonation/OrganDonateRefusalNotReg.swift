@@ -5,43 +5,45 @@
 //  Created by Saad on 10/18/21.
 //
 
-import SwiftUIX
+import SwiftUI
 import NavigationStack
 
 struct OrganDonateRefusalNotReg: View {
-    @State private var valid = false
-    @State private var showNote = false
-    @State private var note = ""
+//    @State private var showNote = false
+//    @State private var note = ""
+    @State private var loading = false
     @ObservedObject var vm: OrganDonationViewModel
     @EnvironmentObject var navModel: NavigationModel
+    var title = "Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus."
+    
     var body: some View {
         ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-                    .edgesIgnoringSafeArea(.top)
-            }
-            FlowBaseView(isCustomAction: true, customAction: {
-                if !valid {
-                    return;
-                }
-                vm.create() { success in
-                    if success {
-                        navModel.pushContent("Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus.") {
-                            FuneralDoneView()
+            FlowBaseView(stepNumber: 4.0, totalSteps: 4.0, isCustomAction: true, customAction: {
+                loading.toggle()
+                if !vm.updateRecord {
+                    vm.create() { success in
+                        if success {
+                            WishesViewModel.setProgress(tab: 4) { completed in
+                                loading.toggle()
+                                if completed {
+                                    wishChoiceSuccessAction(title, navModel: navModel)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    vm.update(id: vm.donations[0].id) { success in
+                        loading.toggle()
+                        if success {
+                            wishChoiceSuccessAction(title, navModel: navModel)
                         }
                     }
                 }
-            },note: true, showNote: $showNote, menuTitle: "Don d’organes ou du corps à la science", title: "Pour refuser le don d’organes, vous devez être inscrit sur le registre national des refus.", valid: .constant(true)) {
-                HStack {
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Voir notre guide Messangel")
-                    })
-                    .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
-                    Spacer()
+            }, menuTitle: "Don d’organes ou du corps à la#science", title: title, valid: .constant(true)) {
+                viewMessangelGuide()
+                if loading {
+                    Loader()
+                        .padding(.top)
                 }
             }
             

@@ -33,10 +33,10 @@ struct SubscriptionView: View {
                             .foregroundColor(.white)
                             .padding(.leading)
                         Spacer()
-                        Button(action: {}, label: {
-                            Image("help")
-                                .padding(.horizontal, -30)
-                        })
+//                        Button(action: {}, label: {
+//                            Image("help")
+//                                .padding(.horizontal, -30)
+//                        })
                     }
                     .padding(.trailing, 5)
                     .padding(.leading))
@@ -60,6 +60,7 @@ struct SubscriptionView: View {
                             vm.subscription.card?.expYear = Int(cardDOE.components(separatedBy: "/")[1]) ?? 0
                             vm.subscribe { success in
                                 if success {
+                                    vm.checkSubscription()
                                     navigationModel.popContent(TabBarView.id)
                                 }
                             }

@@ -12,7 +12,7 @@ struct SocialNoteView: View {
     @ObservedObject var vm: OnlineServiceViewModel
     
     var body: some View {
-        FuneralNoteView(showNote: $showNote, note: $vm.account.lastPostNote.bound, menuTitle: "Ajouter un réseau social", title: "Si vous souhaitez faire publier un dernier message, rédigez-le dans Note", destination: AnyView(SocialAccPicView(vm: vm)))
+        FuneralNoteView(stepNumber: 5.0, totalSteps: 5.0, showNote: $showNote, note: $vm.account.lastPostNote.bound, menuTitle: "Ajouter un réseau social", title: "Si vous souhaitez faire publier un dernier message, rédigez-le dans Note", destination: AnyView(SocialAccPicView(vm: vm)), vm: FeneralViewModel())
     }
 }
 

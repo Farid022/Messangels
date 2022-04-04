@@ -9,6 +9,10 @@ import SwiftUI
 import NavigationStack
 
 struct ManagedContractsIntro: View {
+    @StateObject private var vm = ContractViewModel()
+    @State private var gotList = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    
     var body: some View {
         NavigationStackView("ManagedContractsIntro") {
             ZStack(alignment: .topLeading) {
@@ -36,11 +40,25 @@ struct ManagedContractsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "ManagedContractsIntro", destination: AnyView(ManagedContractNew()), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent("ManagedContractsIntro") {
+                                if vm.contracts.isEmpty {
+                                    ManagedContractNew(vm: vm)
+                                } else {
+                                    ManagedContractsList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.getAll { _ in
+                gotList.toggle()
+            }
         }
     }
 }

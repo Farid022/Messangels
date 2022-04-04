@@ -27,3 +27,39 @@ class Utils {
         return nil
     }
 }
+
+func dateToStr(_ date: Date, dateFormat: String = "yyyy-MM-dd") -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dateFormat
+    return dateFormatter.string(from: date)
+}
+
+func strToDate(_ dateStr: String, dateFormat: String = "yyyy-MM-dd") -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = dateFormat
+    return dateFormatter.date(from: dateStr)
+}
+
+func unixStrToDateSring(_ dateStr: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.dateStyle = .long
+        dateFormatter.locale = Locale(identifier: "fr")
+        return dateFormatter.string(from: date)
+    } else {
+        return ""
+    }
+}
+
+func formatDateString(_ dateStr: String, inFormat: String, outFormat: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = inFormat
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.dateFormat = outFormat
+        dateFormatter.locale = Locale(identifier: "fr")
+        return dateFormatter.string(from: date)
+    } else {
+        return ""
+    }
+}

@@ -6,85 +6,63 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct PracticalCodeDetails: View {
-    var title: String
-    var note: String
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @ObservedObject var vm: PracticalCodeViewModel
+    var practicalCode: PracticalCodeDetail
+    var confirmMessage = "Les informations liées seront supprimées définitivement"
+    @State private var showDeleteConfirm = false
     
     var body: some View {
-        ZStack(alignment:.top) {
-            Color.accentColor
-                .frame(height:70)
-                .edgesIgnoringSafeArea(.top)
-            VStack(spacing: 20) {
-                Color.accentColor
-                    .frame(height:90)
-                    .padding(.horizontal, -20)
-                    .overlay(
-                        HStack {
-                            BackButton()
-                            Spacer()
-                        }, alignment: .top)
-                
-                VStack {
-                    Color.accentColor
-                        .frame(height: 35)
-                        .overlay(Text("Codes pratiques")
-                                    .font(.system(size: 22))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding([.leading, .bottom])
-                                 ,
-                                 alignment: .leading)
-                    Color.white
-                        .frame(height: 15)
-                }
-                .frame(height: 50)
-                .padding(.horizontal, -16)
-                .padding(.top, -16)
-                .overlay(HStack {
-                    Spacer()
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                        .cornerRadius(25)
-                        .normalShadow()
-                        .overlay(Image("info"))
-                })
-                //
-                HStack {
-                    // <
-                    Text("Digicodes appartement Paris")
-                        .font(.system(size: 22), weight: .bold)
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_lock_color_native")
-                    Text("•••••• (Code 1)")
-                    Spacer()
-                }
-                HStack {
-                    Image("ic_lock_color_native")
-                    Text("•••••••• (Code 2)")
-                    Spacer()
-                }
-                DetailsNoteView(note: note)
-                HStack {
-                    Group {
-                        Button(action: {}, label: {
-                            Text("Modifier")
-                        })
-                        Button(action: {}, label: {
-                            Text("Supprimer")
-                        })
+        ZStack {
+            DetailsDeleteView(showDeleteConfirm: $showDeleteConfirm, alertTitle: "Supprimer ce code") {
+                vm.del(id: practicalCode.id) { success in
+                    if success {
+                        navigationModel.popContent(String(describing: PracticalCodesList.self))
+                        vm.getPracticalCodes { _ in }
                     }
-                    .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false, foregroundColor: .black))
-                    .normalShadow()
-                    Spacer()
                 }
-                Spacer()
             }
-            .padding()
+            NavigationStackView(String(describing: Self.self)) {
+                ZStack(alignment:.top) {
+                    Color.accentColor
+                        .frame(height:70)
+                        .edgesIgnoringSafeArea(.top)
+                    VStack(spacing: 20) {
+                        NavigationTitleView(menuTitle: "Codes pratiques", showExitAlert: .constant(false))
+                        HStack {
+                            BackButton(iconColor: .gray)
+                            Text(practicalCode.name)
+                                .font(.system(size: 22), weight: .bold)
+                            Spacer()
+                        }
+                        HStack {
+                            Image("ic_lock_color_native")
+                            Text("•••••• (Code 1)")
+                            Spacer()
+                        }
+                        HStack {
+                            Image("ic_lock_color_native")
+                            Text("•••••••• (Code 2)")
+                            Spacer()
+                        }
+                        DetailsNoteView(note: practicalCode.note)
+                        DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
+                            vm.practicalCode = PracticalCode(id: practicalCode.id, name: practicalCode.name, codes: [], note: practicalCode.note)
+                            practicalCode.codes.forEach { code in
+                                vm.practicalCode.codes.append(code.id ?? 1)
+                            }
+                            vm.updateRecord = true
+                            navigationModel.pushContent(String(describing: Self.self)) {
+                                PracticalCodeName(vm: vm)
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
         }
     }
 }

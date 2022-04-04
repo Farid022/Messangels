@@ -8,69 +8,56 @@
 import SwiftUI
 import NavigationStack
 
-struct HomeNavBar: View {
-    @StateObject var auth = Auth()
-    @EnvironmentObject var envAuth: Auth
-  
-    @EnvironmentObject var navigationModel: NavigationModel
-    var body: some View {
-        HStack {
-            Spacer()
-            Button(action: {}, label: {
-                Image("help")
-                    .padding(.horizontal, -30)
-            })
-            Button(action: {
-                navigationModel.presentContent("Accueil") {
-                    MenuView()
-                }
-            }) {
-                Image("menu")
-                    .padding()
-            }
-            .padding(.bottom, 10)
-        }
-    }
-}
-
 struct HomeTopView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var auth: Auth
+    @State private var showConfirmEmailAlert = false
+    @AppStorage("showConfirmEmailAlertShown") var showConfirmEmailAlertShown = false
+    
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Group {
-                    Text("Bonjour,")
-                        .font(.system(size: 34))
-                        .fontWeight(.bold)
-                        .padding(.bottom, 5)
-                    Text(auth.user.first_name)
-                        .font(.system(size: 20))
-                        .fontWeight(.light)
-                        .padding(.bottom, 30)
+        ZStack (alignment: .top) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Group {
+                        Text("Bonjour,")
+                            .font(.system(size: 34))
+                            .fontWeight(.bold)
+                            .padding(.bottom, 5)
+                        Text(auth.user.first_name)
+                            .font(.system(size: 20))
+                            .fontWeight(.light)
+                            .padding(.bottom, 30)
+                    }
+                    .foregroundColor(.white)
+                    Button(action: {
+                        navigationModel.pushContent(TabBarView.id) {
+                            MonMessangelView()
+                        }
+                    }, label: {
+                        Text("Voir mon Messangel")
+                            .font(.system(size: 15))
+                    })
+                        .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false))
+                        .padding(.bottom)
                 }
                 .foregroundColor(.white)
-                Button(action: {
-                    navigationModel.pushContent(TabBarView.id) {
-                        MonMessangelView(imageLoader: ImageLoader(urlString: auth.user.image_url ?? ""))
-                   
-                    }
-                }, label: {
-                    
-                    Text("Voir mon Messangel")
-                        .font(.system(size: 15))
-                })
-                .buttonStyle(MyButtonStyle(padding: 0, maxWidth: false))
-                .padding(.bottom)
+                Spacer()
             }
-            Spacer()
-        }
-        .padding()
-        .padding(.top, 70)
-        .overlay(Image("backgroundLogo")
-                    .resizable()
-                    .frame(width: 280.05, height: 251.9)
+            .padding()
+            .padding(.top, 70)
+            .overlay(Image("backgroundLogo")
+                        .resizable()
+                        .frame(width: 280.05, height: 251.9)
                     .offset(x: 180))
+            AlertMessageView(message: "Bienvenue sur Messangel ! Merci de confirmer votre inscription avec le lien que nous vous avons envoyé par mail.", showAlert: $showConfirmEmailAlert)
+                .offset(y: -50)
+        }
+        .onAppear() {
+            if !showConfirmEmailAlertShown && !auth.user.is_active {
+                showConfirmEmailAlert = true
+                showConfirmEmailAlertShown = true
+            }
+        }
     }
 }
 
@@ -81,60 +68,82 @@ struct HomeBottomView: View {
     @State private var loading = false
     
     var body: some View {
-        ScrollView {
-            VStack {
+        VStack {
+            HStack {
+                Text("Mes Anges-gardiens")
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
+                    .padding(.leading)
+                Spacer()
+            }
+            .padding(.bottom)
+            if subVM.checkingSubscription || !subVM.gotSubscription || loading  {
+                Loader()
+                    .padding(.top, 50)
+            }
+            else if subVM.subscriptions.count > 0 {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(gVM.guardians, id: \.self) { guardian in
+                            GuardianCard(vm: gVM, guardian: guardian)
+                        }
+                        AddGuardianView(gVM: gVM)
+                        Spacer()
+                    }
+                    .padding()
+                }
+            } else {
+                SubscribeView()
+            }
+            if gVM.protectedUsers.count > 0 {
                 HStack {
-                    Text("Mes Anges-gardiens")
+                    Text("Mes protégés")
                         .font(.system(size: 20))
                         .fontWeight(.bold)
                         .padding(.leading)
                     Spacer()
                 }
                 .padding(.bottom)
-                if !subVM.gotSubscription {
-                    Loader()
-                        .padding(.top, 50)
-                }
-                else if subVM.subscriptions.count > 0 {
-                    if !loading {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                ForEach(gVM.guardians, id: \.self) { guardian in
-                                    GuardianCard(vm: gVM, guardian: guardian)
-                                }
-                                AddGuardianView(gVM: gVM)
-                                Spacer()
-                            }
-                            .padding()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(gVM.protectedUsers.filter( {$0.status == "1"}), id: \.self) { protectedUsers in
+                            PotectedUserCard(vm: gVM, protected: protectedUsers)
                         }
-                    } else {
-                        Loader()
-                            .padding(.top, 50)
+                        Spacer()
                     }
-                } else {
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 56, height: 56)
-                        .cornerRadius(25)
-                        .thinShadow()
-                        .overlay(
-                            Image("add-user")
-                                .opacity(0.5)
-                        )
-                    Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
-                        .font(.system(size: 13))
-                        .padding([.bottom, .horizontal])
-                    SubscribeButton()
+                    .padding()
                 }
-                Spacer().frame(height: 100)
+            }
+            Spacer().frame(height: 100)
+        }
+        .onChange(of: subVM.checkingSubscription) { value in
+            if !subVM.checkingSubscription && subVM.subscriptions.count > 0 {
+                loadGuardians()
             }
         }
-        .task {
-            loading.toggle()
-            gVM.getGuardians { finished in
-                if finished {
-                    loading.toggle()
-                }
+        .onChange(of: gVM.guardiansUpdated) { value in
+            if value {
+                loadGuardians()
+            }
+        }
+        .onAppear {
+            if !loading && !subVM.checkingSubscription && subVM.subscriptions.count > 0 {
+                loadGuardians()
+            }
+        }
+    }
+    
+    func loadGuardians() {
+        loading.toggle()
+        gVM.getGuardians { _ in
+            DispatchQueue.main.async {
+                loading.toggle()
+                gVM.guardiansUpdated = false
+            }
+        }
+        gVM.getProtectedUsers { success in
+            if success {
+                gVM.getDeaths { _ in }
             }
         }
     }
@@ -157,6 +166,26 @@ struct SubscribeButton: View {
         .background(Color.accentColor)
         .cornerRadius(25)
         .padding(.horizontal, 70)
+    }
+}
+
+struct SubscribeView: View {
+    var body: some View {
+        VStack {
+            Rectangle()
+                .fill(Color.white)
+                .frame(width: 56, height: 56)
+                .cornerRadius(25)
+                .thinShadow()
+                .overlay(
+                    Image("add-user")
+                        .opacity(0.5)
+                )
+            Text("Abonnez-vous pour ajouter vos Anges-gardiens.")
+                .font(.system(size: 13))
+                .padding([.bottom, .horizontal])
+            SubscribeButton()
+        }
     }
 }
 
@@ -199,6 +228,13 @@ struct GuardianCard: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: GuardianViewModel
     var guardian: Guardian
+    var buttonLabel: AnyView {
+        if let guardianUser = guardian.guardian {
+            return AnyView(ProfileImageView(imageUrlString: guardianUser.image_url, imageSize: 56.0))
+        } else {
+            return AnyView(Image("ic_person"))
+        }
+    }
     
     var body: some View {
         RoundedRectangle(cornerRadius: 25)
@@ -217,12 +253,61 @@ struct GuardianCard: View {
                                 GuardianView(vm:vm, guardian: guardian)
                             }
                         }) {
-                            Image("gallery_preview")
+                            buttonLabel
                         })
                 VStack {
                     Text(guardian.last_name)
                         .font(.system(size: 13))
                     Text(guardian.first_name)
+                        .font(.system(size: 13), weight: .semibold)
+                }
+            })
+    }
+}
+
+struct PotectedUserCard: View {
+    @EnvironmentObject var navigationModel: NavigationModel
+    @ObservedObject var vm: GuardianViewModel
+    var protected: MyProtected
+    
+    var buttonLabel: AnyView {
+        if let imageUrlString = protected.user.image_url {
+            return AnyView(ProfileImageView(imageUrlString: imageUrlString, imageSize: 56.0))
+        } else {
+            return AnyView(Image("ic_person"))
+        }
+    }
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .fill(Color.white)
+            .frame(width: 166, height: 180)
+            .normalShadow()
+            .overlay(VStack {
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 56, height: 56)
+                    .cornerRadius(25)
+                    .thinShadow()
+                    .overlay(
+                        Button {
+                            // TODO: - Think reject case what to do?!
+                            if vm.deaths.isEmpty || !vm.deaths.contains(where: { $0.user == protected.user.id }) {
+                                navigationModel.pushContent("Accueil") {
+                                    ProtectedUserView(vm: vm, protected: protected)
+                                }
+                            } else if vm.deaths.contains(where: { $0.user == protected.user.id && $0.status == 2 && $0.guardian != getUserId() }) {
+                                navigationModel.pushContent("Accueil") {
+                                    DeathConfirmationView(vm: vm, protected: protected)
+                                }
+                            }
+                        } label: {
+                            buttonLabel
+                        })
+                VStack {
+                    Text(protected.user.last_name)
+                        .font(.system(size: 13))
+                    Text(protected.user.first_name)
                         .font(.system(size: 13), weight: .semibold)
                 }
             })

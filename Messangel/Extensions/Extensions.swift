@@ -7,12 +7,15 @@
 
 import Foundation
 import SwiftUI
+import Kingfisher
 
 extension Binding {
      func toUnwrapped<T>(defaultValue: T) -> Binding<T> where Value == Optional<T>  {
         Binding<T>(get: { self.wrappedValue ?? defaultValue }, set: { self.wrappedValue = $0 })
     }
 }
+
+//MARK: - String
 
 extension NSAttributedString {
     func setFontSize(fontSize: CGFloat) -> NSMutableAttributedString {
@@ -120,6 +123,8 @@ public extension String {
     }
 }
 
+// MARK: - View
+
 extension View {
     func animate(using animation: Animation = Animation.easeInOut(duration: 1), _ action: @escaping () -> Void) -> some View {
         onAppear {
@@ -179,16 +184,61 @@ extension View {
     }
 }
 
+extension View {
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    var screenSize: CGRect {
+        return UIScreen.main.bounds
+    }
+}
+
+// MARK: - Application
+
 extension UIApplication {
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    static var keyWindow: UIWindow? {
+        return UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .compactMap({$0 as? UIWindowScene})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
     }
 }
 
 extension UIDevice {
     var hasNotch: Bool {
-        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        return keyWindow?.safeAreaInsets.bottom ?? 0 > 0
+//        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        return UIApplication.keyWindow?.safeAreaInsets.bottom ?? 0 > 0
     }
     
+}
+
+//MARK: - Image Ext
+
+extension Image {
+    func centerCropped() -> some View {
+        GeometryReader { geo in
+            self
+            .resizable()
+            .scaledToFill()
+            .frame(width: geo.size.width, height: geo.size.height)
+            .clipped()
+        }
+    }
+}
+
+extension KFImage {
+    func centerCropped() -> some View {
+        GeometryReader { geo in
+            self
+            .resizable()
+            .scaledToFill()
+            .frame(width: geo.size.width, height: geo.size.height)
+            .clipped()
+        }
+    }
 }

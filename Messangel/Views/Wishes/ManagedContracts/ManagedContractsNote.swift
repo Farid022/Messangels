@@ -15,53 +15,42 @@ struct ManagedContractNote: View {
     @ObservedObject var vm: ContractViewModel
     var title = "Ajoutez des informations ou documents utiles (numéros de contrat, photos de pièces justificatives…)"
     
-    var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.contract.contract_note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-            }
-            FlowBaseView(isCustomAction: true, customAction: {
+    fileprivate func createOrUpdateRecord() {
+        if vm.updateRecord {
+            vm.update(id: vm.contract.id ?? 0) { success in
                 loading.toggle()
-                vm.create() { success in
+                if success {
+                    navModel.popContent(String(describing: ManagedContractsList.self))
+                    vm.getAll { _ in }
+                }
+            }
+        } else {
+            vm.create { success in
+                if success && vm.contracts.isEmpty {
+                    WishesViewModel.setProgress(tab: 15) { completed in
+                        loading.toggle()
+                        if completed {
+                            navModel.pushContent(title) {
+                                FuneralDoneView()
+                            }
+                        }
+                    }
+                } else {
                     loading.toggle()
                     if success {
                         navModel.pushContent(title) {
-                            ManagedContractsList(vm: vm)
+                            FuneralDoneView()
                         }
                     }
                 }
-            },note: false, showNote: .constant(false), menuTitle: wishesExtras[2].name, title: title, valid: .constant(true)) {
-                VStack(spacing: 0.0) {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: 161, height: 207.52)
-                        .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 25.0)
-                                .fill(Color.gray)
-                                .frame(width: 56, height: 56)
-                                .overlay(
-                                    Button(action: {
-                                        showNote.toggle()
-                                    }) {
-                                        Image("ic_add_note")
-                                    }
-                                )
-                        )
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 161, height: 44)
-                        .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
-                        .overlay(Text("Note"))
-                    if loading {
-                        Loader()
-                            .padding(.top)
-                    }
-                }
-                .thinShadow()
             }
+        }
+    }
+    
+    var body: some View {
+        FuneralNoteAttachCutomActionView(totalSteps: 4.0, showNote: $showNote, note: $vm.contract.contract_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.contract.contract_note_attachment, menuTitle: wishesExtras[2].name, title: title) {
+            loading.toggle()
+            createOrUpdateRecord()
         }
     }
 }

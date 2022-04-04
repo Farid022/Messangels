@@ -9,7 +9,10 @@ import SwiftUI
 import NavigationStack
 
 struct ClothsDonationIntro: View {
-
+    @State private var gotList = false
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var vm = ClothDonationViewModel()
+    
     var body: some View {
         NavigationStackView("ClothsDonationIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,11 +40,25 @@ struct ClothsDonationIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "ClothsDonationIntro", destination: AnyView(ClothsDonationNew()), active: .constant(true))
+                        NextButton(isCustomAction: true, customAction: {
+                            navigationModel.pushContent("ClothsDonationIntro") {
+                                if vm.donations.isEmpty {
+                                    ClothsDonationNew()
+                                } else {
+                                    ClothsDonationsList(vm: vm, refresh: false)
+                                }
+                            }
+                        }, active: .constant(gotList))
+                            .animation(.default, value: gotList)
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.getAll { _ in
+                gotList.toggle()
+            }
         }
     }
 }

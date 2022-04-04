@@ -50,7 +50,7 @@ class categoryDetailViewModel: ObservableObject {
     {
         APIService.shared.getJSON(model: otpItem(), urlString: "users/\(getUserId())/service_category") { result in
             switch result {
-            case .success(let items):
+            case .success(_):
                 DispatchQueue.main.async {
                    // self.volontesProgresses = items
                 }

@@ -40,8 +40,7 @@ struct DocGroupView: View {
                         showNewGroupBox.toggle()
                         if let text = result {
                             if !text.isEmpty && text.count > 2 {
-                                groupVM.group.name = text
-                                groupVM.group.user = getUserId()
+                                groupVM.group = MsgGroup(name: text)
                                 groupVM.create { success in
                                     print("Group \(text) created: \(success)")
                                         if success {
@@ -94,9 +93,11 @@ struct DocGroupView: View {
                         }
                         HStack {
                             Button(action: {
-                                if valid {
-                                    upload()
-                                }
+                                if selectedGroup > 0 {
+                                    Task {
+                                        await uploadDoc()
+                                    }
+                               }
                             }, label: {
                                 Text("Valider")
                                     .font(.system(size: 15))
@@ -119,25 +120,22 @@ struct DocGroupView: View {
         }
     }
     
-    func upload() {
-        loading = true
+    func uploadDoc() async {
         do {
             let data = try Data(contentsOf: filename)
-            Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "text") { result in
-                loading = false
-                switch result {
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        vm.uploadResponse = response
-                        vm.text.message = response.files.first?.path ?? ""
-                        vm.text.size = "\(response.files.first?.size ?? 0)"
-                        vm.text.group = selectedGroup
-                        vm.create {
-                            navigationModel.popContent(TabBarView.id)
-                        }
+            loading.toggle()
+            let response = await Networking.shared.upload(data, fileName: filename.lastPathComponent, fileType: "text")
+            loading.toggle()
+            if let response = response {
+                DispatchQueue.main.async {
+                    vm.uploadResponse = response
+                    vm.text.message = response.files.first?.path ?? ""
+                    vm.text.size = response.files.first?.size ?? 0
+                    vm.text.group = selectedGroup
+                    vm.create {
+                        groupVM.getAll()
+                        navigationModel.popContent(TabBarView.id)
                     }
-                case .failure(_):
-                   return
                 }
             }
         } catch let err {
@@ -145,10 +143,3 @@ struct DocGroupView: View {
         }
     }
 }
-
-//struct DocGroupView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DocGroupView(selectedTheme: .constant("Forêt"), htmlString: NSAttributedString())
-//        //        DocGroupView()
-//    }
-//}

@@ -5,37 +5,65 @@
 //  Created by Saad on 10/18/21.
 //
 
-import SwiftUIX
+import SwiftUI
+import NavigationStack
 
 struct FuneralPlaceType: View {
-    private var funeralTypes = [FuneralBool.yes, FuneralBool.no]
-    @State private var valid = false
-    @State private var selectedFuneral = FuneralBool.none
+    @EnvironmentObject private var navModel: NavigationModel
+    @State private var loading = false
     @State private var showNote = false
-    @State private var note = ""
-    @StateObject private var vm = FuneralLocationViewModel()
+    @ObservedObject var vm: FuneralLocationViewModel
+    private let title = "Souhaitez-vous indiquer le lieu de votre cérémonie ?"
     
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $note)
-                .zIndex(1.0)
-                .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
+                FuneralNote(showNote: $showNote, note: $vm.location.location_of_ceremony_note.bound)
+                    .zIndex(1.0)
+                    .background(.black.opacity(0.8))
+                    .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(note: true, showNote: $showNote, menuTitle: "Lieux", title: "Souhaitez-vous indiquer le lieu de votre cérémonie ?", valid: $valid, destination: selectedFuneral == .yes ? AnyView(FuneralPlaceName(vm: vm)) : AnyView(FuneralDoneView())) {
+            FlowBaseView(stepNumber: 1.0, totalSteps: 6.0, isCustomAction: true, customAction: {
+                if let indicateLocation = vm.location.location_of_ceremony, indicateLocation {
+                    navModel.pushContent(title) {
+                        FuneralPlaceSelection(vm: vm)
+                    }
+                } else {
+                    loading.toggle()
+                    if !vm.updateRecord {
+                        vm.create() { success in
+                            if success {
+                                WishesViewModel.setProgress(tab: 17) { completed in
+                                    loading.toggle()
+                                    if completed {
+                                        successAction(title, navModel: navModel)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        vm.update(id: vm.locations[0].id) { success in
+                            loading.toggle()
+                            if success {
+                                successAction(title, navModel: navModel)
+                            }
+                        }
+                    }
+                }
+                
+            }, note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(vm.location.location_of_ceremony != nil)) {
                 HStack {
-                    ForEach(funeralTypes, id: \.self) { type in
-                        ChoiceCard(text: type == .yes ? "Oui" : "Non", selected: .constant(selectedFuneral == type))
+                    ForEach([true, false], id: \.self) { opt in
+                        ChoiceCard(text: opt ? "Oui" : "Non", selected: .constant(vm.location.location_of_ceremony == opt))
                             .onTapGesture {
-                                selectedFuneral = type
-                                vm.location.location_of_ceremony = type == .yes
+                                vm.location.location_of_ceremony = opt
                             }
                     }
                 }
-            }
-            .onChange(of: selectedFuneral) { value in
-                valid = selectedFuneral != .none
+                if loading {
+                    Loader()
+                        .padding(.top)
+                }
             }
         }
     }

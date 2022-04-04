@@ -9,7 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct FuneralTraditionsIntro: View {
-
+    @StateObject private var vm = FuneralSpritualityViewModel()
+    
     var body: some View {
         NavigationStackView("FuneralTraditionsIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,11 +38,22 @@ struct FuneralTraditionsIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "FuneralTraditionsIntro", destination: AnyView(SpiritualTraditionChoice()), active: .constant(true))
+                        NextButton(source: "FuneralTraditionsIntro", destination: AnyView(SpiritualTraditionChoice(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.spritualities.count > 0 {
+                        let i = vm.spritualities[0]
+                        vm.sprituality = FuneralSprituality(spritual_ceremony: i.spritual_ceremony.id, spritual_ceremony_note: i.spritual_ceremony_note, ceremony_note: i.ceremony_note)
+                        vm.updateRecord = true
+                    }
+                }
+            }
         }
     }
 }

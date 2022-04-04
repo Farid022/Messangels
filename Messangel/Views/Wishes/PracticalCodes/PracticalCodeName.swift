@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct PracticalCodeName: View {
-    @StateObject private var vm = PracticalCodeViewModel()
-    
+    @ObservedObject var vm: PracticalCodeViewModel
     var body: some View {
-        FlowBaseView(menuTitle: "Codes pratiques", title: "Entrez un nom pour votre code", valid: .constant(!vm.practicalCode.name.isEmpty), destination: AnyView(PracticalCodeText(vm: vm))) {
+        FlowBaseView(stepNumber: 2.0, totalSteps: 3.0, menuTitle: "Codes pratiques", title: "Entrez un nom pour votre code", valid: .constant(!vm.practicalCode.name.isEmpty), destination: AnyView(PracticalCodeText(vm: vm))) {
             TextField("Ordinateur salon, Alarme maison…", text: $vm.practicalCode.name)
             .normalShadow()
         }

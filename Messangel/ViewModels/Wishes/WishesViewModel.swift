@@ -26,6 +26,26 @@ struct WishesProgress: Hashable, Codable {
     var progress: Int
 }
 
+enum Wishes: Int {
+    case choices = 1
+    case funeralOrgs
+    case announce
+    case organs
+    case spirituality
+    case priorityContacts
+    case aesthetics
+    case music
+    case cloths
+    case objects
+    case animals
+    case donationOrgs
+    case docs
+    case codes
+    case contracts
+    case extras
+    case locations
+}
+
 class WishesViewModel: ObservableObject {
     @Published var tabs = [WishesTab]()
     @Published var wishesProgresses = [WishesProgress]()

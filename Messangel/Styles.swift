@@ -37,7 +37,6 @@ struct MyTextFieldStyle: TextFieldStyle {
                 .background(Color.white)
                 .cornerRadius(20)
                 .disableAutocorrection(true)
-                .autocapitalization(.none)
         }
 }
 

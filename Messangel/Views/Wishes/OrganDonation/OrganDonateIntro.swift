@@ -9,7 +9,7 @@ import SwiftUI
 import NavigationStack
 
 struct OrganDonateIntro: View {
-
+    @StateObject private var vm = OrganDonationViewModel()
     var body: some View {
         NavigationStackView("OrganDonateIntro") {
             ZStack(alignment: .topLeading) {
@@ -37,11 +37,22 @@ struct OrganDonateIntro: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        NextButton(source: "OrganDonateIntro", destination: AnyView(OrganDonateChoice()), active: .constant(true))
+                        NextButton(source: "OrganDonateIntro", destination: AnyView(OrganDonateChoice(vm: vm)), active: .constant(true))
                     }
                 }.padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            vm.get { sucess in
+                if sucess {
+                    if vm.donations.count > 0 {
+                        let i = vm.donations[0]
+                        vm.donation = OrganDonation(register_to_national: i.register_to_national, register_to_national_note: i.register_to_national_note, donation: i.donation.id, donation_note: i.donation_note)
+                        vm.updateRecord = true
+                    }
+                }
+            }
         }
     }
 }
