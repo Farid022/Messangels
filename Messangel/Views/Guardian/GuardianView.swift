@@ -7,6 +7,8 @@
 
 import SwiftUI
 import NavigationStack
+import Combine
+import SwiftUIX
 
 struct GuardianView: View {
     
@@ -61,7 +63,7 @@ struct GuardianView: View {
             Button(action: {
                 navigationModel.pushContent("GuardianView") {
                     
-                   GuardianMonMessangelView(imageLoader: ImageLoader(urlString:""))
+                  GuardianMonMessangelView()
                 }
             }, label: {
                 Text("Déclarer le décés")

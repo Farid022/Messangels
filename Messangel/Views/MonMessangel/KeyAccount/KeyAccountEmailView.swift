@@ -10,6 +10,7 @@ import NavigationStack
 
 struct KeyAccountEmailView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var viewModel = keyAccountVerficationViewModel()
     var isVisible: Bool
     @State var code: String = "Sophi64!"
     var emailDetail : PrimaryEmailAcc
@@ -55,7 +56,39 @@ struct KeyAccountEmailView: View {
                             
                                    
                             
-                          
+                            HStack
+                            {
+                                Image("ic_key_color_native")
+                                    .frame(width:26,height:13)
+                            
+                               HStack
+                                {
+                              
+                                    
+                                    Text("Associé à \(viewModel.mailAssociations[0].associated_account ?? 0) comptes")
+                                                .font(.system(size: 15))
+                                                
+                                   
+                               
+                                        
+                                    
+                                        
+                                
+                                    
+                               
+                                    
+                         
+                                       
+                                      
+                                       
+                                    
+                                }
+                                .padding(.leading,10)
+                                
+                                
+                            }
+                            .padding(.leading,24)
+                            .padding(.bottom,44)
                             
                             
                             HStack
@@ -167,7 +200,7 @@ struct KeyAccountEmailView: View {
         .onAppear {
             
             code = emailDetail.password
-            
+            viewModel.phoneRegAssociated()
         }
         }
     }

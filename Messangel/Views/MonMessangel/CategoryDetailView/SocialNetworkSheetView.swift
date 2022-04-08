@@ -10,6 +10,7 @@ import NavigationStack
 
 struct SocialNetworkSheetView: View {
     
+    var categoryDetail: categoryDetailItem?
     var body: some View {
         NavigationStackView("SocialNetworkSheetView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -21,7 +22,7 @@ struct SocialNetworkSheetView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("Instagram")
+                        Text(categoryDetail?.account_fields?.online_service?.name ?? "")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -35,7 +36,7 @@ struct SocialNetworkSheetView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text("Instagram")
+                            Text(categoryDetail?.account_fields?.online_service?.name ?? "")
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
@@ -54,7 +55,7 @@ struct SocialNetworkSheetView: View {
                                 Image("ic_key_color_native")
                                     .frame(width:26,height:13)
                             
-                                Text("sophie.carnero@gmail.com")
+                                Text(categoryDetail?.account_fields?.mail_account?.primary_email ?? "")
                                        .font(.system(size: 15))
                                        .fontWeight(.regular)
                                        
@@ -71,7 +72,7 @@ struct SocialNetworkSheetView: View {
                                 Image("ic_mobile")
                                     .frame(width:26,height:13)
                             
-                                Text("iPhone de Sophie")
+                                Text(categoryDetail?.account_fields?.smartphone_account?.smartphone_name ?? "")
                                        .font(.system(size: 15))
                                        .fontWeight(.regular)
                                        
@@ -96,7 +97,7 @@ struct SocialNetworkSheetView: View {
                                 Image("ic_link")
                                     .frame(width:26,height:13)
                             
-                                Text("www.instagram.com")
+                                Text(categoryDetail?.account_fields?.online_service?.url ?? "")
                                        .font(.system(size: 15))
                                        .fontWeight(.regular)
                                        
@@ -114,7 +115,7 @@ struct SocialNetworkSheetView: View {
                                 Image("ic_i")
                                     .frame(width:26,height:13)
                             
-                                Text("*Clôturer immédiatement/*Mettre un message (Note)")
+                                Text("*Clôturer immédiatement/*Mettre un message (" +  (categoryDetail?.leave_msg_time ?? "") + ")")
                                        .font(.system(size: 15))
                                        .fontWeight(.regular)
                                        .lineLimit(2)
@@ -128,11 +129,16 @@ struct SocialNetworkSheetView: View {
                             .padding(.bottom,24)
                             
                            
+                            if categoryDetail?.last_post_note?.count ?? 0 > 0
+                            {
                             
-                            KeyAccountDetailNoteView(title: "Note", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. ")
+                            KeyAccountDetailNoteView(title: "Note", description: categoryDetail?.last_post_note ?? "")
                                 .padding(.bottom,24)
+                            }
                            
                             Group{
+                                
+                                if categoryDetail?.last_post_image?.count ?? 0 > 0 {
                             HStack
                             {
                                 Image("ic_i")
@@ -155,6 +161,7 @@ struct SocialNetworkSheetView: View {
                             Image("")
                             .padding(.bottom,24)
                             
+                                
                             HStack
                             {
                                 Image("ic_i")
@@ -173,19 +180,34 @@ struct SocialNetworkSheetView: View {
                             .padding(.leading,24)
                             .padding(.bottom,24)
                                 
+                            }
                                 
                                 HStack
                                 {
                                     Image("ic_i")
                                         .frame(width:26,height:13)
                                 
-                                    Text("*J’accepte qu’un compte commémoratif soit créé sur ce réseau social /*Je refuse qu’un compte commémoratif soit créé sur ce réseau social")
-                                           .font(.system(size: 15))
-                                           .fontWeight(.regular)
-                                           .lineLimit(2)
-                                           
-                                          
-                                           .padding(.leading,10)
+                                    if categoryDetail?.memorial_account ?? false == false
+                                    {
+                                        Text("*J’accepte qu’un compte commémoratif soit créé sur ce réseau social")
+                                               .font(.system(size: 15))
+                                               .fontWeight(.regular)
+                                               .lineLimit(2)
+                                               
+                                              
+                                               .padding(.leading,10)
+                                    }
+                                    else
+                                    {
+                                        Text("*Je refuse qu’un compte commémoratif soit créé sur ce réseau social")
+                                               .font(.system(size: 15))
+                                               .fontWeight(.regular)
+                                               .lineLimit(2)
+                                               
+                                              
+                                               .padding(.leading,10)
+                                    }
+                                   
                                     
                                     
                                 }

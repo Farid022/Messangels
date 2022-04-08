@@ -8,7 +8,7 @@
 import SwiftUI
 import NavigationStack
 
-struct AnimalsView: View {
+struct GuardianAnimalsView: View {
     @StateObject private var animalsViewModel = AnimalsViewModel()
     @EnvironmentObject private var navigationModel: NavigationModel
     var animalList = ["Snoop","Animal 2","Animal 3","Animal 4","Animal 5","Animal 6","Animal7"]
@@ -103,7 +103,7 @@ struct AnimalsView: View {
  
 }
 
-struct ListItemImageTitle: View
+struct GuardianListItemImageTitle: View
 {
    
     var type: String
@@ -171,8 +171,8 @@ struct ListItemImageTitle: View
     }
 }
 
-struct AnimalsView_Previews: PreviewProvider {
+struct GuardianAnimalsView_Previews: PreviewProvider {
     static var previews: some View {
-        AnimalsView()
+        GuardianAnimalsView()
     }
 }

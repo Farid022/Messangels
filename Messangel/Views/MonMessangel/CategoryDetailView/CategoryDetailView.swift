@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import NavigationStack
 
 struct CategoryDetailView: View {
-    var list = ["Livres bureau","Objet","Objet","Objet","Objet","Objet"]
+    
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var categoryDetailViewModel = CategoryDetailViewModel()
+    
+    var category :  ServiceCategory?
+  
     var body: some View {
+        
+        NavigationStackView("CategoryDetailView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -19,7 +27,7 @@ struct CategoryDetailView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("Réseau sociaux")
+                        Text(category?.name ?? "")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -33,7 +41,7 @@ struct CategoryDetailView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text("Réseau sociaux")
+                            Text(category?.name ?? "")
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
@@ -54,10 +62,17 @@ struct CategoryDetailView: View {
                                
                                 VStack{
                                 
-                                    ForEach(enumerating: list, id:\.self)
+                                    ForEach(enumerating: categoryDetailViewModel.categories, id:\.self)
                                 {
                                     index, item in
-                                    CategoryDetailItem(type: "categoryDetailIcon", item: item)
+                                    CategoryDetailItem(type: "categoryDetailIcon", item: item.account_fields?.online_service?.name ?? "")
+                                        .onTapGesture {
+                                            
+                                            navigationModel.pushContent("CategoryDetailView") {
+                                                
+                                                SocialNetworkSheetView(categoryDetail: item)
+                                            }
+                                        }
                                        
 
                                 }
@@ -85,8 +100,9 @@ struct CategoryDetailView: View {
         }
         .onAppear {
             
-           
+            categoryDetailViewModel.getCategoryDetail(categoryID: category?.id ?? 0)
             
+        }
         }
     }
 }
@@ -153,6 +169,6 @@ struct CategoryDetailItem: View
 
 struct CategoryDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryDetailView()
+        CategoryDetailView(category: ServiceCategory(id: 0, name: ""))
     }
 }

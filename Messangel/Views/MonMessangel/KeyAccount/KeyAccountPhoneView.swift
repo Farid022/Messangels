@@ -10,6 +10,7 @@ import NavigationStack
 
 struct KeyAccountPhoneView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var viewModel = keyAccountVerficationViewModel()
     var isVisible: Bool
     @State var password: String = "1234"
     @State var code: String = "123456"
@@ -58,22 +59,42 @@ struct KeyAccountPhoneView: View {
                                    
                          
                          
+                        
+                            
                             HStack
                             {
                                 Image("ic_key_color_native")
                                     .frame(width:26,height:13)
                             
-                                Text("Associé à 0 compte")
-                                       .font(.system(size: 15))
-                                       .fontWeight(.regular)
+                               HStack
+                                {
+                              
+                                    
+                                    Text("Associé à \(viewModel.phoneAssociations[0].associated_account ?? 0) comptes")
+                                                .font(.system(size: 15))
+                                                
+                                   
+                               
+                                        
+                                    
+                                        
+                                
+                                    
+                               
+                                    
+                         
                                        
                                       
-                                       .padding(.leading,10)
+                                       
+                                    
+                                }
+                                .padding(.leading,10)
                                 
                                 
                             }
                             .padding(.leading,24)
-                            .padding(.bottom,24)
+                            .padding(.bottom,44)
+                            
                             
                             HStack
                             {
@@ -225,6 +246,8 @@ struct KeyAccountPhoneView: View {
            
             code = phoneDetail.deviceUnlockCode
             password = phoneDetail.pincode
+            
+            viewModel.phoneRegAssociated()
         }
         }
     }

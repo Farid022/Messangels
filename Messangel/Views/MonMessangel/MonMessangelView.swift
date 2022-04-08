@@ -16,6 +16,7 @@ struct MonMessangelView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var guardianViewModel = GuardianViewModel()
     @StateObject private var volontesViewModel = VolontesViewModel()
+    @StateObject private var onlineServiceViewModel = OnlineServiceViewModel()
     @StateObject var auth = Auth()
     @EnvironmentObject var envAuth: Auth
     @State private var cgImage = UIImage().cgImage
@@ -187,7 +188,9 @@ struct MonMessangelView: View {
             }
             vmKeyAcc.getKeyPhones()
             
+            onlineServiceViewModel.getCategories()
            
+            
         })
                     
         
@@ -664,16 +667,12 @@ struct ServiceCategoryListView: View
                 ForEach(enumerating: items, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: "", item: item.name)
+                    ServiceCategoryItem(type: "", item: item.name)
                         .onTapGesture {
                             navigationModel.pushContent("MonMessangelView") {
                                 
+                                CategoryDetailView(category: item)
                                 
-                                
-                                    CategoryDetailView()
-                                
-                        
-
                                 }
                         }
                         
@@ -746,23 +745,23 @@ struct MesVoluntesItem: View
                 switch(item)
                 {
                 case "Choix funéraires" :  ChoixfunerairesView()
-                case "Organismes spécialisés" :  OrganismesObsequesView()
-                case "Animaux" : AnimalsView()
-                case "Faire-part et annonce": AdvertismentView()
-                case "Don d’organes ou du corps": CorpsScienceView()
-                case "Spiritualité et traditions": SpiritualiteTraditionsView()
-                case  "Lieux": PremisesView()
-                case "Diffusion de la nouvelle" : DiffusionNouvelleView()
-                case   "Esthétique": AestheticView()
-                case  "Musique": MusicView()
-                case  "Pièces administratives": AdministrativePartsView()
-                case  "Dons": DonationCollectioView()
-                case  "Vêtements et accessoires": ClothAccessoriesView()
-                case  "Objets": ObjectListView()
-                case  "Codes pratiques": CodePractiveView()
-                case  "Contrats à gérer": ManageContractsView()
-                case  "Expression libre": ExpressionView()
-                default: MusicView()
+                case "Organismes spécialisés" :  GuardianOrganismesObsequesView()
+                case "Animaux" : GuardianAnimalsView()
+                case "Faire-part et annonce": GuardianAdvertismentView()
+                case "Don d’organes ou du corps": GuardianCorpsScienceView()
+                case "Spiritualité et traditions": GuardianSpiritualiteTraditionsView()
+                case  "Lieux": GuardianPremisesView()
+                case "Diffusion de la nouvelle" : GuardianDiffusionNouvelleView()
+                case   "Esthétique": GuardianAestheticView()
+                case  "Musique": GuardianMusicView()
+                case  "Pièces administratives": GuardianAdministrativePartsView()
+                case  "Dons": GuardianDonationCollectioView()
+                case  "Vêtements et accessoires": GuardianClothAccessoriesView()
+                case  "Objets": GuardianObjectListView()
+                case  "Codes pratiques": GuardianCodePractiveView()
+                case  "Contrats à gérer": GuardianManageContractsView()
+                case  "Expression libre": GuardianExpressionView()
+                default: GuardianMusicView()
                     
               }
                 }
@@ -771,6 +770,85 @@ struct MesVoluntesItem: View
     }
 }
 
+struct ServiceCategoryItem: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Button(action: {}) {
+                Image("ic_nextArrow")
+            }
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:56)
+        .background(.white)
+        .cornerRadius(22)
+       
+        }
+        .frame(height:68)
+//        .onTapGesture {
+//            navigationModel.pushContent("MonMessangelView") {
+//
+//
+//                switch(item)
+//                {
+//                case "Choix funéraires" :  ChoixfunerairesView()
+//                case "Organismes spécialisés" :  OrganismesObsequesView()
+//                case "Animaux" : AnimalsView()
+//                case "Faire-part et annonce": AdvertismentView()
+//                case "Don d’organes ou du corps": CorpsScienceView()
+//                case "Spiritualité et traditions": SpiritualiteTraditionsView()
+//                case  "Lieux": PremisesView()
+//                case "Diffusion de la nouvelle" : DiffusionNouvelleView()
+//                case   "Esthétique": AestheticView()
+//                case  "Musique": MusicView()
+//                case  "Pièces administratives": AdministrativePartsView()
+//                case  "Dons": DonationCollectioView()
+//                case  "Vêtements et accessoires": ClothAccessoriesView()
+//                case  "Objets": ObjectListView()
+//                case  "Codes pratiques": CodePractiveView()
+//                case  "Contrats à gérer": ManageContractsView()
+//                case  "Expression libre": ExpressionView()
+//                default: MusicView()
+//
+//              }
+//                }
+//        }
+        
+    }
+}
 struct KeyAccountItem: View
 {
     @EnvironmentObject var navigationModel: NavigationModel
@@ -892,7 +970,7 @@ struct MaVieDigitaleView: View
         }
         .onAppear {
             onlineServiceViewModel.getCategories()
-            vmKeyAcc.getKeyAccounts { success in
+            vmKeyAcc.getKeyAccounts{ success in
                 
             }
             vmKeyAcc.getKeyPhones()
