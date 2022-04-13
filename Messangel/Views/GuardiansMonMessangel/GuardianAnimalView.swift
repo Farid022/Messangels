@@ -9,6 +9,8 @@ import SwiftUI
 import NavigationStack
 
 struct GuardianAnimalView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var animalsViewModel = AnimalsViewModel()
     @EnvironmentObject private var navigationModel: NavigationModel
     var animalList = ["Snoop","Animal 2","Animal 3","Animal 4","Animal 5","Animal 6","Animal7"]
@@ -74,8 +76,14 @@ struct GuardianAnimalView: View {
                                 ListItemImageTitleGuardian(type: item.animal_photo, item: item.animal_name)
                                     .onTapGesture {
                                         navigationModel.pushContent("AnimalsView") {
-                                            
+                                            ZStack(alignment: .topTrailing)
+                                            {
                                             AnimalDetailView(animal: item)
+                                            
+                                            GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                        .padding(.top,-23)
+
+                                            }
                                         }
                                         
                                     }
@@ -97,6 +105,26 @@ struct GuardianAnimalView: View {
         .onAppear {
             animalsViewModel.getAll()
         }
+        }
+        .onAppear{
+            
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }

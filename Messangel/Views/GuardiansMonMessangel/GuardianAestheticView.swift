@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct GuardianAestheticView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var aestheticViewModel = AestheticViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -40,9 +42,22 @@ struct GuardianAestheticView: View {
                                    .padding(.bottom,40)
                                    .padding(.leading,24)
                         
-                            CoffinView(aesthetic: aestheticViewModel.asthetic)
+                            ZStack(alignment: .topTrailing){
+                            GuardianCoffinView(aesthetic: aestheticViewModel.asthetic)
                                 .padding(.bottom,40)
                                 .cornerRadius(24)
+                                if aestheticViewModel.asthetic.count > 0
+                                {
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: aestheticViewModel.asthetic[0].id)
+                                .padding(.top,-23)
+                                }
+                                else
+                                {
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert)
+                                        .padding(.top,-23)
+                                }
+                            }
+                        
                             
                             ItemWithTitleListDescription(title: "Mes demandes concernant la décoration", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
                                 .padding(.bottom,40)
@@ -62,6 +77,24 @@ struct GuardianAestheticView: View {
             aestheticViewModel.getAesthetic { success in
                 
             }
+            
+           
+                guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                    
+                }
+            
+        }
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }
@@ -89,6 +122,8 @@ struct GuardianCoffinView: View
                         index, item in
                        
                         FlowerItem(title: item.flower?.name ?? "", description: item.flower_note ?? "", image: item.flower?.image ?? "")
+                   
+                    
                     }
                   
               

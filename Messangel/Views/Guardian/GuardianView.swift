@@ -61,7 +61,8 @@ struct GuardianView: View {
             .padding(.bottom, 20)
           
             Button(action: {
-                navigationModel.pushContent("GuardianView") {
+                UserDefaults.standard.set(guardian.id, forKey: "guardianID")
+                navigationModel.pushContent(TabBarView.id) {
                     
                   GuardianMonMessangelView()
                 }

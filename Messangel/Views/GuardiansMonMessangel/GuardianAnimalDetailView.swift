@@ -10,6 +10,8 @@ import SwiftUI
 struct GuardianAnimalDetailView: View {
     var animal : AnimalDetail
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var animalsViewModel = AnimalsViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -225,78 +227,28 @@ struct GuardianAnimalDetailView: View {
                 }
             }
         }
-    }
-}
-
-
-struct GuardianListItemImageTitle: View
-{
-   
-    
-    var type: String
-    var item: String
-    var body: some View {
-        ZStack{
-      
-        VStack
-        {
-        HStack(alignment:.center)
-        {
-            
-            if type.count > 0
-            {
-                AsyncImage(url: URL(string: type)) { image in
-                    image
-                    .resizable()
-                    .scaledToFill()
-                } placeholder: {
-                    ProgressView()
-                }
-                .padding(.leading,24)
-                .clipShape(Circle())
-                .frame(width:56,height:56)
-             
-                Text(item)
-                       .font(.system(size: 15))
-                       .fontWeight(.regular)
-                       .multilineTextAlignment(.center)
-                       .padding(.leading,12)
+        .onAppear {
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
                 
             }
-            else
-            {
-                Image("animalPlaceholder")
-                .resizable()
-                .clipShape(Circle())
-                .padding(.leading,24)
-                .frame(width:56,height:56)
-                
-               
-                Text(item)
-                       .font(.system(size: 15))
-                       .fontWeight(.regular)
-                       .multilineTextAlignment(.center)
-                       .padding(.leading,24)
-            
-             
-                }
-           
-            Spacer()
-            Rectangle()
-            .foregroundColor(.white)
-            .padding(.trailing,24)
-            
         }
-        .frame(height:96)
-        .background(.white)
-        .cornerRadius(22)
-        .frame(height:120)
-       
-        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
+        }
     }
-        }
 }
-}
+
+
+
 struct GuardianAnimalDetailView_Previews: PreviewProvider {
     static var previews: some View {
         GuardianAnimalDetailView(animal: AnimalDetail(single_animal: true, animal_name: "", animal_contact_detail: Contact(id: 0, user: getUserId(), first_name: "", last_name: "", email: "", phone_number: "", legal_age: true), animal_organization_detail: Organismes(), animal_species: "", animal_note: "", animal_photo: "", user: User(id: nil, first_name: "", last_name: "", email: "", password: "", phone_number: "", dob: "", city: "", postal_code: "", gender: "", is_active: false, image_url: nil)))

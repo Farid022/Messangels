@@ -9,10 +9,13 @@ import SwiftUI
 import NavigationStack
 
 struct GuardianFuneralChoiceView: View {
-    
+
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var funeralChoixViewModel = FuneralChoixViewModel()
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     var body: some View {
+       
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -38,6 +41,8 @@ struct GuardianFuneralChoiceView: View {
                     ScrollView {
                         VStack{
                             
+                           
+                            
                             Text("Voici mes volontés concernant mes choix funéraires")
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
@@ -46,24 +51,69 @@ struct GuardianFuneralChoiceView: View {
                             
                             Group
                             {
-                                GuardianFunerairesView(title: "Mon rite funéraire : " + (funeralChoixViewModel.funeral.burialType?.name ?? ""), description: funeralChoixViewModel.funeral.burial_type_note ?? "")
+                                ZStack(alignment:.topTrailing)
+                                {
+                                    
+                                  
+                                        GuardianFunerairesView(title: "Mon rite funéraire : " + (funeralChoixViewModel.funeral.burialType?.name ?? ""), description: funeralChoixViewModel.funeral.burial_type_note ?? "")
                                     .padding(.bottom,40)
+                                        
+                                    
+                                    
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                        .padding(.top,-23)
+                                       
+                                 
+                                    
+                                }
                                 
+                                ZStack(alignment:.topTrailing)
+                                {
                                 GuardianFunerairesView(title: "Mon lieu d’inhumation", description: funeralChoixViewModel.funeral.placeBurialNote)
                                     .padding(.bottom,40)
+                                    
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id:funeralChoixViewModel.funeral.burialType?.id)
+                                    .padding(.top,-23)
+                                }
                                 
+                                ZStack(alignment:.topTrailing)
+                                {
                                 GuardianFunerairesView(title: "Mon lieu de crémation", description: funeralChoixViewModel.funeral.depositeAshesNote)
                                     .padding(.bottom,40)
-                               
-                                GuardianMonCercueilView(funeral: funeralChoixViewModel.funeral)
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                    .padding(.top,-23)
+                                }
+                                ZStack(alignment:.topTrailing)
+                                {
+                                    
+                                    GuardianMonCercueilView(funeral: funeralChoixViewModel.funeral)
                                     .padding(.bottom,40)
-                                
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id:funeralChoixViewModel.funeral.coffinMaterial.id)
+                                    .padding(.top,-23)
+                                        
+                                }
+                               
+                                ZStack(alignment:.topTrailing)
+                                {
                                 GuardianMonUrneView(funeral: funeralChoixViewModel.funeral)
                                     .padding(.bottom,40)
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.urnStyle.id)
+                                    .padding(.top,-23)
+                                }
                                
+                                ZStack(alignment:.topTrailing)
+                                {
                                 GuardianFunerairesView(title: "Ma tenue", description: funeralChoixViewModel.funeral.outfitNote ) .padding(.bottom,40)
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert,id: funeralChoixViewModel.funeral.urnStyle.id)
+                                    .padding(.top,-23)
+                                }
                                 
+                                ZStack(alignment:.topTrailing)
+                                {
                                 GuardianFunerairesView(title: "Mes objets et accessoires", description: funeralChoixViewModel.funeral.acessoriesNote ) .padding(.bottom,40)
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert,id: funeralChoixViewModel.funeral.urnStyle.id)
+                                    .padding(.top,-23)
+                                }
                             }
                         }
                     }
@@ -74,13 +124,51 @@ struct GuardianFuneralChoiceView: View {
             funeralChoixViewModel.getFuneralChoix { success in
                 
             }
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        }
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
        
        
        
     }
 }
-
+struct GuardianMemberListView: View
+{
+    var memebers : [User]
+    @Binding var showExitAlert : Bool
+    var id : Int?
+    var body: some View {
+        
+        VStack(alignment: .trailing)
+        {
+            HStack(alignment:.top){
+            
+                GuardianMemberItem(type: "", item: "")
+                .onTapGesture {
+                    UserDefaults.standard.set(id, forKey: "objectID")
+                    showExitAlert = true
+                  
+                    }
+                        
+            }
+            
+        
+        }
+    }
+}
 struct GuardianFunerairesView: View
 {
     var title: String
@@ -90,6 +178,7 @@ struct GuardianFunerairesView: View
         ZStack(alignment: .leading){
             Color.init(red: 242/255, green: 242/255, blue: 247/255)
                 .ignoresSafeArea()
+           
            
             
             VStack(alignment:.leading)
@@ -133,6 +222,8 @@ struct GuardianFunerairesView: View
                 }
                
             }
+           
+            
          
         }
         
@@ -140,6 +231,48 @@ struct GuardianFunerairesView: View
         .cornerRadius(22)
         .padding(.leading,18)
         .padding(.trailing,18)
+    }
+}
+
+struct GuardianMemberItem: View
+{
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+            
+                if type.count > 0
+                {
+                    AsyncImage(url: URL(string: type)) { image in
+                        image
+                        .resizable()
+                        .scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                   
+                    .clipShape(Circle())
+                    .frame(width:56,height:56)
+                 
+                    
+                }
+                else
+                {
+                    Image("userPlaceholder")
+                    .resizable()
+                    .clipShape(Circle())
+                  
+                    .frame(width:56,height:56)
+                
+                 
+                }
+            
+        }
+        .frame(height:56)
+        .frame(width:56)
+        .padding(.trailing,10)
     }
 }
 

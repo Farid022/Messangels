@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct GuardianClothAccessoriesView: View {
-   
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var clothAssesoriesViewModel = ClothAssesoriesViewModel()
     var list = ["Pull bleu","Vêtement","Vêtement","Vêtement","Vêtement","Vêtement"]
     var body: some View {
@@ -69,8 +70,13 @@ struct GuardianClothAccessoriesView: View {
                                 ForEach(enumerating: clothAssesoriesViewModel.cloths, id:\.self)
                             {
                                 index, item in
+                                ZStack(alignment: .topTrailing)
+                                {
                                 ClothItem(type: item.clothing_photo, item: item.clothing_name)
                                    
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                .padding(.top,-23)
+                                }
 
                             }
                             .padding(.trailing,24)
@@ -87,6 +93,24 @@ struct GuardianClothAccessoriesView: View {
         }
         .onAppear {
             clothAssesoriesViewModel.getAll()
+             
+                    guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                        
+                    }
+                
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }

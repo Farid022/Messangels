@@ -28,7 +28,7 @@ struct GuardianMonMessangelView: View {
   
     var body: some View {
      
-        NavigationStackView("MonMessangelView") {
+        NavigationStackView("GuardianMonMessangelView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -226,6 +226,7 @@ struct GuardianMesVoluntesItem: View
     @EnvironmentObject var navigationModel: NavigationModel
     var type: String
     var item: String
+
     var body: some View {
         
         VStack
@@ -270,12 +271,14 @@ struct GuardianMesVoluntesItem: View
         }
         .frame(height:68)
         .onTapGesture {
-            navigationModel.pushContent("MonMessangelView") {
+            
+          
+            navigationModel.pushContent("GuardianMonMessangelView") {
                 
                 
                 switch(item)
                 {
-                case "Choix funéraires" :  ChoixfunerairesView()
+                case "Choix funéraires" :  GuardianFuneralChoiceView()
                 case "Organismes spécialisés" :  GuardianOrganismesObsequesView()
                 case "Animaux" : GuardianAnimalView()
                 case "Faire-part et annonce": GuardianAdvertismentView()

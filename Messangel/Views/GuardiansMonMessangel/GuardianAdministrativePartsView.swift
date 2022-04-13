@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct GuardianAdministrativePartsView: View {
-    
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     
     @StateObject private var documentViewModel = DocumentViewModel()
     var animalList = ["Pièce d’identité","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE","*NOMDELAPIECE"]
@@ -70,7 +72,13 @@ struct GuardianAdministrativePartsView: View {
                                 ForEach(enumerating: documentViewModel.documentUpload, id:\.self)
                             {
                                 index, item in
+                                ZStack(alignment : .topTrailing)
+                                {
                                 ListItemImageTitle(type: "ic_partslist", item: item.name)
+                                
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                .padding(.top,-23)
+                                }
                                    
 
                             }
@@ -88,6 +96,24 @@ struct GuardianAdministrativePartsView: View {
         }
         .onAppear {
             documentViewModel.getAll()
+                
+                    guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                        
+                    }
+                
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }

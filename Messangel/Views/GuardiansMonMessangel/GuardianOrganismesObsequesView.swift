@@ -9,6 +9,8 @@ import SwiftUI
 import NavigationStack
 import Combine
 struct GuardianOrganismesObsequesView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var organismesViewModel = OrganismesViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -68,6 +70,23 @@ struct GuardianOrganismesObsequesView: View {
             organismesViewModel.getOrganismes { success in
                 
             }
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
         
     }

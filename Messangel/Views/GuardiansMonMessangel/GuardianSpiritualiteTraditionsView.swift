@@ -9,6 +9,8 @@ import SwiftUI
 import NavigationStack
 import Combine
 struct GuardianSpiritualiteTraditionsView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var spiritualiteViewModel = SpiritualiteViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -45,12 +47,24 @@ struct GuardianSpiritualiteTraditionsView: View {
                             
                             Group
                             {
+                                ZStack(alignment:.topTrailing)
+                                {
                                 FunerairesView(title: "Je souhaite une cérémonie " + spiritualiteViewModel.spiritualite.spritual_ceremony.name, description: spiritualiteViewModel.spiritualite.spirtual_cermony_note ?? "")
                                     .padding(.bottom,40)
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: spiritualiteViewModel.spiritualite.id)
+                            .padding(.top,-23)
+
+                                }
                 
                                 
+                                ZStack(alignment:.topTrailing)
+                                {
                                 FunerairesView(title: "Je souhaite faire appliquer des traditions", description: spiritualiteViewModel.spiritualite.ceremony_note ?? "")
                                     .padding(.bottom,40)
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: spiritualiteViewModel.spiritualite.id)
+                            .padding(.top,-23)
+
+                                }
                         }
                     }
                     }
@@ -61,6 +75,23 @@ struct GuardianSpiritualiteTraditionsView: View {
             spiritualiteViewModel.getspiritualite { success in
                 
             }
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }
