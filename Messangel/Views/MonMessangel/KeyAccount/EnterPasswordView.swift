@@ -19,7 +19,7 @@ struct EnterPasswordView: View {
     @State private var hidePassword = true
     static let id = String(describing: Self.self)
     @State private var alert = false
-    @State private var apiError = APIService.APIErr(error: "", error_description: "")
+    @State private var apiError = APIService.APIErr(error: "Password", error_description: "Enter the right Password")
     var isEmail: Bool
     var emailDetail: PrimaryEmailAcc
     var phoneDetail: PrimaryPhone
@@ -145,7 +145,7 @@ struct EnterPasswordView: View {
                                                         }
                                                         else
                                                         {
-                                                            
+                                                            alert.toggle()
                                                         }
                                                     }
                                                 case .failure(let error):

@@ -56,7 +56,10 @@ struct CategoryDetailView: View {
                                    .padding(.bottom,40)
                                    .padding(.leading,24)
                          
+                            if categoryDetailViewModel.categories.count > 0
+                            {
                             ZStack{
+                                
                                 Color.init(red: 242/255, green: 242/255, blue: 247/255)
                                     .ignoresSafeArea()
                                
@@ -90,7 +93,7 @@ struct CategoryDetailView: View {
                             .padding(.trailing,18)
                             
                             
-                            
+                            }
                            
                             
                         }

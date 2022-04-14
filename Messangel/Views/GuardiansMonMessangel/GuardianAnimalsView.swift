@@ -105,7 +105,7 @@ struct AnimalsView: View {
 
 struct ListItemImageTitle: View
 {
-   
+    var placeholder: String?
     var type: String
     var item: String
     var body: some View {
@@ -122,7 +122,11 @@ struct ListItemImageTitle: View
                     .resizable()
                     .scaledToFill()
                 } placeholder: {
-                    ProgressView()
+                    Image(placeholder ?? "")
+                    .resizable()
+                    .clipShape(Circle())
+                    .padding(.leading,24)
+                    .frame(width:56,height:56)
                 }
                 .padding(.leading,24)
                 .clipShape(Circle())

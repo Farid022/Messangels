@@ -70,9 +70,15 @@ struct GuardianObjectListView: View {
                                 ForEach(enumerating: objectListViewModel.objectlists, id:\.self)
                             {
                                 index, item in
+                                ZStack(alignment: .topTrailing)
+                                {
                                 ObjectItem(type: item.object_photo, item: item.object_name)
                                    
-
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                .padding(.top,-13)
+                                .padding(.trailing,12)
+                                }
+                                
                             }
                             .padding(.trailing,24)
                             .padding(.leading,24)

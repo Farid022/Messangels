@@ -190,6 +190,8 @@ struct ItemWithTitleListDescription: View
                 .padding(.bottom)
             }
             HStack(alignment:.top){
+                if description.count > 0
+                {
                 Image("ic_note")
                 
                 Text(description)
@@ -198,6 +200,7 @@ struct ItemWithTitleListDescription: View
                        .padding(.bottom,40)
                        .padding(.leading,16)
                        .padding(.trailing,24)
+                }
                 
             }
             .padding(.leading,24)

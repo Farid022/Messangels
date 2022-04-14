@@ -15,14 +15,15 @@ struct EnterOTPView: View {
     @State var code2: String = ""
     @State var code3: String = ""
     @State var code4: String = ""
-    
+    @State private var alert = false
+    @State private var apiError = APIService.APIErr(error: "OTP", error_description: "Please enter valid OTP")
     @State private var valid = true
     static let id = String(describing: Self.self)
     var isEmail: Bool
     var emailDetail: PrimaryEmailAcc
     var phoneDetail: PrimaryPhone
     var body: some View {
-        NavigationStackView("EnterPasswordView") {
+        NavigationStackView("EnterOTPView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -31,6 +32,7 @@ struct EnterOTPView: View {
                 NavBar()
                     .overlay(HStack {
                         BackButton()
+                            .padding(.leading,40)
                         Spacer()
                         Text("")
                             .font(.system(size: 17))
@@ -230,13 +232,13 @@ struct EnterOTPView: View {
                                             {
                                                 if isEmail
                                                 {
-                                                    navigationModel.pushContent("EnterPasswordView") {
+                                                    navigationModel.pushContent("EnterOTPView") {
                                                        KeyAccountEmailView(isVisible: true,emailDetail: emailDetail)
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    navigationModel.pushContent("EnterPasswordView") {
+                                                    navigationModel.pushContent("EnterOTPView") {
                                                        KeyAccountPhoneView(isVisible: true,phoneDetail: phoneDetail)
                                                     }
                                                 }
@@ -244,7 +246,10 @@ struct EnterOTPView: View {
                                             }
                                             else
                                             {
-                                            
+                                               
+                                                alert.toggle()
+                                                   
+                                                
                                             }
                                         }
 
@@ -254,13 +259,14 @@ struct EnterOTPView: View {
                                         Image("ic_nextArrow")
                                         .frame(width: 56, height: 56)
                                         .foregroundColor(Color.accentColor)
+                                        
                                     }
                                     .frame(width: 56, height: 56)
                                     .foregroundColor(.white)
                                     .background(.white)
                                     .cornerRadius(23)
                                     .padding(.top,100)
-                                    .padding(.trailing,24)
+                                    .padding(.trailing,40)
                                     
                                   
                                 
@@ -279,12 +285,17 @@ struct EnterOTPView: View {
                 
             }
         }
+        .alert(isPresented: $alert, content: {
+            Alert(title: Text(apiError.error), message: Text(apiError.error_description))
+        })
         .onAppear {
             
            
             
         }
+       
         }
+       
     }
 }
 

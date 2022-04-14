@@ -70,8 +70,15 @@ struct GuardianMusicView: View {
                                 ForEach(enumerating: musicViewModel.musics, id:\.self)
                             {
                                 index, item in
+                                ZStack(alignment: .topTrailing)
+                                {
                                 ListItemImageTitle(type: "musicPlaceholder", item: item.song_title)
                                    
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                   .padding(.top,-13)
+                                   .padding(.trailing,12)
+                                }
+                                
 
                             }
                             .padding(.trailing,24)

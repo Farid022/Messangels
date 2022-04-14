@@ -70,9 +70,14 @@ struct GuardianManageContractsView: View {
                                 ForEach(enumerating: manageContractViewModel.contracts, id:\.self)
                             {
                                 index, item in
+                                ZStack(alignment: .topTrailing)
+                                {
                                 ListItemImageTitle(type: "contractPlaceholder", item: item.name)
-                                   
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                .padding(.top,-13)
+                                .padding(.trailing,12)
 
+                                }
                             }
                             .padding(.trailing,24)
                             .padding(.leading,24)

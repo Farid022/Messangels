@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GuardianAdvertismentView: View {
+struct AdvertismentView: View {
     @StateObject private var funeralAdvertisementViewModel = FuneralAdvertisementViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -45,7 +45,7 @@ struct GuardianAdvertismentView: View {
                             
                             Group
                             {
-                                GuardianMyAnnoucementView(advertisement: funeralAdvertisementViewModel.advertisement)
+                                MyAnnoucementView(advertisement: funeralAdvertisementViewModel.advertisement)
                              .padding(.bottom,40)
                                 FunerairesView(title: "Journal local", description: funeralAdvertisementViewModel.advertisement.newspaper_note)
                                     .padding(.bottom,40)
@@ -65,7 +65,7 @@ struct GuardianAdvertismentView: View {
 }
 
 
-struct GuardianMyAnnoucementView: View
+struct MyAnnoucementView: View
 {
     var animalList : [String] = []
     var advertisement: FuneralAdvertisement
@@ -143,8 +143,8 @@ struct gridItem: View
         
     }
 }
-struct GuardianAdvertismentView_Previews: PreviewProvider {
+struct AdvertismentView_Previews: PreviewProvider {
     static var previews: some View {
-        GuardianAdvertismentView()
+        AdvertismentView()
     }
 }

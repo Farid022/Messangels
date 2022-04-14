@@ -69,7 +69,7 @@ struct MusicView: View {
                                 ForEach(enumerating: musicViewModel.musics, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: "musicPlaceholder", item: item.song_title)
+                                ListItemImageTitle(placeholder: "musicPlaceholder", type: "musicPlaceholder", item: item.song_title)
                                    
 
                             }

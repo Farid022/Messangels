@@ -73,20 +73,28 @@ struct GuardianAnimalView: View {
                                 ForEach(enumerating: animalsViewModel.animals, id:\.self)
                             {
                                 index, item in
+                                ZStack(alignment: .topTrailing)
+                                {
+                                    
+                                    
                                 ListItemImageTitleGuardian(type: item.animal_photo, item: item.animal_name)
                                     .onTapGesture {
                                         navigationModel.pushContent("AnimalsView") {
-                                            ZStack(alignment: .topTrailing)
-                                            {
+                                           
+                                            
                                             AnimalDetailView(animal: item)
                                             
-                                            GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
-                                        .padding(.top,-23)
+                                           
 
-                                            }
+                                            
                                         }
                                         
                                     }
+                                
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                               .padding(.top,-13)
+                               .padding(.trailing,-12)
+                                }
                                    
 
                             }

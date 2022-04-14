@@ -200,6 +200,7 @@ struct MonMessangelView: View {
 }
 
 struct dateView: View{
+    @EnvironmentObject var envAuth: Auth
     var body: some View {
    
         ZStack{
@@ -213,7 +214,7 @@ struct dateView: View{
                 
                 VStack
                 {
-                    Text("Date de création\n10 octobre 2022")
+                    Text("Date de création\n" + envAuth.user.getRegistrationDate() )
                         .font(.system(size: 13))
                         .fontWeight(.regular)
                         .foregroundColor(.white)
@@ -230,7 +231,7 @@ struct dateView: View{
                 Image("ic_calendar2")
                 VStack
                 {
-                    Text("Date de création\n10 octobre 2022")
+                    Text("Date de création\n" + envAuth.user.getUpdatedDate() )
                         .font(.system(size: 13))
                         .fontWeight(.regular)
                         .foregroundColor(.white)
@@ -745,23 +746,23 @@ struct MesVoluntesItem: View
                 switch(item)
                 {
                 case "Choix funéraires" :  ChoixfunerairesView()
-                case "Organismes spécialisés" :  GuardianOrganismesObsequesView()
-                case "Animaux" : GuardianAnimalsView()
-                case "Faire-part et annonce": GuardianAdvertismentView()
-                case "Don d’organes ou du corps": GuardianCorpsScienceView()
-                case "Spiritualité et traditions": GuardianSpiritualiteTraditionsView()
-                case  "Lieux": GuardianPremisesView()
-                case "Diffusion de la nouvelle" : GuardianDiffusionNouvelleView()
-                case   "Esthétique": GuardianAestheticView()
-                case  "Musique": GuardianMusicView()
-                case  "Pièces administratives": GuardianAdministrativePartsView()
-                case  "Dons": GuardianDonationCollectioView()
-                case  "Vêtements et accessoires": GuardianClothAccessoriesView()
-                case  "Objets": GuardianObjectListView()
-                case  "Codes pratiques": GuardianCodePractiveView()
-                case  "Contrats à gérer": GuardianManageContractsView()
-                case  "Expression libre": GuardianExpressionView()
-                default: GuardianMusicView()
+                case "Organismes spécialisés" :  OrganismesObsequesView()
+                case "Animaux" : AnimalsView()
+                case "Faire-part et annonce": AdvertismentView()
+                case "Don d’organes ou du corps": CorpsScienceView()
+                case "Spiritualité et traditions": SpiritualiteTraditionsView()
+                case  "Lieux": PremisesView()
+                case "Diffusion de la nouvelle" : DiffusionNouvelleView()
+                case   "Esthétique": AestheticView()
+                case  "Musique": MusicView()
+                case  "Pièces administratives": AdministrativePartsView()
+                case  "Dons": DonationCollectioView()
+                case  "Vêtements et accessoires": ClothAccessoriesView()
+                case  "Objets": ObjectListView()
+                case  "Codes pratiques": CodePractiveView()
+                case  "Contrats à gérer": ManageContractsView()
+                case  "Expression libre": ExpressionView()
+                default: MusicView()
                     
               }
                 }

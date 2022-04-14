@@ -54,7 +54,7 @@ struct PremisesView: View {
                             ItemWithTitleListDescription(title: "Mon lieu de repos : Funérarium", description: premisesViewModel.newPremises.resting_place_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
-                            ItemWithTitleListDescription(title: "Mon lieu de repos : Domicile", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
+                            ItemWithTitleListDescription(title: "Mon lieu de repos : Domicile", description: premisesViewModel.newPremises.resting_place_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
                         }

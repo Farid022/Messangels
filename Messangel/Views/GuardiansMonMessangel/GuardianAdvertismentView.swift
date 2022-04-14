@@ -88,7 +88,7 @@ struct GuardiansAdvertismentView: View {
 }
 
 
-struct GuardiansMyAnnoucementView: View
+struct GuardianMyAnnoucementView: View
 {
     var animalList : [String] = []
     var advertisement: FuneralAdvertisement

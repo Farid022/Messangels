@@ -281,7 +281,7 @@ struct GuardianMesVoluntesItem: View
                 case "Choix funéraires" :  GuardianFuneralChoiceView()
                 case "Organismes spécialisés" :  GuardianOrganismesObsequesView()
                 case "Animaux" : GuardianAnimalView()
-                case "Faire-part et annonce": GuardianAdvertismentView()
+                case "Faire-part et annonce": GuardiansAdvertismentView()
                 case "Don d’organes ou du corps": GuardianCorpsScienceView()
                 case "Spiritualité et traditions": GuardianSpiritualiteTraditionsView()
                 case  "Lieux": GuardianPremisesView()
