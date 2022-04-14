@@ -18,6 +18,7 @@ struct Animal: Codable {
 }
 
 struct AnimalDetail: Hashable, Codable {
+    var id : Int?
     var single_animal: Bool
     var animal_name: String
     var animal_contact_detail: Contact?
