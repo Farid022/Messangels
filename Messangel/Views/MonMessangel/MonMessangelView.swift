@@ -128,7 +128,7 @@ struct MonMessangelView: View {
                                    .padding(.bottom,40)
                             }
                           
-                            MesMessageView(items: [MesMessage(icon: "ic_people", title:  "destinataires", count: "25"), MesMessage(icon: "ic_messageVideo", title:  "Messages vidéos", count: "5"), MesMessage(icon: "ic_messageText", title:  "Messages texte", count: "8"), MesMessage(icon: "ic_messageAudio", title:  "Messages audio", count: "8"), MesMessage(icon: "ic_messagePhoto", title:  "photos", count: "25")])
+                            MesMessageView(items: [MesMessage(icon: "ic_people", title:  "destinataires", count: String(format:"%d", volontesViewModel.counterValue.group_contacts?.count ?? 0)), MesMessage(icon: "ic_messageVideo", title:  "Messages vidéos", count: String(format:"%d", volontesViewModel.counterValue.videos?.count ?? 0)), MesMessage(icon: "ic_messageText", title:  "Messages texte", count: String(format:"%d", volontesViewModel.counterValue.texts?.count ?? 0)), MesMessage(icon: "ic_messageAudio", title:  "Messages audio", count: String(format:"%d", volontesViewModel.counterValue.audios?.count ?? 0)), MesMessage(icon: "ic_messagePhoto", title:  "photos", count: String(format:"%d", volontesViewModel.counterValue.group_contacts?.count ?? 0)),])
                                
                             Group{
                             Image("ic_vieDigitale")
@@ -179,6 +179,7 @@ struct MonMessangelView: View {
         }
         }.onAppear(perform: {
             volontesViewModel.getTabs()
+            volontesViewModel.getCounts()
             guardianViewModel.getGuardians { success in
                 
             }
