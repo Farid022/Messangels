@@ -47,7 +47,7 @@ struct AdvertismentView: View {
                             {
                                 MyAnnoucementView(advertisement: funeralAdvertisementViewModel.advertisement)
                              .padding(.bottom,40)
-                                FunerairesView(title: "Journal local", description: funeralAdvertisementViewModel.advertisement.newspaper_note)
+                                FunerairesView(title: "Journal local", description: funeralAdvertisementViewModel.advertisement.newspaper_note ?? "")
                                     .padding(.bottom,40)
                                
                         }
@@ -89,9 +89,9 @@ struct MyAnnoucementView: View
                 
                 Group{
                    
-                    MonCercueilItem(title: "Faire apparaitre la photo ci-dessous", description: "", image: advertisement.invitation_photo)
+                    MonCercueilItem(title: "Faire apparaitre la photo ci-dessous", description: "", image: advertisement.invitation_photo ?? "")
                     MonCercueilItem(title: "Apparence de mon faire-part", description: advertisement.invitation_photo_note ?? "", image: "")
-                    MonCercueilItem(title: "Texte à faire apparaître", description: advertisement.theme_note, image: "")
+                    MonCercueilItem(title: "Texte à faire apparaître", description: advertisement.theme_note ?? "", image: "")
                     
                     LazyVGrid(columns: columns) {
                         ForEach(enumerating: animalList, id:\.self)
