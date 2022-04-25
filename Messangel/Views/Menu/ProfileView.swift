@@ -24,7 +24,8 @@ struct ProfileView: View {
     var profileUpdated: Bool {
         return userVM.profile.last_name != auth.user.last_name ||
         userVM.profile.first_name != auth.user.first_name ||
-        userVM.profile.postal_code != auth.user.postal_code
+        userVM.profile.postal_code != auth.user.postal_code ||
+        profileImage.cgImage != nil
     }
     
     var body: some View {
@@ -60,24 +61,8 @@ struct ProfileView: View {
                         if !valid {
                             return
                         }
-                        if self.profileImage.cgImage != nil {
-                            isPerformingTask = true
-                            Task {
-                                if let response = await Networking.shared.upload(profileImage.jpegData(compressionQuality: 1)!, fileName: "msgl_profil.jpeg", fileType: "image") {
-                                    DispatchQueue.main.async {
-                                        self.userVM.profile.image_url = response.files.first?.path
-                                        if profileUpdated {
-                                            confirmModify.toggle()
-                                        } else {
-                                            isPerformingTask = false
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            if profileUpdated {
-                                confirmModify.toggle()
-                            }
+                        if profileUpdated {
+                            confirmModify.toggle()
                         }
                     }
                     .disabled(isPerformingTask || !valid)
@@ -113,8 +98,19 @@ struct ProfileView: View {
                     .ignoresSafeArea()
                     .overlay(MyAlert(title: "", message: "Êtes-vous sur de vouloir modifier cette information ?", ok: "Confirmer", action: {
                         isPerformingTask = true
-                        updateProfile { success in
-                            if success {
+                        if self.profileImage.cgImage != nil {
+                            Task {
+                                if let response = await Networking.shared.upload(profileImage.jpegData(compressionQuality: 1)!, fileName: "msgl_profil.jpeg", fileType: "image") {
+                                    DispatchQueue.main.async {
+                                        self.userVM.profile.image_url = response.files.first?.path
+                                        updateProfile { success in
+                                            isPerformingTask = false
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            updateProfile { success in
                                 isPerformingTask = false
                             }
                         }
