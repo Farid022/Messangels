@@ -16,6 +16,7 @@ struct MonMessangelView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @StateObject private var guardianViewModel = GuardianViewModel()
     @StateObject private var volontesViewModel = VolontesViewModel()
+    @StateObject private var onlineServiceViewModel = OnlineServiceViewModel()
     @StateObject var auth = Auth()
     @EnvironmentObject var envAuth: Auth
     @State private var cgImage = UIImage().cgImage
@@ -127,7 +128,7 @@ struct MonMessangelView: View {
                                    .padding(.bottom,40)
                             }
                           
-                            MesMessageView(items: [MesMessage(icon: "ic_people", title:  "destinataires", count: "25"), MesMessage(icon: "ic_messageVideo", title:  "Messages vidéos", count: "5"), MesMessage(icon: "ic_messageText", title:  "Messages texte", count: "8"), MesMessage(icon: "ic_messageAudio", title:  "Messages audio", count: "8"), MesMessage(icon: "ic_messagePhoto", title:  "photos", count: "25")])
+                            MesMessageView(items: [MesMessage(icon: "ic_people", title:  "destinataires", count: String(format:"%d", volontesViewModel.counterValue.group_contacts?.count ?? 0)), MesMessage(icon: "ic_messageVideo", title:  "Messages vidéos", count: String(format:"%d", volontesViewModel.counterValue.videos?.count ?? 0)), MesMessage(icon: "ic_messageText", title:  "Messages texte", count: String(format:"%d", volontesViewModel.counterValue.texts?.count ?? 0)), MesMessage(icon: "ic_messageAudio", title:  "Messages audio", count: String(format:"%d", volontesViewModel.counterValue.audios?.count ?? 0)), MesMessage(icon: "ic_messagePhoto", title:  "photos", count: String(format:"%d", volontesViewModel.counterValue.group_contacts?.count ?? 0)),])
                                
                             Group{
                             Image("ic_vieDigitale")
@@ -178,6 +179,7 @@ struct MonMessangelView: View {
         }
         }.onAppear(perform: {
             volontesViewModel.getTabs()
+            volontesViewModel.getCounts()
             guardianViewModel.getGuardians { success in
                 
             }
@@ -187,7 +189,9 @@ struct MonMessangelView: View {
             }
             vmKeyAcc.getKeyPhones()
             
+            onlineServiceViewModel.getCategories()
            
+            
         })
                     
         
@@ -197,6 +201,7 @@ struct MonMessangelView: View {
 }
 
 struct dateView: View{
+    @EnvironmentObject var envAuth: Auth
     var body: some View {
    
         ZStack{
@@ -210,7 +215,7 @@ struct dateView: View{
                 
                 VStack
                 {
-                    Text("Date de création\n10 octobre 2022")
+                    Text("Date de création\n" + envAuth.user.getRegistrationDate() )
                         .font(.system(size: 13))
                         .fontWeight(.regular)
                         .foregroundColor(.white)
@@ -227,7 +232,7 @@ struct dateView: View{
                 Image("ic_calendar2")
                 VStack
                 {
-                    Text("Date de création\n10 octobre 2022")
+                    Text("Date de création\n" + envAuth.user.getUpdatedDate() )
                         .font(.system(size: 13))
                         .fontWeight(.regular)
                         .foregroundColor(.white)
@@ -290,58 +295,18 @@ struct documentView: View
                 if guardians.count > 0
                 {
                    
-                    
-                    if guardians.count > 1
-                    {
-                        Text(guardians[0].first_name + " " + guardians[0].last_name)
-                               .font(.system(size: 15))
-                               .fontWeight(.bold)
-                               .multilineTextAlignment(.center)
-                              
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        Text(" Née le 7 octobre 1968 \nà Strasbourg")
-                               .font(.system(size: 15))
-                               .fontWeight(.regular)
-                               .multilineTextAlignment(.center)
-                               .padding(.bottom,20)
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
+                   
+                        ForEach(enumerating: guardians, id:\.self)
+                        {
+                            index, item in
+                            
+                            GuardiansView(name: item.first_name + " " + item.last_name, dateofBirth: item.guardian?.dob ?? "", address: item.guardian?.city ?? "")
+                                .padding(.bottom,20)
+                        }
+                        .padding(.leading,24)
+                        .padding(.trailing,24)
                         
-                        
-                        Text(guardians[1].first_name + " " + guardians[1].last_name)
-                               .font(.system(size: 15))
-                               .fontWeight(.bold)
-                               .multilineTextAlignment(.center)
-                              
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        Text("Née le 15 décembre 1956 \nà Lyon")
-                               .font(.system(size: 15))
-                               .fontWeight(.regular)
-                               .multilineTextAlignment(.center)
-                               .padding(.bottom,18)
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        
-                    }
-                    else
-                    {
-                        Text(guardians[0].first_name + " " + guardians[0].last_name)
-                               .font(.system(size: 15))
-                               .fontWeight(.bold)
-                               .multilineTextAlignment(.center)
-                              
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        Text(" Née le 7 octobre 1968 \nà Strasbourg")
-                               .font(.system(size: 15))
-                               .fontWeight(.regular)
-                               .multilineTextAlignment(.center)
-                               .padding(.bottom,20)
-                               .padding(.leading,24)
-                               .padding(.trailing,24)
-                        
+                      
                         
                         
                         Text("Ajoutez un deuxieme Ange-gardien pour activer votre Messangel")
@@ -365,6 +330,7 @@ struct documentView: View
                         
                             Image("add-user")
                             .opacity(1)
+                            .frame(width: 50, height:50)
                         }
                         .background(.white)
                         .clipShape(Circle())
@@ -376,7 +342,7 @@ struct documentView: View
                             navigationModel.pushContent("MonMessangelView") {
                                 GuardianFormIntroView(vm: GuardianViewModel())
                             }
-                        }
+                        
                   
                     }
                     
@@ -436,14 +402,41 @@ struct documentView: View
     
     }
 }
+struct GuardiansView: View
+{
+    var name: String
+    var dateofBirth: String
+    var address: String
+    var body: some View {
+    
+        VStack{
+            
+                Text(name)
+                       .font(.system(size: 15))
+                       .fontWeight(.bold)
+                       .multilineTextAlignment(.center)
+                      
+                       .padding(.leading,24)
+                       .padding(.trailing,24)
+                Text(" Née le \(dateofBirth) \nà \(address)")
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .lineLimit(2)
+                       .multilineTextAlignment(.center)
+                       .padding(.bottom,20)
+                       .padding(.leading,24)
+                       .padding(.trailing,24)
+                
+                
+        }
+    }
+}
 
 struct keyAccounts: View
 {
     var body: some View {
     
-        VStack{
-            
-        }
+        VStack{}
     }
 }
 
@@ -589,7 +582,7 @@ struct DigitalLifeListView: View
                 ForEach(enumerating: emailItems, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: "ic_email", item: item.email)
+                    KeyAccountItem(type: "ic_email", item: item.email)
                         .onTapGesture {
                             navigationModel.pushContent("MonMessangelView") {
                                 
@@ -607,7 +600,7 @@ struct DigitalLifeListView: View
                 ForEach(enumerating: phoneItems, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: "ic_mobile", item: item.phoneNum)
+                    KeyAccountItem(type: "ic_mobile", item: item.phoneNum)
                         .onTapGesture {
                             navigationModel.pushContent("MonMessangelView") {
                                 
@@ -676,16 +669,12 @@ struct ServiceCategoryListView: View
                 ForEach(enumerating: items, id:\.self)
                 {
                     index, item in
-                    MesVoluntesItem(type: "", item: item.name)
+                    ServiceCategoryItem(type: "", item: item.name)
                         .onTapGesture {
                             navigationModel.pushContent("MonMessangelView") {
                                 
+                                CategoryDetailView(category: item)
                                 
-                                
-                                    CategoryDetailView()
-                                
-                        
-
                                 }
                         }
                         
@@ -783,6 +772,138 @@ struct MesVoluntesItem: View
     }
 }
 
+struct ServiceCategoryItem: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Button(action: {}) {
+                Image("ic_nextArrow")
+            }
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:56)
+        .background(.white)
+        .cornerRadius(22)
+       
+        }
+        .frame(height:68)
+//        .onTapGesture {
+//            navigationModel.pushContent("MonMessangelView") {
+//
+//
+//                switch(item)
+//                {
+//                case "Choix funéraires" :  ChoixfunerairesView()
+//                case "Organismes spécialisés" :  OrganismesObsequesView()
+//                case "Animaux" : AnimalsView()
+//                case "Faire-part et annonce": AdvertismentView()
+//                case "Don d’organes ou du corps": CorpsScienceView()
+//                case "Spiritualité et traditions": SpiritualiteTraditionsView()
+//                case  "Lieux": PremisesView()
+//                case "Diffusion de la nouvelle" : DiffusionNouvelleView()
+//                case   "Esthétique": AestheticView()
+//                case  "Musique": MusicView()
+//                case  "Pièces administratives": AdministrativePartsView()
+//                case  "Dons": DonationCollectioView()
+//                case  "Vêtements et accessoires": ClothAccessoriesView()
+//                case  "Objets": ObjectListView()
+//                case  "Codes pratiques": CodePractiveView()
+//                case  "Contrats à gérer": ManageContractsView()
+//                case  "Expression libre": ExpressionView()
+//                default: MusicView()
+//
+//              }
+//                }
+//        }
+        
+    }
+}
+struct KeyAccountItem: View
+{
+    @EnvironmentObject var navigationModel: NavigationModel
+    var type: String
+    var item: String
+    var body: some View {
+        
+        VStack
+        {
+        HStack(alignment:.center)
+        {
+            if type.count > 0
+            {
+                Image(type)
+                .padding(.leading,24)
+             
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,12)
+                
+            }
+            else
+            {
+               
+                Text(item)
+                       .font(.system(size: 15))
+                       .fontWeight(.regular)
+                       .multilineTextAlignment(.center)
+                       .padding(.leading,24)
+            
+             
+                }
+           
+            Spacer()
+            Button(action: {}) {
+                Image("ic_nextArrow")
+            }
+            .padding(.trailing,24)
+            
+        }
+        .frame(height:56)
+        .background(.white)
+        .cornerRadius(22)
+       
+        }
+        .frame(height:68)
+       
+        
+    }
+}
+
 
 //MARK: - Mes Messages View
 struct MesMessageView: View
@@ -851,7 +972,7 @@ struct MaVieDigitaleView: View
         }
         .onAppear {
             onlineServiceViewModel.getCategories()
-            vmKeyAcc.getKeyAccounts { success in
+            vmKeyAcc.getKeyAccounts{ success in
                 
             }
             vmKeyAcc.getKeyPhones()

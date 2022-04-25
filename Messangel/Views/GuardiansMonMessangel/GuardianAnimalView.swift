@@ -1,14 +1,16 @@
 //
-//  AnimalsView.swift
+//  GuardianAnimalView.swift
 //  Messangel
 //
-//  Created by Muhammad Ali  Pasha on 2/14/22.
+//  Created by Muhammad Ali  Pasha on 3/30/22.
 //
 
 import SwiftUI
 import NavigationStack
 
-struct GuardianAnimalsView: View {
+struct GuardianAnimalView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var animalsViewModel = AnimalsViewModel()
     @EnvironmentObject private var navigationModel: NavigationModel
     var animalList = ["Snoop","Animal 2","Animal 3","Animal 4","Animal 5","Animal 6","Animal7"]
@@ -71,14 +73,28 @@ struct GuardianAnimalsView: View {
                                 ForEach(enumerating: animalsViewModel.animals, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(type: item.animal_photo, item: item.animal_name)
+                                ZStack(alignment: .topTrailing)
+                                {
+                                    
+                                    
+                                ListItemImageTitleGuardian(type: item.animal_photo, item: item.animal_name)
                                     .onTapGesture {
                                         navigationModel.pushContent("AnimalsView") {
+                                           
                                             
                                             AnimalDetailView(animal: item)
+                                            
+                                           
+
+                                            
                                         }
                                         
                                     }
+                                
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                               .padding(.top,-13)
+                               .padding(.trailing,-12)
+                                }
                                    
 
                             }
@@ -98,18 +114,57 @@ struct GuardianAnimalsView: View {
             animalsViewModel.getAll()
         }
         }
+        .onAppear{
+            
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
+        }
     }
-      
- 
 }
 
-struct GuardianListItemImageTitle: View
+struct ListItemImageTitleGuardian: View
 {
+   
    
     var type: String
     var item: String
     var body: some View {
         
+        ZStack
+        {
+            VStack(alignment:.trailing)
+            {
+                HStack()
+                {
+                    AsyncImage(url: URL(string:"")) {  image in
+                        image
+                        .resizable()
+                        .scaledToFill()
+                    } placeholder: {
+                        Image("userPlaceholder")
+                    }
+                    .padding(.leading,24)
+                    .clipShape(Circle())
+                    .frame(width:56,height:56)
+                 
+                
+                }
+            }
         VStack
         {
         HStack(alignment:.center)
@@ -166,13 +221,14 @@ struct GuardianListItemImageTitle: View
        
         }
         .frame(height:120)
+        }
        
         
     }
 }
 
-struct GuardianAnimalsView_Previews: PreviewProvider {
+struct GuardianAnimalView_Previews: PreviewProvider {
     static var previews: some View {
-        GuardianAnimalsView()
+        GuardianAnimalView()
     }
 }

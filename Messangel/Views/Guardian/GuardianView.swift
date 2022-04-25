@@ -7,14 +7,19 @@
 
 import SwiftUI
 import NavigationStack
+import Combine
+import SwiftUIX
 
 struct GuardianView: View {
+    
+    
     @State private var confirmAlert = false
     @ObservedObject var vm: GuardianViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     var guardian: Guardian
     
     var body: some View {
+        NavigationStackView("GuardianView") {
         MenuBaseView(title:"\(guardian.last_name) \(guardian.first_name)") {
             if let user = guardian.guardian {
                 ProfileImageView(imageUrlString: user.image_url)
@@ -53,6 +58,18 @@ struct GuardianView: View {
                 Text("Supprimer l’ange gardien")
             })
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .black))
+            .padding(.bottom, 20)
+          
+            Button(action: {
+                UserDefaults.standard.set(guardian.id, forKey: "guardianID")
+                navigationModel.pushContent(TabBarView.id) {
+                    
+                  GuardianMonMessangelView()
+                }
+            }, label: {
+                Text("Déclarer le décés")
+            })
+            .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .gray))
         }
         .alert(isPresented: $confirmAlert, content: {
             Alert(title: Text("Supprimer l’Ange-gardien ?"), message: Text("Un mail sera envoyé à \(guardian.last_name) pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {
@@ -69,6 +86,8 @@ struct GuardianView: View {
                 
             }), secondaryButton: .cancel(Text("Annuler").foregroundColor(.black)))
         })
+            
+        }
     }
 }
 

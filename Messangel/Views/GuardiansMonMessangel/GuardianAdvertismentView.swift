@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct AdvertismentView: View {
+struct GuardiansAdvertismentView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var funeralAdvertisementViewModel = FuneralAdvertisementViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -45,7 +47,7 @@ struct AdvertismentView: View {
                             
                             Group
                             {
-                                MyAnnoucementView(advertisement: funeralAdvertisementViewModel.advertisement)
+                                GuardianMyAnnoucementView(advertisement: funeralAdvertisementViewModel.advertisement)
                              .padding(.bottom,40)
                                 FunerairesView(title: "Journal local", description: funeralAdvertisementViewModel.advertisement.newspaper_note ?? "")
                                     .padding(.bottom,40)
@@ -60,12 +62,33 @@ struct AdvertismentView: View {
             funeralAdvertisementViewModel.getAnnounce { success in
                 
             }
+            
+          
+                guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                    
+                }
+            
+        }
+        
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
+    
 }
 
 
-struct MyAnnoucementView: View
+struct GuardianMyAnnoucementView: View
 {
     var animalList : [String] = []
     var advertisement: FuneralAdvertisement
@@ -118,7 +141,7 @@ struct MyAnnoucementView: View
     }
 }
 
-struct gridItem: View
+struct GuardiangridItem: View
 {
     var title : String
     var body: some View {
@@ -143,8 +166,8 @@ struct gridItem: View
         
     }
 }
-struct AdvertismentView_Previews: PreviewProvider {
+struct GuardiansAdvertismentView_Previews: PreviewProvider {
     static var previews: some View {
-        AdvertismentView()
+        GuardiansAdvertismentView()
     }
 }

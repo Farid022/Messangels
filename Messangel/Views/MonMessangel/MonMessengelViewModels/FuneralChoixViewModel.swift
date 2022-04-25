@@ -59,6 +59,7 @@ struct FuneralChoixDetail: Hashable,Codable {
     var coffin_finish_note: String?
     var urn_material_note: String?
     var urn_style_note: String?
+    var assign_user : [User]?
     
 
     enum CodingKeys: String, CodingKey {
@@ -80,6 +81,7 @@ struct FuneralChoixDetail: Hashable,Codable {
         case coffin_finish_note
         case urn_material_note
         case urn_style_note
+        case assign_user
     }
 }
 

@@ -8,7 +8,9 @@
 import SwiftUI
 import NavigationStack
 import Combine
-struct OrganismesObsequesView: View {
+struct GuardianOrganismesObsequesView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var organismesViewModel = OrganismesViewModel()
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -68,13 +70,30 @@ struct OrganismesObsequesView: View {
             organismesViewModel.getOrganismes { success in
                 
             }
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
         
     }
 }
 
 
-struct FuneralContractView: View
+struct GuardianFuneralContractView: View
 {
     var data: OgranismesData
     var body: some View {
@@ -104,7 +123,7 @@ struct FuneralContractView: View
         .padding(.trailing,18)
     }
 }
-struct OrganismesItem: View
+struct GuardianOrganismesItem: View
 {
     var title: String
     var description: String
@@ -159,7 +178,7 @@ struct OrganismesItem: View
         .padding(.trailing,24)
     }
 }
-struct ItemWithTitleListDescription: View
+struct GuardianItemWithTitleListDescription: View
 {
     var title: String
     var description: String
@@ -190,8 +209,6 @@ struct ItemWithTitleListDescription: View
                 .padding(.bottom)
             }
             HStack(alignment:.top){
-                if description.count > 0
-                {
                 Image("ic_note")
                 
                 Text(description)
@@ -200,7 +217,6 @@ struct ItemWithTitleListDescription: View
                        .padding(.bottom,40)
                        .padding(.leading,16)
                        .padding(.trailing,24)
-                }
                 
             }
             .padding(.leading,24)
@@ -213,7 +229,7 @@ struct ItemWithTitleListDescription: View
         .padding(.trailing,24)
     }
 }
-struct MonCercueilWithListItem: View
+struct GuardianMonCercueilWithListItem: View
 {
     var title: String
     var description: String
@@ -258,7 +274,7 @@ struct MonCercueilWithListItem: View
     }
 }
 
-struct MonCercueilWithListView: View
+struct GuardianMonCercueilWithListView: View
 {
     var title: String
     var description: String
@@ -275,7 +291,7 @@ struct MonCercueilWithListView: View
     }
 }
 
-struct MonCercueilTitleView: View
+struct GuardianMonCercueilTitleView: View
 {
     var title: String
  
@@ -304,7 +320,7 @@ struct MonCercueilTitleView: View
     }
 }
 
-struct OrganismesObsequesView_Previews: PreviewProvider {
+struct GuardianOrganismesObsequesView_Previews: PreviewProvider {
     static var previews: some View {
         OrganismesObsequesView()
     }

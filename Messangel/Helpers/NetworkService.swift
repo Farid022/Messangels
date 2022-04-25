@@ -108,6 +108,55 @@ class Networking {
         }.resume()
     }
     
+    func patch<T: Codable, R: Codable>(model: T, response: R, endpoint: String, token: Bool = true, method: String = "PATCH", keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys, completion: @escaping (Result<R,APIErr>) -> Void) {
+        guard let encoded = try? JSONEncoder().encode(model) else {
+            print("Failed to encode order")
+            return
+        }
+        
+        let url = URL(string: "https://messangel.caansoft.com/api/v1/\(endpoint)")!
+        UserDefaults.standard.removeObject(forKey: url.lastPathComponent)
+        print("Request URL: \(url.path)")
+        print("Body: \(String(describing: String(data: encoded, encoding: .utf8)))")
+        var request = URLRequest(url: url)
+        if token {
+            request.setValue("Bearer \(UserDefaults.standard.string(forKey: "token") ?? "")", forHTTPHeaderField: "Authorization")
+        }
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = method
+        request.httpBody = encoded
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse  else {
+                return
+            }
+            print("Status code: \(httpResponse.statusCode)")
+            guard let data = data else {
+                print("No data in response: \(error?.localizedDescription ?? "Unknown error").")
+                return
+            }
+            print("\(method) Response Data: \(String(describing: String(data: data, encoding: .utf8)))")
+            let decoder = JSONDecoder()
+            
+            if let decodedData = try? decoder.decode(R.self, from: data) {
+                if (200...299).contains(httpResponse.statusCode) {
+                    completion(.success(decodedData))
+                    return
+                } else {
+                    let res = decodedData as? APIResponse
+                    completion(.failure(APIErr(error: "Server Error: \(httpResponse.statusCode)", error_description: res?.message ?? "")))
+                    return
+                }
+            } else if let decodedError = try? decoder.decode(APIErr.self, from: data) {
+                completion(.failure(APIErr(error: decodedError.error, error_description: decodedError.error_description)))
+                return
+            } else {
+                completion(.failure(APIErr(error: "Error", error_description: String(bytes: data, encoding: .utf8) ?? "Unknown error occured!")))
+                return
+            }
+        }.resume()
+    }
+    
     func delete(endpoint: String, completion: @escaping (Result<APIResponse,APIErr>) -> Void) {
         
         let url = URL(string: "https://messangel.caansoft.com/api/v1/\(endpoint)")!

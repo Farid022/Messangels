@@ -10,6 +10,7 @@ import NavigationStack
 
 struct KeyAccountEmailView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
+    @StateObject private var viewModel = keyAccountVerficationViewModel()
     var isVisible: Bool
     @State var code: String = "Sophi64!"
     var emailDetail : PrimaryEmailAcc
@@ -24,7 +25,7 @@ struct KeyAccountEmailView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text("carnerosophie68@yahoo.fr")
+                        Text(emailDetail.email)
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -38,7 +39,7 @@ struct KeyAccountEmailView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text("carnerosophie68@yahoo.fr")
+                            Text(emailDetail.email)
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
@@ -55,7 +56,39 @@ struct KeyAccountEmailView: View {
                             
                                    
                             
-                          
+                            HStack
+                            {
+                                Image("ic_key_color_native")
+                                    .frame(width:26,height:13)
+                            
+                               HStack
+                                {
+                              
+                                    
+                                    Text("Associé à \(viewModel.mailAssociations[0].associated_account ?? 0) comptes")
+                                                .font(.system(size: 15))
+                                                
+                                   
+                               
+                                        
+                                    
+                                        
+                                
+                                    
+                               
+                                    
+                         
+                                       
+                                      
+                                       
+                                    
+                                }
+                                .padding(.leading,10)
+                                
+                                
+                            }
+                            .padding(.leading,24)
+                            .padding(.bottom,44)
                             
                             
                             HStack
@@ -156,7 +189,7 @@ struct KeyAccountEmailView: View {
                             .padding(.bottom,24)
                             
                             
-                            KeyAccountDetailNoteView(title: "Note", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.")
+                            KeyAccountDetailNoteView(title: "Note", description: emailDetail.note)
                                 .padding(.bottom,40)
                             
                         }
@@ -166,8 +199,8 @@ struct KeyAccountEmailView: View {
         }
         .onAppear {
             
-           
-            
+            code = emailDetail.password
+            viewModel.phoneRegAssociated()
         }
         }
     }

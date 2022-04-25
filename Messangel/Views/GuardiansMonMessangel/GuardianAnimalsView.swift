@@ -1,23 +1,19 @@
 //
-//  CategoryDetailView.swift
+//  AnimalsView.swift
 //  Messangel
 //
-//  Created by Muhammad Ali  Pasha on 3/16/22.
+//  Created by Muhammad Ali  Pasha on 2/14/22.
 //
 
 import SwiftUI
 import NavigationStack
 
-struct CategoryDetailView: View {
-    
+struct AnimalsView: View {
+    @StateObject private var animalsViewModel = AnimalsViewModel()
     @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject private var categoryDetailViewModel = CategoryDetailViewModel()
-    
-    var category :  ServiceCategory?
-  
+    var animalList = ["Snoop","Animal 2","Animal 3","Animal 4","Animal 5","Animal 6","Animal7"]
     var body: some View {
-        
-        NavigationStackView("CategoryDetailView") {
+        NavigationStackView("AnimalsView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -27,7 +23,7 @@ struct CategoryDetailView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text(category?.name ?? "")
+                        Text("Animaux")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -41,59 +37,56 @@ struct CategoryDetailView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text(category?.name ?? "")
+                            Text("Voici mes volontés concernant la transmission de mes animaux")
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
-                                   .padding(.bottom,0)
-                                   .padding(.leading,24)
-                            
-                            
-                            Text("Liste de mes réseaux sociaux à gérer")
-                                   .font(.system(size: 14))
-                                   .fontWeight(.regular)
-                                   .padding(.top,10)
                                    .padding(.bottom,40)
                                    .padding(.leading,24)
                          
-                            if categoryDetailViewModel.categories.count > 0
-                            {
                             ZStack{
-                                
                                 Color.init(red: 242/255, green: 242/255, blue: 247/255)
                                     .ignoresSafeArea()
                                
-                                VStack{
-                                
-                                    ForEach(enumerating: categoryDetailViewModel.categories, id:\.self)
+                                VStack(alignment:.leading)
                                 {
-                                    index, item in
-                                    CategoryDetailItem(type: "categoryDetailIcon", item: item.account_fields?.online_service?.name ?? "")
-                                        .onTapGesture {
-                                            
-                                            navigationModel.pushContent("CategoryDetailView") {
-                                                
-                                                SocialNetworkSheetView(categoryDetail: item)
-                                            }
-                                        }
-                                       
-
+                                    
+                                    Text("Cette liste de mes animaux contient les coordonnées des organismes/personnes auxquels je souhaite les transmettre.")
+                                           .font(.system(size: 15))
+                                           .fontWeight(.regular)
+                                           .multilineTextAlignment(.leading)
+                                           .padding(.leading,24)
+                                           .padding(.top,40)
+                                           .padding(.bottom,40)
+                                          
                                 }
-                                .padding(.trailing,24)
-                                .padding(.leading,24)
-                               
-                                }
-                                .padding(.top,40)
-                                .padding(.bottom,40)
                                 
                             }
-                           
                             .cornerRadius(24)
                             .padding(.leading,18)
                             .padding(.trailing,18)
                             
+                            VStack{
                             
+                                ForEach(enumerating: animalsViewModel.animals, id:\.self)
+                            {
+                                index, item in
+                                ListItemImageTitle(type: item.animal_photo, item: item.animal_name)
+                                    .onTapGesture {
+                                        navigationModel.pushContent("AnimalsView") {
+                                            
+                                            AnimalDetailView(animal: item)
+                                        }
+                                        
+                                    }
+                                   
+
                             }
+                            .padding(.trailing,24)
+                            .padding(.leading,24)
+                           
+                            }
+                            
                            
                             
                         }
@@ -102,17 +95,17 @@ struct CategoryDetailView: View {
             }
         }
         .onAppear {
-            
-            categoryDetailViewModel.getCategoryDetail(categoryID: category?.id ?? 0)
-            
+            animalsViewModel.getAll()
         }
         }
     }
+      
+ 
 }
 
-struct CategoryDetailItem: View
+struct ListItemImageTitle: View
 {
-   
+    var placeholder: String?
     var type: String
     var item: String
     var body: some View {
@@ -124,9 +117,19 @@ struct CategoryDetailItem: View
             
             if type.count > 0
             {
-                Image(type)
+                AsyncImage(url: URL(string: type)) { image in
+                    image
+                    .resizable()
+                    .scaledToFill()
+                } placeholder: {
+                    Image(placeholder ?? "")
+                    .resizable()
+                    .clipShape(Circle())
+                    .padding(.leading,24)
+                    .frame(width:56,height:56)
+                }
                 .padding(.leading,24)
-                .cornerRadius(23)
+                .clipShape(Circle())
                 .frame(width:56,height:56)
              
                 Text(item)
@@ -138,10 +141,12 @@ struct CategoryDetailItem: View
             }
             else
             {
-                Image("categoryDetailIcon")
+                Image("animalPlaceholder")
+                .resizable()
+                .clipShape(Circle())
                 .padding(.leading,24)
-                .cornerRadius(23)
                 .frame(width:56,height:56)
+                
                
                 Text(item)
                        .font(.system(size: 15))
@@ -158,20 +163,20 @@ struct CategoryDetailItem: View
             .padding(.trailing,24)
             
         }
-        .frame(height:56)
+        .frame(height:96)
         .background(.white)
         .cornerRadius(22)
         .shadow(color: Color.init(red: 0, green: 0, blue: 0,opacity: 0.08), radius: 22, x: 0, y: 3)
        
         }
-        .frame(height:68)
+        .frame(height:120)
        
         
     }
 }
 
-struct CategoryDetailView_Previews: PreviewProvider {
+struct AnimalsView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryDetailView(category: ServiceCategory(id: 0, name: ""))
+        AnimalsView()
     }
 }

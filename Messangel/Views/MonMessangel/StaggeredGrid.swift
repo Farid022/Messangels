@@ -101,7 +101,7 @@ struct StaggeredGrid<Content: View, T: Identifiable>: View where T : Hashable {
 struct StaggeredGrid_Previews: PreviewProvider {
     static var previews: some View {
    
-        AdvertismentView()
+       AdvertismentView()
         
     }
 }

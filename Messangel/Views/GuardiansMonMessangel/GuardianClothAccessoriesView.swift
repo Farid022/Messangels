@@ -1,23 +1,18 @@
 //
-//  CategoryDetailView.swift
+//  ClothAccessoriesView.swift
 //  Messangel
 //
-//  Created by Muhammad Ali  Pasha on 3/16/22.
+//  Created by Muhammad Ali  Pasha on 2/16/22.
 //
 
 import SwiftUI
-import NavigationStack
 
-struct CategoryDetailView: View {
-    
-    @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject private var categoryDetailViewModel = CategoryDetailViewModel()
-    
-    var category :  ServiceCategory?
-  
+struct GuardianClothAccessoriesView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
+    @StateObject private var clothAssesoriesViewModel = ClothAssesoriesViewModel()
+    var list = ["Pull bleu","Vêtement","Vêtement","Vêtement","Vêtement","Vêtement"]
     var body: some View {
-        
-        NavigationStackView("CategoryDetailView") {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
             VStack(spacing: 0.0) {
                 Color.accentColor
@@ -27,7 +22,7 @@ struct CategoryDetailView: View {
                     .overlay(HStack {
                         BackButton()
                         Spacer()
-                        Text(category?.name ?? "")
+                        Text("Vêtements et accessoires ")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                             .foregroundColor(.white)
@@ -41,59 +36,54 @@ struct CategoryDetailView: View {
                     ScrollView {
                         VStack(alignment:.leading){
                            
-                            Text(category?.name ?? "")
+                            Text("Voici mes volontés concernant la transmission de mes vêtements et de mes accessoires")
                                    .font(.system(size: 22))
                                    .fontWeight(.bold)
                                    .padding(.top,40)
-                                   .padding(.bottom,0)
-                                   .padding(.leading,24)
-                            
-                            
-                            Text("Liste de mes réseaux sociaux à gérer")
-                                   .font(.system(size: 14))
-                                   .fontWeight(.regular)
-                                   .padding(.top,10)
                                    .padding(.bottom,40)
                                    .padding(.leading,24)
                          
-                            if categoryDetailViewModel.categories.count > 0
-                            {
                             ZStack{
-                                
                                 Color.init(red: 242/255, green: 242/255, blue: 247/255)
                                     .ignoresSafeArea()
                                
-                                VStack{
-                                
-                                    ForEach(enumerating: categoryDetailViewModel.categories, id:\.self)
+                                VStack(alignment:.leading)
                                 {
-                                    index, item in
-                                    CategoryDetailItem(type: "categoryDetailIcon", item: item.account_fields?.online_service?.name ?? "")
-                                        .onTapGesture {
-                                            
-                                            navigationModel.pushContent("CategoryDetailView") {
-                                                
-                                                SocialNetworkSheetView(categoryDetail: item)
-                                            }
-                                        }
-                                       
-
+                                    
+                                    Text("Cette liste de mes vêtements et de mes accessoires contient les coordonnées des organismes/personnes auxquels je souhaite les transmettre.")
+                                           .font(.system(size: 15))
+                                           .fontWeight(.regular)
+                                           .multilineTextAlignment(.leading)
+                                           .padding(.leading,24)
+                                           .padding(.top,40)
+                                           .padding(.bottom,40)
+                                          
                                 }
-                                .padding(.trailing,24)
-                                .padding(.leading,24)
-                               
-                                }
-                                .padding(.top,40)
-                                .padding(.bottom,40)
                                 
                             }
-                           
                             .cornerRadius(24)
                             .padding(.leading,18)
                             .padding(.trailing,18)
                             
+                            VStack{
                             
+                                ForEach(enumerating: clothAssesoriesViewModel.cloths, id:\.self)
+                            {
+                                index, item in
+                                ZStack(alignment: .topTrailing)
+                                {
+                                ClothItem(type: item.clothing_photo, item: item.clothing_name)
+                                   
+                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                .padding(.top,-23)
+                                }
+
                             }
+                            .padding(.trailing,24)
+                            .padding(.leading,24)
+                           
+                            }
+                            
                            
                             
                         }
@@ -102,15 +92,30 @@ struct CategoryDetailView: View {
             }
         }
         .onAppear {
-            
-            categoryDetailViewModel.getCategoryDetail(categoryID: category?.id ?? 0)
-            
+            clothAssesoriesViewModel.getAll()
+             
+                    guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                        
+                    }
+                
         }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }
 
-struct CategoryDetailItem: View
+struct GuardianClothItem: View
 {
    
     var type: String
@@ -138,7 +143,7 @@ struct CategoryDetailItem: View
             }
             else
             {
-                Image("categoryDetailIcon")
+                Image("clothPlaceholder")
                 .padding(.leading,24)
                 .cornerRadius(23)
                 .frame(width:56,height:56)
@@ -158,20 +163,19 @@ struct CategoryDetailItem: View
             .padding(.trailing,24)
             
         }
-        .frame(height:56)
+        .frame(height:96)
         .background(.white)
         .cornerRadius(22)
         .shadow(color: Color.init(red: 0, green: 0, blue: 0,opacity: 0.08), radius: 22, x: 0, y: 3)
        
         }
-        .frame(height:68)
+        .frame(height:120)
        
         
     }
 }
-
-struct CategoryDetailView_Previews: PreviewProvider {
+struct GuardianClothAccessoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryDetailView(category: ServiceCategory(id: 0, name: ""))
+        ClothAccessoriesView()
     }
 }

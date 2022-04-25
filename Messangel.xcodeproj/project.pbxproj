@@ -9,6 +9,29 @@
 /* Begin PBXBuildFile section */
 		2311D88B27D9E9B0005CBDE2 /* PremisesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */; };
 		231B6E9727E8E36500916A0D /* SocialNetworkSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231B6E9627E8E36500916A0D /* SocialNetworkSheetView.swift */; };
+		232072F327FEF12D00D5A8C3 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 232072F227FEF12D00D5A8C3 /* SwiftUIX */; };
+		232072F927FEF2BB00D5A8C3 /* GuardianMonMessangelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072F527FEF2BB00D5A8C3 /* GuardianMonMessangelView.swift */; };
+		232072FA27FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072F627FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift */; };
+		232072FB27FEF2BB00D5A8C3 /* GuardianAnimalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072F727FEF2BB00D5A8C3 /* GuardianAnimalDetailView.swift */; };
+		232072FC27FEF2BB00D5A8C3 /* GuardianAnimalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072F827FEF2BB00D5A8C3 /* GuardianAnimalView.swift */; };
+		2320730D27FF7F0500D5A8C3 /* GuardianAdministrativePartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072FD27FF7F0400D5A8C3 /* GuardianAdministrativePartsView.swift */; };
+		2320730E27FF7F0500D5A8C3 /* GuardianCorpsScienceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072FE27FF7F0400D5A8C3 /* GuardianCorpsScienceView.swift */; };
+		2320730F27FF7F0500D5A8C3 /* GuardianPremisesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232072FF27FF7F0400D5A8C3 /* GuardianPremisesView.swift */; };
+		2320731027FF7F0500D5A8C3 /* GuardianCodePractiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730027FF7F0400D5A8C3 /* GuardianCodePractiveView.swift */; };
+		2320731127FF7F0500D5A8C3 /* GuardianClothAccessoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730127FF7F0400D5A8C3 /* GuardianClothAccessoriesView.swift */; };
+		2320731227FF7F0500D5A8C3 /* GuardianDonationCollectioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730227FF7F0400D5A8C3 /* GuardianDonationCollectioView.swift */; };
+		2320731327FF7F0500D5A8C3 /* GuardianAdvertismentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730327FF7F0400D5A8C3 /* GuardianAdvertismentView.swift */; };
+		2320731427FF7F0500D5A8C3 /* GuardianExpressionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730427FF7F0400D5A8C3 /* GuardianExpressionView.swift */; };
+		2320731527FF7F0500D5A8C3 /* GuardianObjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730527FF7F0500D5A8C3 /* GuardianObjectListView.swift */; };
+		2320731627FF7F0500D5A8C3 /* GuardianWishListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730627FF7F0500D5A8C3 /* GuardianWishListView.swift */; };
+		2320731727FF7F0500D5A8C3 /* GuardianOrganismesObsequesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730727FF7F0500D5A8C3 /* GuardianOrganismesObsequesView.swift */; };
+		2320731827FF7F0500D5A8C3 /* GuardianManageContractsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730827FF7F0500D5A8C3 /* GuardianManageContractsView.swift */; };
+		2320731927FF7F0500D5A8C3 /* GuardianMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730927FF7F0500D5A8C3 /* GuardianMusicView.swift */; };
+		2320731A27FF7F0500D5A8C3 /* GuardianAestheticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730A27FF7F0500D5A8C3 /* GuardianAestheticView.swift */; };
+		2320731B27FF7F0500D5A8C3 /* GuardianDiffusionNouvelleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730B27FF7F0500D5A8C3 /* GuardianDiffusionNouvelleView.swift */; };
+		2320731C27FF7F0500D5A8C3 /* GuardianSpiritualiteTraditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320730C27FF7F0500D5A8C3 /* GuardianSpiritualiteTraditionsView.swift */; };
+		2320731E27FFFFFE00D5A8C3 /* GuardianMonMessangleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320731D27FFFFFE00D5A8C3 /* GuardianMonMessangleViewModel.swift */; };
+		232073202800160D00D5A8C3 /* GuardianAnimalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2320731F2800160D00D5A8C3 /* GuardianAnimalsView.swift */; };
 		233522CE27E7BECE00C9FF46 /* categoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522CD27E7BECE00C9FF46 /* categoryDetailViewModel.swift */; };
 		233522D227E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522D127E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift */; };
 		233522D427E7C28F00C9FF46 /* EnterPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233522D327E7C28F00C9FF46 /* EnterPasswordView.swift */; };
@@ -377,7 +400,6 @@
 		93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */; };
 		93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFFB27B28BE800E71C0B /* Constants.swift */; };
 		93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBCFFE27B4DFC400E71C0B /* Kingfisher */; };
-		93DBD00227B5456300E71C0B /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBD00127B5456300E71C0B /* SwiftUIX */; };
 		93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C82695EA3700F50894 /* AttributedText.swift */; };
 		93EFE7CE2695EA3700F50894 /* TextViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C92695EA3700F50894 /* TextViewStore.swift */; };
 		93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */; };
@@ -401,6 +423,28 @@
 /* Begin PBXFileReference section */
 		2311D88A27D9E9B0005CBDE2 /* PremisesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremisesViewModel.swift; sourceTree = "<group>"; };
 		231B6E9627E8E36500916A0D /* SocialNetworkSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialNetworkSheetView.swift; sourceTree = "<group>"; };
+		232072F527FEF2BB00D5A8C3 /* GuardianMonMessangelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianMonMessangelView.swift; sourceTree = "<group>"; };
+		232072F627FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianFuneralChoiceView.swift; sourceTree = "<group>"; };
+		232072F727FEF2BB00D5A8C3 /* GuardianAnimalDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianAnimalDetailView.swift; sourceTree = "<group>"; };
+		232072F827FEF2BB00D5A8C3 /* GuardianAnimalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianAnimalView.swift; sourceTree = "<group>"; };
+		232072FD27FF7F0400D5A8C3 /* GuardianAdministrativePartsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianAdministrativePartsView.swift; sourceTree = "<group>"; };
+		232072FE27FF7F0400D5A8C3 /* GuardianCorpsScienceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianCorpsScienceView.swift; sourceTree = "<group>"; };
+		232072FF27FF7F0400D5A8C3 /* GuardianPremisesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianPremisesView.swift; sourceTree = "<group>"; };
+		2320730027FF7F0400D5A8C3 /* GuardianCodePractiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianCodePractiveView.swift; sourceTree = "<group>"; };
+		2320730127FF7F0400D5A8C3 /* GuardianClothAccessoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianClothAccessoriesView.swift; sourceTree = "<group>"; };
+		2320730227FF7F0400D5A8C3 /* GuardianDonationCollectioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianDonationCollectioView.swift; sourceTree = "<group>"; };
+		2320730327FF7F0400D5A8C3 /* GuardianAdvertismentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianAdvertismentView.swift; sourceTree = "<group>"; };
+		2320730427FF7F0400D5A8C3 /* GuardianExpressionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianExpressionView.swift; sourceTree = "<group>"; };
+		2320730527FF7F0500D5A8C3 /* GuardianObjectListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianObjectListView.swift; sourceTree = "<group>"; };
+		2320730627FF7F0500D5A8C3 /* GuardianWishListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianWishListView.swift; sourceTree = "<group>"; };
+		2320730727FF7F0500D5A8C3 /* GuardianOrganismesObsequesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianOrganismesObsequesView.swift; sourceTree = "<group>"; };
+		2320730827FF7F0500D5A8C3 /* GuardianManageContractsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianManageContractsView.swift; sourceTree = "<group>"; };
+		2320730927FF7F0500D5A8C3 /* GuardianMusicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianMusicView.swift; sourceTree = "<group>"; };
+		2320730A27FF7F0500D5A8C3 /* GuardianAestheticView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianAestheticView.swift; sourceTree = "<group>"; };
+		2320730B27FF7F0500D5A8C3 /* GuardianDiffusionNouvelleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianDiffusionNouvelleView.swift; sourceTree = "<group>"; };
+		2320730C27FF7F0500D5A8C3 /* GuardianSpiritualiteTraditionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianSpiritualiteTraditionsView.swift; sourceTree = "<group>"; };
+		2320731D27FFFFFE00D5A8C3 /* GuardianMonMessangleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianMonMessangleViewModel.swift; sourceTree = "<group>"; };
+		2320731F2800160D00D5A8C3 /* GuardianAnimalsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardianAnimalsView.swift; sourceTree = "<group>"; };
 		233522CD27E7BECE00C9FF46 /* categoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryDetailViewModel.swift; sourceTree = "<group>"; };
 		233522D127E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyAccountPhoneViewModel.swift; sourceTree = "<group>"; };
 		233522D327E7C28F00C9FF46 /* EnterPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordView.swift; sourceTree = "<group>"; };
@@ -797,9 +841,9 @@
 				939CBDCA27732650004520A3 /* Introspect in Frameworks */,
 				937D386327EC964B0058E96A /* AuthenticationServices.framework in Frameworks */,
 				933AA317266A661F000D6D48 /* NavigationStack in Frameworks */,
+				232072F327FEF12D00D5A8C3 /* SwiftUIX in Frameworks */,
 				93F08DBD26FD8F1000CC3030 /* Peppermint in Frameworks */,
 				935A80F127C51B3000E202BE /* Alamofire in Frameworks */,
-				93DBD00227B5456300E71C0B /* SwiftUIX in Frameworks */,
 				93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -807,6 +851,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232072F427FEF2BB00D5A8C3 /* GuardiansMonMessangel */ = {
+			isa = PBXGroup;
+			children = (
+				2320731F2800160D00D5A8C3 /* GuardianAnimalsView.swift */,
+				232072F527FEF2BB00D5A8C3 /* GuardianMonMessangelView.swift */,
+				232072F627FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift */,
+				232072F727FEF2BB00D5A8C3 /* GuardianAnimalDetailView.swift */,
+				232072FD27FF7F0400D5A8C3 /* GuardianAdministrativePartsView.swift */,
+				2320730327FF7F0400D5A8C3 /* GuardianAdvertismentView.swift */,
+				2320730A27FF7F0500D5A8C3 /* GuardianAestheticView.swift */,
+				2320730127FF7F0400D5A8C3 /* GuardianClothAccessoriesView.swift */,
+				2320730027FF7F0400D5A8C3 /* GuardianCodePractiveView.swift */,
+				232072FE27FF7F0400D5A8C3 /* GuardianCorpsScienceView.swift */,
+				2320730B27FF7F0500D5A8C3 /* GuardianDiffusionNouvelleView.swift */,
+				2320730227FF7F0400D5A8C3 /* GuardianDonationCollectioView.swift */,
+				2320730427FF7F0400D5A8C3 /* GuardianExpressionView.swift */,
+				2320730827FF7F0500D5A8C3 /* GuardianManageContractsView.swift */,
+				2320730927FF7F0500D5A8C3 /* GuardianMusicView.swift */,
+				2320730527FF7F0500D5A8C3 /* GuardianObjectListView.swift */,
+				2320730727FF7F0500D5A8C3 /* GuardianOrganismesObsequesView.swift */,
+				232072FF27FF7F0400D5A8C3 /* GuardianPremisesView.swift */,
+				2320730C27FF7F0500D5A8C3 /* GuardianSpiritualiteTraditionsView.swift */,
+				2320730627FF7F0500D5A8C3 /* GuardianWishListView.swift */,
+				232072F827FEF2BB00D5A8C3 /* GuardianAnimalView.swift */,
+				2320731D27FFFFFE00D5A8C3 /* GuardianMonMessangleViewModel.swift */,
+			);
+			path = GuardiansMonMessangel;
+			sourceTree = "<group>";
+		};
 		2335C9D827D5CBA500FCA5B4 /* MonMessengelViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1152,6 +1225,7 @@
 				93AC01E9271D494900FD7285 /* FlowBaseView.swift */,
 				93BDAE2C27F1DD5B0091BF5A /* WishesFlowBaseView.swift */,
 				93553A88264701E60027BA06 /* Signup */,
+				232072F427FEF2BB00D5A8C3 /* GuardiansMonMessangel */,
 				2396201C27AD038100CE3CCD /* MonMessangel */,
 				9369D53F265639FB00650AA7 /* Menu */,
 				938C232727CF2DE200E509BA /* Guardian */,
@@ -1765,8 +1839,8 @@
 				93F08DBC26FD8F1000CC3030 /* Peppermint */,
 				939CBDC927732650004520A3 /* Introspect */,
 				93DBCFFE27B4DFC400E71C0B /* Kingfisher */,
-				93DBD00127B5456300E71C0B /* SwiftUIX */,
 				935A80F027C51B3000E202BE /* Alamofire */,
+				232072F227FEF12D00D5A8C3 /* SwiftUIX */,
 			);
 			productName = Messangel;
 			productReference = 93553A6E2647015D0027BA06 /* Messangel.app */;
@@ -1800,8 +1874,8 @@
 				93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */,
 				939CBDC827732650004520A3 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				93DBD00027B5456200E71C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 				935A80EF27C51B3000E202BE /* XCRemoteSwiftPackageReference "Alamofire" */,
+				232072F127FEF12D00D5A8C3 /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 93553A6F2647015D0027BA06 /* Products */;
 			projectDirPath = "";
@@ -1857,6 +1931,7 @@
 				93AC026027326B3300FD7285 /* ObjectsDonationIntro.swift in Sources */,
 				937CA4BB2653EC21004A0227 /* GuardianFormFirstNameView.swift in Sources */,
 				93AC02FD274BAE6F00FD7285 /* PracticalCodesOTP.swift in Sources */,
+				2320731927FF7F0500D5A8C3 /* GuardianMusicView.swift in Sources */,
 				93AC02B5274B56DE00FD7285 /* ObjectsDonationOrganization.swift in Sources */,
 				93AC028D2747681200FD7285 /* ClothsDonationPlaceSelection.swift in Sources */,
 				93AC02562727E50200FD7285 /* FuneralGuestsDress.swift in Sources */,
@@ -1876,6 +1951,7 @@
 				93AC02CA274B5B4000FD7285 /* SingleOrgSelectionList.swift in Sources */,
 				235A58C427BAC572007FF930 /* AestheticView.swift in Sources */,
 				934B0E1D26B290640008DCE5 /* GalleryViewModel.swift in Sources */,
+				232072FB27FEF2BB00D5A8C3 /* GuardianAnimalDetailView.swift in Sources */,
 				93AC0228272689BF00FD7285 /* OrganDonateChoice.swift in Sources */,
 				2335CA4827D5D07200FCA5B4 /* VolontesViewModel.swift in Sources */,
 				93AC026427326CDC00FD7285 /* AnimalDonationIntro.swift in Sources */,
@@ -1885,6 +1961,7 @@
 				93553A742647015D0027BA06 /* ContentView.swift in Sources */,
 				937CA4B72653E7A3004A0227 /* GuardianFormBaseView.swift in Sources */,
 				2335CA4727D5D07200FCA5B4 /* OrganViewModel.swift in Sources */,
+				2320731B27FF7F0500D5A8C3 /* GuardianDiffusionNouvelleView.swift in Sources */,
 				935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */,
 				934B0E0B26AE887B0008DCE5 /* GuardianViewModel.swift in Sources */,
 				939CBDAE276CA5D1004520A3 /* SmartphoneDetailsView.swift in Sources */,
@@ -1967,6 +2044,7 @@
 				93553A99264701E60027BA06 /* LoginView.swift in Sources */,
 				93AC02EC274B6C8B00FD7285 /* ManagedContractsList.swift in Sources */,
 				93AC02D9274B64B400FD7285 /* DonationOrgDetails.swift in Sources */,
+				2320731E27FFFFFE00D5A8C3 /* GuardianMonMessangleViewModel.swift in Sources */,
 				93AC02AB274B56DE00FD7285 /* ObjectsDonationPlaceSelection.swift in Sources */,
 				93AC020E2721978D00FD7285 /* FuneralHaveContractView.swift in Sources */,
 				933DF618278BFB91005966AF /* DonationOrgViewModel.swift in Sources */,
@@ -1986,6 +2064,7 @@
 				938C234327D361EF00E509BA /* ImageAttributes.swift in Sources */,
 				93553A97264701E60027BA06 /* StartView.swift in Sources */,
 				93AC02042721693700FD7285 /* FuneralUrnStyle.swift in Sources */,
+				2320731C27FF7F0500D5A8C3 /* GuardianSpiritualiteTraditionsView.swift in Sources */,
 				93671DB32767660C009A4CF1 /* KeyAccRegPhoneNameView.swift in Sources */,
 				93AC02F4274B706C00FD7285 /* PracticalCodeName.swift in Sources */,
 				935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */,
@@ -2007,11 +2086,13 @@
 				93AC024B2727D8AD00FD7285 /* FuneralReunionPlace.swift in Sources */,
 				93AC02092721952F00FD7285 /* FuneralOrgIntro.swift in Sources */,
 				93AC026C2732702800FD7285 /* ExtraWishesDetails.swift in Sources */,
+				232072F927FEF2BB00D5A8C3 /* GuardianMonMessangelView.swift in Sources */,
 				935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */,
 				233522CE27E7BECE00C9FF46 /* categoryDetailViewModel.swift in Sources */,
 				23D3CFC927BD751C009CDBF4 /* ManageContractsView.swift in Sources */,
 				2335CA4A27D5D07200FCA5B4 /* FuneralChoixViewModel.swift in Sources */,
 				23D3CFC527BD6C07009CDBF4 /* ObjectListView.swift in Sources */,
+				2320730F27FF7F0500D5A8C3 /* GuardianPremisesView.swift in Sources */,
 				233522D227E7BEEB00C9FF46 /* keyAccountPhoneViewModel.swift in Sources */,
 				938C231127CA7C8500E509BA /* DDStatementView.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
@@ -2061,6 +2142,7 @@
 				23C0F1E927B38152008F386D /* SpiritualiteTraditionsView.swift in Sources */,
 				932FF8C626D5065200DE52F9 /* VideoFilterView.swift in Sources */,
 				938313952671E46E00C71C98 /* PHPhotoLibrary.swift in Sources */,
+				2320731227FF7F0500D5A8C3 /* GuardianDonationCollectioView.swift in Sources */,
 				23D3CFC327BD6ADE009CDBF4 /* ClothAccessoriesView.swift in Sources */,
 				93AC02542727E4E000FD7285 /* FuneralDecoration.swift in Sources */,
 				93AC02CB274B5B4000FD7285 /* AnimalDonationPic.swift in Sources */,
@@ -2076,6 +2158,8 @@
 				937CA4B026526539004A0227 /* HomeView.swift in Sources */,
 				93EFE7D02695EA3700F50894 /* TextViewWrapper+UITextView.swift in Sources */,
 				93AC02102721982400FD7285 /* FuneralSelectCompanyView.swift in Sources */,
+				2320731627FF7F0500D5A8C3 /* GuardianWishListView.swift in Sources */,
+				232073202800160D00D5A8C3 /* GuardianAnimalsView.swift in Sources */,
 				93671DB72767663B009A4CF1 /* KeyAccRegPhonePINView.swift in Sources */,
 				235A58CC27BAC682007FF930 /* ListOTPView.swift in Sources */,
 				93671DAD2767657F009A4CF1 /* KeyAccRegEmailView.swift in Sources */,
@@ -2102,6 +2186,7 @@
 				93AC02352726C92300FD7285 /* FuneralBurialPlace.swift in Sources */,
 				938C232427CF2ABB00E509BA /* ConfirmDeathIntro.swift in Sources */,
 				93671DAB27676562009A4CF1 /* KeyAccRegSMSView.swift in Sources */,
+				2320731127FF7F0500D5A8C3 /* GuardianClothAccessoriesView.swift in Sources */,
 				938C230627C6851B00E509BA /* MessagesMainView.swift in Sources */,
 				93AC02392726D9AE00FD7285 /* DeathAnnounceContacts.swift in Sources */,
 				93ADF5B1268060D100BB9F14 /* StopWatchManager.swift in Sources */,
@@ -2119,12 +2204,14 @@
 				9351CCD227A6AEF70087C0E9 /* SubscriptionViewModel.swift in Sources */,
 				9339110A276C759200E262B3 /* ServicesListView.swift in Sources */,
 				93553A96264701E60027BA06 /* Styles.swift in Sources */,
+				2320730D27FF7F0500D5A8C3 /* GuardianAdministrativePartsView.swift in Sources */,
 				938C232127CF28F400E509BA /* DeathConfirmationView.swift in Sources */,
 				93AC02EB274B6C8B00FD7285 /* ManagedContractNew.swift in Sources */,
 				93AD1DD327BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift in Sources */,
 				9351CCD427A92FB00087C0E9 /* WishesViewModel.swift in Sources */,
 				933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */,
 				93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */,
+				232072FC27FEF2BB00D5A8C3 /* GuardianAnimalView.swift in Sources */,
 				933DF60A27886640005966AF /* FuneralLocationViewModel.swift in Sources */,
 				937CA4BD2654FAAD004A0227 /* GuardianFormEmailView.swift in Sources */,
 				235A58CA27BAC62E007FF930 /* WishListView.swift in Sources */,
@@ -2132,6 +2219,7 @@
 				935A599C265CD91E005B0505 /* CreateContactView.swift in Sources */,
 				939CBDC727732303004520A3 /* SocialPostTimeView.swift in Sources */,
 				93AC02142721989900FD7285 /* FuneralContractNo.swift in Sources */,
+				2320731727FF7F0500D5A8C3 /* GuardianOrganismesObsequesView.swift in Sources */,
 				93AC024F2727E0EB00FD7285 /* FuneralAestheticIntro.swift in Sources */,
 				93AC02522727E41400FD7285 /* FuneralFlowers.swift in Sources */,
 				93AC02C5274B5B4000FD7285 /* AnimalDonationNew.swift in Sources */,
@@ -2141,6 +2229,8 @@
 				93553AA8264802A90027BA06 /* Extensions.swift in Sources */,
 				93AC023E2727D69300FD7285 /* FuneralPlacesIntro.swift in Sources */,
 				935A59A1265E18EA005B0505 /* UnsubscribeConfirmView.swift in Sources */,
+				2320731527FF7F0500D5A8C3 /* GuardianObjectListView.swift in Sources */,
+				232072FA27FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift in Sources */,
 				93AC02C8274B5B4000FD7285 /* AnimalDonationName.swift in Sources */,
 				932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */,
 				93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */,
@@ -2148,6 +2238,7 @@
 				933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */,
 				2335CA3A27D5D07200FCA5B4 /* DonationViewModel.swift in Sources */,
 				93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */,
+				2320731827FF7F0500D5A8C3 /* GuardianManageContractsView.swift in Sources */,
 				23D3CFC727BD72CB009CDBF4 /* CodePractiveView.swift in Sources */,
 				932FF8B326C130CC00DE52F9 /* VideoGroupView.swift in Sources */,
 				93553AB5264A992F0027BA06 /* TabBarView.swift in Sources */,
@@ -2160,6 +2251,7 @@
 				933DF61E278BFD44005966AF /* ContractViewModel.swift in Sources */,
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
 				939CBDB42771E67F004520A3 /* ServiceEmailView.swift in Sources */,
+				2320731A27FF7F0500D5A8C3 /* GuardianAestheticView.swift in Sources */,
 				933DF60E27886ECC005966AF /* FuneralMusicViewModel.swift in Sources */,
 				235A58C027BAC359007FF930 /* AdvertismentView.swift in Sources */,
 				939CBDC527731331004520A3 /* SocialAccPicView.swift in Sources */,
@@ -2183,6 +2275,7 @@
 				93AC02B1274B56DE00FD7285 /* ObjectsDonationCount.swift in Sources */,
 				933DF61A278BFC11005966AF /* AdminDocViewModel.swift in Sources */,
 				93AC02472727D80600FD7285 /* FuneralRestingPlace.swift in Sources */,
+				2320731027FF7F0500D5A8C3 /* GuardianCodePractiveView.swift in Sources */,
 				934B0E1B26B2904E0008DCE5 /* VideoViewModel.swift in Sources */,
 				935A5998265BB040005B0505 /* FAQView.swift in Sources */,
 				93AC02AC274B56DE00FD7285 /* ObjectsDonationNew.swift in Sources */,
@@ -2191,9 +2284,12 @@
 				93AC02DA274B64B400FD7285 /* DonationOrgsSelectionView.swift in Sources */,
 				93671DB52767661E009A4CF1 /* KeyAccRegTelView.swift in Sources */,
 				233522D427E7C28F00C9FF46 /* EnterPasswordView.swift in Sources */,
+				2320731427FF7F0500D5A8C3 /* GuardianExpressionView.swift in Sources */,
 				93AC02DB274B64B400FD7285 /* DonationOrgNew.swift in Sources */,
+				2320731327FF7F0500D5A8C3 /* GuardianAdvertismentView.swift in Sources */,
 				934B0E1126B119EB0008DCE5 /* SponsorViewModel.swift in Sources */,
 				2335CA4027D5D07200FCA5B4 /* ObjectListViewModel.swift in Sources */,
+				2320730E27FF7F0500D5A8C3 /* GuardianCorpsScienceView.swift in Sources */,
 				932FF8C326D3779100DE52F9 /* RangeSlider.swift in Sources */,
 				93AD1DDA27BF7A20007BBF81 /* ManagedContractOrganization.swift in Sources */,
 				934B0E1326B15ABE0008DCE5 /* ContactEditView.swift in Sources */,
@@ -2415,6 +2511,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		232072F127FEF12D00D5A8C3 /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/indieSoftware/NavigationStack.git";
@@ -2447,14 +2551,6 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		93DBD00027B5456200E71C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
-			};
-		};
 		93F08DBB26FD8F1000CC3030 /* XCRemoteSwiftPackageReference "peppermint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nsagora/peppermint";
@@ -2466,6 +2562,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		232072F227FEF12D00D5A8C3 /* SwiftUIX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 232072F127FEF12D00D5A8C3 /* XCRemoteSwiftPackageReference "SwiftUIX" */;
+			productName = SwiftUIX;
+		};
 		933AA316266A661F000D6D48 /* NavigationStack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 933AA315266A661F000D6D48 /* XCRemoteSwiftPackageReference "NavigationStack" */;
@@ -2485,11 +2586,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 93DBCFFD27B4DFC400E71C0B /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		93DBD00127B5456300E71C0B /* SwiftUIX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 93DBD00027B5456200E71C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */;
-			productName = SwiftUIX;
 		};
 		93F08DBC26FD8F1000CC3030 /* Peppermint */ = {
 			isa = XCSwiftPackageProductDependency;

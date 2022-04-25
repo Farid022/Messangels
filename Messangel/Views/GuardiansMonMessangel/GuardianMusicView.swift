@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct MusicView: View {
-    
+struct GuardianMusicView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var musicViewModel = MusicViewModel()
     var animalList = ["Sting – Rise & Fall","Artiste – Nom du morceau","Artiste – Nom du morceau","Artiste – Nom du morceau","Artiste – Nom du morceau"]
     var body: some View {
@@ -69,8 +70,15 @@ struct MusicView: View {
                                 ForEach(enumerating: musicViewModel.musics, id:\.self)
                             {
                                 index, item in
-                                ListItemImageTitle(placeholder: "musicPlaceholder", type: "musicPlaceholder", item: item.song_title)
+                                ZStack(alignment: .topTrailing)
+                                {
+                                ListItemImageTitle(type: "musicPlaceholder", item: item.song_title)
                                    
+                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                   .padding(.top,-13)
+                                   .padding(.trailing,12)
+                                }
+                                
 
                             }
                             .padding(.trailing,24)
@@ -87,11 +95,28 @@ struct MusicView: View {
         }
         .onAppear {
             musicViewModel.getMusics()
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }
 
-struct MusicView_Previews: PreviewProvider {
+struct GuardianMusicView_Previews: PreviewProvider {
     static var previews: some View {
         MusicView()
     }

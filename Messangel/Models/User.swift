@@ -21,11 +21,30 @@ struct User: Hashable, Codable {
     var is_active: Bool
     var image_url: String?
     var registration_date: String?
+    var updated_at : String?
     func getDOB() -> String
     {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd"
         let showDate = inputFormatter.date(from: dob)
+        inputFormatter.dateFormat = "dd MMMM yyyy"
+        let resultString = inputFormatter.string(from: showDate!)
+        return resultString
+    }
+    func getRegistrationDate() -> String
+    {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let showDate = inputFormatter.date(from: registration_date!)
+        inputFormatter.dateFormat = "dd MMMM yyyy"
+        let resultString = inputFormatter.string(from: showDate!)
+        return resultString
+    }
+    func getUpdatedDate() -> String
+    {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let showDate = inputFormatter.date(from: registration_date!)
         inputFormatter.dateFormat = "dd MMMM yyyy"
         let resultString = inputFormatter.string(from: showDate!)
         return resultString

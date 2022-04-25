@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct PremisesView: View {
+struct GuardianPremisesView: View {
+    @State private var showExitAlert = false
+    @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
     @StateObject private var premisesViewModel = PremisesViewModel()
     var body: some View {
         
@@ -54,7 +56,7 @@ struct PremisesView: View {
                             ItemWithTitleListDescription(title: "Mon lieu de repos : Funérarium", description: premisesViewModel.newPremises.resting_place_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
-                            ItemWithTitleListDescription(title: "Mon lieu de repos : Domicile", description: premisesViewModel.newPremises.resting_place_note ?? "", items: [])
+                            ItemWithTitleListDescription(title: "Mon lieu de repos : Domicile", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
                                 .padding(.bottom,40)
                             
                         }
@@ -66,11 +68,28 @@ struct PremisesView: View {
             premisesViewModel.getPremises { success in
                 
             }
+            guardianMonMessangelViewModel.getUserGuardianData(guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                
+            }
+        
+        }
+        
+        if showExitAlert
+        {
+            Color.black.opacity(0.8)
+                .ignoresSafeArea()
+                .overlay(MyAlert(title: "Prendre en charge", message: "Les autres Anges-Gardiens seront prévenu par une notification", ok: "Valider", cancel: "Annuler", action: {
+                   
+                    guardianMonMessangelViewModel.assignTask(request: assignTaskRequest(tab_name: "Choix funéraires", death_user: getUserId(), obj_id:UserDefaults.standard.value(forKey: "objectID") as? Int) , guardianID: UserDefaults.standard.value(forKey: "guardianID") as! Int) { success in
+                   
+                    }
+                    
+                }, showAlert: $showExitAlert))
         }
     }
 }
 
-struct PremisesView_Previews: PreviewProvider {
+struct GuardianPremisesView_Previews: PreviewProvider {
     static var previews: some View {
         PremisesView()
     }
