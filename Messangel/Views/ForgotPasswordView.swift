@@ -71,7 +71,7 @@ struct ForgotPasswordView: View {
             }, message: {
                 Text("Cliquez sur le lien que nous vous avons envoyé par mail pour réinitialiser votre mot de passe.")
             })
-            .alert("Error", isPresented: $errorAlert, actions: {
+            .alert("Désolé", isPresented: $errorAlert, actions: {
                 Button("OK", role: .cancel) {}
             }, message: {
                 Text(auth.apiError.error_description)

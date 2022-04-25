@@ -47,7 +47,7 @@ struct SignupBirthView: View {
                     .focused($isFocused)
             }
             .alert(isPresented: $showAdultAgeAlert, content: {
-                Alert(title: Text("Error"), message: Text("Vous devez être majeur pour vous inscrire sur Messangel"))
+                Alert(title: Text("Désolé"), message: Text("Vous devez être majeur pour vous inscrire sur Messangel"))
             })
             VStack {
                 Spacer()

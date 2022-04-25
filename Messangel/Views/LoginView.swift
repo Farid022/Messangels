@@ -14,6 +14,7 @@ struct LoginView: View {
     @EnvironmentObject var navModel: NavigationModel
     @EnvironmentObject var envAuth: Auth
     @EnvironmentObject var subVM: SubscriptionViewModel
+    @State private var hidePassword = true
     @State private var loading = false
     @State private var alert = false
     @State private var valid = false
@@ -37,7 +38,18 @@ struct LoginView: View {
                     TextField("Identifiant ou adresse mail", text: $auth.credentials.email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
-                    SecureField("Mot de passe", text: $auth.credentials.password)
+                    MyTextField(placeholder: "Mot de passe", text: $auth.credentials.password, isSecureTextEntry: $hidePassword)
+                        .xTextFieldStyle()
+                        .overlay(HStack {
+                            Spacer()
+                            Image(systemName: hidePassword ? "eye" : "eye.slash")
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .animation(.default, value: hidePassword)
+                                .onTapGesture {
+                                    hidePassword.toggle()
+                                }
+                        })
                     HStack {
                         Spacer()
                         Button {

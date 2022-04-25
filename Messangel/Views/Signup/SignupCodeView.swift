@@ -66,7 +66,7 @@ struct SignupCodeView: View {
             }
         }
         .alert(isPresented: $alert, content: {
-            Alert(title: Text("Error"), message: Text(apiResponse.message))
+            Alert(title: Text("Désolé"), message: Text(apiResponse.message))
         })
         .onChange(of: code) { value in
             valid = value.count == 4

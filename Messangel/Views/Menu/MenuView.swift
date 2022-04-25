@@ -12,6 +12,9 @@ struct MenuView: View {
     @EnvironmentObject private var subVM: SubscriptionViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var auth: Auth
+    
+    init() { UITableView.appearance().backgroundColor = UIColor.clear }
+
     var body: some View {
         NavigationStackView("MenuView") {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
@@ -22,8 +25,8 @@ struct MenuView: View {
                     Color.accentColor
                         .frame(height: 150)
                         .overlay(TopBar(), alignment: .bottom)
-                    List(menuList()) {menuItem in
-                        ZStack {
+                    List(menuList()) { menuItem in
+//                        ZStack {
 //                            Button("") {}
                             Button(action: {
                                 if menuItem.ic == "ic_profile" {
@@ -45,13 +48,14 @@ struct MenuView: View {
                                 HStack {
                                     Image(menuItem.ic)
                                     Text(menuItem.id)
+                                        .foregroundColor(.black)
                                     Spacer()
                                     Image(systemName: "chevron.forward")
                                         .foregroundColor(.gray.opacity(0.5))
                                 }
                                 .padding(.vertical, 20)
                             }
-                        }
+//                        }
                     }
                     Spacer().frame(height: 80)
                 }

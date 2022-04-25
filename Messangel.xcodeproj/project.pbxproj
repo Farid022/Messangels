@@ -155,6 +155,8 @@
 		935FFCB8279FA77900290E4C /* CreateOrgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCB7279FA77900290E4C /* CreateOrgView.swift */; };
 		935FFCBA279FE36A00290E4C /* OrganizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCB9279FE36A00290E4C /* OrganizationViewModel.swift */; };
 		935FFCBC27A0162D00290E4C /* SecureAccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */; };
+		936466BF27FC2402008527A2 /* ProfileDeleteConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */; };
+		936466C127FC2437008527A2 /* ProfileDeleteReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */; };
 		93671DA627676447009A4CF1 /* SocialAndServicesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */; };
 		93671DA927676533009A4CF1 /* KeyAccRegSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */; };
 		93671DAB27676562009A4CF1 /* KeyAccRegSMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */; };
@@ -236,6 +238,7 @@
 		939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */; };
 		939CBDD52786F50A004520A3 /* FuneralSpritualityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */; };
 		939CBDD72786F9D9004520A3 /* DeathAnnouncementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */; };
+		93A9725628162644003C5EFE /* ModifyPasswordOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A9725528162644003C5EFE /* ModifyPasswordOTPView.swift */; };
 		93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */; };
 		93AC01E12716B68000FD7285 /* ModifyMobileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E02716B68000FD7285 /* ModifyMobileView.swift */; };
 		93AC01E32716E0D100FD7285 /* GuardianView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC01E22716E0D100FD7285 /* GuardianView.swift */; };
@@ -554,6 +557,8 @@
 		935FFCB7279FA77900290E4C /* CreateOrgView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOrgView.swift; sourceTree = "<group>"; };
 		935FFCB9279FE36A00290E4C /* OrganizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewModel.swift; sourceTree = "<group>"; };
 		935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureAccessViewModel.swift; sourceTree = "<group>"; };
+		936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDeleteConfirmView.swift; sourceTree = "<group>"; };
+		936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDeleteReasonView.swift; sourceTree = "<group>"; };
 		93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAndServicesHomeView.swift; sourceTree = "<group>"; };
 		93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSecView.swift; sourceTree = "<group>"; };
 		93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSMSView.swift; sourceTree = "<group>"; };
@@ -635,6 +640,7 @@
 		939CBDD22786BD1F004520A3 /* OrganDonationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganDonationViewModel.swift; sourceTree = "<group>"; };
 		939CBDD42786F50A004520A3 /* FuneralSpritualityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuneralSpritualityViewModel.swift; sourceTree = "<group>"; };
 		939CBDD62786F9D9004520A3 /* DeathAnnouncementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathAnnouncementViewModel.swift; sourceTree = "<group>"; };
+		93A9725528162644003C5EFE /* ModifyPasswordOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyPasswordOTPView.swift; sourceTree = "<group>"; };
 		93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailView.swift; sourceTree = "<group>"; };
 		93AC01E02716B68000FD7285 /* ModifyMobileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileView.swift; sourceTree = "<group>"; };
 		93AC01E22716E0D100FD7285 /* GuardianView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianView.swift; sourceTree = "<group>"; };
@@ -1244,8 +1250,11 @@
 				9369D53D265639F100650AA7 /* MenuView.swift */,
 				935A5989265B6CA6005B0505 /* MenuBaseView.swift */,
 				9369D54026563DED00650AA7 /* ProfileView.swift */,
+				936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */,
+				936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */,
 				935A598B265BA3B0005B0505 /* AccessSecurityView.swift */,
 				934B0E0626A58D4F0008DCE5 /* ModifyPasswordView.swift */,
+				93A9725528162644003C5EFE /* ModifyPasswordOTPView.swift */,
 				93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */,
 				93AC01E02716B68000FD7285 /* ModifyMobileView.swift */,
 				935A598D265BAF8E005B0505 /* EditSubscriptionView.swift */,
@@ -1783,7 +1792,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				fr,
 			);
 			mainGroup = 93553A652647015D0027BA06;
@@ -2008,6 +2016,7 @@
 				938C231127CA7C8500E509BA /* DDStatementView.swift in Sources */,
 				93553A98264701E60027BA06 /* CustomViews.swift in Sources */,
 				235A58C827BAC597007FF930 /* AnimalDetailView.swift in Sources */,
+				93A9725628162644003C5EFE /* ModifyPasswordOTPView.swift in Sources */,
 				939CBDD32786BD20004520A3 /* OrganDonationViewModel.swift in Sources */,
 				93AC022E2726918B00FD7285 /* OrganDonateRefusalNotReg.swift in Sources */,
 				93AC01EC271D50EF00FD7285 /* FuneralTypeView.swift in Sources */,
@@ -2030,6 +2039,7 @@
 				938C234B27D9BDEE00E509BA /* MessagesVideoPlayerView.swift in Sources */,
 				93553A9F264701E60027BA06 /* SignupNameView.swift in Sources */,
 				93AC025D27326AA200FD7285 /* ClothsDonationIntro.swift in Sources */,
+				936466BF27FC2402008527A2 /* ProfileDeleteConfirmView.swift in Sources */,
 				938C231727CB4D5400E509BA /* ActionSheet+Modifier.swift in Sources */,
 				93553A82264701C50027BA06 /* KeyboardResponder.swift in Sources */,
 				93EFE7ED26A15D9700F50894 /* SignupDoneView.swift in Sources */,
@@ -2134,6 +2144,7 @@
 				93AC02C8274B5B4000FD7285 /* AnimalDonationName.swift in Sources */,
 				932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */,
 				93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */,
+				936466C127FC2437008527A2 /* ProfileDeleteReasonView.swift in Sources */,
 				933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */,
 				2335CA3A27D5D07200FCA5B4 /* DonationViewModel.swift in Sources */,
 				93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */,
@@ -2339,7 +2350,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2363,7 +2374,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 55;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

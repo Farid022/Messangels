@@ -133,6 +133,7 @@ struct BottomTabBar: View {
 }
 
 struct TabButton: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
     var currentTab: String
     @Binding var selectedTab : String
     var animation: Namespace.ID
@@ -140,6 +141,9 @@ struct TabButton: View {
         
         Button(action: {
             withAnimation(.spring()) {
+                while navigationModel.hasAlternativeViewShowing {
+                    navigationModel.hideTopView()
+                }
                 selectedTab = currentTab
             }
         }) {
@@ -149,12 +153,12 @@ struct TabButton: View {
                         Capsule()
                             .fill(Color.clear)
                             .frame(width: 25, height: 5)
-                        if currentTab == selectedTab{
-                            Capsule()
-                                .fill(Color.accentColor)
-                                .matchedGeometryEffect(id: "Tab", in: animation)
-                                .frame(width: 25, height: 5)
-                        }
+//                        if currentTab == selectedTab{
+//                            Capsule()
+//                                .fill(Color.accentColor)
+//                                .matchedGeometryEffect(id: "Tab", in: animation)
+//                                .frame(width: 25, height: 5)
+//                        }
                     }
                     Group {
                         Image(currentTab)
