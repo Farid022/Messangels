@@ -255,13 +255,14 @@ struct MyAlert: View {
     var message: String
     var ok = "Supprimer"
     var cancel = "Annuler"
+    var height = 188.0
     var action: () -> Void
     @Binding var showAlert: Bool
     
     var body: some View {
         RoundedRectangle(cornerRadius: 22.0)
             .foregroundColor(.white)
-            .frame(width: 270, height: 188)
+            .frame(width: 270, height: height)
             .thinShadow()
             .overlay(
                 VStack {

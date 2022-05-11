@@ -96,7 +96,8 @@ struct ProfileView: View {
             if confirmModify {
                 Color.black.opacity(0.8)
                     .ignoresSafeArea()
-                    .overlay(MyAlert(title: "", message: "Êtes-vous sur de vouloir modifier cette information ?", ok: "Confirmer", action: {
+                    .overlay(MyAlert(title: "", message: "Êtes-vous sur de vouloir modifier cette\ninformation ?", ok: "Confirmer",
+                                     height: 150, action: {
                         isPerformingTask = true
                         if self.profileImage.cgImage != nil {
                             Task {

@@ -13,22 +13,22 @@ struct HomeTopView: View {
     @EnvironmentObject var auth: Auth
     @State private var showConfirmEmailAlert = false
     @AppStorage("showConfirmEmailAlertShown") var showConfirmEmailAlertShown = false
+    @AppStorage("showConfirmMobileAlertShown") var showConfirmMobileAlertShown = false
     
     var body: some View {
         ZStack (alignment: .top) {
             HStack {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 24.0) {
                     Group {
                         Text("Bonjour,")
                             .font(.system(size: 34))
                             .fontWeight(.bold)
-                            .padding(.bottom, 5)
                         Text(auth.user.first_name)
                             .font(.system(size: 20))
                             .fontWeight(.light)
-                            .padding(.bottom, 30)
                     }
                     .foregroundColor(.white)
+                    ProfileImageView(imageUrlString: auth.user.image_url)
                     Button(action: {
                         navigationModel.pushContent(TabBarView.id) {
                             MonMessangelView()
@@ -49,8 +49,12 @@ struct HomeTopView: View {
                         .resizable()
                         .frame(width: 280.05, height: 251.9)
                     .offset(x: 180))
-            AlertMessageView(message: "Bienvenue sur Messangel ! Merci de confirmer votre inscription avec le lien que nous vous avons envoyé par mail.", showAlert: $showConfirmEmailAlert)
-                .offset(y: -50)
+            ZStack {
+                AlertMessageView(message: "Bienvenue sur Messangel ! Merci de confirmer votre inscription avec le lien que nous vous avons envoyé par mail.", showAlert: $showConfirmEmailAlert)
+                    .offset(y: -50)
+                AlertMessageView(message: "Votre numéro de téléphone mobile a bien été modifié.", showAlert: $showConfirmMobileAlertShown)
+                    .offset(y: -50)
+            }
         }
         .onAppear() {
             if !showConfirmEmailAlertShown && !auth.user.is_active {

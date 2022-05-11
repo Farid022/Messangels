@@ -180,6 +180,8 @@
 		935FFCBC27A0162D00290E4C /* SecureAccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */; };
 		936466BF27FC2402008527A2 /* ProfileDeleteConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */; };
 		936466C127FC2437008527A2 /* ProfileDeleteReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */; };
+		936710EC282A466C009B77D5 /* ModifyMobileOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936710EB282A466C009B77D5 /* ModifyMobileOTPView.swift */; };
+		936710EE282A4881009B77D5 /* ModifyMobileSMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936710ED282A4881009B77D5 /* ModifyMobileSMSView.swift */; };
 		93671DA627676447009A4CF1 /* SocialAndServicesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */; };
 		93671DA927676533009A4CF1 /* KeyAccRegSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */; };
 		93671DAB27676562009A4CF1 /* KeyAccRegSMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */; };
@@ -603,6 +605,8 @@
 		935FFCBB27A0162D00290E4C /* SecureAccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureAccessViewModel.swift; sourceTree = "<group>"; };
 		936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDeleteConfirmView.swift; sourceTree = "<group>"; };
 		936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDeleteReasonView.swift; sourceTree = "<group>"; };
+		936710EB282A466C009B77D5 /* ModifyMobileOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileOTPView.swift; sourceTree = "<group>"; };
+		936710ED282A4881009B77D5 /* ModifyMobileSMSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileSMSView.swift; sourceTree = "<group>"; };
 		93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAndServicesHomeView.swift; sourceTree = "<group>"; };
 		93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSecView.swift; sourceTree = "<group>"; };
 		93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSMSView.swift; sourceTree = "<group>"; };
@@ -1331,6 +1335,8 @@
 				93A9725528162644003C5EFE /* ModifyPasswordOTPView.swift */,
 				93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */,
 				93AC01E02716B68000FD7285 /* ModifyMobileView.swift */,
+				936710ED282A4881009B77D5 /* ModifyMobileSMSView.swift */,
+				936710EB282A466C009B77D5 /* ModifyMobileOTPView.swift */,
 				935A598D265BAF8E005B0505 /* EditSubscriptionView.swift */,
 				935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */,
 				935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */,
@@ -2068,6 +2074,7 @@
 				93671DB32767660C009A4CF1 /* KeyAccRegPhoneNameView.swift in Sources */,
 				93AC02F4274B706C00FD7285 /* PracticalCodeName.swift in Sources */,
 				935A59A5265F7029005B0505 /* MessagesBottomView.swift in Sources */,
+				936710EC282A466C009B77D5 /* ModifyMobileOTPView.swift in Sources */,
 				932FF8BA26C136BD00DE52F9 /* AudioGroupView.swift in Sources */,
 				93AC02002721474C00FD7285 /* FuneralChoicesViewModel.swift in Sources */,
 				23C0F1E427B30360008F386D /* OrganismesObsequesView.swift in Sources */,
@@ -2232,6 +2239,7 @@
 				2320731527FF7F0500D5A8C3 /* GuardianObjectListView.swift in Sources */,
 				232072FA27FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift in Sources */,
 				93AC02C8274B5B4000FD7285 /* AnimalDonationName.swift in Sources */,
+				936710EE282A4881009B77D5 /* ModifyMobileSMSView.swift in Sources */,
 				932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */,
 				93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */,
 				936466C127FC2437008527A2 /* ProfileDeleteReasonView.swift in Sources */,

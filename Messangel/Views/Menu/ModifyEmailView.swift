@@ -75,9 +75,13 @@ struct ModifyEmailView: View {
                     }
                 }
             }, label: {
-                Text("Modifier")
+                Text("Enregister")
             })
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
+            Text("Un SMS de confirmation vous sera envoyé sur votre numéro de mobile actuel.")
+                .multilineTextAlignment(.center)
+                .font(.system(size: 13))
+                .padding(.top, 30)
         }
         .textFieldStyle(MyTextFieldStyle())
         .onChange(of: new_email) { value in

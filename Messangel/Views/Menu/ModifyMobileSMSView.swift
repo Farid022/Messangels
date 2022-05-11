@@ -8,13 +8,12 @@
 import SwiftUI
 import NavigationStack
 
-struct KeyAccRegSecView: View {
+struct ModifyMobileSMSView: View {
     @StateObject private var vm = SecureAccessViewModel()
     @EnvironmentObject private var navModel: NavigationModel
-    var keyAccCase: KeyAccCase
-    
+    @Binding var new_mobile: String
     var body: some View {
-        NavigationStackView("KeyAccRegSecView") {
+        NavigationStackView(String(describing: Self.self)) {
             ZStack(alignment: .top) {
                 Color.accentColor
                     .ignoresSafeArea()
@@ -42,12 +41,12 @@ struct KeyAccRegSecView: View {
                         NextButton(isCustomAction: true, customAction: {
                             vm.authPassword {
                                 if vm.apiResponse.message == "1" {
-                                    navModel.pushContent("KeyAccRegSecView") {
-                                        KeyAccRegSMSView(vm: vm, keyAccCase: keyAccCase)
+                                    navModel.pushContent(String(describing: Self.self)) {
+                                        ModifyMobileOTPView(new_mobile: $new_mobile, vm: vm)
                                     }
                                 }
                             }
-                        },source: "KeyAccRegSecView", destination: AnyView(KeyAccRegSMSView(vm: vm, keyAccCase: keyAccCase)), active: .constant(!vm.password.password.isEmpty))
+                        },source: "KeyAccRegSecView", active: .constant(!vm.password.password.isEmpty))
                     }
                     Spacer()
                         .frame(height: 50)

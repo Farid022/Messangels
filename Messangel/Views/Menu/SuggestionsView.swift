@@ -20,6 +20,7 @@ struct SuggestionsView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     @State private var suggestion = ""
     @State private var selectedOption = 0
+    @State private var alert = false;
     private let options = ["Fonctionnement général", "Service Messages", "Service Mes choix", "Service Vie Digitale", "Autre"]
     var body: some View {
         MenuBaseView(title: "Proposer une amélioration") {
@@ -68,7 +69,7 @@ struct SuggestionsView: View {
                             
                         case .success(_):
                             DispatchQueue.main.async {
-                                navigationModel.popContent("Accueil")
+                                alert.toggle()
                             }
                         case .failure(let error):
                             print(error)
@@ -85,6 +86,13 @@ struct SuggestionsView: View {
         }
         .onAppear { self.kGuardian.addObserver() }
         .onDisappear { self.kGuardian.removeObserver() }
+        .alert("Merci de votre contribution", isPresented: $alert, actions: {
+            Button("OK", role: .cancel) {
+                navigationModel.popContent("Accueil")
+            }
+        }, message: {
+            Text("Nous vous remercions de contribuer à l'évolution de Messangel.")
+        })
     }
 }
 
