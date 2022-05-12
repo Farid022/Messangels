@@ -13,7 +13,7 @@ struct MenuView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var auth: Auth
     
-    init() { UITableView.appearance().backgroundColor = UIColor.clear }
+    init() { UITableView.appearance().backgroundColor = UIColor.white }
 
     var body: some View {
         NavigationStackView("MenuView") {
