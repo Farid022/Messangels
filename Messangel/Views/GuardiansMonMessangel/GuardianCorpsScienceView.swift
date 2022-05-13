@@ -58,7 +58,7 @@ struct GuardianCorpsScienceView: View {
                                         FunerairesView(title: item.donation?.name ?? "", description: item.donation_note ?? "")
                                             .padding(.bottom,40)
                                         
-                                        GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                            GuardianMemberListView(memebers:item.assign_user ?? [],showExitAlert: $showExitAlert, id: item.id)
                                     .padding(.top,-23)
 
                                         }

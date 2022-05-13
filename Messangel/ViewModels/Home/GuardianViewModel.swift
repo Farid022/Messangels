@@ -38,9 +38,10 @@ struct ProtectedUser {
 }
 
 struct DeathDeclaration: Codable, Hashable {
-    var status: Int
-    var user: Int
-    var guardian: Int
+    var status: String?
+    var user: Int?
+    var guardian: Int?
+    var death_text: String?
 }
 
 struct Death: Codable {
@@ -62,6 +63,20 @@ class GuardianViewModel: ObservableObject {
     
     func getDeaths(completion: @escaping (Bool) -> Void) {
         APIService.shared.getJSON(model: deaths, urlString: "users/\(getUserId())/death_declaration") { result in
+            switch result {
+            case .success(let deaths):
+                DispatchQueue.main.async {
+                    self.deaths = deaths
+                }
+            case .failure(let error):
+                print(error)
+            }
+            completion(true)
+        }
+    }
+    
+    func getGuardianDeaths(guardianID: Int?,completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: deaths, urlString: "users/\(guardianID)/death_declaration") { result in
             switch result {
             case .success(let deaths):
                 DispatchQueue.main.async {

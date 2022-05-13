@@ -48,8 +48,15 @@ struct GuardianAestheticView: View {
                                 .cornerRadius(24)
                                 if aestheticViewModel.asthetic.count > 0
                                 {
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: aestheticViewModel.asthetic[0].id)
-                                .padding(.top,-23)
+                                    if ((aestheticViewModel.asthetic[0].assign_user?.contains(where: { $0.tab_field_name == "flower_note" })) != nil)
+                                    {
+                                        let filteredArray = aestheticViewModel.asthetic[0].assign_user?.filter{ $0.tab_field_name == "flower_note"}
+                                      
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [],showExitAlert: $showExitAlert, id: aestheticViewModel.asthetic[0].id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                  
                                 }
                                 else
                                 {
@@ -59,13 +66,13 @@ struct GuardianAestheticView: View {
                             }
                         
                             
-                            ItemWithTitleListDescription(title: "Mes demandes concernant la décoration", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
+                            ItemWithTitleListDescription(title: "Mes demandes concernant la décoration", description: aestheticViewModel.asthetic[0].special_decoration_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
-                            ItemWithTitleListDescription(title: "Mes souhaits concernant la tenue des invités", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
+                            ItemWithTitleListDescription(title: "Mes souhaits concernant la tenue des invités", description: aestheticViewModel.asthetic[0].attendence_dress_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
-                            ItemWithTitleListDescription(title: "Mes souhaits sur les accessoires à faire porter aux invités", description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam etjusto duo dolores et ea rebum. ", items: [])
+                            ItemWithTitleListDescription(title: "Mes souhaits sur les accessoires à faire porter aux invités", description: aestheticViewModel.asthetic[0].guest_accessories_note ?? "", items: [])
                                 .padding(.bottom,40)
                             
                         }

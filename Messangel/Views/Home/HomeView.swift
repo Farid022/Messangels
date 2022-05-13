@@ -228,6 +228,7 @@ struct GuardianCard: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: GuardianViewModel
     var guardian: Guardian
+  
     var buttonLabel: AnyView {
         if let guardianUser = guardian.guardian {
             return AnyView(ProfileImageView(imageUrlString: guardianUser.image_url, imageSize: 56.0))
@@ -249,7 +250,10 @@ struct GuardianCard: View {
                     .thinShadow()
                     .overlay(
                         Button(action: {
+                            
+                            UserDefaults.standard.set("MesAnges", forKey: "MesNavigation")
                             navigationModel.pushContent("Accueil") {
+                                
                                 GuardianView(vm:vm, guardian: guardian)
                             }
                         }) {
@@ -292,13 +296,21 @@ struct PotectedUserCard: View {
                     .overlay(
                         Button {
                             // TODO: - Think reject case what to do?!
+                            UserDefaults.standard.set("MesProteges", forKey: "MesNavigation")
+                            var deaths = vm.deaths
                             if vm.deaths.isEmpty || !vm.deaths.contains(where: { $0.user == protected.user.id }) {
                                 navigationModel.pushContent("Accueil") {
                                     ProtectedUserView(vm: vm, protected: protected)
                                 }
-                            } else if vm.deaths.contains(where: { $0.user == protected.user.id && $0.status == 2 && $0.guardian != getUserId() }) {
+                            } else if vm.deaths.contains(where: { $0.user == protected.user.id && $0.status == "2" && $0.guardian != getUserId() }) {
                                 navigationModel.pushContent("Accueil") {
                                     DeathConfirmationView(vm: vm, protected: protected)
+                                }
+                            }
+                            else
+                            {
+                                navigationModel.pushContent("Accueil") {
+                                    ProtectedUserView(vm: vm, protected: protected)
                                 }
                             }
                         } label: {

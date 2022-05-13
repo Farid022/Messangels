@@ -19,6 +19,7 @@ struct FuneralSpiritualite: Codable {
     var spirtual_cermony_note: String?
     var ceremony_note: String?
     var spritual_ceremony: FuneralItem
+    var assign_user : [assignUser]?
 }
 
 class SpiritualiteViewModel: ObservableObject {

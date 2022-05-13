@@ -26,6 +26,7 @@ struct ObjectListDetails: Hashable, Codable {
     var object_photo: String
     var object_note: String
     var user: User
+    var assign_user : [User]?
 }
 
 class ObjectListViewModel: ObservableObject {

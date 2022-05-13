@@ -50,6 +50,16 @@ struct GuardianPremisesView: View {
                             ItemWithTitleListDescription(title: "Mon lieu de cérémonie", description: premisesViewModel.newPremises.bury_location_note ?? "", items: [MesVolenteItem(title: premisesViewModel.newPremises.bury_location?.name ?? "", type:"ic_company")])
                                 .padding(.bottom,40)
                             
+                            if ((premisesViewModel.newPremises.assign_user?.contains(where: { $0.tab_field_name == "bury_location_note" })) != nil)
+                            {
+                                let filteredArray = premisesViewModel.newPremises.assign_user?.filter{ $0.tab_field_name == "bury_location_note"}
+                              
+                                GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [],showExitAlert: $showExitAlert, id: premisesViewModel.newPremises.id)
+                            .padding(.top,-23)
+                                   
+                            }
+                            
+                            
                             ItemWithTitleListDescription(title: "Je ne souhaite pas indiquer le lieu de ma cérémonie", description: premisesViewModel.newPremises.location_of_ceremony_note ?? "", items: [])
                                 .padding(.bottom,40)
                             

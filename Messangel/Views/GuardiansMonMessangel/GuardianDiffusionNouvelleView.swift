@@ -50,7 +50,8 @@ struct GuardianDiffusionNouvelleView: View {
                             ZStack(alignment: .topTrailing)
                             {
                             FirstContactPeopleView(priorityContacts: priorityContactsViewModel.priorityContacts)
-                            GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: priorityContactsViewModel.priorityContacts.id)
+                                
+                                GuardianMemberListView(memebers: priorityContactsViewModel.priorityContacts.assign_user ?? [],showExitAlert: $showExitAlert, id: priorityContactsViewModel.priorityContacts.id)
                                 .padding(.top,-23)
 
                             }

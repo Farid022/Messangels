@@ -28,12 +28,13 @@ struct CodePractiveDetail: Hashable, Codable {
     var codes: [CodeModel]
     var note: String
     var user: User
+    var assign_user
 
     enum CodingKeys: String, CodingKey {
         case id
         case name = "code_name"
         case codes = "code"
-        case note, user
+        case note, user, assign_user
     }
 }
 
@@ -41,6 +42,7 @@ struct Code: Hashable, Codable {
     var id: Int?
     var code: String
     var user: Int
+    var assign_user : [User]?
 }
 
 class CodePractiveViewModel: ObservableObject {

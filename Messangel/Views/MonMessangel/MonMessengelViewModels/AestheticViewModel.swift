@@ -13,7 +13,7 @@ struct Aesthetic: Hashable,Codable {
     var attendence_dress_note: String?
     var guest_accessories_note: String?
     var flower_note: String?
-    
+    var assign_user : [assignUser]?
     var user: User?
     var flower: Flower?
 }

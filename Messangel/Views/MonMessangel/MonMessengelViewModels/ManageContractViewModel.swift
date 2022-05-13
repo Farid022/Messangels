@@ -19,9 +19,10 @@ struct ContractUpload: Hashable, Codable {
     let user: User
     let name, note: String
     let organization: Organization
+    var assign_user : [User]?
 
     enum CodingKeys: String, CodingKey {
-        case id, user
+        case id, user, assign_user
         case name = "contract_name"
         case note = "contract_note"
         case organization = "contract_organization"

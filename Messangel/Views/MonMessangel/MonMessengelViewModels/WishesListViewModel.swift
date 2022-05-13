@@ -10,6 +10,7 @@ import Foundation
 struct WishList: Codable {
     var id: Int
     var express_yourself_note: String
+    var assign_user : [User]?
 
 }
 

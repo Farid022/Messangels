@@ -91,7 +91,8 @@ struct GuardianAnimalView: View {
                                         
                                     }
                                 
-                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                    
+                                    GuardianMemberListView(memebers: item.assign_user ?? [],showExitAlert: $showExitAlert, id: item.id)
                                .padding(.top,-13)
                                .padding(.trailing,-12)
                                 }
