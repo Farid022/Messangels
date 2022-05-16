@@ -47,8 +47,6 @@ struct MenuView: View {
                             }) {
                                 HStack {
                                     Image(menuItem.ic)
-//                                        .renderingMode(.template)
-//                                        .foregroundColor(.black)
                                     Text(menuItem.id)
                                         .foregroundColor(.black)
                                     Spacer()
@@ -71,7 +69,7 @@ struct MenuView: View {
             MainMenu(id: "Accès et sécurité", ic: "ic_lock", destination: AnyView(AccessSecurityView())),
             MainMenu(id: "Abonnement", ic: "ic_card", destination: AnyView(EditSubscriptionView())),
             MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),
-//            MainMenu(id: "Liste de organismes", ic: "Accueil", destination: AnyView(ContactsListView())),
+            MainMenu(id: "Liste de organismes", ic: "ic_company", destination: AnyView(OrganizationsListView())),
             MainMenu(id: "Parrainer un proche", ic: "ic_sponsor", destination: AnyView(SponsorView())),
             MainMenu(id: "Notifications et alertes SMS", ic: "ic_bell", destination: AnyView(NotificationsView())),
             MainMenu(id: "Propositions d’améliorations", ic: "ic_bulb", destination: AnyView(SuggestionsView())),

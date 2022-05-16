@@ -197,6 +197,8 @@
 		936B58CF27ABBE3800100D28 /* AudioImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B58CE27ABBE3800100D28 /* AudioImageView.swift */; };
 		9371D16B282E1E20009B4530 /* ModifyEmailSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16A282E1E20009B4530 /* ModifyEmailSecView.swift */; };
 		9371D16D282E1E6B009B4530 /* ModifyEmailOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */; };
+		9371D16F28329394009B4530 /* OrganizationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16E28329394009B4530 /* OrganizationsListView.swift */; };
+		9371D171283298D9009B4530 /* OganizationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D170283298D9009B4530 /* OganizationEditView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
 		937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B126528FB7004A0227 /* SubscriptionView.swift */; };
 		937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */; };
@@ -624,6 +626,8 @@
 		936B58CE27ABBE3800100D28 /* AudioImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioImageView.swift; sourceTree = "<group>"; };
 		9371D16A282E1E20009B4530 /* ModifyEmailSecView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailSecView.swift; sourceTree = "<group>"; };
 		9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailOTPView.swift; sourceTree = "<group>"; };
+		9371D16E28329394009B4530 /* OrganizationsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsListView.swift; sourceTree = "<group>"; };
+		9371D170283298D9009B4530 /* OganizationEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OganizationEditView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		937CA4B126528FB7004A0227 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormIntroView.swift; sourceTree = "<group>"; };
@@ -1347,7 +1351,9 @@
 				935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */,
 				935A59A2265E536B005B0505 /* UnsubscribeReasonView.swift */,
 				935A598F265BAFA8005B0505 /* ContactsListView.swift */,
+				9371D16E28329394009B4530 /* OrganizationsListView.swift */,
 				934B0E1226B15ABE0008DCE5 /* ContactEditView.swift */,
+				9371D170283298D9009B4530 /* OganizationEditView.swift */,
 				935A599B265CD91E005B0505 /* CreateContactView.swift */,
 				935A5991265BAFDD005B0505 /* SponsorView.swift */,
 				935A5993265BAFF4005B0505 /* NotificationsView.swift */,
@@ -2266,6 +2272,7 @@
 				939CBDAC276CA5B6004520A3 /* KeyAccDetailsView.swift in Sources */,
 				933DF61E278BFD44005966AF /* ContractViewModel.swift in Sources */,
 				93553AA3264701E60027BA06 /* SignupIntroView.swift in Sources */,
+				9371D171283298D9009B4530 /* OganizationEditView.swift in Sources */,
 				939CBDB42771E67F004520A3 /* ServiceEmailView.swift in Sources */,
 				2320731A27FF7F0500D5A8C3 /* GuardianAestheticView.swift in Sources */,
 				933DF60E27886ECC005966AF /* FuneralMusicViewModel.swift in Sources */,
@@ -2295,6 +2302,7 @@
 				934B0E1B26B2904E0008DCE5 /* VideoViewModel.swift in Sources */,
 				935A5998265BB040005B0505 /* FAQView.swift in Sources */,
 				93AC02AC274B56DE00FD7285 /* ObjectsDonationNew.swift in Sources */,
+				9371D16F28329394009B4530 /* OrganizationsListView.swift in Sources */,
 				938313942671E46E00C71C98 /* PHAsset.swift in Sources */,
 				934B0E1926B28FFC0008DCE5 /* AudioViewModel.swift in Sources */,
 				93AC02DA274B64B400FD7285 /* DonationOrgsSelectionView.swift in Sources */,
@@ -2462,7 +2470,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2486,7 +2494,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

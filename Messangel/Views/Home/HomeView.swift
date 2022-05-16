@@ -161,7 +161,7 @@ struct SubscribeButton: View {
                 SubscriptionView()
             }
         }) {
-            Text("Je m’abonne (2€/mois)")
+            Text("Je m’abonne (3€/mois)")
                 .font(.system(size: 15))
         }
         .padding()
@@ -299,9 +299,7 @@ struct PotectedUserCard: View {
                     .thinShadow()
                     .overlay(
                         Button {
-                            // TODO: - Think reject case what to do?!
                             UserDefaults.standard.set("MesProteges", forKey: "MesNavigation")
-                            var deaths = vm.deaths
                             if vm.deaths.isEmpty || !vm.deaths.contains(where: { $0.user == protected.user.id }) {
                                 navigationModel.pushContent("Accueil") {
                                     ProtectedUserView(vm: vm, protected: protected)

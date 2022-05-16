@@ -372,7 +372,7 @@ struct documentView: View
                             GuardianFormIntroView(vm: GuardianViewModel())
                         }
                     }label: {
-                        Text("Je m’abonne (2€/mois)")
+                        Text("Je m’abonne (3€/mois)")
                             .font(.system(size: 15))
                             .padding(20)
                             .foregroundColor(.white)

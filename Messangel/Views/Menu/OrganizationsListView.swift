@@ -8,18 +8,18 @@
 import SwiftUI
 import NavigationStack
 
-struct ContactsListView: View {
+struct OrganizationsListView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @State private var searchString = ""
-    @State private var placeholder = "    Rechercher un contact"
+    @State private var placeholder = "    Rechercher un organisme"
     @State private var isEditing = false
     @State private var refreshList = false
     @State private var sortByFirstName = true
-    @StateObject private var vm = ContactViewModel()
+    @StateObject private var vm = OrgViewModel()
     
     var body: some View {
-        NavigationStackView("ContactsListView") {
-            MenuBaseView(title: "Liste de contacts") {
+        NavigationStackView("OrganizationsListView") {
+            MenuBaseView(title: "Liste de organismes") {
                 HStack {
                     TextField(placeholder, text: $searchString)
                         .textFieldStyle(MyTextFieldStyle())
@@ -40,9 +40,9 @@ struct ContactsListView: View {
                         .overlay(Button(action: {
                             sortByFirstName.toggle()
                             if sortByFirstName {
-                                vm.contacts.sort(by: { $0.first_name < $1.first_name })
+                                vm.orgs.sort(by: { $0.name < $1.name })
                             } else {
-                                vm.contacts.sort(by: { $0.last_name < $1.last_name })
+                                vm.orgs.sort(by: { $0.name > $1.name })
                             }
                         }) {
                             Image(systemName: "arrow.up.arrow.down")
@@ -55,8 +55,8 @@ struct ContactsListView: View {
                 .padding(.top, -16)
                 Spacer().frame(height: 25)
                 Button {
-                    navigationModel.pushContent("ContactsListView") {
-                        CreateContactView(vm: vm, refresh: $refreshList)
+                    navigationModel.pushContent("OrganizationsListView") {
+                        CreateOrgView(vm: vm, type: "9", height: 105, refresh: $refreshList)
                     }
                 } label: {
                     RoundedRectangle(cornerRadius: 25.0)
@@ -64,51 +64,30 @@ struct ContactsListView: View {
                         .frame(height: 56)
                         .overlay(
                             HStack {
-                                Image("ic_add-user")
+                                Image("ic_add_org")
                                     .padding(.leading)
-                                Text("Nouveau contact")
+                                Text("Nouveau Organisme")
                                     .foregroundColor(.white)
                                 Spacer()
                             }
                         )
                 }
                 Spacer().frame(height: 25)
-                ForEach(vm.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
-                    ContactView(lastName: contact.last_name, firstName: contact.first_name)
+                ForEach(vm.orgs.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { org in
+                    ContactView(lastName: org.name, firstName: "")
                         .onTapGesture {
-                            navigationModel.pushContent("ContactsListView") {
-                                ContactEditView(vm: vm, contact: .constant(contact))
+                            navigationModel.pushContent("OrganizationsListView") {
+                                OrganizationEditView(vm: vm, org: .constant(org))
                             }
                         }
                 }
             }
             .onDidAppear() {
-                vm.getContacts()
+                vm.getOrgs(9)
             }
             .onChange(of: refreshList) { _ in
-                vm.getContacts()
+                vm.getOrgs(9)
             }
         }
-    }
-}
-
-struct ContactView: View {
-    var lastName = ""
-    var firstName = ""
-    
-    var body: some View {
-        Capsule()
-            .fill(Color.white)
-            .frame(height: 56)
-            .normalShadow()
-            .overlay(HStack{
-                Image("ic_contact")
-                    .padding(.leading)
-                Text(lastName)
-                Text(firstName)
-                    .fontWeight(.semibold)
-                Spacer()
-            })
-            .padding(.bottom)
     }
 }

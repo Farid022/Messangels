@@ -10,7 +10,7 @@ import NavigationStack
 
 struct WishesMenuView: View {
     @EnvironmentObject var navigationModel: NavigationModel
-    @StateObject private var vm = WishesViewModel()
+    @EnvironmentObject var vm: WishesViewModel
     
     var body: some View {
         VStack {
@@ -91,9 +91,6 @@ struct WishesMenuView: View {
                 
             }
             Spacer().height(70)
-        }
-        .task {
-            vm.getProgress()
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
             if vm.wishesProgresses.isEmpty {
