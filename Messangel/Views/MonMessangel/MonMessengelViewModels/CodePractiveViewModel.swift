@@ -28,8 +28,7 @@ struct CodePractiveDetail: Hashable, Codable {
     var codes: [CodeModel]
     var note: String
     var user: User
-    var assign_user
-
+    var assign_user : [User]?
     enum CodingKeys: String, CodingKey {
         case id
         case name = "code_name"

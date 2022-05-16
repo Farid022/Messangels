@@ -72,7 +72,7 @@ struct GuardianDonationCollectioView: View {
                                 index, item in
                                 ListItemImageTitle(type: "donationOrganization", item: item.donation_organization.name ?? "")
                                    
-                                GuardianMemberListView(memebers: item.assign_user ?? [],showExitAlert: $showExitAlert, id: item.donation_organization.id)
+                                GuardianMemberListView(memebers: item.assign_user?[index].assign_user ?? [],showExitAlert: $showExitAlert, id: item.donation_organization.id)
                                     .padding(.top,-13)
                                     .padding(.trailing,12)
                             }
