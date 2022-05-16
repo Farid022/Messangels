@@ -57,7 +57,7 @@ struct ModifyMobileView: View {
                     return
                 }
                 navModel.pushContent(String(describing: Self.self)) {
-                    ModifyMobileSMSView(new_mobile: $new_mobile)
+                    ModifyMobileSecView(new_mobile: $new_mobile)
                 }
             }, label: {
                 Text("Enregister")

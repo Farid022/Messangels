@@ -8,32 +8,36 @@
 import SwiftUI
 import NavigationStack
 
-struct ModifyPasswordOTPView: View {
+struct ModifyEmailOTPView: View {
     @EnvironmentObject private var auth: Auth
     @EnvironmentObject private var navModel: NavigationModel
-    @Binding var old_password: String
-    @Binding var new_password: String
     @State private var apiResponse = APIService.APIResponse(message: "")
     @State private var apiError = APIService.APIErr(error: "", error_description: "")
     @State var code = ""
     @State var loading = false
     @State private var succesAlert = false
     @State private var failureAlert = false
-    @StateObject var vm = SecureAccessViewModel()
+    @Binding var new_email: String
+    @ObservedObject var vm:SecureAccessViewModel
     
     fileprivate func validateOTP() {
         vm.otp.otp = Int(code) ?? 0
         vm.authOTP {
             if vm.apiResponse.message == "1" {
-                APIService.shared.post(model: Password(password: old_password, new_password: new_password), response: apiResponse, endpoint: "users/\(getUserId())/change-password", method: "PUT") { result in
+                APIService.shared.post(model: Email(email: auth.user.email, new_email: new_email), response: apiResponse, endpoint: "users/\(getUserId())/change-email", method: "PUT") { result in
                     switch result {
                     case .success(let response):
                         DispatchQueue.main.async {
                             self.apiResponse = response
+                            if response.message.contains("confirmation link sent") {
+                                auth.user.email = new_email
+                                auth.updateUser()
+                            }
                             succesAlert.toggle()
                         }
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            print(error.error_description)
                             self.apiError = error
                             failureAlert.toggle()
                         }
@@ -80,12 +84,12 @@ struct ModifyPasswordOTPView: View {
             .padding()
         }
         .foregroundColor(.white)
-        .alert("Consultez vos mails et activez votre nouveau mot de passe", isPresented: $succesAlert, actions: {
+        .alert("Consultez vos mails pour activer votre nouvelle adresse mail", isPresented: $succesAlert, actions: {
             Button("OK", role: .cancel) {
                 navModel.popContent(TabBarView.id)
             }
         }, message: {
-            Text("Activez votre nouveau mot de passe en cliquant sur le lien que nous vous avons envoyé par mail.")
+            Text("Confirmez votre changement d’adresse mail en cliquant sur le lien que nous vous avons envoyé sur \(new_email).")
         })
         .alert(isPresented: $failureAlert, content: {
             Alert(title: Text(apiError.error), message: Text(apiError.error_description))

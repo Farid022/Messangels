@@ -14,6 +14,7 @@ struct ContactsListView: View {
     @State private var placeholder = "    Rechercher un contact"
     @State private var isEditing = false
     @State private var refreshList = false
+    @State private var sortByFirstName = true
     @StateObject private var vm = ContactViewModel()
     
     var body: some View {
@@ -34,46 +35,44 @@ struct ContactsListView: View {
                             }
                         )}
                     RoundedRectangle(cornerRadius: 25.0)
-                        .fill(Color.accentColor)
+                        .fill(Color.white)
                         .frame(width: 56, height: 56)
                         .overlay(Button(action: {
-                            navigationModel.pushContent("ContactsListView") {
-                                CreateContactView(vm: vm, refresh: $refreshList)
+                            sortByFirstName.toggle()
+                            if sortByFirstName {
+                                vm.contacts.sort(by: { $0.first_name < $1.first_name })
+                            } else {
+                                vm.contacts.sort(by: { $0.last_name < $1.last_name })
                             }
                         }) {
-                            Image("ic_contact-add")
+                            Image(systemName: "arrow.up.arrow.down")
+                                .foregroundColor(.accentColor)
                         })
                 }
                 .padding()
-                .background(Color.gray.opacity(0.5))
-                .padding(-16)
-                Spacer().frame(height: 15)
-                HStack(spacing: 2) {
-                    Image(systemName: "arrow.up.arrow.down")
-                        .foregroundColor(.white)
-                        .padding(.trailing, 5)
-                    Button(action: {
-                        vm.contacts.sort(by: { $0.first_name < $1.first_name })
-                    }) {
-                        Text("Prénom")
-                            .foregroundColor(.white)
-                            .underline()
-                    }
-                    Text("|")
-                        .foregroundColor(.white)
-                    Button(action: {
-                        vm.contacts.sort(by: { $0.last_name < $1.last_name })
-                    }) {
-                        Text("Nom")
-                            .foregroundColor(.white)
-                            .underline()
-                    }
-                    Spacer()
-                }
-                .padding()
-                .background(Color.gray)
+                .background(Color.accentColor)
                 .padding(.horizontal, -16)
-                Spacer().frame(height: 30)
+                .padding(.top, -16)
+                Spacer().frame(height: 25)
+                Button {
+                    navigationModel.pushContent("ContactsListView") {
+                        CreateContactView(vm: vm, refresh: $refreshList)
+                    }
+                } label: {
+                    RoundedRectangle(cornerRadius: 25.0)
+                        .fill(Color.accentColor)
+                        .frame(height: 56)
+                        .overlay(
+                            HStack {
+                                Image("ic_add-user")
+                                    .padding(.leading)
+                                Text("Nouveau contact")
+                                    .foregroundColor(.white)
+                                Spacer()
+                            }
+                        )
+                }
+                Spacer().frame(height: 25)
                 ForEach(vm.contacts.filter({ searchString.isEmpty ? true : $0.first_name.contains(searchString)}), id:\.self) { contact in
                     ContactView(lastName: contact.last_name, firstName: contact.first_name)
                         .onTapGesture {

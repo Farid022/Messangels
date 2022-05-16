@@ -181,7 +181,7 @@
 		936466BF27FC2402008527A2 /* ProfileDeleteConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */; };
 		936466C127FC2437008527A2 /* ProfileDeleteReasonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */; };
 		936710EC282A466C009B77D5 /* ModifyMobileOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936710EB282A466C009B77D5 /* ModifyMobileOTPView.swift */; };
-		936710EE282A4881009B77D5 /* ModifyMobileSMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936710ED282A4881009B77D5 /* ModifyMobileSMSView.swift */; };
+		936710EE282A4881009B77D5 /* ModifyMobileSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936710ED282A4881009B77D5 /* ModifyMobileSecView.swift */; };
 		93671DA627676447009A4CF1 /* SocialAndServicesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */; };
 		93671DA927676533009A4CF1 /* KeyAccRegSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */; };
 		93671DAB27676562009A4CF1 /* KeyAccRegSMSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */; };
@@ -195,6 +195,8 @@
 		9369D53E265639F100650AA7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D53D265639F100650AA7 /* MenuView.swift */; };
 		9369D54126563DED00650AA7 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9369D54026563DED00650AA7 /* ProfileView.swift */; };
 		936B58CF27ABBE3800100D28 /* AudioImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 936B58CE27ABBE3800100D28 /* AudioImageView.swift */; };
+		9371D16B282E1E20009B4530 /* ModifyEmailSecView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16A282E1E20009B4530 /* ModifyEmailSecView.swift */; };
+		9371D16D282E1E6B009B4530 /* ModifyEmailOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
 		937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B126528FB7004A0227 /* SubscriptionView.swift */; };
 		937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */; };
@@ -606,7 +608,7 @@
 		936466BE27FC2401008527A2 /* ProfileDeleteConfirmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDeleteConfirmView.swift; sourceTree = "<group>"; };
 		936466C027FC2437008527A2 /* ProfileDeleteReasonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDeleteReasonView.swift; sourceTree = "<group>"; };
 		936710EB282A466C009B77D5 /* ModifyMobileOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileOTPView.swift; sourceTree = "<group>"; };
-		936710ED282A4881009B77D5 /* ModifyMobileSMSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileSMSView.swift; sourceTree = "<group>"; };
+		936710ED282A4881009B77D5 /* ModifyMobileSecView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyMobileSecView.swift; sourceTree = "<group>"; };
 		93671DA527676447009A4CF1 /* SocialAndServicesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialAndServicesHomeView.swift; sourceTree = "<group>"; };
 		93671DA827676533009A4CF1 /* KeyAccRegSecView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSecView.swift; sourceTree = "<group>"; };
 		93671DAA27676562009A4CF1 /* KeyAccRegSMSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAccRegSMSView.swift; sourceTree = "<group>"; };
@@ -620,6 +622,8 @@
 		9369D53D265639F100650AA7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		9369D54026563DED00650AA7 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		936B58CE27ABBE3800100D28 /* AudioImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioImageView.swift; sourceTree = "<group>"; };
+		9371D16A282E1E20009B4530 /* ModifyEmailSecView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailSecView.swift; sourceTree = "<group>"; };
+		9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailOTPView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		937CA4B126528FB7004A0227 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormIntroView.swift; sourceTree = "<group>"; };
@@ -1334,8 +1338,10 @@
 				934B0E0626A58D4F0008DCE5 /* ModifyPasswordView.swift */,
 				93A9725528162644003C5EFE /* ModifyPasswordOTPView.swift */,
 				93AC01DE2716A63700FD7285 /* ModifyEmailView.swift */,
+				9371D16A282E1E20009B4530 /* ModifyEmailSecView.swift */,
+				9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */,
 				93AC01E02716B68000FD7285 /* ModifyMobileView.swift */,
-				936710ED282A4881009B77D5 /* ModifyMobileSMSView.swift */,
+				936710ED282A4881009B77D5 /* ModifyMobileSecView.swift */,
 				936710EB282A466C009B77D5 /* ModifyMobileOTPView.swift */,
 				935A598D265BAF8E005B0505 /* EditSubscriptionView.swift */,
 				935A59A0265E18EA005B0505 /* UnsubscribeConfirmView.swift */,
@@ -2119,6 +2125,7 @@
 				9351CCD027A690640087C0E9 /* MessagesTextView.swift in Sources */,
 				9351CCCD27A65D750087C0E9 /* AudioRecorder.swift in Sources */,
 				935A5994265BAFF4005B0505 /* NotificationsView.swift in Sources */,
+				9371D16B282E1E20009B4530 /* ModifyEmailSecView.swift in Sources */,
 				2396201E27AD04B200CE3CCD /* MonMessangelView.swift in Sources */,
 				93AC02432727D76C00FD7285 /* FuneralPlaceSelection.swift in Sources */,
 				23D3CFBF27BD5E95009CDBF4 /* AdministrativePartsView.swift in Sources */,
@@ -2215,6 +2222,7 @@
 				938C232127CF28F400E509BA /* DeathConfirmationView.swift in Sources */,
 				93AC02EB274B6C8B00FD7285 /* ManagedContractNew.swift in Sources */,
 				93AD1DD327BE17B0007BBF81 /* FuneralHaveOrgLinkedContractView.swift in Sources */,
+				9371D16D282E1E6B009B4530 /* ModifyEmailOTPView.swift in Sources */,
 				9351CCD427A92FB00087C0E9 /* WishesViewModel.swift in Sources */,
 				933AA31026674FD8000D6D48 /* ImagePicker.swift in Sources */,
 				93AC02412727D70E00FD7285 /* FuneralPlaceType.swift in Sources */,
@@ -2239,7 +2247,7 @@
 				2320731527FF7F0500D5A8C3 /* GuardianObjectListView.swift in Sources */,
 				232072FA27FEF2BB00D5A8C3 /* GuardianFuneralChoiceView.swift in Sources */,
 				93AC02C8274B5B4000FD7285 /* AnimalDonationName.swift in Sources */,
-				936710EE282A4881009B77D5 /* ModifyMobileSMSView.swift in Sources */,
+				936710EE282A4881009B77D5 /* ModifyMobileSecView.swift in Sources */,
 				932FF8B826C1367400DE52F9 /* AudioTitleView.swift in Sources */,
 				93AC01DF2716A63700FD7285 /* ModifyEmailView.swift in Sources */,
 				936466C127FC2437008527A2 /* ProfileDeleteReasonView.swift in Sources */,

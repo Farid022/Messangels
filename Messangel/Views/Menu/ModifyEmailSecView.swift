@@ -8,10 +8,10 @@
 import SwiftUI
 import NavigationStack
 
-struct ModifyMobileSMSView: View {
+struct ModifyEmailSecView: View {
     @StateObject private var vm = SecureAccessViewModel()
     @EnvironmentObject private var navModel: NavigationModel
-    @Binding var new_mobile: String
+    @Binding var new_email: String
     var body: some View {
         NavigationStackView(String(describing: Self.self)) {
             ZStack(alignment: .top) {
@@ -42,11 +42,11 @@ struct ModifyMobileSMSView: View {
                             vm.authPassword {
                                 if vm.apiResponse.message == "1" {
                                     navModel.pushContent(String(describing: Self.self)) {
-                                        ModifyMobileOTPView(new_mobile: $new_mobile, vm: vm)
+                                        ModifyEmailOTPView(new_email: $new_email, vm: vm)
                                     }
                                 }
                             }
-                        },source: "KeyAccRegSecView", active: .constant(!vm.password.password.isEmpty))
+                        }, active: .constant(!vm.password.password.isEmpty))
                     }
                     Spacer()
                         .frame(height: 50)
