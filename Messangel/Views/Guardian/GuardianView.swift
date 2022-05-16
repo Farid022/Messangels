@@ -60,16 +60,16 @@ struct GuardianView: View {
             .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .black))
             .padding(.bottom, 20)
           
-            Button(action: {
-                UserDefaults.standard.set(guardian.id, forKey: "guardianID")
-                navigationModel.pushContent(TabBarView.id) {
-                    
-                  GuardianMonMessangelView()
-                }
-            }, label: {
-                Text("Déclarer le décés")
-            })
-            .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .gray))
+//            Button(action: {
+//                UserDefaults.standard.set(guardian.id, forKey: "guardianID")
+//                navigationModel.pushContent(TabBarView.id) {
+//
+//                    GuardianMonMessangelView(guardian: guardian)
+//                }
+//            }, label: {
+//                Text("Mon Messangel")
+//            })
+//            .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .gray))
         }
         .alert(isPresented: $confirmAlert, content: {
             Alert(title: Text("Supprimer l’Ange-gardien ?"), message: Text("Un mail sera envoyé à \(guardian.last_name) pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {

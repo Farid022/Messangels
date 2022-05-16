@@ -17,9 +17,10 @@ struct DocumentUpload: Hashable, Codable {
     let id: Int
     let user: User
     let name, note: String
+    var assign_user : [User]?
 
     enum CodingKeys: String, CodingKey {
-        case id, user
+        case id, user, assign_user
         case name = "document_name"
         case note = "document_note"
     }

@@ -17,6 +17,7 @@ struct DonationDetail: Hashable, Codable {
     var donation_organization: Organismes
     var donation_note: String
     var user: User
+    var assign_user : [assignUser]?
 }
 
 class DonationViewModel: ObservableObject {

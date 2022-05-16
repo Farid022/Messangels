@@ -12,7 +12,13 @@ import SwiftUI
 
 
 
-
+struct assignUser: Codable, Hashable
+{
+    var id : Int?
+    var tab_field_name:  String?
+    var death_user: Int?
+    var assign_user : [User]?
+}
 
 struct FuneralItem: Hashable, Codable {
     var id: Int
@@ -59,7 +65,7 @@ struct FuneralChoixDetail: Hashable,Codable {
     var coffin_finish_note: String?
     var urn_material_note: String?
     var urn_style_note: String?
-    var assign_user : [User]?
+    var assign_user : [assignUser]?
     
 
     enum CodingKeys: String, CodingKey {

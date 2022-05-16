@@ -15,11 +15,12 @@ struct GuardianMonMessangelView: View {
     @State private var stored: Int = 0
     @State private var current: [Int] = []
     @EnvironmentObject private var navigationModel: NavigationModel
-    @StateObject private var guardianViewModel = GuardianViewModel()
+    @StateObject private var guardianViewModel = GuardianMonMessangelViewModel()
+    
     @StateObject private var volontesViewModel = VolontesViewModel()
     @StateObject var auth = Auth()
     @EnvironmentObject var envAuth: Auth
- 
+    var guardian: Guardian?
     @State private var cgImage = UIImage().cgImage
     
     @State private var profileImage = UIImage()
@@ -98,7 +99,7 @@ struct GuardianMonMessangelView: View {
                                     .multilineTextAlignment(.center)
                                     .padding(.bottom,40)
                             }
-                            documentView(guardians: guardianViewModel.guardians)
+                            documentView(guardians: self.guardianViewModel.guardians)
                            
                             Group{
                             Image("ic_mesVolontes")
@@ -180,9 +181,12 @@ struct GuardianMonMessangelView: View {
         }
         }.onAppear(perform: {
             volontesViewModel.getTabs()
-            guardianViewModel.getGuardians { success in
+            self.guardianViewModel.getGuardians { success in
                 
             }
+            guardianViewModel.getUserGuardianData(guardianID:self.guardian!.id, completion: { success in
+                
+            })
       
             vmKeyAcc.getKeyAccounts { success in
                 

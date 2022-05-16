@@ -72,6 +72,21 @@ struct assignTaskRequest: Codable {
 class GuardianMonMessangelViewModel: ObservableObject {
     @Published var data = GuardianMonMessangelData()
     
+    @Published var guardians = [Guardian]()
+  
+    func getGuardians(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: guardians, urlString: "users/guardian/\(getUserId())") { result in
+            switch result {
+            case .success(let guardians):
+                DispatchQueue.main.async {
+                    self.guardians = guardians
+                }
+            case .failure(let error):
+                print(error)
+            }
+            completion(true)
+        }
+    }
     
     func getUserGuardianData(guardianID: Int,completion: @escaping (Bool) -> Void) {
         APIService.shared.getJSON(model: data, urlString: "users/\(getUserId())/guardian/\(guardianID)/data") { result in

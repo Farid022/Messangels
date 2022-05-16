@@ -14,6 +14,7 @@ struct GuardianFuneralChoiceView: View {
     @StateObject private var funeralChoixViewModel = FuneralChoixViewModel()
     @State private var showExitAlert = false
     @StateObject private var guardianMonMessangelViewModel = GuardianMonMessangelViewModel()
+    @StateObject private var guardianViewModel = GuardianMonMessangelViewModel()
     var body: some View {
        
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .top)) {
@@ -59,10 +60,15 @@ struct GuardianFuneralChoiceView: View {
                                     .padding(.bottom,40)
                                         
                                     
-                                    
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
-                                        .padding(.top,-23)
-                                       
+                                    if ((guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.contains(where: { $0.tab_field_name == "burial_type" })) != nil)
+                                    {
+                                        let filteredArray = guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.filter{ $0.tab_field_name == "burial_type"}
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [] ,showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                   
+                                 
                                  
                                     
                                 }
@@ -72,24 +78,48 @@ struct GuardianFuneralChoiceView: View {
                                 GuardianFunerairesView(title: "Mon lieu d’inhumation", description: funeralChoixViewModel.funeral.placeBurialNote)
                                     .padding(.bottom,40)
                                     
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id:funeralChoixViewModel.funeral.burialType?.id)
-                                    .padding(.top,-23)
+                                    
+                                    if ((guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.contains(where: { $0.tab_field_name == "place_burial_note" })) != nil)
+                                    {
+                                        let filteredArray = guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.filter{ $0.tab_field_name == "place_burial_note"}
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [] ,showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                    
                                 }
                                 
                                 ZStack(alignment:.topTrailing)
                                 {
                                 GuardianFunerairesView(title: "Mon lieu de crémation", description: funeralChoixViewModel.funeral.depositeAshesNote)
                                     .padding(.bottom,40)
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
-                                    .padding(.top,-23)
+                                    
+                                    if ((guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.contains(where: { $0.tab_field_name == "deposite_ashes_note" })) != nil)
+                                    {
+                                        let filteredArray = guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.filter{ $0.tab_field_name == "deposite_ashes_note"}
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [] ,showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                    
+                                    
                                 }
                                 ZStack(alignment:.topTrailing)
                                 {
                                     
                                     GuardianMonCercueilView(funeral: funeralChoixViewModel.funeral)
                                     .padding(.bottom,40)
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id:funeralChoixViewModel.funeral.coffinMaterial.id)
-                                    .padding(.top,-23)
+                                    
+                                    
+                                    if ((guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.contains(where: { $0.tab_field_name == "urn_material" })) != nil)
+                                    {
+                                        let filteredArray = guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.filter{ $0.tab_field_name == "urn_material"}
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [] ,showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                    
+                                   
                                         
                                 }
                                
@@ -97,6 +127,11 @@ struct GuardianFuneralChoiceView: View {
                                 {
                                 GuardianMonUrneView(funeral: funeralChoixViewModel.funeral)
                                     .padding(.bottom,40)
+                                    
+                                    
+                                    
+                                    
+                                    
                                     GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.urnStyle.id)
                                     .padding(.top,-23)
                                 }
@@ -104,15 +139,30 @@ struct GuardianFuneralChoiceView: View {
                                 ZStack(alignment:.topTrailing)
                                 {
                                 GuardianFunerairesView(title: "Ma tenue", description: funeralChoixViewModel.funeral.outfitNote ) .padding(.bottom,40)
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert,id: funeralChoixViewModel.funeral.urnStyle.id)
-                                    .padding(.top,-23)
+                                    
+                                    if ((guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.contains(where: { $0.tab_field_name == "outfit_note" })) != nil)
+                                    {
+                                        let filteredArray = guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.filter{ $0.tab_field_name == "outfit_note"}
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [] ,showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                   
                                 }
                                 
                                 ZStack(alignment:.topTrailing)
                                 {
                                 GuardianFunerairesView(title: "Mes objets et accessoires", description: funeralChoixViewModel.funeral.acessoriesNote ) .padding(.bottom,40)
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert,id: funeralChoixViewModel.funeral.urnStyle.id)
-                                    .padding(.top,-23)
+                                    
+                                    
+                                    if ((guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.contains(where: { $0.tab_field_name == "acessories_note" })) != nil)
+                                    {
+                                        let filteredArray = guardianMonMessangelViewModel.data.funeralChoice?[0].assign_user?.filter{ $0.tab_field_name == "acessories_note"}
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [] ,showExitAlert: $showExitAlert, id: funeralChoixViewModel.funeral.burialType?.id)
+                                            .padding(.top,-23)
+                                           
+                                    }
+                                
                                 }
                             }
                         }

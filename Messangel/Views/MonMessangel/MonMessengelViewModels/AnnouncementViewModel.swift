@@ -12,6 +12,7 @@ struct PriorityContact: Codable {
     var priority_note: String?
     var contact: [PriorityContactItem]?
     var user: User?
+    var assign_user : [User]?
 }
 
 struct PriorityContactItem: Codable, Hashable {

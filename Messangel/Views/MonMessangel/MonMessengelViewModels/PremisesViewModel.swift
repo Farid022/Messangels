@@ -19,6 +19,7 @@ struct PremisesItem: Hashable, Codable {
     var resting_place_note: String?
     var bury_location: FuneralItem?
     var resting_place: FuneralItem?
+    var assign_user : [assignUser]?
  
 }
 

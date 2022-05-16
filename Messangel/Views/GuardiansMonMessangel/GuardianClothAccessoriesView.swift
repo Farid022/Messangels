@@ -74,7 +74,7 @@ struct GuardianClothAccessoriesView: View {
                                 {
                                 ClothItem(type: item.clothing_photo, item: item.clothing_name)
                                    
-                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                    GuardianMemberListView(memebers: item.assign_user ?? [],showExitAlert: $showExitAlert, id: item.id)
                                 .padding(.top,-23)
                                 }
 

@@ -51,8 +51,17 @@ struct GuardianSpiritualiteTraditionsView: View {
                                 {
                                 FunerairesView(title: "Je souhaite une cérémonie " + spiritualiteViewModel.spiritualite.spritual_ceremony.name, description: spiritualiteViewModel.spiritualite.spirtual_cermony_note ?? "")
                                     .padding(.bottom,40)
-                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: spiritualiteViewModel.spiritualite.id)
-                            .padding(.top,-23)
+                                    
+                                    
+                                    if ((spiritualiteViewModel.spiritualite.assign_user?.contains(where: { $0.tab_field_name == "spritual_ceremony" })) != nil)
+                                    {
+                                        let filteredArray = spiritualiteViewModel.spiritualite.assign_user?.filter{ $0.tab_field_name == "spritual_ceremony"}
+                                      
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [],showExitAlert: $showExitAlert, id: spiritualiteViewModel.spiritualite.id)
+                                    .padding(.top,-23)
+                                           
+                                    }
+                               
 
                                 }
                 
@@ -61,8 +70,17 @@ struct GuardianSpiritualiteTraditionsView: View {
                                 {
                                 FunerairesView(title: "Je souhaite faire appliquer des traditions", description: spiritualiteViewModel.spiritualite.ceremony_note ?? "")
                                     .padding(.bottom,40)
-                                GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: spiritualiteViewModel.spiritualite.id)
-                            .padding(.top,-23)
+                                    
+                                    
+                                    if ((spiritualiteViewModel.spiritualite.assign_user?.contains(where: { $0.tab_field_name == "ceremony_note" })) != nil)
+                                    {
+                                        let filteredArray = spiritualiteViewModel.spiritualite.assign_user?.filter{ $0.tab_field_name == "ceremony_note"}
+                                      
+                                        GuardianMemberListView(memebers: filteredArray?[0].assign_user ?? [],showExitAlert: $showExitAlert, id: spiritualiteViewModel.spiritualite.id)
+                                    .padding(.top,-23)
+                                           
+                                    }
+                              
 
                                 }
                         }

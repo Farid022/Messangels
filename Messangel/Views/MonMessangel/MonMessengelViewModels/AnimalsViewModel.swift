@@ -15,6 +15,7 @@ struct Animal: Codable {
     var animal_species: String
     var animal_note: String
     var user: Int
+    var assign_user : [User]?
 }
 
 struct AnimalDetail: Hashable, Codable {
@@ -28,6 +29,7 @@ struct AnimalDetail: Hashable, Codable {
     var animal_photo: String
     var user: User
     var animal_note_attachment: [String]?
+    var assign_user : [User]?
 }
 
 class AnimalsViewModel: ObservableObject {

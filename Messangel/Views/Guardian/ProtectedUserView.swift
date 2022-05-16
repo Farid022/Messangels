@@ -10,6 +10,7 @@ import NavigationStack
 
 struct ProtectedUserView: View {
     @State private var confirmAlert = false
+ 
     @ObservedObject var vm: GuardianViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     var protected: MyProtected
@@ -51,17 +52,40 @@ struct ProtectedUserView: View {
                 })
                 .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .black))
                 Spacer().frame(height: 50)
-                Button(action: {
-                    vm.death.user = protected.user.id ?? 0
-                    vm.protectedUser.first_name = protected.user.first_name
-                    vm.protectedUser.last_name = protected.user.last_name
-                    navigationModel.pushContent(TabBarView.id) {
-                        DeclareDeathIntro(vm: vm)
-                    }
-                }, label: {
-                    Text("Déclarer le décès")
-                })
-                .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .gray))
+                if vm.deaths.isEmpty || !vm.deaths.contains(where: { $0.user == protected.user.id }) {
+                    Button(action: {
+                        vm.death.user = protected.user.id ?? 0
+                        vm.protectedUser.first_name = protected.user.first_name
+                        vm.protectedUser.last_name = protected.user.last_name
+                        navigationModel.pushContent(TabBarView.id) {
+                            DeclareDeathIntro(vm: vm)
+                        }
+                    }, label: {
+                        Text("Déclarer le décès")
+                    })
+                    .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .gray))
+                }
+                else
+                {
+                    Button(action: {
+                        vm.death.user = protected.user.id ?? 0
+                        vm.protectedUser.first_name = protected.user.first_name
+                        vm.protectedUser.last_name = protected.user.last_name
+                        var guardian : Guardian? =  Guardian(id: protected.user.id ?? 0 , user_id: 0, first_name: protected.user.first_name, last_name: protected.user.last_name, email: protected.user.email, status: "2")
+                        
+                        navigationModel.pushContent(TabBarView.id) {
+                           
+                            GuardianMonMessangelView(guardian: guardian)
+                            
+                           // DeclareDeathIntro(vm: vm)
+                        }
+                    }, label: {
+                        Text("Mon Messangel")
+                    })
+                    .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .gray))
+                }
+                
+            
             }
             .alert(isPresented: $confirmAlert, content: {
                 Alert(title: Text("Ne plus être Ange-gardien ?"), message: Text("Un mail sera envoyé à \(protected.user.last_name) pour l’informer de votre choix."), primaryButton: .default(Text("Supprimer").foregroundColor(.accentColor), action: {
@@ -80,6 +104,7 @@ struct ProtectedUserView: View {
                     
                 }), secondaryButton: .cancel(Text("Annuler").foregroundColor(.black)))
         })
+            
         }
     }
 }

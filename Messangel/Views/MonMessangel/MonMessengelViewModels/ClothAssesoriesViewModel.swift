@@ -26,6 +26,7 @@ struct ClothsList: Hashable, Codable {
     var clothing_organization_detail: Organization?
     var clothing_contact_detail: Contact?
     var clothing_name: String
+    var assign_user : [User]?
 }
 
 class ClothAssesoriesViewModel: ObservableObject {

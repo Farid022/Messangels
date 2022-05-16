@@ -74,7 +74,7 @@ struct GuardianMusicView: View {
                                 {
                                 ListItemImageTitle(type: "musicPlaceholder", item: item.song_title)
                                    
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                    GuardianMemberListView(memebers: item.assign_user ?? [],showExitAlert: $showExitAlert, id: item.id)
                                    .padding(.top,-13)
                                    .padding(.trailing,12)
                                 }

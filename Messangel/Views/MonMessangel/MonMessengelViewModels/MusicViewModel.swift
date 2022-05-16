@@ -21,6 +21,7 @@ struct MusicItem: Hashable, Codable {
     var artist_name: String
     var song_title: String
     var broadcast_song_note: String
+    var assign_user : [User]?
 }
 
 class MusicViewModel: ObservableObject {

@@ -76,7 +76,7 @@ struct GuardianCodePractiveView: View {
                                 {
                                 ListItemImageTitle(type: "ic_codePractice", item: item.name)
                                
-                                    GuardianMemberListView(memebers: [],showExitAlert: $showExitAlert, id: item.id)
+                                    GuardianMemberListView(memebers: item.assign_user ?? [],showExitAlert: $showExitAlert, id: item.id)
                                 .padding(.top,-23)
                                 }
 
