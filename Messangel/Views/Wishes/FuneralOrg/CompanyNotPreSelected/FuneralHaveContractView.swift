@@ -51,7 +51,7 @@ struct FuneralHaveContractView: View {
                     }
                 }
                 
-            },note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: title, valid: .constant(vm.funeralOrg.company_contract_detail != nil)) {
+            },note: true, showNote: $showNote, menuTitle: "Organismes obsèques", title: title, valid: .constant(vm.funeralOrg.company_contract_detail != nil)) {
                 HStack {
                     ForEach([true, false], id: \.self) { subscribed in
                         ChoiceCard(text: subscribed ? "Oui" : "Non", selected: .constant(vm.funeralOrg.company_contract_detail == subscribed))
