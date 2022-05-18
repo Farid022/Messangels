@@ -231,7 +231,9 @@ struct FlowNoteButtonView: View {
                 Button(action: {
                     showNote.toggle()
                 }) {
-                    Image(note.isEmpty ? "ic_add_note" : "ic_notes")
+
+                    Image(note.isEmpty ? "ic_notes" : "ic_notes")
+                    
                 }
             )
     }
