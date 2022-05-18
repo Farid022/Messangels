@@ -122,7 +122,7 @@ struct LoginView: View {
             .textFieldStyle(MyTextFieldStyle())
             .foregroundColor(.white)
             .alert(isPresented: $alert, content: {
-                Alert(title: Text(apiError.error), message: Text(apiError.error_description))
+                Alert(title: Text(apiError.error == "invalid_grant" ? "Ce compte n'existe pas" : apiError.error), message: Text(apiError.error == "invalid_grant" ? "Veuillez saisir à nouveau votre adresse mail et votre mot de passe." : apiError.error_description))
             })
             .onChange(of: auth.credentials.email) { value in
                 self.validate()

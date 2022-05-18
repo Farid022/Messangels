@@ -34,11 +34,6 @@ struct ProfileView: View {
                 MenuBaseView(title:"Profil") {
                     ImageSelectionView(showImagePickerOptions: $isShowImagePickerOptions, localImage: $profileImage, remoteImage: auth.user.image_url ?? "", title: "modifier photo de profil", underlineTitle: false)
                         .padding(.bottom)
-                    //                HStack {
-                    //                    Text("Né(e) le \(formatDateString(auth.user.dob, inFormat:"yyyy-MM-dd", outFormat: "d MMM yyyy")) à \(auth.user.city)")
-                    //                    Spacer()
-                    //                }
-                    //                .padding(.bottom)
                     Group {
                         TextField("", text: $userVM.profile.last_name)
                             .onSubmit {
@@ -58,6 +53,7 @@ struct ProfileView: View {
                     .normalShadow()
                     .padding(.bottom)
                     Button("Enregister") {
+                        hideKeyboard()
                         if !valid {
                             return
                         }
@@ -65,7 +61,7 @@ struct ProfileView: View {
                             confirmModify.toggle()
                         }
                     }
-                    .disabled(isPerformingTask || !valid)
+                    .disabled(isPerformingTask || !valid || !profileUpdated)
                     .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
                     .padding(.bottom)
                     Button(action: {
@@ -96,8 +92,8 @@ struct ProfileView: View {
             if confirmModify {
                 Color.black.opacity(0.8)
                     .ignoresSafeArea()
-                    .overlay(MyAlert(title: "", message: "Êtes-vous sur de vouloir modifier cette\ninformation ?", ok: "Confirmer",
-                                     height: 150, action: {
+                    .overlay(MyAlert(title: "Modifier mon profil", message: "Êtes-vous sur de vouloir modifier votre profil ?", ok: "Confirmer",
+                                      action: {
                         isPerformingTask = true
                         if self.profileImage.cgImage != nil {
                             Task {
@@ -125,7 +121,6 @@ struct ProfileView: View {
         APIService.shared.post(model: userVM.profile, response: auth.user, endpoint: "users/\(getUserId())/profile", method: "PATCH") { result in
             switch result {
             case .success(let user):
-                print(user.first_name)
                 DispatchQueue.main.async {
                     let password = auth.user.password
                     auth.user = user
