@@ -104,7 +104,7 @@ struct FuneralPlacesList: View {
                         .padding(.bottom)
                     ForEach(vm.buryLocations.filter({ searchString.isEmpty ? true : $0.name.contains(searchString)}), id:\.self) { location in
                         ListItemView(name: location.name) {
-                            vm.name = location.name
+                            vm.orgName = location.name
                             vm.location.bury_location = location.id
                             navigationModel.hideTopView()
                         }
