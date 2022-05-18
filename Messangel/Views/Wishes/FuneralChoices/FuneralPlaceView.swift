@@ -11,8 +11,11 @@ struct FuneralPlaceView: View {
     @State private var showNote = false
     @State private var note = ""
     @ObservedObject var vm: FeneralViewModel
+   
     
     var body: some View {
-        FuneralNoteView(tab: 1, stepNumber: 2.0, totalSteps: 12.0, showNote: $showNote, note: $vm.funeral.place_burial_note, menuTitle: "Choix funéraires", title: "Vous pouvez indiquer le lieu d’inhumation (cimetière, caveau familial…)", destination: AnyView(FuneralCoffinMaterial(vm: vm)), vm: vm)
+                
+        
+        FuneralNoteView(tab: 1, stepNumber: 2.0, totalSteps: 12.0, showNote: $showNote, note: $vm.funeral.place_burial_note, menuTitle: "Choix funéraires", title: vm.funeral.burial_type == 1 ? "Vous pouvez indiquer le lieu d’inhumation (cimetière, caveau familial…)" : "Indiquez le lieu de crémation (nom d’un crématorium)", destination: AnyView(FuneralCoffinMaterial(vm: vm)), vm: vm)
     }
 }
