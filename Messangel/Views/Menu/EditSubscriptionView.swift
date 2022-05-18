@@ -75,7 +75,7 @@ private struct RateView: View {
         }
         .padding(.bottom)
         HStack {
-            Text("Forfait actuel : 2€TTC/mois (500Mo)")
+            Text("Forfait actuel : 3€TTC/mois (500Mo)")
             Spacer()
         }
         HStack {
