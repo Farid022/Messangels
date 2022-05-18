@@ -27,7 +27,7 @@ struct ContactEditView: View {
                 TextField("", text: $contact.email)
                 TextField("", text: $contact.phone_number)
             }
-            .textFieldStyle(MyTextFieldStyle(editable: true))
+            .textFieldStyle(MyTextFieldStyle())
             .normalShadow()
             .padding(.bottom)
             Text("Si cette personne est encore mineure au moment de votre décès, vos messages seront envoyés à vos Anges-gardiens.")
@@ -35,23 +35,21 @@ struct ContactEditView: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
-            Button("Supprimer ce contact") {
-                vm.delete(userId: getUserId(), contactId: self.contact.id) { success in
-                    if success {
-                        navigationModel.hideTopView()
-                    } else {
-                        
-                    }
+            Button("Enregistrer les modifications") {
+                vm.contact = contact
+                vm.updateContact(contactId: contact.id) { success in
+                    navigationModel.hideTopView()
                 }
             }
-            .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .black))
+            .buttonStyle(MyButtonStyle(padding: 20, foregroundColor: .white, backgroundColor: .accentColor))
+            .padding(.bottom)
+            Button("Supprimer ce contact") {
+                vm.delete(contactId: self.contact.id) { success in
+                    navigationModel.hideTopView()
+                }
+            }
+            .buttonStyle(MyButtonStyle(padding: 20, foregroundColor: .white, backgroundColor: .black))
             .padding(.bottom)
         }
     }
 }
-
-//struct ContactEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContactEditView(contact: Binding<Contact>)
-//    }
-//}

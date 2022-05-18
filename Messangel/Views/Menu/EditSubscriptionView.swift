@@ -32,7 +32,6 @@ struct MembershipView: View {
             Image(systemName: "checkmark")
                 .foregroundColor(.accentColor)
             Text(text)
-                .font(.system(size: 13))
             Spacer()
         }
     }
@@ -50,7 +49,6 @@ private struct StatusView: View {
         HStack {
             Image("ic_member")
             Text("Membre depuis le \(unixStrToDateSring(auth.user.registration_date ?? ""))")
-                .font(.system(size: 13))
             Spacer()
         }
         .padding(.bottom)
@@ -77,7 +75,7 @@ private struct RateView: View {
         }
         .padding(.bottom)
         HStack {
-            Text("Forfait actuel : 2€TTC/mois (500Mo)")
+            Text("Forfait actuel : 3€TTC/mois (500Mo)")
             Spacer()
         }
         HStack {

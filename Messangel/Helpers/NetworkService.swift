@@ -102,7 +102,7 @@ class Networking {
                 completion(.failure(APIErr(error: decodedError.error, error_description: decodedError.error_description)))
                 return
             } else {
-                completion(.failure(APIErr(error: "Error", error_description: String(bytes: data, encoding: .utf8) ?? "Unknown error occured!")))
+                completion(.failure(APIErr(error: "Désolé", error_description: String(bytes: data, encoding: .utf8) ?? "Unknown error occured!")))
                 return
             }
         }.resume()
@@ -180,7 +180,7 @@ class Networking {
                 completion(.failure(APIErr(error: decodedError.error, error_description: decodedError.error_description)))
                 return
             } else {
-                completion(.failure(APIErr(error: "Error", error_description: String(bytes: data, encoding: .utf8) ?? "Unknown error occured!")))
+                completion(.failure(APIErr(error: "Désolé", error_description: String(bytes: data, encoding: .utf8) ?? "Unknown error occured!")))
                 return
             }
         }.resume()

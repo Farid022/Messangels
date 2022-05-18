@@ -14,6 +14,7 @@ struct LoginView: View {
     @EnvironmentObject var navModel: NavigationModel
     @EnvironmentObject var envAuth: Auth
     @EnvironmentObject var subVM: SubscriptionViewModel
+    @State private var hidePassword = true
     @State private var loading = false
     @State private var alert = false
     @State private var valid = false
@@ -37,7 +38,18 @@ struct LoginView: View {
                     TextField("Identifiant ou adresse mail", text: $auth.credentials.email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
-                    SecureField("Mot de passe", text: $auth.credentials.password)
+                    MyTextField(placeholder: "Mot de passe", text: $auth.credentials.password, isSecureTextEntry: $hidePassword)
+                        .xTextFieldStyle()
+                        .overlay(HStack {
+                            Spacer()
+                            Image(systemName: hidePassword ? "eye" : "eye.slash")
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .animation(.default, value: hidePassword)
+                                .onTapGesture {
+                                    hidePassword.toggle()
+                                }
+                        })
                     HStack {
                         Spacer()
                         Button {
@@ -110,7 +122,7 @@ struct LoginView: View {
             .textFieldStyle(MyTextFieldStyle())
             .foregroundColor(.white)
             .alert(isPresented: $alert, content: {
-                Alert(title: Text(apiError.error), message: Text(apiError.error_description))
+                Alert(title: Text(apiError.error == "invalid_grant" ? "Ce compte n'existe pas" : apiError.error), message: Text(apiError.error == "invalid_grant" ? "Veuillez saisir à nouveau votre adresse mail et votre mot de passe." : apiError.error_description))
             })
             .onChange(of: auth.credentials.email) { value in
                 self.validate()

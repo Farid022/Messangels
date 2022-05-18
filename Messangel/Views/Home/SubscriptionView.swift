@@ -42,7 +42,7 @@ struct SubscriptionView: View {
                     .padding(.leading))
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .bottom)) {
                     ScrollView {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 0) {
                             CreditCardView(cardNo: $cardNo, cardDOE: $cardDOE, cardCode: $cardCVC)
                             SubscriptionDetailsView()
                         }
@@ -54,7 +54,7 @@ struct SubscriptionView: View {
                             if !valid {
                                 return
                             }
-                            vm.subscription.card?.number = Int(cardNo) ?? 0
+                            vm.subscription.card?.number = Int(cardNo.replacingOccurrences(of: " ", with: "")) ?? 0
                             vm.subscription.card?.cvc = Int(cardCVC) ?? 0
                             vm.subscription.card?.expMonth = Int(cardDOE.components(separatedBy: "/")[0]) ?? 0
                             vm.subscription.card?.expYear = Int(cardDOE.components(separatedBy: "/")[1]) ?? 0
@@ -82,6 +82,11 @@ struct SubscriptionView: View {
                 }}
                 .edgesIgnoringSafeArea(.bottom)
         }
+        .onReceive(Just(cardNo)) { inputValue in
+            if inputValue.replacingOccurrences(of: " ", with: "").count > 16 {
+                cardNo.removeLast()
+            }
+        }
         .onReceive(Just(cardDOE)) { inputValue in
             if inputValue.count > 5 {
                 cardDOE.removeLast()
@@ -104,7 +109,7 @@ struct SubscriptionView: View {
     }
     
     func validate()  {
-        valid = !cardNo.isEmpty && !cardDOE.isEmpty && !cardCVC.isEmpty
+        valid = cardNo.replacingOccurrences(of: " ", with: "").count == 16 && cardDOE.count == 5 && cardCVC.count == 3
     }
 }
 
@@ -114,31 +119,40 @@ struct CreditCardView: View {
     @Binding var cardCode: String
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("Montant TTC à régler")
                 .font(.system(size: 20))
                 .fontWeight(.bold)
+                .padding(.top, 40)
             Divider()
-            Text("2,00€")
+                .padding(.top, 30)
+            Text("3,00€")
                 .foregroundColor(.accentColor)
                 .font(.system(size: 28))
                 .fontWeight(.bold)
-            Text("Puis 2€/mois sans engagement*")
+                .padding(.vertical, 8)
+            Text("Puis 3€/mois sans engagement*")
                 .foregroundColor(.secondary)
                 .font(.system(size: 15))
-                .padding(.bottom)
             Text("Informations de paiement")
                 .font(.system(size: 20))
                 .fontWeight(.bold)
                 .padding(.bottom)
+                .padding(.top, 40)
             TextField("Numéro de carte bancaire", text: $cardNo)
                 .keyboardType(.numberPad)
                 .normalShadow()
                 .padding(.bottom)
+                .onChange(of: cardNo) { value in
+                    cardNo = value.applyPatternOnNumbers(pattern: "#### #### #### ####", replacmentCharacter: "#")
+                }
             TextField("Date d’expiration (MM/YY)", text: $cardDOE)
                 .keyboardType(.numbersAndPunctuation)
                 .normalShadow()
                 .padding(.bottom)
+                .onChange(of: cardDOE) { value in
+                    cardDOE = value.applyPatternOnNumbers(pattern: "##/##", replacmentCharacter: "#")
+                }
             TextField("Code de sécurité (3 chiffres)", text: $cardCode)
                 .keyboardType(.numbersAndPunctuation)
                 .normalShadow()
@@ -150,16 +164,18 @@ struct CreditCardView: View {
                     VStack {
                         HStack(alignment: .top) {
                             Image("lock")
+                            VStack(alignment: .leading) {
                             Text("Selon votre établissement bancaire, une redirection vers la page d’authentification de votre banque pourrait avoir lieu pour terminer la validation de votre paiement.")
                                 .font(.system(size: 13))
+                                HStack {
+                                    Image("master-card")
+                                    Image("secure-payment")
+                                    Image("visa-secure")
+                                }
+                            }
                         }
                         .padding()
-                        HStack {
-                            Image("master-card")
-                            Image("secure-payment")
-                            Image("visa-secure")
-                        }
-                        .padding(.bottom)
+                        
                     })
                 .padding(.bottom)
         }
@@ -173,6 +189,7 @@ struct SubscriptionDetailsView: View {
                 .font(.system(size: 20))
                 .fontWeight(.bold)
                 .padding(.bottom)
+                .padding(.top, 40)
             HStack {
                 Image(systemName: "checkmark")
                     .foregroundColor(.accentColor)
@@ -189,6 +206,7 @@ struct SubscriptionDetailsView: View {
                 .font(.system(size: 13))
                 .foregroundColor(.secondary)
                 .padding(.bottom)
+                .padding(.top, 40)
             HStack {
                 Spacer()
                 Image("visa-card-footer")
@@ -207,12 +225,6 @@ struct SubscriptionDetailsView: View {
         }
     }
 }
-
-//struct SubscriptionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SubscriptionView()
-//    }
-//}
 
 private var notes = """
     * Vous serez prélevé de 2,00€ dès validation de votre moyen de paiement, puis de 2,00€ tous les mois suivants, à date de souscription de votre abonnement. Ce prélèvement automatique a lieu tous les mois, sans limite de temps. Vous pouvez annuler ce prélèvement automatique à tout moment en revenant sur cette page, au plus tôt 24h après la souscription et au plus tard 48h avant la date d’échéance du Pass en cours. Vos données seront alors conservées 2 mois avant suppression.

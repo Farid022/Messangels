@@ -137,9 +137,9 @@ struct NewAccPopupView: View {
                 } label: {
                     Image("btn_add_toggle")
                 }
-                Spacer().frame(height: 90)
+                Spacer().frame(height: 100)
             }
-            .padding(.trailing)
+            .padding(.trailing, -25)
         }
         .zIndex(1)
     }

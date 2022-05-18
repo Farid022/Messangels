@@ -15,10 +15,11 @@ struct CreateOrgView: View {
     @State private var alert = false
     @State private var loading = false
     var type: String
+    var height = 60.0
     @Binding var refresh: Bool
     
     var body: some View {
-        MenuBaseView(height: 60, title: "Nouvel organisme") {
+        MenuBaseView(height: height, title: "Nouvel organisme") {
             HStack {
                 Text("Nouvel organisme")
                     .fontWeight(.bold)
@@ -43,7 +44,6 @@ struct CreateOrgView: View {
             Spacer().frame(height: 20)
             Button(action: {
                 if isValid {
-                    vm.newOrg.type = type
                     loading.toggle()
                     vm.create { success in
                         loading.toggle()

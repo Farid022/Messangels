@@ -18,9 +18,7 @@ struct SignupDoneView: View {
             Color.accentColor
                 .ignoresSafeArea()
             VStack(spacing: 20) {
-                Spacer().frame(height: 50)
-                Image("logo_only")
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 100)
                 Rectangle()
                     .frame(width: 60, height: 60)
                     .cornerRadius(25)

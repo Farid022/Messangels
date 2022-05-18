@@ -28,7 +28,7 @@ struct Organization: Hashable, Codable {
 
 class OrgViewModel: ObservableObject {
     @Published var orgs = [Organization]()
-    @Published var newOrg = Organization(name: "", type: "1")
+    @Published var newOrg = Organization(name: "", type: "9")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
     func create(completion: @escaping (Bool) -> Void) {
@@ -50,7 +50,7 @@ class OrgViewModel: ObservableObject {
     }
     
     func getOrgs(_ type: Int) {
-        APIService.shared.getJSON(model: orgs, urlString: "choices/\(getUserId())/organization?type=\(type)") { result in
+        APIService.shared.getJSON(model: orgs, urlString: "choices/\(getUserId())/organization?type=9") { result in
             switch result {
             case .success(let items):
                 DispatchQueue.main.async {

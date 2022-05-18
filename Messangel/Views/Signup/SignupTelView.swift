@@ -24,6 +24,13 @@ struct SignupTelView: View {
             TextField("Numéro de téléphone", text: $phone_number)
                 .keyboardType(.numberPad)
                 .textContentType(.telephoneNumber)
+                .toolbar {
+                    ToolbarItem(placement: .keyboard) {
+                        Button("Done") {
+                            isFocused.toggle()
+                        }
+                    }
+                }
                 .focused($isFocused)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
@@ -32,6 +39,7 @@ struct SignupTelView: View {
                         phone_number.removeLast()
                     }
                 }
+            
         }
         .onDidAppear {
             isFocused = true
@@ -39,9 +47,9 @@ struct SignupTelView: View {
         .onChange(of: phone_number) { value in
             phone_number = value.applyPatternOnNumbers(pattern: "## ## ## ## ## ##", replacmentCharacter: "#")
             self.validate()
-            if valid {
-                isFocused = false
-            }
+            //            if valid {
+            //                isFocused = false
+            //            }
         }
     }
     
@@ -52,7 +60,7 @@ struct SignupTelView: View {
 }
 
 extension String {
-
+    
     func applyPatternOnNumbers(pattern: String, replacmentCharacter: Character) -> String {
         var pureNumber = self.replacingOccurrences( of: "[^0-9]", with: "", options: .regularExpression)
         for index in 0 ..< pattern.count {

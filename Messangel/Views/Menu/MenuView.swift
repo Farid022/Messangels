@@ -12,6 +12,9 @@ struct MenuView: View {
     @EnvironmentObject private var subVM: SubscriptionViewModel
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var auth: Auth
+    
+    init() { UITableView.appearance().backgroundColor = UIColor.white }
+
     var body: some View {
         NavigationStackView("MenuView") {
             ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
@@ -22,8 +25,8 @@ struct MenuView: View {
                     Color.accentColor
                         .frame(height: 150)
                         .overlay(TopBar(), alignment: .bottom)
-                    List(menuList()) {menuItem in
-                        ZStack {
+                    List(menuList()) { menuItem in
+//                        ZStack {
 //                            Button("") {}
                             Button(action: {
                                 if menuItem.ic == "ic_profile" {
@@ -45,13 +48,14 @@ struct MenuView: View {
                                 HStack {
                                     Image(menuItem.ic)
                                     Text(menuItem.id)
+                                        .foregroundColor(.black)
                                     Spacer()
                                     Image(systemName: "chevron.forward")
                                         .foregroundColor(.gray.opacity(0.5))
                                 }
                                 .padding(.vertical, 20)
                             }
-                        }
+//                        }
                     }
                     Spacer().frame(height: 80)
                 }
@@ -65,6 +69,7 @@ struct MenuView: View {
             MainMenu(id: "Accès et sécurité", ic: "ic_lock", destination: AnyView(AccessSecurityView())),
             MainMenu(id: "Abonnement", ic: "ic_card", destination: AnyView(EditSubscriptionView())),
             MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),
+            MainMenu(id: "Liste de organismes", ic: "ic_company", destination: AnyView(OrganizationsListView())),
             MainMenu(id: "Parrainer un proche", ic: "ic_sponsor", destination: AnyView(SponsorView())),
             MainMenu(id: "Notifications et alertes SMS", ic: "ic_bell", destination: AnyView(NotificationsView())),
             MainMenu(id: "Propositions d’améliorations", ic: "ic_bulb", destination: AnyView(SuggestionsView())),

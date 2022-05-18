@@ -9,8 +9,10 @@ import SwiftUI
 import NavigationStack
 
 struct KeyAccRegSMSView: View {
-    @State var code = ""
+    @State private var code = ""
+    @State private var apiResponse = APIService.APIResponse(message: "")
     @EnvironmentObject private var navModel: NavigationModel
+    @EnvironmentObject private var auth: Auth
     @ObservedObject var vm: SecureAccessViewModel
     var keyAccCase: KeyAccCase
     
@@ -58,6 +60,20 @@ struct KeyAccRegSMSView: View {
                 .padding()
             }
             .foregroundColor(.white)
+        }
+        .onDidAppear {
+            if code.isEmpty {
+                APIService.shared.post(model: OTP(phone_number: auth.user.phone_number), response: apiResponse, endpoint: "users/otp", token: false) { result in
+                    switch result {
+                    case .success(let res):
+                        DispatchQueue.main.async {
+                            self.apiResponse = res
+                        }
+                    case .failure(let err):
+                        print(err)
+                    }
+                }
+            }
         }
     }
     

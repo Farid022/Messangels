@@ -49,7 +49,7 @@ enum Wishes: Int {
 class WishesViewModel: ObservableObject {
     @Published var tabs = [WishesTab]()
     @Published var wishesProgresses = [WishesProgress]()
-    @Published var wishProgress = WishesProgress(user: getUserId(), tab: 1, progress: 100)
+    @Published var wishProgress = WishesProgress(user: 0, tab: 1, progress: 100)
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
 
     
@@ -85,6 +85,7 @@ class WishesViewModel: ObservableObject {
     }
     
     func getProgress() {
+        wishProgress.user = getUserId()
         APIService.shared.getJSON(model: wishesProgresses, urlString: "tabs/progress/\(getUserId())") { result in
             switch result {
             case .success(let items):

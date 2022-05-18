@@ -12,6 +12,8 @@ struct ContentView: View {
     @StateObject var auth = Auth()
     @StateObject private var subVM = SubscriptionViewModel()
     @StateObject var keyAccRegVM = AccStateViewModel()
+    @StateObject private var vmWishes = WishesViewModel()
+
     let editor: RichEditorView
     
     init() {
@@ -61,5 +63,6 @@ struct ContentView: View {
         .environmentObject(editor)
         .environmentObject(keyAccRegVM)
         .environmentObject(subVM)
+        .environmentObject(vmWishes)
     }
 }

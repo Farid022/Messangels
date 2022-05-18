@@ -55,7 +55,7 @@ class ContactViewModel: ObservableObject {
         }
     }
     
-    func delete(userId: Int, contactId: Int, completion: @escaping (Bool) -> Void) {
+    func delete(contactId: Int, completion: @escaping (Bool) -> Void) {
         APIService.shared.delete(endpoint: "users/contact/\(getUserId())/\(contactId)") { result in
             switch result {
             case .success(let response):
@@ -66,6 +66,24 @@ class ContactViewModel: ObservableObject {
             case .failure(let error):
                 print(error)
                 completion(false)
+            }
+        }
+    }
+    
+    func updateContact(contactId: Int, completion: @escaping (Bool) -> Void) {
+        APIService.shared.post(model: contact, response: contact, endpoint: "users/contact/\(getUserId())/\(contactId)", method: "PUT") { result in
+            switch result {
+            case .success(let contact):
+                DispatchQueue.main.async {
+                    self.contact = contact
+                    completion(true)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error.error_description)
+                    self.apiError = error
+                    completion(false)
+                }
             }
         }
     }

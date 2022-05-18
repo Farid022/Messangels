@@ -18,7 +18,6 @@ struct TabBarView: View {
     @StateObject private var vmGroup = GroupViewModel()
     @StateObject private var vmKeyAcc = KeyAccViewModel()
     @StateObject private var vmOnlineService = OnlineServiceViewModel()
-    
     @StateObject private var userContacts = ContactViewModel()
     @State private var selectedTab = "Accueil"
     @State private var onboardingStarted = false
@@ -133,6 +132,8 @@ struct BottomTabBar: View {
 }
 
 struct TabButton: View {
+    @EnvironmentObject private var navigationModel: NavigationModel
+    @EnvironmentObject var vmWishes: WishesViewModel
     var currentTab: String
     @Binding var selectedTab : String
     var animation: Namespace.ID
@@ -140,7 +141,13 @@ struct TabButton: View {
         
         Button(action: {
             withAnimation(.spring()) {
+                while navigationModel.hasAlternativeViewShowing {
+                    navigationModel.hideTopView()
+                }
                 selectedTab = currentTab
+                if selectedTab == "Volontés" {
+                    vmWishes.getProgress()
+                }
             }
         }) {
             ZStack {
@@ -149,12 +156,12 @@ struct TabButton: View {
                         Capsule()
                             .fill(Color.clear)
                             .frame(width: 25, height: 5)
-                        if currentTab == selectedTab{
-                            Capsule()
-                                .fill(Color.accentColor)
-                                .matchedGeometryEffect(id: "Tab", in: animation)
-                                .frame(width: 25, height: 5)
-                        }
+//                        if currentTab == selectedTab{
+//                            Capsule()
+//                                .fill(Color.accentColor)
+//                                .matchedGeometryEffect(id: "Tab", in: animation)
+//                                .frame(width: 25, height: 5)
+//                        }
                     }
                     Group {
                         Image(currentTab)

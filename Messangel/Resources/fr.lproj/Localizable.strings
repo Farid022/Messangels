@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  PhotoSelectAndCrop
-
-  Created by Dave Kondris on 29/05/21.
-  
-*/
-
 "Select a photo by tapping the icon below" = "Appuyez sur l'icône ci-dessous pour sélectionner une photo";
 "Change photo" = "Modifier";
 "Add photo" = "Ajouter une photo";
@@ -14,3 +6,5 @@
 "Use photo" = "Choisir";
 "Edit" = "Modifier";
 "Save" = "OK";
+"The current password is incorrect, please enter it again." = "Le mot de passe actuel est incorrect, veuillez le saisir à nouveau.";
+"Enter a new password different from your current password." = "Saisissez un nouveau mot de passe différent de votre mot de passe actuel.";

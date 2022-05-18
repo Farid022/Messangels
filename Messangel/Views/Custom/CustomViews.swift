@@ -255,19 +255,22 @@ struct MyAlert: View {
     var message: String
     var ok = "Supprimer"
     var cancel = "Annuler"
+    var height = 188.0
     var action: () -> Void
     @Binding var showAlert: Bool
     
     var body: some View {
         RoundedRectangle(cornerRadius: 22.0)
             .foregroundColor(.white)
-            .frame(width: 270, height: 188)
+            .frame(width: 270, height: height)
             .thinShadow()
             .overlay(
                 VStack {
-                    Text(title)
-                        .font(.system(size: 17), weight: .semibold)
-                        .padding(.bottom, 5)
+                    if !title.isEmpty {
+                        Text(title)
+                            .font(.system(size: 17), weight: .semibold)
+                            .padding(.bottom, 5)
+                    }
                     Text(message)
                         .font(.system(size: 13))
                         .multilineTextAlignment(.center)
@@ -888,6 +891,8 @@ struct ImageSelectionView: View {
     @Binding var localImage: UIImage
     var remoteImage: String
     var imageSize = 66.0
+    var title = "Ajouter une photo"
+    var underlineTitle = true
     
     var body: some View {
         Button {
@@ -900,8 +905,9 @@ struct ImageSelectionView: View {
                         .frame(width: 66, height: 66)
                         .clipShape(Circle())
                         .overlay(Image("ic_camera"))
-                    Text("Ajouter une photo")
-                        .underline()
+                    Text(title)
+                        .foregroundColor(.gray)
+                        .if (underlineTitle) { $0.underline() }
                 }
             } else if localImage.cgImage != nil {
                 Image(uiImage: localImage)

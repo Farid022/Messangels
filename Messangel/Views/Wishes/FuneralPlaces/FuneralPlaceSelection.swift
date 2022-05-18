@@ -23,35 +23,23 @@ struct FuneralPlaceSelection: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(stepNumber: 2.0, totalSteps: 6.0, noteText: $vm.location.bury_location_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(!vm.name.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
-                if vm.name.isEmpty {
+            FlowBaseView(stepNumber: 2.0, totalSteps: 6.0, noteText: $vm.location.bury_location_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
+                if vm.orgName.isEmpty {
                     HStack {
                         Button(action: {
                             navigationModel.presentContent(title) {
-                                FuneralPlacesList(vm: vm)
+                                SingleOrgSelectionList(orgId: $vm.location.bury_location.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 9)
                             }
                         }, label: {
-                            ZStack {
-                                Capsule()
-                                    .foregroundColor(.accentColor)
-                                    .frame(width: 200, height: 56)
-                                HStack {
-                                    Image("ic_location")
-                                        .renderingMode(.template)
-                                        .foregroundColor(.white)
-                                    Text("Liste des lieux")
-                                        .foregroundColor(.white)
-                                }
-                            }
-                            
+                            Image("list_org")
                         })
                         Spacer()
                     }
                 } else {
                     HStack {
-                        FuneralCapsuleView(name: vm.name) {
+                        FuneralCapsuleView(name: vm.orgName) {
                             vm.location.bury_location = nil
-                            vm.name = ""
+                            vm.orgName = ""
                         }
                         Spacer()
                     }
