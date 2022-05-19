@@ -109,7 +109,7 @@ struct WishCategory: Identifiable {
 }
 
 let wishesPersonal = [
-    WishCategory(id: 1, name: "Choix funéraires", desc: "Spiritualité et traditions au sein de votre cérémonie.", icon: "ic_funeral", destination: AnyView(FuneralChoiceIntro())),
+    WishCategory(id: 1, name: "Choix funéraires", desc: "Vos choix concernant votre rite funéraire et d’autres sujets importants.", icon: "ic_funeral", destination: AnyView(FuneralChoiceIntro())),
     WishCategory(id: 2, name: "Organismes obsèques", desc: "Votre organisme de pompes funèbres et votre contrat obsèques.", icon: "ic_person", destination: AnyView(FuneralOrgIntro())),
     WishCategory(id: 3, name: "Faire-part et annonce", desc: "Vos indications pour le faire-part, désignation du journal presse locale", icon: "ic_news", destination: AnyView(FuneralInviteIntro())),
     WishCategory(id: 4, name: "Don d’organes ou du corps", desc: "Votre choix concernant le don d’organes et le don de votre corps à la science", icon: "ic_organ", destination: AnyView(OrganDonateIntro()))
