@@ -24,7 +24,7 @@ struct FuneralCompanyIsPreSelectedView: View {
                     ForEach([true, false], id: \.self) { opt in
                         ChoiceCard(text: opt ? "Oui" : "Non", selected: .constant(vm.funeralOrg.chose_funeral_home == opt))
                             .onTapGesture {
-                                vm.funeralOrg.chose_funeral_home = opt
+                            vm.funeralOrg.chose_funeral_home = opt
                             }
                     }
                 }
