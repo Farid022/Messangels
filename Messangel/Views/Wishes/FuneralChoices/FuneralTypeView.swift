@@ -27,7 +27,12 @@ struct FuneralTypeView: View {
                     ForEach(funeralTypes, id: \.self) { type in
                         ChoiceCard(text: type == .burial ? "Inhumation" : "Crémation", selected: .constant(vm.funeral.burial_type == type.rawValue))
                             .onTapGesture {
+                                if  vm.funeral.burial_type == type.rawValue {
+                                    vm.funeral.burial_type = 0
+                                }
+                                else {
                                 vm.funeral.burial_type = type.rawValue
+                                }
                             }
                     }
                 }
