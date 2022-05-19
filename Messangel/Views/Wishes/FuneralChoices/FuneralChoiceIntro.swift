@@ -34,7 +34,7 @@ struct FuneralChoiceIntro: View {
                         .fontWeight(.bold)
                         .padding(.bottom)
                     Text("""
-                        Cette séquence vous permet d’indiquer si vous souhaitez être inhumé ou crématisé. Vous pourrez également préciser vos souhaits concernant le cercueil, l’urne (cas échéant) ainsi que votre tenue.
+                        Indiquez le rite funéraire souhaité entre inhumation ou crémation. Vous pouvez également préciser vos souhaits concernant votre cercueil, votre urne (cas échéant) ainsi que votre tenue..
                         """)
                         .font(.system(size: 15))
                     Spacer()
