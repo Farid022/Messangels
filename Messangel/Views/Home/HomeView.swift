@@ -78,9 +78,9 @@ struct HomeBottomView: View {
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                     .padding(.leading)
+                    .padding(.top, 30)
                 Spacer()
             }
-            .padding(.bottom)
             if subVM.checkingSubscription || !subVM.gotSubscription || loading  {
                 Loader()
                     .padding(.top, 50)
@@ -107,7 +107,6 @@ struct HomeBottomView: View {
                         .padding(.leading)
                     Spacer()
                 }
-                .padding(.bottom)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(gVM.protectedUsers.filter( {$0.status == "1"}), id: \.self) { protectedUsers in

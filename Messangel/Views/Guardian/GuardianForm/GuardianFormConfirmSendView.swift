@@ -11,6 +11,8 @@ import NavigationStack
 struct GuardianFormConfirmSendView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @ObservedObject var vm: GuardianViewModel
+    @State var alert = false
+    @State var error = ""
     var body: some View {
         NavigationStackView("GuardianFormConfirmSendView") {
             ZStack {
@@ -46,7 +48,8 @@ struct GuardianFormConfirmSendView: View {
                                     }
                                 }
                             case .failure(let error):
-                                print(error.error_description)
+                                self.error = error.error_description
+                                alert.toggle()
                             }
                         }
                     }
@@ -57,5 +60,10 @@ struct GuardianFormConfirmSendView: View {
             }
             .foregroundColor(.white)
         }
+        .alert("Désolé", isPresented: $alert, actions: {
+            Button("OK", role: .cancel) {}
+        }, message: {
+            Text(self.error)
+        })
     }
 }

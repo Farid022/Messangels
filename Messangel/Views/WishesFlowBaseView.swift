@@ -101,7 +101,7 @@ struct WishesFlowBaseView<Content: View, VM>: View where VM: CUViewModel {
             if showExitAlert {
                 Color.black.opacity(0.8)
                     .ignoresSafeArea()
-                    .overlay(MyAlert(title: "Quitter \(self.menuTitle)", message: "Vos modifications ne seront pas enregistrées.", ok: "Oui", cancel: "Non", action: {
+                    .overlay(MyAlert(title: "Quitter \(self.menuTitle) ?", message: "Vos modifications ne seront pas enregistrées.", ok: "Oui", cancel: "Non", action: {
                         if self.viewModel.updateRecord {
                             self.viewModel.update(id: self.viewModel.recordId) { success in
                                 if success {

@@ -255,7 +255,7 @@ struct MyAlert: View {
     var message: String
     var ok = "Supprimer"
     var cancel = "Annuler"
-    var height = 188.0
+    var height = 160.0
     var action: () -> Void
     @Binding var showAlert: Bool
     
@@ -269,12 +269,11 @@ struct MyAlert: View {
                     if !title.isEmpty {
                         Text(title)
                             .font(.system(size: 17), weight: .semibold)
-                            .padding(.bottom, 5)
                     }
                     Text(message)
                         .font(.system(size: 13))
                         .multilineTextAlignment(.center)
-                        .padding(.vertical)
+                        .padding(.vertical, 5)
                     Divider()
                         .padding(.horizontal, -15)
                     HStack {

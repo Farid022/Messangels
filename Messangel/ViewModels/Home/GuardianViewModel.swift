@@ -55,7 +55,7 @@ class GuardianViewModel: ObservableObject {
     @Published var deaths = [DeathDeclaration]()
     @Published var guardiansUpdated = false
     @Published var death = Death(user: 0, death_text: "")
-    @Published var guardian = Guardian(id: 0, user_id: 0, first_name: "", last_name: "", email: "", status: "2")
+    @Published var guardian = Guardian(id: 0, user_id: 0, first_name: "", last_name: "", email: "", guardian_note: "", status: "2")
     @Published var guardians = [Guardian]()
     @Published var protectedUser = ProtectedUser(first_name: "", last_name: "")
     @Published var protectedUsers = [MyProtected]()
