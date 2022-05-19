@@ -599,6 +599,7 @@ struct ChoiceCard: View {
             .normalShadow()
             .overlay(
                 VStack {
+                  
                     ZStack {
                         Circle()
                             .fill(Color.white)
@@ -608,9 +609,12 @@ struct ChoiceCard: View {
                             .fill(selected ? Color.accentColor : Color.gray)
                             .frame(width: 18, height: 18)
                     }
+               
+                    
                     Text(text)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
+                        .frame(height: 60)
                 }
             )
     }
