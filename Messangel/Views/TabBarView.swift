@@ -133,7 +133,6 @@ struct BottomTabBar: View {
 
 struct TabButton: View {
     @EnvironmentObject private var navigationModel: NavigationModel
-    @EnvironmentObject var vmWishes: WishesViewModel
     var currentTab: String
     @Binding var selectedTab : String
     var animation: Namespace.ID
@@ -145,9 +144,6 @@ struct TabButton: View {
                     navigationModel.hideTopView()
                 }
                 selectedTab = currentTab
-                if selectedTab == "Volontés" {
-                    vmWishes.getProgress()
-                }
             }
         }) {
             ZStack {
