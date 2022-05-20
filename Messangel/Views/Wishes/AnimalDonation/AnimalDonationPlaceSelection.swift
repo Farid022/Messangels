@@ -19,7 +19,12 @@ struct AnimalDonationPlaceSelection: View {
                     ForEach(donationTypes, id: \.self) { type in
                         ChoiceCard(text: type == .contact ? "Un contact" : "Un organisme", selected: .constant(selectedDonation == type))
                             .onTapGesture {
+                                if selectedDonation == type {
+                                    selectedDonation = ClothsDonationPlace.none
+                                }
+                                else {
                                 selectedDonation = type
+                                }
                             }
                     }
                 }

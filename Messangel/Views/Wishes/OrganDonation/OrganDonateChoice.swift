@@ -56,7 +56,12 @@ struct OrganDonateChoice: View {
                     ForEach(donationChoices, id: \.self) { donChoice in
                         ChoiceCard(text: donChoice == .organs ? "Donner vos organes" : donChoice == .deny ? "Ne pas donner vos organes" : "Donner votre corps à la science", selected: .constant(vm.donation.donation == donChoice.rawValue))
                             .onTapGesture {
+                                if vm.donation.donation == donChoice.rawValue {
+                                    vm.donation.donation = 0
+                                }
+                                else {
                                 vm.donation.donation = donChoice.rawValue
+                                }
                             }
                     }
                 }
