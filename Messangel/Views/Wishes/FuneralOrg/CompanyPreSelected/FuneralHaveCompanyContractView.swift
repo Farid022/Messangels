@@ -23,7 +23,7 @@ struct FuneralHaveCompanyContractView: View {
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)
             }
-            FlowBaseView(stepNumber: 3.0, totalSteps: 4.0,noteText: $vm.funeralOrg.company_contract_detail_note.bound, note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: title, valid: .constant(vm.funeralOrg.company_contract_detail != nil), destination: vm.funeralOrg.company_contract_detail ?? true ? AnyView(FuneralContractNo(vm: vm)): AnyView(FuneralHaveOrgLinkedContractView(vm: vm, companyName: companyName))) {
+            FlowBaseView(stepNumber: 3.0, totalSteps: 4.0,noteText: $vm.funeralOrg.company_contract_detail_note.bound, note: true, showNote: $showNote, menuTitle: "Organismes obsèques", title: title, valid: .constant(vm.funeralOrg.company_contract_detail != nil), destination: vm.funeralOrg.company_contract_detail ?? true ? AnyView(FuneralContractNo(vm: vm)): AnyView(FuneralHaveOrgLinkedContractView(vm: vm, companyName: companyName))) {
                 HStack {
                     ForEach([true, false], id: \.self) { type in
                         ChoiceCard(text: type ? "Oui" : "Non", selected: .constant(vm.funeralOrg.company_contract_detail == type))

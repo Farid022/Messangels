@@ -54,6 +54,21 @@ struct PopupButtonsView: View {
                 .ignoresSafeArea()
             VStack(spacing: 40.0) {
                 Spacer()
+                HStack{
+                Text("Audio")
+                    .frame(width: 70, height:30)
+                   
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .multilineTextAlignment(.center)
+                    .onTapGesture {
+                        showPopUp = false
+                        navigationModel.pushContent(TabBarView.id) {
+                            AudioRecorderView()
+                                .environmentObject(vm)
+                        }
+                    }
                 Button {
                     showPopUp = false
                     navigationModel.pushContent(TabBarView.id) {
@@ -65,6 +80,23 @@ struct PopupButtonsView: View {
                         .frame(width: 56, height: 56)
                         .overlay(Image("ic_audio"))
                 }
+                }
+                
+                HStack{
+                Text("Texte")
+                    .frame(width: 70, height:30)
+                   
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .multilineTextAlignment(.center)
+                    .onTapGesture {
+                        showPopUp = false
+                        navigationModel.pushContent(TabBarView.id) {
+                            TextEditorView()
+                                .environmentObject(vm)
+                        }
+                    }
                 Button {
                     showPopUp = false
                     navigationModel.pushContent(TabBarView.id) {
@@ -76,6 +108,23 @@ struct PopupButtonsView: View {
                         .frame(width: 56, height: 56)
                         .overlay(Image("ic_text"))
                 }
+                }
+               
+                HStack{
+                Text("Video")
+                    .frame(width: 70, height:30)
+                   
+                    .background(Color.accentColor)
+                    .foregroundColor(.white)
+                    .cornerRadius(15)
+                    .multilineTextAlignment(.center)
+                    .onTapGesture {
+                        showPopUp = false
+                        navigationModel.pushContent(TabBarView.id) {
+                            VideoRecoderView()
+                                .environmentObject(vm)
+                        }
+                    }
                 Button {
                     showPopUp = false
                     navigationModel.pushContent(TabBarView.id) {
@@ -87,6 +136,12 @@ struct PopupButtonsView: View {
                         .frame(width: 56, height: 56)
                         .overlay(Image("ic_video"))
                 }
+                }
+                HStack{
+                Text("")
+                    .frame(width: 70, height:30)
+                    .cornerRadius(15)
+                    .multilineTextAlignment(.center)
                 Button {
                     showPopUp.toggle()
                 } label: {
@@ -95,15 +150,21 @@ struct PopupButtonsView: View {
                         .foregroundColor(.white)
                         .overlay(Image(systemName: "minus"))
                 }
+                    
+                }
                 Spacer().frame(height: UIDevice().hasNotch ? 85 : 80)
             }
             .padding(.trailing)
         }
         .zIndex(1)
+        .onTapGesture {
+            showPopUp.toggle()
+        }
     }
 }
 
 struct NewMessageButtonView: View {
+    @EnvironmentObject var navigationModel: NavigationModel
     @Binding var showButtonsPopup: Bool
     var body: some View {
         VStack {
@@ -124,6 +185,7 @@ struct NewMessageButtonView: View {
             Spacer().frame(height: UIDevice().hasNotch ? 90 : 120)
         }
         .padding(.horizontal)
+       
     }
 }
 

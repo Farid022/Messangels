@@ -29,7 +29,7 @@ struct FuneralOrgIntro: View {
                         Spacer()
                     }
                     .padding(.bottom)
-                    Text("Organismes spécialisés")
+                    Text("Organismes obsèques")
                         .font(.system(size: 22))
                         .fontWeight(.bold)
                         .padding(.bottom)

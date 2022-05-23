@@ -13,7 +13,7 @@ struct FuneralBurialPlace: View {
     @State private var loading = false
     @ObservedObject var vm: FuneralSpritualityViewModel
     @EnvironmentObject var navModel: NavigationModel
-    var title = "Indiquez le lieu d’inhumation (cimetière précis, caveau familial…)"
+    var title = "Indiquez les traditions que vous souhaitez faire appliquer lors de votre cérémonie. N’hésitez pas à détailler vos souhaits si nécessaire."
     
     var body: some View {
         FuneralNoteAttachCutomActionView(totalSteps: 2.0, showNote: $showNote, note: $vm.sprituality.ceremony_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.sprituality.spritual_ceremony_note_attachment, menuTitle: "Spiritualité et traditions", title: title) {
