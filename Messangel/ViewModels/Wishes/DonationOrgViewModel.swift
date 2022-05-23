@@ -11,6 +11,7 @@ struct DonationOrg: Codable {
     var id: Int?
     var donation_organization: Int
     var donation_note: String
+    var donation_note_attachment: [Int]?
     var user = getUserId()
 }
 
@@ -22,6 +23,7 @@ struct DonationOrgDetail: Hashable, Codable {
 }
 
 class DonationOrgViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var orgName = ""
     @Published var updateRecord = false
     @Published var donationOrgs = [DonationOrgDetail]()

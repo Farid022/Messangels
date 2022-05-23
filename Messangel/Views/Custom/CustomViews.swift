@@ -335,6 +335,87 @@ struct ListItemView: View {
     }
 }
 
+// MARK: - ChoiceCard
+
+struct ChoiceCard: View {
+    var text: String
+    @Binding var selected: Bool
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 22)
+            .foregroundColor(.white)
+            .frame(width: 160, height: 160)
+            .normalShadow()
+            .overlay(
+                VStack {
+                    ZStack {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 26, height: 26)
+                            .thinShadow()
+                        Circle()
+                            .fill(selected ? Color.accentColor : Color.gray)
+                            .frame(width: 18, height: 18)
+                    }
+                    Text(text)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                }
+            )
+    }
+}
+
+struct FlowChoicesView<VM: CUViewModel>: View {
+    @State var showNote = false
+    var tab = 0
+    var stepNumber: Double
+    var totalSteps: Double
+    @Binding var noteText: String
+    var choices: [FuneralChoice]
+    @Binding var selectedChoice: Int
+    var menuTitle: String
+    var title: String
+    var destination: AnyView
+    @ObservedObject var vm: VM
+    
+    var body: some View {
+        ZStack {
+            if showNote {
+                FuneralNote(showNote: $showNote, note: $noteText)
+                 .zIndex(1.0)
+                 .background(.black.opacity(0.8))
+                 .edgesIgnoringSafeArea(.top)
+            }
+            WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination, viewModel: vm) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: -70){
+                        ForEach(choices, id: \.self) { choice in
+                            VStack(spacing: 0) {
+                                Image(choice.name)
+                                Rectangle()
+                                    .foregroundColor(selectedChoice == choice.id ? .accentColor : .white)
+                                    .frame(width: 161, height: 44)
+                                    .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
+                                    .overlay(
+                                        Text(choice.name)
+                                            .foregroundColor(selectedChoice == choice.id ? .white : .black)
+                                    )
+                                    .padding(.top, -50)
+                            }
+                            .thinShadow()
+                            .onTapGesture {
+                                selectedChoice = choice.id
+                            }
+                        }
+                    }
+                    .padding(.leading, -20)
+                }
+                .padding(.top, -20)
+            }
+        }
+    }
+}
+
 // MARK: - Custom Note Views
 
 struct NoteView: View {
@@ -385,7 +466,7 @@ struct NoteWithAttachementView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
-                Spacer().frame(height: 50)
+                Spacer().frame(height: 100)
                 HStack {
                     Button(action: {
                         showNote.toggle()
@@ -393,23 +474,23 @@ struct NoteWithAttachementView: View {
                         Image("ic_close_note")
                     })
                     Spacer()
+                    Button(action: {
+                        
+                    }) {
+                        Image("ic_del")
+                    }
                 }
                 Spacer()
                 RoundedRectangle(cornerRadius: 25.0)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.white)
                     .frame(height: 56)
                     .overlay(
                         HStack {
-                            Image("ic_notes")
-                            Text("Notes")
+                            Image("ic_note")
+                            Text("Note")
                                 .font(.system(size: 17), weight: .semibold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                             Spacer()
-                            Button(action: {
-                                expandedNote.toggle()
-                            }, label: {
-                                Image("ic_expand_notes")
-                            })
                         }
                             .padding(.horizontal)
                     )
@@ -585,89 +666,6 @@ struct DetailsNoteView: View {
     }
 }
 
-// MARK: - ChoiceCard
-
-struct ChoiceCard: View {
-    var text: String
-    @Binding var selected: Bool
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: 22)
-            .foregroundColor(.white)
-            .frame(width: 160, height: 160)
-            .normalShadow()
-            .overlay(
-                VStack {
-                    ZStack {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 26, height: 26)
-                            .thinShadow()
-                        Circle()
-                            .fill(selected ? Color.accentColor : Color.gray)
-                            .frame(width: 18, height: 18)
-                    }
-                    Text(text)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                }
-            )
-    }
-}
-
-struct FlowChoicesView<VM: CUViewModel>: View {
-    @State var showNote = false
-    var tab = 0
-    var stepNumber: Double
-    var totalSteps: Double
-    @Binding var noteText: String
-    var choices: [FuneralChoice]
-    @Binding var selectedChoice: Int
-    var menuTitle: String
-    var title: String
-    var destination: AnyView
-    @ObservedObject var vm: VM
-    
-    var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $noteText)
-                 .zIndex(1.0)
-                 .background(.black.opacity(0.8))
-                 .edgesIgnoringSafeArea(.top)
-            }
-            WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(selectedChoice != 0), destination: destination, viewModel: vm) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: -70){
-                        ForEach(choices, id: \.self) { choice in
-                            VStack(spacing: 0) {
-                                Image(choice.name)
-                                Rectangle()
-                                    .foregroundColor(selectedChoice == choice.id ? .accentColor : .white)
-                                    .frame(width: 161, height: 44)
-                                    .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
-                                    .overlay(
-                                        Text(choice.name)
-                                            .foregroundColor(selectedChoice == choice.id ? .white : .black)
-                                    )
-                                    .padding(.top, -50)
-                            }
-                            .thinShadow()
-                            .onTapGesture {
-                                selectedChoice = choice.id
-                            }
-                        }
-                    }
-                    .padding(.leading, -20)
-                }
-                .padding(.top, -20)
-            }
-        }
-    }
-}
-
-// MARK: - Note Views
-
 struct FuneralNote: View {
     @Binding var showNote: Bool
     @Binding var note:String
@@ -738,6 +736,7 @@ struct FuneralNoteView<VM: CUViewModel>: View {
     var totalSteps: Double
     @Binding var showNote: Bool
     @Binding var note: String
+    @Binding var noteAttachmentIds: [Int]?
     var menuTitle: String
     var title: String
     var destination: AnyView
@@ -746,39 +745,12 @@ struct FuneralNoteView<VM: CUViewModel>: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $note)
+                NoteWithAttachementView(showNote: $showNote, note: $note, attachements: $vm.attachements, noteAttachmentIds: $noteAttachmentIds)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
             WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, note: false, showNote: .constant(false),menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination, viewModel: vm) {
               NoteView(showNote: $showNote, note: $note)
-            }
-        }
-    }
-}
-
-struct FuneralNoteCutomActionView: View {
-    var totalSteps: Double
-    @Binding var showNote: Bool
-    @Binding var note: String
-    @Binding var loading: Bool
-    var menuTitle: String
-    var title: String
-    var customAction: () -> Void
-
-    var body: some View {
-        ZStack {
-            if showNote {
-                FuneralNote(showNote: $showNote, note: $note)
-                    .zIndex(1.0)
-                    .background(.black.opacity(0.8))
-            }
-            FlowBaseView(stepNumber: totalSteps, totalSteps: totalSteps, isCustomAction: true, customAction: customAction, note: false, showNote: .constant(false), menuTitle: menuTitle, title: title, valid: .constant(true)) {
-                NoteView(showNote: $showNote, note: $note)
-                if loading {
-                    Loader()
-                        .padding(.top)
-                }
             }
         }
     }
@@ -993,7 +965,7 @@ struct DetailsFullScreenPhotoView: View {
     }
 }
 
-
+// MARK: -
 struct UpdatingView: View {
     var text = "Ajouté"
     var body: some View {

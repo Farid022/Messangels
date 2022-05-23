@@ -16,13 +16,19 @@ enum FuneralRestPlace: Int, CaseIterable {
 struct FuneralLocation: Codable {
     var location_of_ceremony: Bool?
     var location_of_ceremony_note: String?
+    var location_of_ceremony_note_attachment: [Int]?
     var route_convey_note: String?
+    var route_convey_note_attachment: [Int]?
     var reunion_location_note: String?
+    var reunion_location_note_attachment: [Int]?
     var special_ceremony_note: String?
+    var special_ceremony_note_attachment: [Int]?
     var bury_location: Int?
     var bury_location_note: String?
+    var bury_location_note_attachment: [Int]?
     var resting_place: Int?
     var resting_place_note: String?
+    var resting_place_note_attachment: [Int]?
     var user = getUserId()
 }
 
@@ -41,6 +47,7 @@ struct FuneralLocationData: Codable {
 }
 
 class FuneralLocationViewModel: CUViewModel {
+    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var recordId = 0
     @Published var progress = 0

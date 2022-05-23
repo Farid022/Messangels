@@ -9,8 +9,11 @@ import Foundation
 
 struct FueneralAsthetic: Codable {
     var special_decoration_note: String
+    var special_decoration_note_attachment: [Int]?
     var attendence_dress_note: String
+    var attendence_dress_note_attachment: [Int]?
     var guest_accessories_note: String
+    var guest_accessories_note_attachment: [Int]?
     var flower: Int
     var user = getUserId()
 }
@@ -25,6 +28,7 @@ struct FueneralAstheticData: Codable {
 }
 
 class FueneralAstheticViewModel: CUViewModel {
+    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var recordId = 0
     @Published var progress = 0

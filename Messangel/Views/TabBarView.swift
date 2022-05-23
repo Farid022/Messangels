@@ -43,7 +43,7 @@ struct TabBarView: View {
                         TabView(selection: $selectedTab){
                             TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, navBarContent: AnyView(HomeNavBar()), topContent: AnyView(HomeTopView()), bottomContent: AnyView(HomeBottomView()))
                                 .tag(tabs[0])
-                            TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Volontés", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
+                            TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Mes souhaits", detail: wishesDiscription)), bottomContent: AnyView(WishesMenuView()))
                                 .tag(tabs[1])
                             TabContent(showButtonsPopup: $showNewMessagePopUp, showNewServicePopup: $showNewServicePopUp, selectedTab: $selectedTab, topContent: AnyView(NonHomeTopView(title: "Messages", detail: messagesDiscription)), bottomContent: AnyView(MessagesMainView(showButtonsPopup: $showNewMessagePopUp, vm: vmGroup)))
                                 .tag(tabs[2])
@@ -102,9 +102,9 @@ struct TabBarView: View {
     }
 }
 
-var tabs = ["Accueil","Volontés","Messages","Vie digitale"]
+var tabs = ["Accueil","Mes souhaits","Messages","Vie digitale"]
 var messagesDiscription = "Créez des messages vidéos, textes et audio pour une personne ou un groupe de destinataires."
-var wishesDiscription = "Indiquez vos volontés sur les sujets qui comptent pour vous. Vous pouvez revenir sur vos choix à tout moment."
+var wishesDiscription = "Indiquez vos souhaits pour les enregistrer dans votre Messangel. Vous pouvez revenir sur vos choix à tout moment."
 var socialAndServicesDesc = "Préparez les accès aux réseaux sociaux et services en ligne que vous utilisez : Alimentation, e-Commerce, Streaming…"
 
 struct BottomTabBar: View {

@@ -13,7 +13,7 @@ struct FuneralTypeView: View {
     @State private var selectedFuneral = FuneralType.none
     @State private var showNote = false
     @ObservedObject var vm: FeneralViewModel
-    
+    //FuneralNote -> NoteWithAttachementView
     var body: some View {
         ZStack {
             if showNote {

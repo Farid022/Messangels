@@ -62,6 +62,7 @@ struct OnlineServiceAccount: Codable {
     var id: Int?
     var accountId: Int
     var lastPostNote: String?
+    var lastPostNoteAttachment: [Int]?
     var lastPostImage: String?
     var lastPostImageNote: String?
     var leaveMsgTime: String?
@@ -72,6 +73,7 @@ struct OnlineServiceAccount: Codable {
     enum CodingKeys: String, CodingKey {
         case accountId = "account_fields"
         case lastPostNote = "last_post_note"
+        case lastPostNoteAttachment = "last_post_note_attachment"
         case lastPostImage = "last_post_image"
         case lastPostImageNote = "last_post_image_note"
         case leaveMsgTime = "leave_msg_time"

@@ -12,6 +12,7 @@ struct FuneralMusic: Codable {
     var artist_name: String
     var song_title: String
     var broadcast_song_note: String
+    var broadcast_song_note_attachment: [Int]?
     var user = getUserId()
 }
 
@@ -24,6 +25,7 @@ struct Music: Hashable, Codable {
 }
 
 class FuneralMusicViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var musics = [Music]()
     @Published var music = FuneralMusic(artist_name: "", song_title: "", broadcast_song_note: "")

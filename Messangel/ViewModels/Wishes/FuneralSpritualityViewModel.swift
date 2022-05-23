@@ -16,6 +16,7 @@ enum SpiritualType: Int, CaseIterable {
 struct FuneralSprituality: Codable {
     var spritual_ceremony: Int
     var spritual_ceremony_note: String?
+    var spritual_ceremony_note_attachment: [Int]?
     var ceremony_note: String
     var user = getUserId()
 }
@@ -29,6 +30,7 @@ struct FuneralSpritualityData: Codable {
 }
 
 class FuneralSpritualityViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var spritualities = [FuneralSpritualityData]()
     @Published var sprituality = FuneralSprituality(spritual_ceremony: 0, ceremony_note: "")

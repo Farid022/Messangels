@@ -37,14 +37,19 @@ struct GuardianFormBaseView<Content: View>: View {
                         .frame(height:90)
                         .padding(.horizontal, -20)
                         .overlay(
-                    HStack {
-                        BackButton()
-                        Text("Quitter")
-                            .font(.system(size: 15))
-                            .foregroundColor(.white)
-                        Spacer()
-                    }, alignment: .top)
-                    
+                            HStack {
+                                Button {
+                                    navigationModel.popContent(TabBarView.id)
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "chevron.backward")
+                                        Text("Quitter")
+                                            .font(.system(size: 15))
+                                    }
+                                }
+                                .foregroundColor(.white)
+                                Spacer()
+                            }, alignment: .top)
                     VStack {
                         Color.accentColor
                             .frame(height: 35)
@@ -71,15 +76,27 @@ struct GuardianFormBaseView<Content: View>: View {
                             .overlay(Image("info"))
                     })
                     ScrollView {
-                        Text(title)
-                            .font(.system(size: 17))
-                            .fontWeight(.bold)
-                        .padding(.top)
-                        Spacer()
+                        HStack {
+                            Text(title)
+                                .font(.system(size: 17))
+                                .fontWeight(.bold)
+                            Spacer()
+                        }
                         content
                         Spacer()
                     }
                     HStack {
+                        Rectangle()
+                            .fill(Color.gray)
+                            .frame(width: 56, height: 56)
+                            .cornerRadius(25)
+                            .overlay(
+                                Button(action: {
+                                    navigationModel.hideTopView()
+                                }) {
+                                    Image(systemName: "chevron.left").foregroundColor(Color.white)
+                                }
+                            )
                         Spacer()
                         Rectangle()
                             .fill(valid ? Color.accentColor : Color.gray.opacity(0.2))

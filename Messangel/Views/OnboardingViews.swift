@@ -139,8 +139,8 @@ var tutorials = [
      "image": "Messages",
      "desc": "Messages dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et"
     ],
-    ["title": "Volontés",
-     "image": "Volontés",
+    ["title": "Mes souhaits",
+     "image": "Mes souhaits",
      "desc": "Mes choix dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et"
     ],
     ["title": "Vie digitale",

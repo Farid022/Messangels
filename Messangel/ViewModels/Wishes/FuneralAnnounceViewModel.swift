@@ -10,9 +10,13 @@ import SwiftUI
 struct FuneralAnnounce: Codable {
     var invitation_photo: String
     var invitation_photo_note: String?
+    var invitation_photo_note_attachment: [Int]?
     var invitation_note: String
+    var invitation_note_attachment: [Int]?
     var theme_note: String
+    var theme_note_attachment: [Int]?
     var newspaper_note: String
+    var newspaper_note_attachment: [Int]?
     var user = getUserId()
 }
 
@@ -27,6 +31,7 @@ struct FuneralAnnounceData: Hashable, Codable {
 }
 
 class FuneralAnnounceViewModel: CUViewModel {
+    @Published var attachements = [Attachement]()
     @Published var invitePhoto = UIImage()
     @Published var updateRecord = false
     @Published var recordId = 0

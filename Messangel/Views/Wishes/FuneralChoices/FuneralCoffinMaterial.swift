@@ -16,6 +16,6 @@ struct FuneralCoffinMaterial: View {
     @ObservedObject var vm: FeneralViewModel
     
     var body: some View {
-        FlowChoicesView(tab: 1, stepNumber: 3.0, totalSteps: 12.0, noteText: $vm.funeral.coffin_material_note.bound, choices: choices, selectedChoice: $vm.funeral.coffin_material, menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)), vm: vm)
+        FlowChoicesView(tab: 1, stepNumber: 3.0, totalSteps: 12.0, noteText: $vm.funeral.coffin_material_note.bound, choices: choices, selectedChoice: $vm.funeral.coffin_material.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)), vm: vm)
     }
 }
