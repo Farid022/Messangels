@@ -335,8 +335,6 @@ struct ListItemView: View {
     }
 }
 
-// MARK: - ChoiceCard
-
 struct ChoiceCard: View {
     var text: String
     @Binding var selected: Bool
@@ -371,6 +369,7 @@ struct FlowChoicesView<VM: CUViewModel>: View {
     var stepNumber: Double
     var totalSteps: Double
     @Binding var noteText: String
+    @Binding var noteAttachmentIds: [Int]?
     var choices: [FuneralChoice]
     @Binding var selectedChoice: Int
     var menuTitle: String
@@ -381,10 +380,9 @@ struct FlowChoicesView<VM: CUViewModel>: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $noteText)
+                NoteWithAttachementView(showNote: $showNote, note: $noteText, attachements: $vm.attachements, noteAttachmentIds: $noteAttachmentIds)
                  .zIndex(1.0)
                  .background(.black.opacity(0.8))
-                 .edgesIgnoringSafeArea(.top)
             }
             WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination, viewModel: vm) {
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -475,7 +473,12 @@ struct NoteWithAttachementView: View {
                     })
                     Spacer()
                     Button(action: {
-                        
+                        note.removeAll()
+                        attachements.removeAll()
+                        noteAttachmentIds?.removeAll()
+                        attachedFiles.removeAll()
+                        oldAttachedFiles.removeAll()
+                        showNote.toggle()
                     }) {
                         Image("ic_del")
                     }

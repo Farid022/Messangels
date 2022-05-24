@@ -11,6 +11,7 @@ struct ObjectDonation: Codable {
     var id: Int?
     var single_object: Bool?
     var single_object_note: String?
+    var single_object_note_attachment: [Int]?
     var object_name: String
     var object_contact_detail: Int?
     var organization_detail: Int?

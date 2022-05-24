@@ -29,6 +29,7 @@ struct ServiceAccountFields: Codable {
     var smartphone: Int
     var deleteAccount: Bool?
     var manageAccountNote: String?
+    var manageAccountNoteAttachment: [Int]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,6 +38,7 @@ struct ServiceAccountFields: Codable {
         case smartphone = "smartphone_account"
         case deleteAccount = "delete_account"
         case manageAccountNote = "manage_account_note"
+        case manageAccountNoteAttachment = "manage_account_note_attachment"
     }
 }
 
@@ -47,6 +49,7 @@ struct ServiceAccountFieldsDetail: Hashable, Codable {
     var smartphone: PrimaryPhone
     var deleteAccount: Bool
     var manageAccountNote: String
+    var manageAccountNoteAttachment: [Int]?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -55,6 +58,7 @@ struct ServiceAccountFieldsDetail: Hashable, Codable {
         case onlineService = "online_service"
         case mailAccount = "mail_account"
         case smartphone = "smartphone_account"
+        case manageAccountNoteAttachment = "manage_account_note_attachment"
     }
 }
 
@@ -65,9 +69,11 @@ struct OnlineServiceAccount: Codable {
     var lastPostNoteAttachment: [Int]?
     var lastPostImage: String?
     var lastPostImageNote: String?
+    var lastPostImageNoteAttachment:  [Int]?
     var leaveMsgTime: String?
     var memorialAccount: Bool?
     var memorialAccountNote: String?
+    var memorialAccountNoteAttachment: [Int]?
     var user = getUserId()
 
     enum CodingKeys: String, CodingKey {
@@ -76,9 +82,11 @@ struct OnlineServiceAccount: Codable {
         case lastPostNoteAttachment = "last_post_note_attachment"
         case lastPostImage = "last_post_image"
         case lastPostImageNote = "last_post_image_note"
+        case lastPostImageNoteAttachment = "last_post_image_note_attachment"
         case leaveMsgTime = "leave_msg_time"
         case memorialAccount = "memorial_account"
         case memorialAccountNote = "memorial_account_note"
+        case memorialAccountNoteAttachment = "memorial_account_note_attachment"
         case user
     }
 }
@@ -92,6 +100,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
     var lastPostNote, leaveMsgTime: String?
     var memorialAccount: Bool?
     var memorialAccountNote: String?
+    var memorialAccountNoteAttachment: [Int]?
     var accountFields: ServiceAccountFieldsDetail
 
     enum CodingKeys: String, CodingKey {
@@ -102,6 +111,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
         case leaveMsgTime = "leave_msg_time"
         case memorialAccount = "memorial_account"
         case memorialAccountNote = "memorial_account_note"
+        case memorialAccountNoteAttachment = "memorial_account_note_attachment"
         case accountFields = "account_fields"
     }
 }
@@ -109,6 +119,7 @@ struct OnlineServiceAccountDetail: Hashable, Codable {
 
 // MARK: - View Model
 class OnlineServiceViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var socialAccPic = UIImage()
     @Published var updateRecord = false
     @Published var categories = [ServiceCategory]()

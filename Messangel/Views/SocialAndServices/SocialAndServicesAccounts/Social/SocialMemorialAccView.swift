@@ -18,10 +18,9 @@ struct SocialMemorialAccView: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.account.memorialAccountNote.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.account.memorialAccountNote.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.account.memorialAccountNoteAttachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 5.0, totalSteps: 5.0, isCustomAction: true, customAction: {
                 loading.toggle()

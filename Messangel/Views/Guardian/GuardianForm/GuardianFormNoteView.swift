@@ -16,7 +16,7 @@ struct GuardianFormNoteView: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.guardian.guardian_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.guardian.guardian_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.guardian.guardian_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

@@ -18,10 +18,9 @@ struct OrganDonateRefuse: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.donation.register_to_national_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.donation.register_to_national_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.donation.register_to_national_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 2.0, totalSteps: 4.0, isCustomAction:true, customAction: {                
                 if let register_to_national = vm.donation.register_to_national, register_to_national {

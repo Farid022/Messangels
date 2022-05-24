@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FuneralFlowers: View {
-    @State private var noteText = ""
     @ObservedObject var vm: FueneralAstheticViewModel
     
     var choices = [
@@ -17,6 +16,6 @@ struct FuneralFlowers: View {
         FuneralChoice(id: 3, name: "Roses", image: "")
     ]
     var body: some View {
-        FlowChoicesView(stepNumber: 1.0, totalSteps: 4.0, noteText: $noteText, choices: choices, selectedChoice: $vm.asthetic.flower, menuTitle: "Esthétique", title: "Avez-vous une préférence concernant les fleurs ? (Plusieurs choix possibles)", destination: AnyView(FuneralDecoration(vm: vm)), vm: vm)
+        FlowChoicesView(stepNumber: 1.0, totalSteps: 4.0, noteText: $vm.asthetic.flower_note.bound, noteAttachmentIds: $vm.asthetic.flower_note_attachment, choices: choices, selectedChoice: $vm.asthetic.flower, menuTitle: "Esthétique", title: "Avez-vous une préférence concernant les fleurs ? (Plusieurs choix possibles)", destination: AnyView(FuneralDecoration(vm: vm)), vm: vm)
     }
 }

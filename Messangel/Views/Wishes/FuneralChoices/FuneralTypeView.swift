@@ -17,10 +17,9 @@ struct FuneralTypeView: View {
     var body: some View {
         ZStack {
             if showNote {
-               FuneralNote(showNote: $showNote, note: $vm.funeral.burial_type_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.funeral.burial_type_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.funeral.burial_type_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
             }
             WishesFlowBaseView(stepNumber: 1.0, totalSteps: 12.0, noteText: $vm.funeral.burial_type_note.bound, note: true, showNote: $showNote, menuTitle: "Choix funéraires", title: "Quel rite souhaitez-vous ?", valid: .constant(vm.funeral.burial_type != 0), destination: AnyView(FuneralPlaceView(vm: vm)), viewModel: vm) {
                 HStack {

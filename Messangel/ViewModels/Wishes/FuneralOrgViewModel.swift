@@ -34,12 +34,16 @@ struct FuneralContract: Hashable, Codable {
 struct FuneralOrg: Codable {
     var chose_funeral_home: Bool?
     var chose_funeral_home_note: String?
+    var chose_funeral_home_note_attachment: [Int]?
     var funeral_company: Int?
     var funeral_company_note: String?
+    var funeral_company_note_attachment: [Int]?
     var company_contract_detail: Bool?
     var company_contract_detail_note: String?
+    var company_contract_detail_note_attachment: [Int]?
     var company_contract_num: String?
     var company_contract_num_note: String?
+    var company_contract_num_note_attachment: [Int]?
     var funeral_contract: Int?
     var user = getUserId()
 }
@@ -59,6 +63,7 @@ struct FuneralOrgData: Hashable, Codable {
 }
 
 class FuneralOrgViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var orgName = ""
     @Published var updateRecord = false
     @Published var funeralOrgs = [FuneralOrgData]()

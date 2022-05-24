@@ -18,10 +18,9 @@ struct FuneralPlaceType: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.location.location_of_ceremony_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.location.location_of_ceremony_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.location.location_of_ceremony_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
-                    .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 1.0, totalSteps: 6.0, isCustomAction: true, customAction: {
                 if let indicateLocation = vm.location.location_of_ceremony, indicateLocation {

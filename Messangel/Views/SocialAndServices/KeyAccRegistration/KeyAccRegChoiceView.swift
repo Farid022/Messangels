@@ -19,10 +19,9 @@ struct KeyAccRegChoiceView: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.keyEmailAcc.note)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.keyEmailAcc.note, attachements: $vm.attachements, noteAttachmentIds: $vm.keyEmailAcc.noteAttachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
-                    .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 3.0, totalSteps: 6.0, isCustomAction: true, customAction: {
                 loading.toggle()

@@ -11,6 +11,7 @@ import Foundation
 struct PrimaryEmailAcc: Hashable, Codable {
     var id: Int?
     var email, password, note: String
+    var noteAttachment: [Int]?
     var deleteAccount: Bool?
     var user = getUserId()
 
@@ -19,6 +20,7 @@ struct PrimaryEmailAcc: Hashable, Codable {
         case email = "primary_email"
         case password
         case note = "manage_account_note"
+        case noteAttachment = "manage_account_note_attachment"
         case deleteAccount = "delete_account"
         case user
     }
@@ -42,6 +44,7 @@ struct PrimaryPhone: Hashable, Codable {
 
 // MARK: - ViewModel
 class KeyAccViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var keyAccounts = [PrimaryEmailAcc]()
     @Published var smartphones = [PrimaryPhone]()

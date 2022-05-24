@@ -12,13 +12,14 @@ struct PracticalCode: Codable {
     var name: String
     var codes: [Int]
     var note: String
+    var note_attachment: [Int]?
     var user = getUserId()
     
     enum CodingKeys: String, CodingKey {
         case id
         case name = "code_name"
         case codes = "code"
-        case note, user
+        case note, note_attachment, user
     }
 }
 
@@ -44,6 +45,7 @@ struct CodeModel: Hashable, Codable {
 }
 
 class PracticalCodeViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var codes = [CodeModel]()
     @Published var code = CodeModel(code: "")

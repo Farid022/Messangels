@@ -19,7 +19,7 @@ struct PracticalCodeText: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.practicalCode.note)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.practicalCode.note, attachements: $vm.attachements, noteAttachmentIds: $vm.practicalCode.note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

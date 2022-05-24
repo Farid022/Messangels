@@ -15,6 +15,8 @@ struct FueneralAsthetic: Codable {
     var guest_accessories_note: String
     var guest_accessories_note_attachment: [Int]?
     var flower: Int
+    var flower_note: String?
+    var flower_note_attachment: [Int]?
     var user = getUserId()
 }
 

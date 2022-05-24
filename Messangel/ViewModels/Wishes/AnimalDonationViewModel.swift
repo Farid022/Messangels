@@ -11,12 +11,15 @@ struct AnimalDonation: Codable {
     var id: Int?
     var single_animal: Bool?
     var single_animal_note: String?
+    var single_animal_note_attachment: [Int]?
     var animal_name: String
     var animal_name_note: String?
+    var animal_name_note_attachment: [Int]?
     var animal_contact_detail: Int?
     var animal_organization_detail: Int?
     var animal_species: String?
     var animal_species_note: String?
+    var animal_species_note_attachment: [Int]?
     var animal_photo: String?
     var animal_note: String
     var animal_note_attachment: [Int]?

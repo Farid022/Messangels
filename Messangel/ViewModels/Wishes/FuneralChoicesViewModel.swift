@@ -64,9 +64,17 @@ struct Funeral: Codable {
     var coffin_material_note: String?
     var coffin_material_note_attachment: [Int]?
     var coffin_finish: Int?
+    var coffin_finish_note: String?
+    var coffin_finish_note_attachment: [Int]?
     var internal_material: Int?
+    var internal_material_note: String?
+    var internal_material_note_attachment: [Int]?
     var urn_material: Int?
+    var urn_material_note: String?
+    var urn_material_note_attachment: [Int]?
     var urn_style: Int?
+    var urn_style_note: String?
+    var urn_style_note_attachment: [Int]?
     var user: Int
 }
 

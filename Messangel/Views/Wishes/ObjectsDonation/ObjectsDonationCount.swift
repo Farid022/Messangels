@@ -14,7 +14,7 @@ struct ObjectsDonationCount: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.objectDonation.single_object_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.objectDonation.single_object_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.objectDonation.single_object_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)

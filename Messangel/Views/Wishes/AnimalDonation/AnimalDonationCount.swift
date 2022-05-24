@@ -14,10 +14,9 @@ struct AnimalDonationCount: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.animalDonation.single_animal_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.animalDonation.single_animal_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.animalDonation.single_animal_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 2.0, totalSteps: 8.0, noteText: $vm.animalDonation.single_animal_note.bound, note: true, showNote: $showNote, menuTitle: "ANIMAUX", title: "Souhaitez-vous ajouter un ou plusieurs animaux ?", valid: .constant(vm.animalDonation.single_animal != nil), destination: AnyView(AnimalDonationName(vm: vm))) {
                 HStack {

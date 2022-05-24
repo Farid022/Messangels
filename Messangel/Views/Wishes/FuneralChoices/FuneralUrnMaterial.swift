@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FuneralUrnMaterial: View {
-    @State private var noteText = ""
     var choices = [
         FuneralChoice(id: 1, name: "Composite", image: ""),
         FuneralChoice(id: 2, name: "Céramique", image: ""),
@@ -16,6 +15,6 @@ struct FuneralUrnMaterial: View {
     ]
     @ObservedObject var vm: FeneralViewModel
     var body: some View {
-        FlowChoicesView(tab: 1, stepNumber: 8.0, totalSteps: 12.0, noteText: $noteText, choices: choices, selectedChoice: $vm.funeral.urn_material.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez le matériau de l’urne", destination: AnyView(FuneralUrnStyle(vm: vm)), vm: vm)
+        FlowChoicesView(tab: 1, stepNumber: 8.0, totalSteps: 12.0, noteText: $vm.funeral.urn_material_note.bound, noteAttachmentIds: $vm.funeral.urn_material_note_attachment, choices: choices, selectedChoice: $vm.funeral.urn_material.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez le matériau de l’urne", destination: AnyView(FuneralUrnStyle(vm: vm)), vm: vm)
     }
 }

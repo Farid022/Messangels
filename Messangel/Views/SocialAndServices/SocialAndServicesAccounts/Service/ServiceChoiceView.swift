@@ -17,10 +17,9 @@ struct ServiceChoiceView: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.accountFields.manageAccountNote.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.accountFields.manageAccountNote.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.accountFields.manageAccountNoteAttachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 5.0, totalSteps: 5.0, isCustomAction: true, customAction: {
                 if let serviceId = vm.service.id {

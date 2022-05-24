@@ -14,6 +14,7 @@ struct Guardian: Codable, Hashable {
     var last_name: String
     var email: String
     var guardian_note: String?
+    var guardian_note_attachment: [Int]?
     var status: String
     var guardian: User?
     var created_at: String?
@@ -52,6 +53,7 @@ struct Death: Codable {
 }
 
 class GuardianViewModel: ObservableObject {
+    @Published var attachements = [Attachement]()
     @Published var deaths = [DeathDeclaration]()
     @Published var guardiansUpdated = false
     @Published var death = Death(user: 0, death_text: "")

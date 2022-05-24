@@ -18,7 +18,7 @@ struct FuneralInviteNewsPaper: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.announcement.newspaper_note)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.announcement.newspaper_note, attachements: $vm.attachements, noteAttachmentIds: $vm.announcement.newspaper_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

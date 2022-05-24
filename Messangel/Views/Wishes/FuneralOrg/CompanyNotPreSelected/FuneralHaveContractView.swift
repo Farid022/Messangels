@@ -18,10 +18,9 @@ struct FuneralHaveContractView: View {
     var body: some View {
         ZStack {
             if showNote {
-                FuneralNote(showNote: $showNote, note: $vm.funeralOrg.company_contract_detail_note.bound)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.funeralOrg.company_contract_detail_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.funeralOrg.company_contract_detail_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
-                .edgesIgnoringSafeArea(.top)
             }
             FlowBaseView(stepNumber: 2.0, totalSteps: 4.0, isCustomAction: true, customAction: {
                 if let subscribed = vm.funeralOrg.company_contract_detail, subscribed {

@@ -17,6 +17,7 @@ struct ClothDonation: Codable {
     var id: Int?
     var single_clothing: Bool?
     var single_clothing_note: String?
+    var single_clothing_note_attachment: [Int]?
     var clothing_name: String
     var clothing_contact_detail: Int?
     var clothing_organization_detail: Int?
