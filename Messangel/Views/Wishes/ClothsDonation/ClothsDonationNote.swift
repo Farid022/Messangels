@@ -50,7 +50,7 @@ struct ClothsDonationNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(totalSteps: 7.0, showNote: $showNote, note: $vm.clothDonation.clothing_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.clothDonation.clothing_note_attachment, menuTitle: "Vêtements et accessoires", title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 7.0, showNote: $showNote, note: $vm.clothDonation.clothing_note, loading: $loading, oldAttachedFiles: $vm.clothDonation.clothing_note_attachments, noteAttachmentIds: $vm.clothDonation.clothing_note_attachment, menuTitle: "Vêtements et accessoires", title: title) {
             loading.toggle()
             Task {
                 if vm.localPhoto.cgImage != nil {

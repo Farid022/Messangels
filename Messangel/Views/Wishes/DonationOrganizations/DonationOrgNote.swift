@@ -16,7 +16,7 @@ struct DonationOrgNote: View {
     var title = "Ajoutez des informations (montants, collecte à la cérémonie)"
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(totalSteps: 3.0, showNote: $showNote, note: $vm.donationOrg.donation_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.donationOrg.donation_note_attachment, menuTitle: "Dons et collectes", title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 3.0, showNote: $showNote, note: $vm.donationOrg.donation_note, loading: $loading, oldAttachedFiles: $vm.donationOrg.donation_note_attachments, noteAttachmentIds: $vm.donationOrg.donation_note_attachment, menuTitle: "Dons et collectes", title: title) {
             loading.toggle()
             if vm.updateRecord {
                 vm.update(id: vm.donationOrg.id ?? 0) { success in

@@ -48,7 +48,7 @@ struct ManagedContractNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(totalSteps: 4.0, showNote: $showNote, note: $vm.contract.contract_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.contract.contract_note_attachment, menuTitle: wishesExtras[2].name, title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 4.0, showNote: $showNote, note: $vm.contract.contract_note, loading: $loading, oldAttachedFiles: $vm.contract.contract_note_attachments, noteAttachmentIds: $vm.contract.contract_note_attachment, menuTitle: wishesExtras[2].name, title: title) {
             loading.toggle()
             createOrUpdateRecord()
         }

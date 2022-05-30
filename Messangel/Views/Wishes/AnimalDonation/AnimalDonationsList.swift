@@ -18,9 +18,6 @@ struct AnimalDonationsList: View {
             ForEach(vm.donations, id: \.self) { item in
                 FuneralItemCard(title: item.animal_name, icon: "ic_animal")
                     .onTapGesture {
-                        if let attachments = item.animal_note_attachment {
-                            vm.attachements = attachments
-                        }
                         navigationModel.pushContent(String(describing: Self.self)) {
                             AnimalDonationDetails(vm: vm, donation: item)
                         }

@@ -35,15 +35,19 @@ struct FuneralOrg: Codable {
     var chose_funeral_home: Bool?
     var chose_funeral_home_note: String?
     var chose_funeral_home_note_attachment: [Int]?
+    @CodableIgnored var chose_funeral_home_note_attachments: [URL]?
     var funeral_company: Int?
     var funeral_company_note: String?
     var funeral_company_note_attachment: [Int]?
+    @CodableIgnored var funeral_company_note_attachments: [URL]?
     var company_contract_detail: Bool?
     var company_contract_detail_note: String?
     var company_contract_detail_note_attachment: [Int]?
+    @CodableIgnored var company_contract_detail_note_attachments: [URL]?
     var company_contract_num: String?
     var company_contract_num_note: String?
     var company_contract_num_note_attachment: [Int]?
+    @CodableIgnored var company_contract_num_note_attachments: [URL]?
     var funeral_contract: Int?
     var user = getUserId()
 }
@@ -52,18 +56,21 @@ struct FuneralOrgData: Hashable, Codable {
     var id: Int
     var chose_funeral_home: Bool
     var chose_funeral_home_note: String?
+    var chose_funeral_home_note_attachment: [Attachement]?
     var funeral_company: FuneralCompany?
     var funeral_company_note: String?
+    var funeral_company_note_attachment: [Attachement]?
     var company_contract_detail: Bool
     var company_contract_detail_note: String?
+    var company_contract_detail_note_attachment: [Attachement]?
     var company_contract_num: String
     var company_contract_num_note: String?
+    var company_contract_num_note_attachment: [Attachement]?
     var funeral_contract: FuneralContract?
     var user: User
 }
 
 class FuneralOrgViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var orgName = ""
     @Published var updateRecord = false
     @Published var funeralOrgs = [FuneralOrgData]()

@@ -370,6 +370,7 @@ struct FlowChoicesView<VM: CUViewModel>: View {
     var totalSteps: Double
     @Binding var noteText: String
     @Binding var noteAttachmentIds: [Int]?
+    @Binding var oldAttachedFiles: [URL]?
     var choices: [FuneralChoice]
     @Binding var selectedChoice: Int
     var menuTitle: String
@@ -380,7 +381,7 @@ struct FlowChoicesView<VM: CUViewModel>: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $noteText, attachements: $vm.attachements, noteAttachmentIds: $noteAttachmentIds)
+                NoteWithAttachementView(showNote: $showNote, note: $noteText, oldAttachedFiles: $oldAttachedFiles, noteAttachmentIds: $noteAttachmentIds)
                  .zIndex(1.0)
                  .background(.black.opacity(0.8))
             }
@@ -451,14 +452,15 @@ struct NoteView: View {
 struct NoteWithAttachementView: View {
     @Binding var showNote: Bool
     @Binding var note:String
-    @Binding var attachements: [Attachement]
+    @Binding var oldAttachedFiles: [URL]?
     @Binding var noteAttachmentIds: [Int]?
     @State var expandedNote = false
     @State var loading = false
+    @State var showExitAlert = false
     @FocusState private var isFocused: Bool
+    @State private var attachements = [Attachment]()
     @State private var showFileImporter = false
     @State private var attachedFiles = [URL]()
-    @State private var oldAttachedFiles = [URL]()
     var multiple = true
     
     var body: some View {
@@ -467,6 +469,7 @@ struct NoteWithAttachementView: View {
                 Spacer().frame(height: 100)
                 HStack {
                     Button(action: {
+//                        showExitAlert.toggle()
                         showNote.toggle()
                     }, label: {
                         Image("ic_close_note")
@@ -477,7 +480,7 @@ struct NoteWithAttachementView: View {
                         attachements.removeAll()
                         noteAttachmentIds?.removeAll()
                         attachedFiles.removeAll()
-                        oldAttachedFiles.removeAll()
+                        oldAttachedFiles?.removeAll()
                         showNote.toggle()
                     }) {
                         Image("ic_del")
@@ -524,7 +527,7 @@ struct NoteWithAttachementView: View {
                                             attachements.removeAll()
                                             let uploadedFiles = await uploadFiles(attachedFiles)
                                             for uploadedFile in uploadedFiles {
-                                                attachements.append(Attachement(url: uploadedFile))
+                                                attachements.append(Attachment(url: uploadedFile))
                                             }
                                             APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
                                                 switch result {
@@ -576,11 +579,10 @@ struct NoteWithAttachementView: View {
             }
             .padding()
             .onAppear() {
-                isFocused = true
-                if !attachements.isEmpty {
-                    attachements.forEach { attachment in
-                        oldAttachedFiles.append(URL(string: attachment.url)!)
-                    }
+                if oldAttachedFiles == nil {
+                    isFocused = true
+                }
+                if let oldAttachedFiles = oldAttachedFiles {
                     self.attachedFiles = oldAttachedFiles
                 }
             }
@@ -594,6 +596,13 @@ struct NoteWithAttachementView: View {
                     print(error.localizedDescription)
                 }
             }
+//            if showExitAlert {
+//                Color.black.opacity(0.8)
+//                    .ignoresSafeArea()
+//                    .overlay(MyAlert(title: "Quitter les notes", message: "Vos modifications ne seront pas enregistrées", ok: "Oui", cancel: "Non", action: {
+//                        showNote.toggle()
+//                    }, showAlert: $showExitAlert))
+//            }
             if loading {
                 UpdatingView(text: "Note enregistrée")
             }
@@ -604,7 +613,7 @@ struct NoteWithAttachementView: View {
 struct DetailsNoteView: View {
     @EnvironmentObject private var navigationModel: NavigationModel
     var note: String
-    var attachments = [Attachement]()
+    var attachments: [Attachement]?
     var navId = ""
     var body: some View {
         VStack {
@@ -621,7 +630,7 @@ struct DetailsNoteView: View {
                             Spacer()
                         }
                         Text(note)
-                        if !attachments.isEmpty {
+                        if let attachments = attachments, !attachments.isEmpty {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], alignment: .leading, spacing: 16.0) {
                                 ForEach(attachments, id: \.self) { file in
                                     FuneralCapsuleView(trailingButton: false, name: URL(string: file.url)?.lastPathComponent ?? "") {}
@@ -740,6 +749,7 @@ struct FuneralNoteView<VM: CUViewModel>: View {
     @Binding var showNote: Bool
     @Binding var note: String
     @Binding var noteAttachmentIds: [Int]?
+    @Binding var oldAttachedFiles: [URL]?
     var menuTitle: String
     var title: String
     var destination: AnyView
@@ -748,7 +758,7 @@ struct FuneralNoteView<VM: CUViewModel>: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $note, attachements: $vm.attachements, noteAttachmentIds: $noteAttachmentIds)
+                NoteWithAttachementView(showNote: $showNote, note: $note, oldAttachedFiles: $oldAttachedFiles, noteAttachmentIds: $noteAttachmentIds)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
@@ -764,7 +774,7 @@ struct FuneralNoteAttachCutomActionView: View {
     @Binding var showNote: Bool
     @Binding var note: String
     @Binding var loading: Bool
-    @Binding var attachements: [Attachement]
+    @Binding var oldAttachedFiles: [URL]?
     @Binding var noteAttachmentIds: [Int]?
     var menuTitle: String
     var title: String
@@ -773,7 +783,7 @@ struct FuneralNoteAttachCutomActionView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $note, attachements: $attachements, noteAttachmentIds: $noteAttachmentIds)
+                NoteWithAttachementView(showNote: $showNote, note: $note, oldAttachedFiles: $oldAttachedFiles, noteAttachmentIds: $noteAttachmentIds)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }
@@ -1041,7 +1051,6 @@ struct MyTextField: UIViewRepresentable {
         textField.placeholder = placeholder
         textField.delegate = context.coordinator
         textField.returnKeyType = .next
-        textField.textContentType = .username
         textField.text = self.text
         textField.passwordRules = UITextInputPasswordRules(descriptor: "required: upper; required: digit; max-consecutive: 2; minlength: 8;")
 

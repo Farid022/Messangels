@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GuardianFormLegalAgeView: View {
-    @State private var progress = (100/7)*5.0
+    @State private var progress = (100/6)*4.0
     @State private var valid = false
     @State private var confirmEmail = ""
     @ObservedObject var vm: GuardianViewModel

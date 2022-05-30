@@ -137,6 +137,7 @@ struct ModifyPasswordView: View {
                     Text("Modifier")
                 })
                     .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: .accentColor))
+                Spacer().frame(height: 100)
             }
             .textFieldStyle(MyTextFieldStyle())
             .onChange(of: new_password) { value in

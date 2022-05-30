@@ -19,7 +19,7 @@ struct KeyAccRegChoiceView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.keyEmailAcc.note, attachements: $vm.attachements, noteAttachmentIds: $vm.keyEmailAcc.noteAttachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.keyEmailAcc.note, oldAttachedFiles: $vm.keyEmailAcc.noteAttachments, noteAttachmentIds: $vm.keyEmailAcc.noteAttachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

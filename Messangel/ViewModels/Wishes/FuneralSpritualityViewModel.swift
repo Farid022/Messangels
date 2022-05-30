@@ -17,7 +17,10 @@ struct FuneralSprituality: Codable {
     var spritual_ceremony: Int
     var spritual_ceremony_note: String?
     var spritual_ceremony_note_attachment: [Int]?
+    @CodableIgnored var spritual_ceremony_note_attachments: [URL]?
     var ceremony_note: String
+    var ceremony_note_attachment: [Int]?
+    @CodableIgnored var ceremony_note_attachments: [URL]?
     var user = getUserId()
 }
 
@@ -25,12 +28,13 @@ struct FuneralSpritualityData: Codable {
     var id: Int
     var spritual_ceremony: FuneralIntity
     var spritual_ceremony_note: String?
+    var spritual_ceremony_note_attachment: [Attachement]?
     var ceremony_note: String
+    var ceremony_note_attachment: [Attachement]?
     var user: User
 }
 
 class FuneralSpritualityViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var spritualities = [FuneralSpritualityData]()
     @Published var sprituality = FuneralSprituality(spritual_ceremony: 0, ceremony_note: "")

@@ -53,6 +53,7 @@ struct DeathAnnounceIntro: View {
                         i.contact.forEach { contact in
                             vm.priorityContacts.contact.append(contact.id)
                         }
+                        vm.priorityContacts.priority_note_attachments = addAttacments(i.priority_note_attachment)
                         vm.contacts = i.contact
                         vm.updateRecord = true
                     }

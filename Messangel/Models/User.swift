@@ -77,7 +77,7 @@ struct Email: Codable {
 
 struct Mobile: Codable {
     var email: String
-    var new_mobile: String
+    var new_number: String
 }
 
 struct Token: Codable {

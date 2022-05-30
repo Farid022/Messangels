@@ -7,30 +7,73 @@
 
 import Foundation
 
+@propertyWrapper
+public struct CodableIgnored<T>: Codable {
+    public var wrappedValue: T?
+        
+    public init(wrappedValue: T?) {
+        self.wrappedValue = wrappedValue
+    }
+    
+    public init(from decoder: Decoder) throws {
+        self.wrappedValue = nil
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        // Do nothing
+    }
+}
+
+extension KeyedDecodingContainer {
+    public func decode<T>(
+        _ type: CodableIgnored<T>.Type,
+        forKey key: Self.Key) throws -> CodableIgnored<T>
+    {
+        return CodableIgnored(wrappedValue: nil)
+    }
+}
+
+extension KeyedEncodingContainer {
+    public mutating func encode<T>(
+        _ value: CodableIgnored<T>,
+        forKey key: KeyedEncodingContainer<K>.Key) throws
+    {
+        // Do nothing
+    }
+}
+
 struct FueneralAsthetic: Codable {
     var special_decoration_note: String
     var special_decoration_note_attachment: [Int]?
+    @CodableIgnored var special_decoration_note_attachments: [URL]?
     var attendence_dress_note: String
     var attendence_dress_note_attachment: [Int]?
+    @CodableIgnored var attendence_dress_note_attachments: [URL]?
     var guest_accessories_note: String
     var guest_accessories_note_attachment: [Int]?
+    @CodableIgnored var guest_accessories_note_attachments: [URL]?
     var flower: Int
     var flower_note: String?
     var flower_note_attachment: [Int]?
+    @CodableIgnored var flower_note_attachments: [URL]?
     var user = getUserId()
 }
 
 struct FueneralAstheticData: Codable {
     var id: Int
     var special_decoration_note: String
+    var special_decoration_note_attachment: [Attachement]?
     var attendence_dress_note: String
+    var attendence_dress_note_attachment: [Attachement]?
     var guest_accessories_note: String
+    var guest_accessories_note_attachment: [Attachement]?
     var flower: FuneralChoice
+    var flower_note: String?
+    var flower_note_attachment: [Attachement]?
     var user: User
 }
 
 class FueneralAstheticViewModel: CUViewModel {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var recordId = 0
     @Published var progress = 0

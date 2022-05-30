@@ -17,7 +17,7 @@ struct ServiceChoiceView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.accountFields.manageAccountNote.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.accountFields.manageAccountNoteAttachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.accountFields.manageAccountNote.bound, oldAttachedFiles: $vm.accountFields.manageAccountNoteAttachments, noteAttachmentIds: $vm.accountFields.manageAccountNoteAttachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
             }

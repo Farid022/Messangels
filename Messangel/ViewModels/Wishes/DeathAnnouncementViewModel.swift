@@ -11,6 +11,7 @@ struct PriorityContacts: Codable {
     var contact: [Int]
     var priority_note: String?
     var priority_note_attachment: [Int]?
+    @CodableIgnored var priority_note_attachments: [URL]?
     var user = getUserId()
 }
 
@@ -18,12 +19,11 @@ struct PriorityContactsData: Hashable, Codable {
     var id: Int
     var contact: [Contact]
     var priority_note: String?
-    var priority_note_attachment: [Int]?
+    var priority_note_attachment: [Attachement]?
     var user: User
 }
 
 class PriorityContactsViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var contacts = [Contact]()
     @Published var priorities = [PriorityContactsData]()

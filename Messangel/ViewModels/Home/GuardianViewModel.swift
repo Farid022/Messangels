@@ -15,6 +15,7 @@ struct Guardian: Codable, Hashable {
     var email: String
     var guardian_note: String?
     var guardian_note_attachment: [Int]?
+    var guardian_note_attachments: [URL]?
     var status: String
     var guardian: User?
     var created_at: String?
@@ -53,7 +54,6 @@ struct Death: Codable {
 }
 
 class GuardianViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var deaths = [DeathDeclaration]()
     @Published var guardiansUpdated = false
     @Published var death = Death(user: 0, death_text: "")
@@ -77,7 +77,7 @@ class GuardianViewModel: ObservableObject {
         }
     }
     
-    func getGuardianDeaths(guardianID: Int?,completion: @escaping (Bool) -> Void) {
+    func getGuardianDeaths(guardianID: Int, completion: @escaping (Bool) -> Void) {
         APIService.shared.getJSON(model: deaths, urlString: "users/\(guardianID)/death_declaration") { result in
             switch result {
             case .success(let deaths):

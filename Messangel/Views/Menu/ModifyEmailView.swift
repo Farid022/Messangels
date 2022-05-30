@@ -4,8 +4,7 @@
 //
 //  Created by Saad on 7/19/21.
 //
-
-import SwiftUIX
+import SwiftUI
 import Peppermint
 import NavigationStack
 
@@ -21,6 +20,7 @@ struct ModifyEmailView: View {
     let predicate = EmailPredicate()
     
     var body: some View {
+        NavigationStackView(String(describing: Self.self)) {
         MenuBaseView(title: "Modifier adresse mail") {
             if !editing {
                 AccessSecurityHeader()
@@ -29,7 +29,6 @@ struct ModifyEmailView: View {
                 VStack(spacing: 20) {
                     Text("Adresse mail actuelle")
                         .font(.system(size: 17), weight: .bold)
-                        .padding(.leading, -20)
                     Text(auth.user.email)
                         .font(.system(size: 15))
                         .foregroundColor(.secondary)
@@ -44,12 +43,12 @@ struct ModifyEmailView: View {
                     .padding(.bottom, 10)
                 Spacer()
             }
-            CocoaTextField("Adresse mail", text: $new_email) { isEditing in
+            TextField("Adresse mail", text: $new_email) { isEditing in
                 self.editing = isEditing
             }
-            .textContentType(.emailAddress)
-            .autocapitalization(.none)
-            .xTextFieldStyle()
+            .textFieldStyle(MyTextFieldStyle())
+            .keyboardType(.emailAddress)
+            .textInputAutocapitalization(.never)
             .normalShadow()
             .padding(.bottom, 30)
             
@@ -69,7 +68,7 @@ struct ModifyEmailView: View {
                 if !valid {
                     return
                 }
-                navModel.pushContent(String(describing: Self.self)) {
+                navModel.pushContent(TabBarView.id) {
                     ModifyEmailSecView(new_email: $new_email)
                 }
             }, label: {
@@ -81,7 +80,7 @@ struct ModifyEmailView: View {
                 .font(.system(size: 13))
                 .padding(.top, 30)
         }
-        .textFieldStyle(MyTextFieldStyle())
+        }
         .onChange(of: new_email) { value in
             self.validate()
         }

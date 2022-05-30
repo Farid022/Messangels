@@ -43,10 +43,11 @@ struct DonationOrgDetails: View {
                             Text("Destinataire du don – \(org.donation_organization.name)")
                             Spacer()
                         }
-                        DetailsNoteView(note: org.donation_note)
+                        DetailsNoteView(note: org.donation_note, attachments: org.donation_note_attachment)
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.donationOrg = DonationOrg(id: org.id, donation_organization: org.donation_organization.id ?? 1, donation_note: org.donation_note)
                             vm.orgName = org.donation_organization.name
+                            vm.donationOrg.donation_note_attachments = addAttacments(org.donation_note_attachment)
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 DonationOrgsSelectionView(vm: vm)

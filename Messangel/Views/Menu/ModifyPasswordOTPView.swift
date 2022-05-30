@@ -67,8 +67,8 @@ struct ModifyPasswordOTPView: View {
                 OTPTextFieldView(code: $code)
                     .disabled(loading)
                     .onChange(of: code) { value in
-                        loading.toggle()
                         if value.count == 4 {
+                            loading.toggle()
                             validateOTP()
                         }
                     }

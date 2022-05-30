@@ -13,6 +13,8 @@ struct ContractLocal: Codable {
     var contract_organization: Int
     var contract_note: String
     var contract_note_attachment: [Int]?
+    @CodableIgnored
+    var contract_note_attachments: [URL]?
     var user = getUserId()
 }
 
@@ -33,31 +35,12 @@ struct ContractSever: Hashable, Codable {
 }
 
 class ContractViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var orgName = ""
     @Published var contracts = [ContractSever]()
     @Published var contract = ContractLocal(contract_name: "", contract_organization: 0, contract_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
-    
-    func attach(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
-            switch result {
-            case .success(let attachements):
-                DispatchQueue.main.async {
-                    self.attachements = attachements
-                    completion(true)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
-                    completion(false)
-                }
-            }
-        }
-    }
     
     func create(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: contract, response: contract, endpoint: "users/\(getUserId())/contract") { result in

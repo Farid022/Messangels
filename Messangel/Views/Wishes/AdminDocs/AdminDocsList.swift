@@ -18,9 +18,6 @@ struct AdminDocsList: View {
             ForEach(vm.adminDocs, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_doc")
                     .onTapGesture {
-                        if let attachments = item.attachments {
-                            vm.attachements = attachments
-                        }
                         navigationModel.pushContent(String(describing: Self.self)) {
                             AdminDocsDetails(vm: vm, docs: item)
                         }

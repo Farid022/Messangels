@@ -48,7 +48,7 @@ struct OrganDonateIntro: View {
                 if sucess {
                     if vm.donations.count > 0 {
                         let i = vm.donations[0]
-                        vm.donation = OrganDonation(register_to_national: i.register_to_national, register_to_national_note: i.register_to_national_note, donation: i.donation.id, donation_note: i.donation_note)
+                        vm.donation = OrganDonation(register_to_national: i.register_to_national, register_to_national_note: i.register_to_national_note, register_to_national_note_attachments: addAttacments(i.register_to_national_note_attachment), donation: i.donation.id, donation_note: i.donation_note, donation_note_attachments: addAttacments(i.donation_note_attachment))
                         vm.updateRecord = true
                     }
                 }

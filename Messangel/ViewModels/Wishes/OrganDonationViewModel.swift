@@ -23,10 +23,10 @@ struct OrganDonationData: Hashable, Codable {
     var id: Int
     var register_to_national: Bool?
     var register_to_national_note: String?
-    var register_to_national_note_attachment: [Int]?
+    var register_to_national_note_attachment: [Attachement]?
     var donation: FuneralIntity
     var donation_note: String?
-    var donation_note_attachment: [Int]?
+    var donation_note_attachment: [Attachement]?
     var user: User
 }
 
@@ -34,13 +34,15 @@ struct OrganDonation: Codable {
     var register_to_national: Bool?
     var register_to_national_note: String?
     var register_to_national_note_attachment: [Int]?
+    @CodableIgnored var register_to_national_note_attachments: [URL]?
     var donation: Int
     var donation_note: String?
+    var donation_note_attachment: [Int]?
+    @CodableIgnored var donation_note_attachments: [URL]?
     var user = getUserId()
 }
 
 class OrganDonationViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var donations = [OrganDonationData]()
     @Published var donation = OrganDonation(donation: 0)

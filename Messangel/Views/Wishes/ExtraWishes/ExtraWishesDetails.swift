@@ -18,7 +18,7 @@ struct ExtraWishesDetails: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.extraWish.express_yourself_note, attachements: $vm.attachements, noteAttachmentIds: $vm.extraWish.express_yourself_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.extraWish.express_yourself_note, oldAttachedFiles: $vm.extraWish.express_yourself_note_attachments, noteAttachmentIds: $vm.extraWish.express_yourself_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

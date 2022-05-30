@@ -48,6 +48,7 @@ struct ExtraWishesIntro: View {
                 if sucess {
                     if vm.extraWishes.count > 0 {
                         vm.extraWish = ExtraWish(express_yourself_note: vm.extraWishes[0].express_yourself_note, user: getUserId())
+                        vm.extraWish.express_yourself_note_attachments = addAttacments(vm.extraWishes[0].express_yourself_note_attachment)
                         vm.updateRecord = true
                     }
                 }

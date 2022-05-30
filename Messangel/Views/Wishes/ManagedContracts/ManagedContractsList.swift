@@ -18,9 +18,6 @@ struct ManagedContractsList: View {
             ForEach(vm.contracts, id: \.self) { item in
                 FuneralItemCard(title: item.name, icon: "ic_contract")
                     .onTapGesture {
-                        if let attachments = item.attachments {
-                            vm.attachements = attachments
-                        }
                         navigationModel.pushContent(String(describing: ManagedContractsList.self)) {
                             ManagedContractsDetails(vm: vm, contract: item)
                         }

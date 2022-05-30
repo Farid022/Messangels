@@ -19,7 +19,7 @@ struct FuneralGuestsWearings: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.asthetic.guest_accessories_note, attachements: $vm.attachements, noteAttachmentIds: $vm.asthetic.guest_accessories_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.asthetic.guest_accessories_note, oldAttachedFiles: $vm.asthetic.guest_accessories_note_attachments, noteAttachmentIds: $vm.asthetic.guest_accessories_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

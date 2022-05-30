@@ -49,7 +49,11 @@ struct FuneralAestheticIntro: View {
                 if sucess {
                     if vm.asthetics.count > 0 {
                         let i = vm.asthetics[0]
-                        vm.asthetic = FueneralAsthetic(special_decoration_note: i.special_decoration_note, attendence_dress_note: i.attendence_dress_note, guest_accessories_note: i.guest_accessories_note, flower: i.flower.id)
+                        vm.asthetic = FueneralAsthetic(special_decoration_note: i.special_decoration_note, attendence_dress_note: i.attendence_dress_note, guest_accessories_note: i.guest_accessories_note, flower: i.flower.id, flower_note: i.flower_note)
+                        vm.asthetic.special_decoration_note_attachments = addAttacments(i.special_decoration_note_attachment)
+                        vm.asthetic.attendence_dress_note_attachments = addAttacments(i.attendence_dress_note_attachment)
+                        vm.asthetic.guest_accessories_note_attachments = addAttacments(i.guest_accessories_note_attachment)
+                        vm.asthetic.flower_note_attachments = addAttacments(i.flower_note_attachment)
                         vm.updateRecord = true
                         vm.recordId = i.id
                         vm.progress = wishVM.wishesProgresses.last(where: {$0.tab == Wishes.aesthetics.rawValue})?.progress ?? 0
@@ -58,4 +62,16 @@ struct FuneralAestheticIntro: View {
             }
         }
     }
+}
+
+func addAttacments(_ attachments: [Attachement]?) -> [URL] {
+    var urls = [URL]()
+    if let attachments = attachments {
+        for attachment in attachments {
+            if let url = URL(string: attachment.url) {
+                urls.append(url)
+            }
+        }
+    }
+    return urls
 }

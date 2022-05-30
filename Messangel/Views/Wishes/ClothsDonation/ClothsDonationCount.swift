@@ -14,7 +14,7 @@ struct ClothsDonationCount: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.clothDonation.single_clothing_note.bound, attachements: $vm.attachements, noteAttachmentIds:$vm.clothDonation.single_clothing_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.clothDonation.single_clothing_note.bound, oldAttachedFiles: $vm.clothDonation.single_clothing_note_attachments, noteAttachmentIds:$vm.clothDonation.single_clothing_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
             }

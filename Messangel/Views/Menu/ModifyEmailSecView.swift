@@ -11,6 +11,7 @@ import NavigationStack
 struct ModifyEmailSecView: View {
     @StateObject private var vm = SecureAccessViewModel()
     @EnvironmentObject private var navModel: NavigationModel
+    @State private var hidePassword = true
     @Binding var new_email: String
     var body: some View {
         NavigationStackView(String(describing: Self.self)) {
@@ -30,8 +31,18 @@ struct ModifyEmailSecView: View {
                             .padding(.bottom)
                     }
                     .font(.system(size: 17), weight: .bold)
-                    SecureField("Mot de passe", text: $vm.password.password)
-                        .textFieldStyle(MyTextFieldStyle())
+                    MyTextField(placeholder: "Mot de passe", text: $vm.password.password, isSecureTextEntry: $hidePassword)
+                        .xTextFieldStyle()
+                        .overlay(HStack {
+                            Spacer()
+                            Image(systemName: hidePassword ? "eye" : "eye.slash")
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .animation(.default, value: hidePassword)
+                                .onTapGesture {
+                                    hidePassword.toggle()
+                                }
+                        })
                     Spacer()
                         .frame(height: 100)
                     MyLink(text: "Politique de confidentialité", fontSize: 15)

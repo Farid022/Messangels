@@ -17,18 +17,24 @@ struct FuneralLocation: Codable {
     var location_of_ceremony: Bool?
     var location_of_ceremony_note: String?
     var location_of_ceremony_note_attachment: [Int]?
+    @CodableIgnored var location_of_ceremony_note_attachments: [URL]?
     var route_convey_note: String?
     var route_convey_note_attachment: [Int]?
+    @CodableIgnored var route_convey_note_attachments: [URL]?
     var reunion_location_note: String?
     var reunion_location_note_attachment: [Int]?
+    @CodableIgnored var reunion_location_note_attachments: [URL]?
     var special_ceremony_note: String?
     var special_ceremony_note_attachment: [Int]?
+    @CodableIgnored var special_ceremony_note_attachments: [URL]?
     var bury_location: Int?
     var bury_location_note: String?
     var bury_location_note_attachment: [Int]?
+    @CodableIgnored var bury_location_note_attachments: [URL]?
     var resting_place: Int?
     var resting_place_note: String?
     var resting_place_note_attachment: [Int]?
+    @CodableIgnored var resting_place_note_attachments: [URL]?
     var user = getUserId()
 }
 
@@ -36,18 +42,23 @@ struct FuneralLocationData: Codable {
     var id: Int
     var location_of_ceremony: Bool
     var location_of_ceremony_note: String?
+    var location_of_ceremony_note_attachment: [Attachement]?
     var route_convey_note: String?
+    var route_convey_note_attachment: [Attachement]?
     var reunion_location_note: String?
+    var reunion_location_note_attachment: [Attachement]?
     var special_ceremony_note: String?
+    var special_ceremony_note_attachment: [Attachement]?
     var bury_location: Organization?
     var bury_location_note: String?
+    var bury_location_note_attachment: [Attachement]?
     var resting_place: FuneralIntity?
     var resting_place_note: String?
+    var resting_place_note_attachment: [Attachement]?
     var user: User
 }
 
 class FuneralLocationViewModel: CUViewModel {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var recordId = 0
     @Published var progress = 0

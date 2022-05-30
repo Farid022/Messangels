@@ -47,7 +47,7 @@ struct AdminDocsNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(totalSteps: 3.0, showNote: $showNote, note: $vm.adminDoc.document_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.adminDoc.document_note_attachement, menuTitle: wishesExtras.first!.name, title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 3.0, showNote: $showNote, note: $vm.adminDoc.document_note, loading: $loading, oldAttachedFiles: $vm.adminDoc.document_note_attachements, noteAttachmentIds: $vm.adminDoc.document_note_attachement, menuTitle: wishesExtras.first!.name, title: title) {
             loading.toggle()
             createOrUpdateRecord()
         }

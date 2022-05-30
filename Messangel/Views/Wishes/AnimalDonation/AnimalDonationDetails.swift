@@ -60,7 +60,7 @@ struct AnimalDonationDetails: View {
                                 Text("Plusieurs animaux")
                                 Spacer()
                             }
-                            DetailsNoteView(note: donation.animal_note, attachments: vm.attachements, navId: String(describing: Self.self))
+                            DetailsNoteView(note: donation.animal_note, attachments: donation.animal_note_attachment, navId: String(describing: Self.self))
                             DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                                 vm.animalDonation = AnimalDonation(id: donation.id, single_animal: donation.single_animal, single_animal_note: donation.single_animal_note, animal_name: donation.animal_name, animal_name_note: donation.animal_name_note, animal_contact_detail: donation.animal_contact_detail?.id, animal_organization_detail: donation.animal_organization_detail?.id, animal_species: donation.animal_species, animal_species_note: donation.animal_species_note, animal_photo: donation.animal_photo, animal_note: donation.animal_note)
                                 if let firstName = donation.animal_contact_detail?.first_name, let lastName = donation.animal_contact_detail?.last_name {
@@ -69,6 +69,10 @@ struct AnimalDonationDetails: View {
                                 if let orgName = donation.animal_organization_detail?.name {
                                     vm.orgName = orgName
                                 }
+                                vm.animalDonation.single_animal_note_attachments = addAttacments(donation.single_animal_note_attachment)
+                                vm.animalDonation.animal_name_note_attachments = addAttacments(donation.animal_name_note_attachment)
+                                vm.animalDonation.animal_species_note_attachments = addAttacments(donation.animal_species_note_attachment)
+                                vm.animalDonation.animal_note_attachments = addAttacments(donation.animal_note_attachment)
                                 vm.updateRecord = true
                                 navigationModel.pushContent(String(describing: Self.self)) {
                                     AnimalDonationCount(vm: vm)

@@ -50,7 +50,7 @@ struct ClothsDonationDetails: View {
                                 Text("Plusieurs vêtements ou accessoires")
                                 Spacer()
                             }
-                            DetailsNoteView(note: donation.clothing_note, attachments: vm.attachements, navId: String(describing: Self.self))
+                            DetailsNoteView(note: donation.clothing_note, attachments: donation.clothing_note_attachment, navId: String(describing: Self.self))
                             DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                                 vm.clothDonation = ClothDonation(id: donation.id, single_clothing: donation.single_clothing, single_clothing_note: donation.single_clothing_note, clothing_name: donation.clothing_name, clothing_contact_detail: donation.clothing_contact_detail?.id, clothing_organization_detail: donation.clothing_organization_detail?.id, clothing_photo: donation.clothing_photo, clothing_note: donation.clothing_note)
                                 if let firstName = donation.clothing_contact_detail?.first_name, let lastName = donation.clothing_contact_detail?.last_name {
@@ -59,6 +59,8 @@ struct ClothsDonationDetails: View {
                                 if let orgName = donation.clothing_organization_detail?.name {
                                     vm.orgName = orgName
                                 }
+                                vm.clothDonation.single_clothing_note_attachments = addAttacments(donation.single_clothing_note_attachment)
+                                vm.clothDonation.clothing_note_attachments = addAttacments(donation.clothing_note_attachment)
                                 vm.updateRecord = true
                                 navigationModel.pushContent(String(describing: Self.self)) {
                                     ClothsDonationCount(vm: vm)

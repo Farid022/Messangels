@@ -18,7 +18,7 @@ struct SocialMemorialAccView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.account.memorialAccountNote.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.account.memorialAccountNoteAttachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.account.memorialAccountNote.bound, oldAttachedFiles: $vm.account.memorialAccountNoteAttachments, noteAttachmentIds: $vm.account.memorialAccountNoteAttachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
             }

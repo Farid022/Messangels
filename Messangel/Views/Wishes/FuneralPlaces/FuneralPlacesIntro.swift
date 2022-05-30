@@ -53,6 +53,12 @@ struct FuneralPlacesIntro: View {
                         if let place = i.bury_location {
                             vm.orgName = place.name
                         }
+                        vm.location.location_of_ceremony_note_attachments = addAttacments(i.location_of_ceremony_note_attachment)
+                        vm.location.bury_location_note_attachments = addAttacments(i.bury_location_note_attachment)
+                        vm.location.resting_place_note_attachments = addAttacments(i.resting_place_note_attachment)
+                        vm.location.route_convey_note_attachments = addAttacments(i.route_convey_note_attachment)
+                        vm.location.reunion_location_note_attachments = addAttacments(i.reunion_location_note_attachment)
+                        vm.location.special_ceremony_note_attachments = addAttacments(i.special_ceremony_note_attachment)
                         vm.updateRecord = true
                         vm.recordId = i.id
                         vm.progress = wishVM.wishesProgresses.last(where: {$0.tab == Wishes.locations.rawValue})?.progress ?? 0

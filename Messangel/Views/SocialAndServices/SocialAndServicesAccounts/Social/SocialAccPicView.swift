@@ -16,7 +16,7 @@ struct SocialAccPicView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note:  $vm.account.lastPostImageNote.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.account.lastPostImageNoteAttachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.account.lastPostImageNote.bound, oldAttachedFiles: $vm.account.lastPostImageNoteAttachments, noteAttachmentIds: $vm.account.lastPostImageNoteAttachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
             }

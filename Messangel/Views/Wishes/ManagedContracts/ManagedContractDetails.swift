@@ -38,10 +38,11 @@ struct ManagedContractsDetails: View {
                             Text(contract.organization.name)
                             Spacer()
                         }
-                        DetailsNoteView(note: contract.note, attachments: vm.attachements, navId: String(describing: Self.self))
+                        DetailsNoteView(note: contract.note, attachments: contract.attachments, navId: String(describing: Self.self))
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.contract = ContractLocal(id: contract.id, contract_name: contract.name, contract_organization: contract.organization.id ?? 1, contract_note: contract.note)
                             vm.orgName = contract.organization.name
+                            vm.contract.contract_note_attachments = addAttacments(contract.attachments)
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 ManagedContractName(vm: vm)

@@ -12,6 +12,7 @@ struct AdminDocLocal: Codable {
     var document_name: String
     var document_note: String
     var document_note_attachement: [Int]?
+    var document_note_attachements: [URL]?
     var user = getUserId()
 }
 
@@ -30,30 +31,11 @@ struct AdminDocServer: Hashable, Codable {
 }
 
 class AdminDocViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var adminDocs = [AdminDocServer]()
     @Published var adminDoc = AdminDocLocal(document_name: "", document_note: "")
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
-    
-    func attach(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
-            switch result {
-            case .success(let attachements):
-                DispatchQueue.main.async {
-                    self.attachements = attachements
-                    completion(true)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
-                    completion(false)
-                }
-            }
-        }
-    }
     
     func create(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: adminDoc, response: adminDoc, endpoint: "users/\(getUserId())/administrative_doc") { result in

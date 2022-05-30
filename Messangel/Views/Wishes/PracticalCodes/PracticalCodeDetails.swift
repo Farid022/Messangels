@@ -54,6 +54,7 @@ struct PracticalCodeDetails: View {
                             practicalCode.codes.forEach { code in
                                 vm.practicalCode.codes.append(code.id ?? 1)
                             }
+                            vm.practicalCode.note_attachments = addAttacments(practicalCode.note_attachment)
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 PracticalCodeName(vm: vm)

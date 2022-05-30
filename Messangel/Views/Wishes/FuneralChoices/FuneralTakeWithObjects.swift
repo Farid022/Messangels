@@ -16,7 +16,7 @@ struct FuneralTakeWithObjects: View {
     var title = "Indiquez si vous souhaitez emporter des objets ou accessoires"
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(totalSteps: 12.0, showNote: $showNote, note: $vm.funeral.acessories_note.bound, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.funeral.acessories_note_attachment, menuTitle: wishesPersonal.first!.name, title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 12.0, showNote: $showNote, note: $vm.funeral.acessories_note.bound, loading: $loading, oldAttachedFiles: $vm.funeral.acessories_note_attachments, noteAttachmentIds: $vm.funeral.acessories_note_attachment, menuTitle: wishesPersonal.first!.name, title: title) {
             loading.toggle()
             if vm.updateRecord {
                 vm.update(id: vm.funeralChoices[0].id) { success in

@@ -12,6 +12,6 @@ struct FuneralConvoyRoute: View {
     @ObservedObject var vm: FuneralLocationViewModel
     
     var body: some View {
-        FuneralNoteView(stepNumber: 4.0, totalSteps: 6.0, showNote: $showNote, note: $vm.location.route_convey_note.bound, noteAttachmentIds: $vm.location.route_convey_note_attachment, menuTitle: "Lieux", title: "Vous pouvez apporter des précisions concernant le trajet du convoi (passage devant le domicile, un lieu symbolique…)", destination: AnyView(FuneralReunionPlace(vm: vm)), vm: vm)
+        FuneralNoteView(stepNumber: 4.0, totalSteps: 6.0, showNote: $showNote, note: $vm.location.route_convey_note.bound, noteAttachmentIds: $vm.location.route_convey_note_attachment,oldAttachedFiles: $vm.location.route_convey_note_attachments, menuTitle: "Lieux", title: "Vous pouvez apporter des précisions concernant le trajet du convoi (passage devant le domicile, un lieu symbolique…)", destination: AnyView(FuneralReunionPlace(vm: vm)), vm: vm)
     }
 }

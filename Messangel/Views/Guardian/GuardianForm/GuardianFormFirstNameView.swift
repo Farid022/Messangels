@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GuardianFormFirstNameView: View {
-    @State private var progress = (100/7)*2.0
+    @State private var progress = (100/6)*2.0
     @State private var valid = false
     @ObservedObject var vm: GuardianViewModel
     @FocusState private var isFocused: Bool

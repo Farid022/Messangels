@@ -38,9 +38,10 @@ struct AdminDocsDetails: View {
                                 .font(.system(size: 22), weight: .bold)
                             Spacer()
                         }
-                        DetailsNoteView(note: docs.note, attachments: vm.attachements, navId: String(describing: Self.self))
+                        DetailsNoteView(note: docs.note, attachments: docs.attachments, navId: String(describing: Self.self))
                         DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                             vm.adminDoc = AdminDocLocal(id: docs.id, document_name: docs.name, document_note: docs.note)
+                            vm.adminDoc.document_note_attachements = addAttacments(docs.attachments)
                             vm.updateRecord = true
                             navigationModel.pushContent(String(describing: Self.self)) {
                                 AdminDocsName(vm: vm)

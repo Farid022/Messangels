@@ -12,9 +12,7 @@ struct OrganDonateChoice: View {
     @EnvironmentObject private var navModel: NavigationModel
     private let donationChoices = [OrganDonChoice.organs, OrganDonChoice.deny, OrganDonChoice.body]
     private let title = "Pour quel choix avez-vous opté ?"
-//    @State private var showNote = false
     @State private var loading = false
-//    @State private var note = ""
     @ObservedObject var vm: OrganDonationViewModel
     
     var body: some View {

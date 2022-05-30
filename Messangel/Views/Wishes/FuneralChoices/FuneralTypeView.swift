@@ -17,7 +17,7 @@ struct FuneralTypeView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.funeral.burial_type_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.funeral.burial_type_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.funeral.burial_type_note.bound, oldAttachedFiles: $vm.funeral.burial_type_note_attachments, noteAttachmentIds: $vm.funeral.burial_type_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
             }

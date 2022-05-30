@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GuardianFormNoteView: View {
-    @State private var progress = (100/7)*6.0
+    @State private var progress = (100/6)*5.0
     @State private var valid = false
     @State private var showNote = false
     @ObservedObject var vm: GuardianViewModel
@@ -16,7 +16,7 @@ struct GuardianFormNoteView: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.guardian.guardian_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.guardian.guardian_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.guardian.guardian_note.bound, oldAttachedFiles: $vm.guardian.guardian_note_attachments, noteAttachmentIds: $vm.guardian.guardian_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

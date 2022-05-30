@@ -9,8 +9,6 @@ import SwiftUI
 import NavigationStack
 
 struct OrganDonateBody: View {
-//    @State private var showNote = false
-//    @State private var note = ""
     @State private var loading = false
     @ObservedObject var vm: OrganDonationViewModel
     @EnvironmentObject var navModel: NavigationModel

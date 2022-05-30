@@ -49,6 +49,7 @@ struct FuneralMusicDetails: View {
                             DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                                 vm.music = FuneralMusic(id: music.id, artist_name: music.artist_name, song_title: music.song_title, broadcast_song_note: music.broadcast_song_note, user: getUserId())
                                 vm.updateRecord = true
+                                vm.music.broadcast_song_note_attachments = addAttacments(music.broadcast_song_note_attachment)
                                 navigationModel.pushContent(String(describing: Self.self)) {
                                     FuneralMusicArtist(vm: vm)
                                 }

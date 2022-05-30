@@ -55,7 +55,7 @@ struct ObjectsDonationDetails: View {
                                 Text(donation.single_object ? "Un objet" : "Plusieurs objets")
                                 Spacer()
                             }
-                            DetailsNoteView(note: donation.object_note, attachments: vm.attachements, navId: String(describing: Self.self))
+                            DetailsNoteView(note: donation.object_note, attachments: donation.object_note_attachment, navId: String(describing: Self.self))
                             DetailsActionsView(showDeleteConfirm: $showDeleteConfirm) {
                                 vm.objectDonation = ObjectDonation(id: donation.id, single_object: donation.single_object, single_object_note: donation.single_object_note, object_name: donation.object_name, object_contact_detail: donation.object_contact_detail?.id, organization_detail: donation.organization_detail?.id, object_photo: donation.object_photo, object_note: donation.object_note)
                                 if let firstName = donation.object_contact_detail?.first_name, let lastName = donation.object_contact_detail?.last_name {
@@ -64,6 +64,8 @@ struct ObjectsDonationDetails: View {
                                 if let orgName = donation.organization_detail?.name {
                                     vm.orgName = orgName
                                 }
+                                vm.objectDonation.single_object_note_attachments = addAttacments(donation.single_object_note_attachment)
+                                vm.objectDonation.object_note_attachments = addAttacments(donation.object_note_attachment)
                                 vm.updateRecord = true
                                 navigationModel.pushContent(String(describing: Self.self)) {
                                     ObjectsDonationCount(vm: vm)

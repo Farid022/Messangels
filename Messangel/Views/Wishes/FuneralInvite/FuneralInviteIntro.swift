@@ -50,6 +50,10 @@ struct FuneralInviteIntro: View {
                     if vm.announcements.count > 0 {
                         let announcement = vm.announcements[0]
                         vm.announcement = FuneralAnnounce(invitation_photo: announcement.invitation_photo, invitation_photo_note: announcement.invitation_photo_note, invitation_note: announcement.invitation_note, theme_note: announcement.theme_note, newspaper_note: announcement.newspaper_note)
+                        vm.announcement.invitation_photo_note_attachments = addAttacments(announcement.invitation_photo_note_attachment)
+                        vm.announcement.invitation_note_attachments = addAttacments(announcement.invitation_note_attachment)
+                        vm.announcement.theme_note_attachments = addAttacments(announcement.theme_note_attachment)
+                        vm.announcement.newspaper_note_attachments = addAttacments(announcement.newspaper_note_attachment)
                         vm.updateRecord = true
                         vm.recordId = announcement.id
                         vm.progress = wishVM.wishesProgresses.last(where: {$0.tab == Wishes.announce.rawValue})?.progress ?? 0

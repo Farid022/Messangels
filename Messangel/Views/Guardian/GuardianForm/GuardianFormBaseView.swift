@@ -104,6 +104,9 @@ struct GuardianFormBaseView<Content: View>: View {
                             .cornerRadius(25)
                             .overlay(
                                 Button(action: {
+                                    if !valid {
+                                        return
+                                    }
                                     navigationModel.pushContent(title) {
                                         destination
                                     }

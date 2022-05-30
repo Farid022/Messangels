@@ -19,7 +19,7 @@ struct DeathAnnounceContacts: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.priorityContacts.priority_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.priorityContacts.priority_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.priorityContacts.priority_note.bound, oldAttachedFiles: $vm.priorityContacts.priority_note_attachments, noteAttachmentIds: $vm.priorityContacts.priority_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
                 .edgesIgnoringSafeArea(.top)

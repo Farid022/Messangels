@@ -18,7 +18,7 @@ struct OrganDonateRefuse: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.donation.register_to_national_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.donation.register_to_national_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.donation.register_to_national_note.bound, oldAttachedFiles:  $vm.donation.register_to_national_note_attachments, noteAttachmentIds: $vm.donation.register_to_national_note_attachment)
                 .zIndex(1.0)
                 .background(.black.opacity(0.8))
             }

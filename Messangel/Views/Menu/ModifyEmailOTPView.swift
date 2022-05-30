@@ -30,10 +30,10 @@ struct ModifyEmailOTPView: View {
                         DispatchQueue.main.async {
                             self.apiResponse = response
                             if response.message.contains("confirmation link sent") {
-                                auth.user.email = new_email
-                                auth.updateUser()
+//                                auth.user.email = new_email
+//                                auth.updateUser()
+                                succesAlert.toggle()
                             }
-                            succesAlert.toggle()
                         }
                     case .failure(let error):
                         DispatchQueue.main.async {
@@ -71,8 +71,8 @@ struct ModifyEmailOTPView: View {
                 OTPTextFieldView(code: $code)
                     .disabled(loading)
                     .onChange(of: code) { value in
-                        loading.toggle()
                         if value.count == 4 {
+                            loading.toggle()
                             validateOTP()
                         }
                     }

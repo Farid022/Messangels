@@ -19,7 +19,7 @@ struct FuneralPlaceSpecials: View {
     var body: some View {
         ZStack {
             if showNote {
-                NoteWithAttachementView(showNote: $showNote, note: $vm.location.special_ceremony_note.bound, attachements: $vm.attachements, noteAttachmentIds: $vm.location.special_ceremony_note_attachment)
+                NoteWithAttachementView(showNote: $showNote, note: $vm.location.special_ceremony_note.bound, oldAttachedFiles: $vm.location.special_ceremony_note_attachments, noteAttachmentIds: $vm.location.special_ceremony_note_attachment)
                     .zIndex(1.0)
                     .background(.black.opacity(0.8))
             }

@@ -56,7 +56,7 @@ struct ModifyMobileView: View {
                 if !valid {
                     return
                 }
-                navModel.pushContent(String(describing: Self.self)) {
+                navModel.pushContent(TabBarView.id) {
                     ModifyMobileSecView(new_mobile: $new_mobile)
                 }
             }, label: {

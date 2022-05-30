@@ -10,17 +10,19 @@ import Foundation
 struct ExtraWish: Codable {
     var express_yourself_note: String
     var express_yourself_note_attachment: [Int]?
+    @CodableIgnored
+    var express_yourself_note_attachments: [URL]?
     var user = getUserId()
 }
 
 struct ExtraWishData: Hashable, Codable {
     var id: Int
     var express_yourself_note: String
+    var express_yourself_note_attachment: [Attachement]?
     var user: User
 }
 
 class ExtraWishViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var updateRecord = false
     @Published var extraWishes = [ExtraWishData]()
     @Published var extraWish = ExtraWish(express_yourself_note: "")

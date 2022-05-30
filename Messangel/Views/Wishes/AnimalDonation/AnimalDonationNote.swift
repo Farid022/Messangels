@@ -50,7 +50,7 @@ struct AnimalDonationNote: View {
     }
     
     var body: some View {
-        FuneralNoteAttachCutomActionView(totalSteps: 8.0, showNote: $showNote, note: $vm.animalDonation.animal_note, loading: $loading, attachements: $vm.attachements, noteAttachmentIds: $vm.animalDonation.animal_note_attachment, menuTitle: "ANIMAUX", title: title) {
+        FuneralNoteAttachCutomActionView(totalSteps: 8.0, showNote: $showNote, note: $vm.animalDonation.animal_note, loading: $loading, oldAttachedFiles: $vm.animalDonation.animal_note_attachments, noteAttachmentIds: $vm.animalDonation.animal_note_attachment, menuTitle: "ANIMAUX", title: title) {
             loading.toggle()
             Task {
                 if vm.localPhoto.cgImage != nil {

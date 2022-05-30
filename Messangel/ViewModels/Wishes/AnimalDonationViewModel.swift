@@ -12,17 +12,21 @@ struct AnimalDonation: Codable {
     var single_animal: Bool?
     var single_animal_note: String?
     var single_animal_note_attachment: [Int]?
+    @CodableIgnored var single_animal_note_attachments: [URL]?
     var animal_name: String
     var animal_name_note: String?
     var animal_name_note_attachment: [Int]?
+    @CodableIgnored var animal_name_note_attachments: [URL]?
     var animal_contact_detail: Int?
     var animal_organization_detail: Int?
     var animal_species: String?
     var animal_species_note: String?
     var animal_species_note_attachment: [Int]?
+    @CodableIgnored var animal_species_note_attachments: [URL]?
     var animal_photo: String?
     var animal_note: String
     var animal_note_attachment: [Int]?
+    @CodableIgnored var animal_note_attachments: [URL]?
     var user = getUserId()
 }
 
@@ -30,12 +34,15 @@ struct AnimalDonationDetail: Hashable, Codable {
     var id: Int
     var single_animal: Bool
     var single_animal_note: String?
+    var single_animal_note_attachment: [Attachement]?
     var animal_name: String
     var animal_name_note: String?
+    var animal_name_note_attachment: [Attachement]?
     var animal_contact_detail: Contact?
     var animal_organization_detail: Organization?
     var animal_species: String?
     var animal_species_note: String?
+    var animal_species_note_attachment: [Attachement]?
     var animal_photo: String?
     var animal_note: String
     var animal_note_attachment: [Attachement]?
@@ -43,7 +50,6 @@ struct AnimalDonationDetail: Hashable, Codable {
 }
 
 class AnimalDonatiopnViewModel: ObservableObject {
-    @Published var attachements = [Attachement]()
     @Published var contactName = ""
     @Published var orgName = ""
     @Published var localPhoto = UIImage()
@@ -53,23 +59,23 @@ class AnimalDonatiopnViewModel: ObservableObject {
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
-    func attach(completion: @escaping (Bool) -> Void) {
-        APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
-            switch result {
-            case .success(let attachements):
-                DispatchQueue.main.async {
-                    self.attachements = attachements
-                    completion(true)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error.error_description)
-                    self.apiError = error
-                    completion(false)
-                }
-            }
-        }
-    }
+//    func attach(completion: @escaping (Bool) -> Void) {
+//        APIService.shared.post(model: attachements, response: attachements, endpoint: "users/note_attachment") { result in
+//            switch result {
+//            case .success(let attachements):
+//                DispatchQueue.main.async {
+//                    self.attachements = attachements
+//                    completion(true)
+//                }
+//            case .failure(let error):
+//                DispatchQueue.main.async {
+//                    print(error.error_description)
+//                    self.apiError = error
+//                    completion(false)
+//                }
+//            }
+//        }
+//    }
     
     func create(completion: @escaping (Bool) -> Void) {
         APIService.shared.post(model: animalDonation, response: animalDonation, endpoint: "users/\(getUserId())/animal") { result in
