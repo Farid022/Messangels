@@ -199,6 +199,7 @@
 		9371D16D282E1E6B009B4530 /* ModifyEmailOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */; };
 		9371D16F28329394009B4530 /* OrganizationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D16E28329394009B4530 /* OrganizationsListView.swift */; };
 		9371D171283298D9009B4530 /* OganizationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9371D170283298D9009B4530 /* OganizationEditView.swift */; };
+		937460EC28506ECD00C5CBB1 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937460EB28506ECD00C5CBB1 /* SwiftUIView.swift */; };
 		937CA4B026526539004A0227 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4AF26526539004A0227 /* HomeView.swift */; };
 		937CA4B226528FB7004A0227 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B126528FB7004A0227 /* SubscriptionView.swift */; };
 		937CA4B42653E702004A0227 /* GuardianFormIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */; };
@@ -403,6 +404,8 @@
 		93AEEF542670C94200D99BC2 /* AlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEEF532670C94200D99BC2 /* AlbumViewModel.swift */; };
 		93BDAE2D27F1DD5C0091BF5A /* WishesFlowBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDAE2C27F1DD5B0091BF5A /* WishesFlowBaseView.swift */; };
 		93CC8A3C265FBEA200A28455 /* OnboardingViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */; };
+		93D7FD7A2853143500EFAFBF /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D7FD792853143500EFAFBF /* PlayerViewModel.swift */; };
+		93D7FD7C2853238C00EFAFBF /* VideoCursorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D7FD7B2853238C00EFAFBF /* VideoCursorSlider.swift */; };
 		93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */; };
 		93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFFB27B28BE800E71C0B /* Constants.swift */; };
 		93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBCFFE27B4DFC400E71C0B /* Kingfisher */; };
@@ -628,6 +631,7 @@
 		9371D16C282E1E6B009B4530 /* ModifyEmailOTPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyEmailOTPView.swift; sourceTree = "<group>"; };
 		9371D16E28329394009B4530 /* OrganizationsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsListView.swift; sourceTree = "<group>"; };
 		9371D170283298D9009B4530 /* OganizationEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OganizationEditView.swift; sourceTree = "<group>"; };
+		937460EB28506ECD00C5CBB1 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		937CA4AF26526539004A0227 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		937CA4B126528FB7004A0227 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		937CA4B32653E702004A0227 /* GuardianFormIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuardianFormIntroView.swift; sourceTree = "<group>"; };
@@ -832,6 +836,8 @@
 		93AEEF532670C94200D99BC2 /* AlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewModel.swift; sourceTree = "<group>"; };
 		93BDAE2C27F1DD5B0091BF5A /* WishesFlowBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishesFlowBaseView.swift; sourceTree = "<group>"; };
 		93CC8A3B265FBEA200A28455 /* OnboardingViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViews.swift; sourceTree = "<group>"; };
+		93D7FD792853143500EFAFBF /* PlayerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		93D7FD7B2853238C00EFAFBF /* VideoCursorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCursorSlider.swift; sourceTree = "<group>"; };
 		93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		93DBCFFB27B28BE800E71C0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		93EFE7C82695EA3700F50894 /* AttributedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
@@ -1010,6 +1016,7 @@
 		932FF8B426C130FB00DE52F9 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				93D7FD792853143500EFAFBF /* PlayerViewModel.swift */,
 				938313982678966C00C71C98 /* VideoRecoderView.swift */,
 				932FF8C026CF80ED00DE52F9 /* VideoTrimView.swift */,
 				932FF8C526D5065200DE52F9 /* VideoFilterView.swift */,
@@ -1245,6 +1252,7 @@
 				935A59A6265F7032005B0505 /* Messages */,
 				93AC01E62718453E00FD7285 /* Wishes */,
 				93671DA727676461009A4CF1 /* SocialAndServices */,
+				937460EB28506ECD00C5CBB1 /* SwiftUIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1274,6 +1282,7 @@
 			children = (
 				93553A86264701E60027BA06 /* CustomViews.swift */,
 				93553AAB264845110027BA06 /* CustomNumberPad.swift */,
+				93D7FD7B2853238C00EFAFBF /* VideoCursorSlider.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -2153,6 +2162,7 @@
 				932FF8B126C1309300DE52F9 /* VideoTitleView.swift in Sources */,
 				934B0E0726A58D4F0008DCE5 /* ModifyPasswordView.swift in Sources */,
 				93671DB1276765EE009A4CF1 /* KeyAccRegChoiceView.swift in Sources */,
+				93D7FD7A2853143500EFAFBF /* PlayerViewModel.swift in Sources */,
 				93AC02212726795B00FD7285 /* FuneralInviteText.swift in Sources */,
 				935FFCB22797E63F00290E4C /* OnlineServiceViewModel.swift in Sources */,
 				938C234127D361EF00E509BA /* ImageManipulation.swift in Sources */,
@@ -2260,6 +2270,7 @@
 				933DF620278BFDE3005966AF /* ExtraWishesViewModel.swift in Sources */,
 				2335CA3A27D5D07200FCA5B4 /* DonationViewModel.swift in Sources */,
 				93AC02E1274B695B00FD7285 /* AdminDocsNew.swift in Sources */,
+				937460EC28506ECD00C5CBB1 /* SwiftUIView.swift in Sources */,
 				2320731827FF7F0500D5A8C3 /* GuardianManageContractsView.swift in Sources */,
 				23D3CFC727BD72CB009CDBF4 /* CodePractiveView.swift in Sources */,
 				932FF8B326C130CC00DE52F9 /* VideoGroupView.swift in Sources */,
@@ -2304,6 +2315,7 @@
 				93AC02AC274B56DE00FD7285 /* ObjectsDonationNew.swift in Sources */,
 				9371D16F28329394009B4530 /* OrganizationsListView.swift in Sources */,
 				938313942671E46E00C71C98 /* PHAsset.swift in Sources */,
+				93D7FD7C2853238C00EFAFBF /* VideoCursorSlider.swift in Sources */,
 				934B0E1926B28FFC0008DCE5 /* AudioViewModel.swift in Sources */,
 				93AC02DA274B64B400FD7285 /* DonationOrgsSelectionView.swift in Sources */,
 				93671DB52767661E009A4CF1 /* KeyAccRegTelView.swift in Sources */,
@@ -2470,7 +2482,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2494,7 +2506,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 59;
+				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

@@ -13,93 +13,71 @@ import NavigationStack
 import UniformTypeIdentifiers
 
 struct VideoTrimView: View {
-    @State var videoUrl: URL
+    @Binding var videoUrl: URL
     var asset: AVURLAsset
-    let finishedObserver: PlayerFinishedObserver
-    @State private var valid = true
-    @State private var loading = false
     @State private var frames = [UIImage]()
-    @StateObject var playerManager: PlayerManager
+    @State private var fullScreen = false
+    @StateObject var playerVM: PlayerViewModel
     @ObservedObject var slider: CustomSlider
     @EnvironmentObject var navigationModel: NavigationModel
     
     var body: some View {
-        NavigationStackView("VideoTrimView") {
-            ZStack(alignment: .bottom) {
-                MenuBaseView(height: 60, title: "Aperçu") {
-                    AVPlayerControllerRepresented(player: playerManager.player)
-                        .frame(width: 212, height: 390)
-                        .padding(.top, -20)
-                    #if DEBUG
-                    Text("Start Time:") + Text("\(slider.lowHandle.currentValue)")
-                    #endif
-                    SliderView(slider: slider, frames: frames)
-                        .padding(.vertical, 30)
-                    #if DEBUG
-                    Text("End Time:") + Text("\(slider.highHandle.currentValue)")
-                    #endif
-                    Button(action: {
-                        playerManager.playPause()
-                    }, label: {
-                        RoundedRectangle(cornerRadius: 22.0)
-                            .foregroundColor(.white)
-                            .frame(width: 55, height: 52)
-                            .thinShadow()
-                            .overlay(Image(systemName: playerManager.playing ? "pause.fill" : "play.fill").foregroundColor(.accentColor))
-                    })
-                    Spacer().frame(height: 50)
-                }
-                HStack {
-                    Button(action: {
-                        if valid && !loading {
-                            loading = true
-                            if slider.lowHandle.currentValue > 1 || slider.highHandle.currentValue < asset.duration.seconds {
-                                cropVideo(sourceURL1: videoUrl, statTime: Float(slider.lowHandle.currentValue), endTime: Float(slider.highHandle.currentValue)) { result in
-                                    switch result {
-                                    
-                                    case .success(let outputUrl):
-                                        navigationModel.pushContent("VideoTrimView") {
-                                            VideoFilterView(filename: outputUrl)
+        Group {
+            if fullScreen {
+                MsgVideoPlayerView(fullScreen: $fullScreen, playerVM: playerVM)
+            } else {
+                NavigationStackView("VideoTrimView") {
+                    MenuBaseView(height: 60, title: "Aperçu") {
+                        MsgVideoPlayerView(fullScreen: $fullScreen, playerVM: playerVM)
+                        SliderView(playerManager: playerVM, slider: slider, frames: frames, handleMoved: .constant(slider.lowHandle.currentValue > 1 || slider.highHandle.currentValue < asset.duration.seconds))
+                            .padding(.vertical, 50)
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                if slider.lowHandle.currentValue > 1 || slider.highHandle.currentValue < asset.duration.seconds {
+                                    cropVideo(sourceURL1: videoUrl, statTime: Float(slider.lowHandle.currentValue), endTime: Float(slider.highHandle.currentValue)) { result in
+                                        switch result {
+                                            
+                                        case .success(let outputUrl):
+                                            navigationModel.pushContent("VideoTrimView") {
+                                                VideoFilterView(filename: outputUrl)
+                                            }
+                                        case .failure(let err):
+                                            print(err)
                                         }
-                                    case .failure(let err):
-                                        print(err)
+                                    }
+                                } else {
+                                    navigationModel.pushContent("VideoTrimView") {
+                                        VideoFilterView(filename: videoUrl)
                                     }
                                 }
-                            } else {
-                                navigationModel.pushContent("VideoTrimView") {
-                                    VideoFilterView(filename: videoUrl)
+                            }, label: {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(.accentColor)
+                                        .frame(width: 56, height: 56)
+                                        .cornerRadius(25)
+                                    Image(systemName: "chevron.right").foregroundColor(.white)
                                 }
-                            }
+                            })
                         }
-                    }, label: {
-                        Text(slider.lowHandle.currentValue > 1 || slider.highHandle.currentValue < asset.duration.seconds ? "Rogner" : "Valider")
-                            .font(.system(size: 15))
-                            .padding(3)
-                    })
-                    .buttonStyle(MyButtonStyle(foregroundColor: .white, backgroundColor: valid ? .accentColor : .gray))
-                    .padding(.bottom, 50)
-                    .padding(.top, 20)
+                    }
                 }
-                .frame(maxWidth: .infinity)
-                .background(
-                    Color.white
-                        .clipShape(CustomCorner(corners: [.topLeft,.topRight]))
-                )
-                .shadow(color: Color.gray.opacity(0.15), radius: 5, x: -5, y: -5)
             }
-        }
-        .onReceive(finishedObserver.publisher) {
-            playerManager.playing = false
-            seekVideo(toPosition: CGFloat(slider.lowHandle.currentValue))
         }
         .onDidAppear() {
             getVideoFrames()
         }
+        .onChange(of: playerVM.isFinishedPlaying) { finished in
+            if finished {
+                playerVM.seekVideo(toPosition: CGFloat(slider.lowHandle.currentValue))
+            }
+        }
         .onChange(of: slider.lowHandle.currentValue) { value in
-            seekVideo(toPosition: CGFloat(value))
+            playerVM.seekVideo(toPosition: CGFloat(value))
         }
         .onChange(of: slider.highHandle.currentValue) { value in
-            seekVideo(toPosition: CGFloat(value))
+            playerVM.seekVideo(toPosition: CGFloat(value))
         }
     }
     func getVideoFrames() {
@@ -128,17 +106,12 @@ struct VideoTrimView: View {
         })
     }
     
-    func seekVideo(toPosition position: CGFloat) {
-        let time: CMTime = CMTimeMakeWithSeconds(Float64(position), preferredTimescale: playerManager.player.currentTime().timescale)
-        playerManager.player.seek(to: time, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
-      }
-    
     func cropVideo(sourceURL1: URL, statTime:Float, endTime:Float, completion: @escaping (Result<URL,Error>) -> Void ) {
         let manager = FileManager.default
         
         guard let documentDirectory = try? manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true) else {return}
         let mediaType = "mp4"
-//        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
+        //        if mediaType == kUTTypeMovie as String || mediaType == "mp4" as String {
         if mediaType == UTType.movie.identifier as String || mediaType == "mp4" as String {
             let asset = AVAsset(url: sourceURL1 as URL)
             let length = Float(asset.duration.value) / Float(asset.duration.timescale)
@@ -188,14 +161,64 @@ struct VideoTrimView: View {
         }
     }
     
-//    func saveToCameraRoll(url: URL) {
-//        PHPhotoLibrary.shared().performChanges({
-//        PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-//      }) { saved, error in
-//        if saved {
-//         print("Trimmed video saved to Photos")
-//      }}}
-//
+    //    func saveToCameraRoll(url: URL) {
+    //        PHPhotoLibrary.shared().performChanges({
+    //        PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+    //      }) { saved, error in
+    //        if saved {
+    //         print("Trimmed video saved to Photos")
+    //      }}}
+    //
+}
+
+struct MsgVideoPlayerView: View {
+    @Binding var fullScreen: Bool
+    @ObservedObject var playerVM: PlayerViewModel
+    var body: some View {
+        ZStack {
+            AVPlayerControllerRepresented(player: playerVM.player)
+            VStack {
+                HStack {
+                    Button {
+                        playerVM.player.isMuted.toggle()
+                    } label: {
+                        Image(systemName: playerVM.player.isMuted ? "speaker.slash.fill": "speaker.wave.2.fill")
+                            .foregroundColor(.white)
+                            .frame(width: 20, height: 20)
+                            .padding()
+                    }
+                    Spacer()
+                    Text(durationFormatter.string(from: playerVM.currentTime) ?? "")
+                        .foregroundColor(.white)
+                        .font(.system(size: 10))
+                        .padding()
+                }
+                .padding(.top, fullScreen ? 20 : 0)
+                Spacer()
+                Button {
+                    playerVM.playPause()
+                } label: {
+                    Image(systemName: playerVM.isPlaying ? "pause.circle.fill": "play.circle.fill")
+                        .font(.system(size: 56))
+                        .foregroundColor(.black.opacity(0.3))
+                }
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        fullScreen.toggle()
+                    }) {
+                        Image(fullScreen ? "ic_minimize" : "ic_maximize")
+                            .padding()
+                    }
+                }
+            }
+        }
+        .frame(width: fullScreen ? screenSize.width : 252, height: fullScreen ? screenSize.height : 448)
+        .if (!fullScreen) { $0.padding(.top, -20) }
+        .ignoresSafeArea()
+        .statusBar(hidden: fullScreen)
+    }
 }
 
 struct AVPlayerControllerRepresented : UIViewControllerRepresentable {
@@ -236,24 +259,11 @@ class PlayerManager : ObservableObject {
     }
 }
 
-class PlayerFinishedObserver {
-
-    let publisher = PassthroughSubject<Void, Never>()
-
-    init(player: AVPlayer) {
-        let item = player.currentItem
-
-        var cancellable: AnyCancellable?
-        cancellable = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: item).sink { [weak self] change in
-            self?.publisher.send()
-            cancellable?.cancel()
-        }
-    }
-}
-
 struct SliderView: View {
+    @ObservedObject var playerManager: PlayerViewModel
     @ObservedObject var slider: CustomSlider
     var frames: [UIImage]
+    @Binding var handleMoved: Bool
     
     var body: some View {
         RoundedRectangle(cornerRadius: slider.lineWidth)
@@ -262,34 +272,59 @@ struct SliderView: View {
             .overlay(
                 ZStack {
                     //Path between both handles
-                    SliderPathBetweenView(frames: frames)
+                    SliderPathBetweenView(frames: frames, handleMoved: $handleMoved)
                     
                     //Low Handle
-                    SliderHandleView(handle: slider.lowHandle, handelImage: "lowerBound")
+                    SliderHandleView(handle: slider.lowHandle, handelImage: "lowerBound", handleMoved: $handleMoved)
                         .highPriorityGesture(slider.lowHandle.sliderDragGesture)
                     
                     //High Handle
-                    SliderHandleView(handle: slider.highHandle, handelImage: "upperBound")
+                    SliderHandleView(handle: slider.highHandle, handelImage: "upperBound", handleMoved: $handleMoved)
                         .highPriorityGesture(slider.highHandle.sliderDragGesture)
+                    
+                    VideoCursorView(playerManager: playerManager, handle: slider.lowHandle)
                 }
             )
+    }
+}
+
+struct VideoCursorView: View {
+    @ObservedObject var playerManager: PlayerViewModel
+    @ObservedObject var handle: SliderHandle
+    @State private var offset = 0.0
+    var body: some View {
+        Image("ic_video_cursor")
+            .position(x: handle.currentLocation.x + 10.0, y: handle.currentLocation.y + 28.5)
+            .offset(x: offset)
+            .animation(.default, value: offset)
+            .onChange(of: playerManager.currentTime) { value in
+                if !playerManager.isPlaying {
+                    offset = .zero
+                } else {
+                    offset = (value / (playerManager.player.currentItem!.asset.duration.seconds / 0.25)) * 1250.0
+                }
+            }
     }
 }
 
 struct SliderHandleView: View {
     @ObservedObject var handle: SliderHandle
     var handelImage: String
+    @Binding var handleMoved: Bool
     
     var body: some View {
         Image(handelImage)
+            .renderingMode(.template)
             .resizable()
             .frame(width: 23.95, height: 65)
+            .foregroundColor(handleMoved ? Color(uiColor: UIColor(red: 0.29, green: 0.27, blue: 0.29, alpha: 1.00)) : .black)
             .position(x: handle.currentLocation.x, y: handle.currentLocation.y + 28.5)
     }
 }
 
 struct SliderPathBetweenView: View {
     var frames: [UIImage]
+    @Binding var handleMoved: Bool
     
     var body: some View {
         HStack(spacing:0) {
@@ -301,9 +336,7 @@ struct SliderPathBetweenView: View {
                     .clipped()
             }
         }
-        .border(Color.black, width: 8)
+        .border(handleMoved ? Color(uiColor: UIColor(red: 0.29, green: 0.27, blue: 0.29, alpha: 1.00)) : Color.black, width: 8)
+        .cornerRadius(10.0)
     }
 }
-
-
-

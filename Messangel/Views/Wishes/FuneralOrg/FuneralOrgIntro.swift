@@ -29,11 +29,11 @@ struct FuneralOrgIntro: View {
                         Spacer()
                     }
                     .padding(.bottom)
-                    Text("Organismes obsèques")
+                    Text("Organismes spécialisés")
                         .font(.system(size: 22))
                         .fontWeight(.bold)
                         .padding(.bottom)
-                    Text("Indiquez si vous êtes relié à une entreprise funéraire, ou si vous avez souscrit à un contrat obsèques.")
+                    Text("Indiquez si vous êtes relié à une entreprise funéraire, ou si vous avez souscrit à un contrat obsèques. Ces informations faciliteront vos Anges-gardiens dans leur organisation.")
                         .font(.system(size: 15))
                     Spacer()
                     HStack {

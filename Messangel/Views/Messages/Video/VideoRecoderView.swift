@@ -79,9 +79,9 @@ struct RecordingView: View {
     
     fileprivate func trimVideoAtUrl(_ url: URL) {
         let asset = AVURLAsset(url: url, options: nil)
-        let playermanager = PlayerManager(videoUrl: url)
+        let playermanager = PlayerViewModel(videoUrl: url)
         navigationModel.pushContent("VideoRecoderView") {
-            VideoTrimView(videoUrl: url, asset: asset, finishedObserver: PlayerFinishedObserver(player: playermanager.player), playerManager: playermanager, slider: CustomSlider(start: 1, end: asset.duration.seconds))
+            VideoTrimView(videoUrl: .constant(url), asset: asset, playerVM: playermanager, slider: CustomSlider(start: 1, end: asset.duration.seconds))
         }
     }
     
