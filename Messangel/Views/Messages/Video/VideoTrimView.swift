@@ -272,7 +272,7 @@ struct SliderView: View {
             .overlay(
                 ZStack {
                     //Path between both handles
-                    SliderPathBetweenView(frames: frames, handleMoved: $handleMoved)
+                    SliderPathBetweenView(frames: frames, handleMoved: $handleMoved, slider: slider)
                     
                     //Low Handle
                     SliderHandleView(handle: slider.lowHandle, handelImage: "lowerBound", handleMoved: $handleMoved)
@@ -325,6 +325,7 @@ struct SliderHandleView: View {
 struct SliderPathBetweenView: View {
     var frames: [UIImage]
     @Binding var handleMoved: Bool
+    @ObservedObject var slider: CustomSlider
     
     var body: some View {
         HStack(spacing:0) {
@@ -336,7 +337,18 @@ struct SliderPathBetweenView: View {
                     .clipped()
             }
         }
-        .border(handleMoved ? Color(uiColor: UIColor(red: 0.29, green: 0.27, blue: 0.29, alpha: 1.00)) : Color.black, width: 8)
-        .cornerRadius(10.0)
+        .overlay(VStack {
+            Path { path in
+                path.move(to: CGPoint(x: slider.lowHandle.currentLocation.x, y: slider.lowHandle.currentLocation.y - 1.2))
+                path.addLine(to: CGPoint(x: slider.highHandle.currentLocation.x - 2.0, y: slider.highHandle.currentLocation.y - 1.2))
+            }
+            .stroke(handleMoved ? Color(uiColor: UIColor(red: 0.29, green: 0.27, blue: 0.29, alpha: 1.00)) : .black, lineWidth: 5.5)
+            Spacer()
+            Path { path in
+                path.move(to: CGPoint(x: slider.lowHandle.currentLocation.x, y: slider.lowHandle.currentLocation.y + 21.75))
+                path.addLine(to: CGPoint(x: slider.highHandle.currentLocation.x - 2.0, y: slider.highHandle.currentLocation.y  + 21.75))
+            }
+            .stroke(handleMoved ? Color(uiColor: UIColor(red: 0.29, green: 0.27, blue: 0.29, alpha: 1.00)) : .black, lineWidth: 5.5)
+        })
     }
 }

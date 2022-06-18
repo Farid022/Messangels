@@ -76,6 +76,7 @@ struct RecordingView: View {
     @ObservedObject var stopWatch: StopWatchManager
     @State var showPicker = false
     @State var videoUrl = NSURL()
+    @State var albumImages:[UIImage] = []
     
     fileprivate func trimVideoAtUrl(_ url: URL) {
         let asset = AVURLAsset(url: url, options: nil)
@@ -83,6 +84,50 @@ struct RecordingView: View {
         navigationModel.pushContent("VideoRecoderView") {
             VideoTrimView(videoUrl: .constant(url), asset: asset, playerVM: playermanager, slider: CustomSlider(start: 1, end: asset.duration.seconds))
         }
+    }
+    fileprivate func fetchPhotos () {
+        // Sort the images by descending creation date and fetch the first 3
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+        fetchOptions.fetchLimit = 1
+
+        // Fetch the image assets
+        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.video, options: fetchOptions)
+
+        // If the fetch result isn't empty,
+        // proceed with the image request
+        if fetchResult.count > 0 {
+            let totalImageCountNeeded = 1 // <-- The number of images to fetch
+            fetchPhotoAtIndex(0, totalImageCountNeeded, fetchResult)
+        }
+    }
+    fileprivate func fetchPhotoAtIndex(_ index:Int, _ totalImageCountNeeded: Int, _ fetchResult: PHFetchResult<PHAsset>) {
+
+        // Note that if the request is not set to synchronous
+        // the requestImageForAsset will return both the image
+        // and thumbnail; by setting synchronous to true it
+        // will return just the thumbnail
+        let requestOptions = PHImageRequestOptions()
+        requestOptions.isSynchronous = true
+
+        // Perform the image request
+        PHImageManager.default().requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: CGSize(width: 56, height: 56), contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
+            if let image = image {
+                // Add the returned image to your array
+                albumImages += [image]
+            }
+            // If you haven't already reached the first
+            // index of the fetch result and if you haven't
+            // already stored all of the images you need,
+            // perform the fetch request again with an
+            // incremented index
+            if index + 1 < fetchResult.count && albumImages.count < totalImageCountNeeded {
+                fetchPhotoAtIndex(index + 1, totalImageCountNeeded, fetchResult)
+            } else {
+                // Else you have completed creating your array
+                print("Completed array: \(albumImages)")
+            }
+        })
     }
     
     var body: some View {
@@ -95,10 +140,22 @@ struct RecordingView: View {
             Button {
                 showPicker.toggle()
             } label: {
-                RoundedRectangle(cornerRadius: 25.0)
-                    .fill(Color.black.opacity(0.5))
-                    .frame(width: 56, height: 56)
-                    .overlay(Image("ic_gallery"))
+                Group {
+                    if let lastImage = albumImages.first {
+                        Image(uiImage: lastImage)
+                            .resizable()
+                            .frame(width: 56, height: 56)
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                    } else {
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .fill(Color.black.opacity(0.5))
+                            .frame(width: 56, height: 56)
+                            .overlay(
+                                Image("ic_gallery")
+                            )
+                    }
+                }
             }
             .if(isRecording) { $0.hidden() }
             Spacer()
@@ -147,6 +204,9 @@ struct RecordingView: View {
             if value.isFileURL {
                 trimVideoAtUrl(value as URL)
             }
+        }
+        .onDidAppear {
+            self.fetchPhotos()
         }
     }
 }

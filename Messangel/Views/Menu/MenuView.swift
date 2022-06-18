@@ -71,6 +71,7 @@ struct MenuView: View {
             MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),
             MainMenu(id: "Liste de organismes", ic: "ic_company", destination: AnyView(OrganizationsListView())),
             MainMenu(id: "Parrainer un proche", ic: "ic_sponsor", destination: AnyView(SponsorView())),
+            MainMenu(id: "Les messages de mes proches", ic: "ic_messages", destination: AnyView(MyMessagesIntro())),
             MainMenu(id: "Notifications et alertes SMS", ic: "ic_bell", destination: AnyView(NotificationsView())),
             MainMenu(id: "Propositions d’améliorations", ic: "ic_bulb", destination: AnyView(SuggestionsView())),
             MainMenu(id: "Support/F.A.Q", ic: "ic_wheel", destination: AnyView(FAQView())),

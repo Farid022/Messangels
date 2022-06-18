@@ -409,6 +409,9 @@
 		93DBCFFA27B2477A00E71C0B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */; };
 		93DBCFFC27B28BE800E71C0B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DBCFFB27B28BE800E71C0B /* Constants.swift */; };
 		93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBCFFE27B4DFC400E71C0B /* Kingfisher */; };
+		93DC4718285C41ED005CE769 /* MyMessagesIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC4717285C41ED005CE769 /* MyMessagesIntro.swift */; };
+		93DC471A285C4207005CE769 /* MyMessagesSec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC4719285C4207005CE769 /* MyMessagesSec.swift */; };
+		93DC471C285C422B005CE769 /* MyMessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC471B285C422B005CE769 /* MyMessagesList.swift */; };
 		93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C82695EA3700F50894 /* AttributedText.swift */; };
 		93EFE7CE2695EA3700F50894 /* TextViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C92695EA3700F50894 /* TextViewStore.swift */; };
 		93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */; };
@@ -840,6 +843,9 @@
 		93D7FD7B2853238C00EFAFBF /* VideoCursorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCursorSlider.swift; sourceTree = "<group>"; };
 		93DBCFF927B2477A00E71C0B /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		93DBCFFB27B28BE800E71C0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		93DC4717285C41ED005CE769 /* MyMessagesIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesIntro.swift; sourceTree = "<group>"; };
+		93DC4719285C4207005CE769 /* MyMessagesSec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesSec.swift; sourceTree = "<group>"; };
+		93DC471B285C422B005CE769 /* MyMessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesList.swift; sourceTree = "<group>"; };
 		93EFE7C82695EA3700F50894 /* AttributedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		93EFE7C92695EA3700F50894 /* TextViewStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewStore.swift; sourceTree = "<group>"; };
 		93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLineBreakMode+TruncationMode.swift"; sourceTree = "<group>"; };
@@ -1365,6 +1371,9 @@
 				9371D170283298D9009B4530 /* OganizationEditView.swift */,
 				935A599B265CD91E005B0505 /* CreateContactView.swift */,
 				935A5991265BAFDD005B0505 /* SponsorView.swift */,
+				93DC4717285C41ED005CE769 /* MyMessagesIntro.swift */,
+				93DC4719285C4207005CE769 /* MyMessagesSec.swift */,
+				93DC471B285C422B005CE769 /* MyMessagesList.swift */,
 				935A5993265BAFF4005B0505 /* NotificationsView.swift */,
 				935A5995265BB02B005B0505 /* SuggestionsView.swift */,
 				935A5997265BB040005B0505 /* FAQView.swift */,
@@ -2038,6 +2047,7 @@
 				93AC027F274660D700FD7285 /* PracticalCodesIntro.swift in Sources */,
 				2335CA4327D5D07200FCA5B4 /* WishesListViewModel.swift in Sources */,
 				93AC02E3274B695B00FD7285 /* AdminDocsNote.swift in Sources */,
+				93DC471A285C4207005CE769 /* MyMessagesSec.swift in Sources */,
 				93AC02872747633A00FD7285 /* ClothsDonationCount.swift in Sources */,
 				938C232627CF2B3A00E509BA /* ConfirmDeathDoneView.swift in Sources */,
 				934B0E0F26AECDE50008DCE5 /* ContactViewModel.swift in Sources */,
@@ -2161,6 +2171,7 @@
 				933DF61C278BFC61005966AF /* PracticalCodeViewModel.swift in Sources */,
 				932FF8B126C1309300DE52F9 /* VideoTitleView.swift in Sources */,
 				934B0E0726A58D4F0008DCE5 /* ModifyPasswordView.swift in Sources */,
+				93DC4718285C41ED005CE769 /* MyMessagesIntro.swift in Sources */,
 				93671DB1276765EE009A4CF1 /* KeyAccRegChoiceView.swift in Sources */,
 				93D7FD7A2853143500EFAFBF /* PlayerViewModel.swift in Sources */,
 				93AC02212726795B00FD7285 /* FuneralInviteText.swift in Sources */,
@@ -2223,6 +2234,7 @@
 				93AC01E12716B68000FD7285 /* ModifyMobileView.swift in Sources */,
 				93AC02FB274B9CC300FD7285 /* PracticalCodesMsnglPass.swift in Sources */,
 				93AC0223272679D100FD7285 /* FuneralInviteNewsPaper.swift in Sources */,
+				93DC471C285C422B005CE769 /* MyMessagesList.swift in Sources */,
 				938C231A27CC84B400E509BA /* CreateFuneralPlaceView.swift in Sources */,
 				93AC029327476C5900FD7285 /* ClothsDonationContact.swift in Sources */,
 				93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */,
