@@ -19,13 +19,11 @@ struct ClothsDonationOrganization: View {
         ZStack {
             FlowBaseView(stepNumber: 5.0, totalSteps: 7.0, menuTitle: "Vêtements et accessoires", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(ClothsDonationPic(vm: vm))) {
                 if vm.orgName.isEmpty {
-                    Button(action: {
+                    OrgListButton() {
                         navigationModel.presentContent(title) {
                             SingleOrgSelectionList(orgId: $vm.clothDonation.clothing_organization_detail.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 2)
                         }
-                    }, label: {
-                        Image("list_org")
-                    })
+                    }
                 } else {
                     FuneralCapsuleView(name: vm.orgName) {
                         vm.orgName.removeAll()

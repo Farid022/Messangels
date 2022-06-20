@@ -20,13 +20,17 @@ struct AnimalDonationContact: View {
         ZStack {
             FlowBaseView(stepNumber: 7.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(AnimalDonationNote(vm: vm))) {
                 if vm.contactName.isEmpty {
-                    Button(action: {
-                        navigationModel.presentContent(title) {
-                            SingleContactSelectionList(contactId: $vm.animalDonation.animal_contact_detail.toUnwrapped(defaultValue: 0), contactName: $vm.contactName)
-                        }
-                    }, label: {
-                        Image("list_contact")
-                    })
+                    HStack {
+                        Button(action: {
+                            navigationModel.presentContent(title) {
+                                SingleContactSelectionList(contactId: $vm.animalDonation.animal_contact_detail.toUnwrapped(defaultValue: 0), contactName: $vm.contactName)
+                            }
+                        }, label: {
+                            Text("Liste des contacts")
+                        })
+                        .buttonStyle(MyButtonStyle())
+                        Spacer()
+                    }
                 } else {
                     HStack {
                         FuneralCapsuleView(name: vm.contactName) {

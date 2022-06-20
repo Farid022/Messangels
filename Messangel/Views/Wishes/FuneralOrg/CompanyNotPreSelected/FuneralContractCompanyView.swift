@@ -23,13 +23,11 @@ struct FuneralContractCompanyView: View {
             }
             FlowBaseView(stepNumber: 3.0, totalSteps: 4.0, noteText: $vm.funeralOrg.funeral_company_note.bound, note: true, showNote: $showNote, menuTitle: "Organismes spécialisés", title: title, valid: .constant(vm.funeralOrg.funeral_company != nil), destination: AnyView(FuneralContractNo(vm: vm))) {
                 if vm.funeralOrg.funeral_company == nil {
-                    Button(action: {
+                    OrgListButton() {
                         navigationModel.presentContent(title) {
                             SingleOrgSelectionList(orgId: $vm.funeralOrg.funeral_company.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 6)
                         }
-                    }, label: {
-                        Image("list_org")
-                    })
+                    }
                 } else {
                     FuneralCapsuleView(name: vm.orgName) {
                         vm.funeralOrg.funeral_company = nil

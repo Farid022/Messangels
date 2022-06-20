@@ -29,13 +29,11 @@ struct MsgGroupContacts: View {
                     Spacer()
                     Text("Sélectionnez un ou plusieurs destinataires")
                         .font(.system(size: 17), weight: .semibold)
-                    Button(action: {
+                    ContactsListButton() {
                         navigationModel.presentContent(String(describing: Self.self)) {
                             MsgGroupContactsList(vm: vm)
                         }
-                    }, label: {
-                        Image("list_contact")
-                    })
+                    }
                 } else {
                     HStack {
                         VStack {

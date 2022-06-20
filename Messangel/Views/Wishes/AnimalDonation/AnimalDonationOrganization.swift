@@ -20,13 +20,11 @@ struct AnimalDonationOrganization: View {
         ZStack {
             FlowBaseView(stepNumber: 7.0, totalSteps: 8.0, menuTitle: "ANIMAUX", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(AnimalDonationNote(vm: vm))) {
                 if vm.orgName.isEmpty {
-                    Button(action: {
+                    OrgListButton() {
                         navigationModel.presentContent(title) {
                             SingleOrgSelectionList(orgId: $vm.animalDonation.animal_organization_detail.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 5)
                         }
-                    }, label: {
-                        Image("list_org")
-                    })
+                    }
                 } else {
                     HStack {
                         FuneralCapsuleView(name: vm.orgName) {

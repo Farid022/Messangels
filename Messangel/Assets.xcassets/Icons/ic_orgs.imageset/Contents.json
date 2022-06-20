@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "list_contact.png",
+      "filename" : "ic_orgs.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "list_contact@2x.png",
+      "filename" : "ic_orgs@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "list_contact@3x.png",
+      "filename" : "ic_orgs@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

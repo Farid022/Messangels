@@ -20,13 +20,11 @@ struct ManagedContractOrganization: View {
         ZStack {
             FlowBaseView(stepNumber: 3.0, totalSteps: 4.0, menuTitle: "Contrats à gérer", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(ManagedContractNote(vm: vm))) {
                 if vm.orgName.isEmpty {
-                    Button(action: {
+                    OrgListButton() {
                         navigationModel.presentContent(title) {
                             SingleOrgSelectionList(orgId: $vm.contract.contract_organization, orgName: $vm.orgName, orgType: 4)
                         }
-                    }, label: {
-                        Image("list_org")
-                    })
+                    }
                 } else {
                     FuneralCapsuleView(name: vm.orgName) {
                         vm.orgName.removeAll()

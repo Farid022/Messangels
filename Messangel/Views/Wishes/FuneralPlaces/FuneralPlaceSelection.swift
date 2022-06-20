@@ -24,15 +24,10 @@ struct FuneralPlaceSelection: View {
             }
             FlowBaseView(stepNumber: 2.0, totalSteps: 6.0, noteText: $vm.location.bury_location_note.bound, note: true, showNote: $showNote, menuTitle: "Lieux", title: title, valid: .constant(!vm.orgName.isEmpty), destination: AnyView(FuneralRestingPlace(vm: vm))) {
                 if vm.orgName.isEmpty {
-                    HStack {
-                        Button(action: {
-                            navigationModel.presentContent(title) {
-                                SingleOrgSelectionList(orgId: $vm.location.bury_location.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 9)
-                            }
-                        }, label: {
-                            Image("list_org")
-                        })
-                        Spacer()
+                    OrgListButton() {
+                        navigationModel.presentContent(title) {
+                            SingleOrgSelectionList(orgId: $vm.location.bury_location.toUnwrapped(defaultValue: 0), orgName: $vm.orgName, orgType: 9)
+                        }
                     }
                 } else {
                     HStack {

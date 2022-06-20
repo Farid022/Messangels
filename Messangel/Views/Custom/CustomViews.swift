@@ -23,6 +23,8 @@ struct MyLink: View {
     }
 }
 
+// MARK: - Buttons
+
 struct NextButton: View {
     var isCustomAction = false
     var customAction: () -> Void = {}
@@ -54,6 +56,46 @@ struct NextButton: View {
                     Image(systemName: "chevron.right").foregroundColor(iconColor)
                 }
             )
+    }
+}
+
+struct ContactsListButton: View {
+    var action: () -> Void
+    var body: some View {
+        HStack {
+            Button(action: {
+                action()
+            }, label: {
+                HStack {
+                    Image("ic_contacts")
+                        .renderingMode(.template)
+                        .foregroundColor(.white)
+                    Text("Liste des contacts")
+                }
+            })
+            .buttonStyle(MyButtonStyle(padding: 0.0, maxWidth: false, foregroundColor: .white, backgroundColor: .accentColor))
+            Spacer()
+        }
+    }
+}
+
+struct OrgListButton: View {
+    var action: () -> Void
+    var body: some View {
+        HStack {
+            Button(action: {
+                action()
+            }, label: {
+                HStack {
+                    Image("ic_orgs")
+                        .renderingMode(.template)
+                        .foregroundColor(.white)
+                    Text("Liste des organismes")
+                }
+            })
+            .buttonStyle(MyButtonStyle(padding: 0.0, maxWidth: false, foregroundColor: .white, backgroundColor: .accentColor))
+            Spacer()
+        }
     }
 }
 

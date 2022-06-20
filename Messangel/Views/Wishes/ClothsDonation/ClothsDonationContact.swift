@@ -19,13 +19,11 @@ struct ClothsDonationContact: View {
         ZStack {
             FlowBaseView(stepNumber: 5.0, totalSteps: 7.0, menuTitle: "Vêtements et accessoires", title: title, valid: .constant(!vm.contactName.isEmpty), destination: AnyView(ClothsDonationPic(vm: vm))) {
                 if vm.contactName.isEmpty {
-                    Button(action: {
+                    ContactsListButton() {
                         navigationModel.presentContent(title) {
                             SingleContactSelectionList(contactId: $vm.clothDonation.clothing_contact_detail.toUnwrapped(defaultValue: 0), contactName: $vm.contactName)
                         }
-                    }, label: {
-                        Image("list_contact")
-                    })
+                    }
                 } else {
                     FuneralCapsuleView(name: vm.contactName) {
                         vm.contactName.removeAll()

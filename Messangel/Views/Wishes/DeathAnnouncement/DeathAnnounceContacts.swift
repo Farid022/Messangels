@@ -39,13 +39,11 @@ struct DeathAnnounceContacts: View {
                 
             },note: true, showNote: $showNote, menuTitle: "Diffusion de la nouvelle", title: title, valid: .constant(!vm.priorityContacts.contact.isEmpty)) {
                 if vm.priorityContacts.contact.isEmpty {
-                    Button(action: {
+                    ContactsListButton() {
                         navigationModel.presentContent(title) {
                             DeathAnnounceContactsList(vm: vm)
                         }
-                    }, label: {
-                        Image("list_contact")
-                    })
+                    }
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))], alignment: .leading, spacing: 16.0) {
                         Button {
