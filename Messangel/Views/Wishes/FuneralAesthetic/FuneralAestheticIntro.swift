@@ -49,7 +49,7 @@ struct FuneralAestheticIntro: View {
                 if sucess {
                     if vm.asthetics.count > 0 {
                         let i = vm.asthetics[0]
-                        vm.asthetic = FueneralAsthetic(special_decoration_note: i.special_decoration_note, attendence_dress_note: i.attendence_dress_note, guest_accessories_note: i.guest_accessories_note, flower: i.flower.id, flower_note: i.flower_note)
+                        vm.asthetic = FueneralAsthetic(special_decoration_note: i.special_decoration_note, attendence_dress_note: i.attendence_dress_note, guest_accessories_note: i.guest_accessories_note, flower: i.flower.map({$0.id}), flower_note: i.flower_note)
                         vm.asthetic.special_decoration_note_attachments = addAttacments(i.special_decoration_note_attachment)
                         vm.asthetic.attendence_dress_note_attachments = addAttacments(i.attendence_dress_note_attachment)
                         vm.asthetic.guest_accessories_note_attachments = addAttacments(i.guest_accessories_note_attachment)

@@ -52,7 +52,7 @@ struct FueneralAsthetic: Codable {
     var guest_accessories_note: String
     var guest_accessories_note_attachment: [Int]?
     @CodableIgnored var guest_accessories_note_attachments: [URL]?
-    var flower: Int
+    var flower: [Int]
     var flower_note: String?
     var flower_note_attachment: [Int]?
     @CodableIgnored var flower_note_attachments: [URL]?
@@ -67,7 +67,7 @@ struct FueneralAstheticData: Codable {
     var attendence_dress_note_attachment: [Attachement]?
     var guest_accessories_note: String
     var guest_accessories_note_attachment: [Attachement]?
-    var flower: FuneralChoice
+    var flower: [FuneralChoice]
     var flower_note: String?
     var flower_note_attachment: [Attachement]?
     var user: User
@@ -78,7 +78,7 @@ class FueneralAstheticViewModel: CUViewModel {
     @Published var recordId = 0
     @Published var progress = 0
     @Published var asthetics = [FueneralAstheticData]()
-    @Published var asthetic = FueneralAsthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: 0)
+    @Published var asthetic = FueneralAsthetic(special_decoration_note: "", attendence_dress_note: "", guest_accessories_note: "", flower: [0])
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     

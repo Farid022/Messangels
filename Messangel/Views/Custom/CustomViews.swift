@@ -459,6 +459,62 @@ struct FlowChoicesView<VM: CUViewModel>: View {
     }
 }
 
+struct FlowMultipleChoicesView<VM: CUViewModel>: View {
+    @State var showNote = false
+    var tab = 0
+    var stepNumber: Double
+    var totalSteps: Double
+    @Binding var noteText: String
+    @Binding var noteAttachmentIds: [Int]?
+    @Binding var oldAttachedFiles: [URL]?
+    var choices: [FuneralChoice]
+    @Binding var selectedChoice: [Int]
+    var menuTitle: String
+    var title: String
+    var destination: AnyView
+    @ObservedObject var vm: VM
+    
+    var body: some View {
+        ZStack {
+            if showNote {
+                NoteWithAttachementView(showNote: $showNote, note: $noteText, oldAttachedFiles: $oldAttachedFiles, noteAttachmentIds: $noteAttachmentIds)
+                 .zIndex(1.0)
+                 .background(.black.opacity(0.8))
+            }
+            WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination, viewModel: vm) {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: -70){
+                        ForEach(choices, id: \.self) { choice in
+                            VStack(spacing: 0) {
+                                Image(choice.name)
+                                Rectangle()
+                                    .foregroundColor(selectedChoice.contains(choice.id) ? .accentColor : .white)
+                                    .frame(width: 161, height: 44)
+                                    .clipShape(CustomCorner(corners: [.bottomLeft, .bottomRight]))
+                                    .overlay(
+                                        Text(choice.name)
+                                            .foregroundColor(selectedChoice.contains(choice.id) ? .white : .black)
+                                    )
+                                    .padding(.top, -50)
+                            }
+                            .thinShadow()
+                            .onTapGesture {
+                                if selectedChoice.contains(choice.id) {
+                                    selectedChoice.removeAll(where: {$0 == choice.id})
+                                } else {
+                                    selectedChoice.append(choice.id)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.leading, -20)
+                }
+                .padding(.top, -20)
+            }
+        }
+    }
+}
+
 // MARK: - Custom Note Views
 
 struct NoteView: View {
