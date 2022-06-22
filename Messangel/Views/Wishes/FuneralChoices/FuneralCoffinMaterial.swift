@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct FuneralCoffinMaterial: View {
-    var choices = [
-        FuneralChoice(id: 1, name: "Chêne", image: ""),
-        FuneralChoice(id: 2, name: "Sapin", image: ""),
-        FuneralChoice(id: 3, name: "Pin", image: "")
-    ]
     @ObservedObject var vm: FeneralViewModel
-    
     var body: some View {
-        FlowChoicesView(tab: 1, stepNumber: 3.0, totalSteps: 12.0, noteText: $vm.funeral.coffin_material_note.bound, noteAttachmentIds: $vm.funeral.coffin_material_note_attachment, oldAttachedFiles: $vm.funeral.coffin_material_note_attachments, choices: choices, selectedChoice: $vm.funeral.coffin_material.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)), vm: vm)
+        FlowChoicesView(tab: 1, stepNumber: 3.0, totalSteps: 12.0, noteText: $vm.funeral.coffin_material_note.bound, noteAttachmentIds: $vm.funeral.coffin_material_note_attachment, oldAttachedFiles: $vm.funeral.coffin_material_note_attachments, choices: vm.choices, selectedChoice: $vm.funeral.coffin_material.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un matériau pour le cercueil", destination: AnyView(FuneralCoffinShape(vm: vm)), vm: vm, loading: $vm.loading)
+            .onDidAppear {
+                vm.loading.toggle()
+                vm.choices.removeAll()
+                vm.getChoices("coffin_material") { success in
+                    vm.loading.toggle()
+                }
+            }
     }
 }

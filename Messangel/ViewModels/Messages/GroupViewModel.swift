@@ -31,10 +31,23 @@ struct MsgGroupDetail: Codable, Hashable {
     var galleries: [MsgGallery]?
 }
 
+struct ContactMsgGroup: Codable, Hashable {
+    var id: Int
+    var name: String
+    var user: [User]
+    var permission: String
+    var group_contacts: [Contact]?
+    var texts: [MsgText]?
+    var audios: [MsgAudio]?
+    var videos: [MsgVideo]?
+    var galleries: [MsgGallery]?
+}
+
 class GroupViewModel: ObservableObject {
     @Published var groupContacts = [Contact]()
     @Published var group = MsgGroup(name: "")
     @Published var groups = [MsgGroupDetail]()
+    @Published var contactGroups = [ContactMsgGroup]()
     @Published var apiResponse = APIService.APIResponse(message: "")
     @Published var apiError = APIService.APIErr(error: "", error_description: "")
     
@@ -83,6 +96,21 @@ class GroupViewModel: ObservableObject {
                 }
             case .failure(let error):
                 print(error)
+            }
+        }
+    }
+    
+    func getContactGroups(completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: contactGroups, urlString: "contact-messages/group/\(getUserId())") { result in
+            switch result {
+            case .success(let groups):
+                DispatchQueue.main.async {
+                    self.contactGroups = groups
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
             }
         }
     }

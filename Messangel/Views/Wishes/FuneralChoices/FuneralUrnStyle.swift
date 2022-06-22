@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct FuneralUrnStyle: View {
-    var choices = [
-        FuneralChoice(id: 1, name: "Classique", image: ""),
-        FuneralChoice(id: 2, name: "Moderne", image: ""),
-        FuneralChoice(id: 3, name: "Original", image: "")
-    ]
     @ObservedObject var vm: FeneralViewModel
     var body: some View {
-        FlowChoicesView(tab: 1, stepNumber: 9.0, totalSteps: 12.0, noteText: $vm.funeral.urn_style_note.bound, noteAttachmentIds: $vm.funeral.urn_style_note_attachment, oldAttachedFiles: $vm.funeral.urn_style_note_attachments, choices: choices, selectedChoice: $vm.funeral.urn_style.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un style d’urne", destination: AnyView(FuneralAshPlace(vm: vm)), vm: vm)
+        FlowChoicesView(tab: 1, stepNumber: 9.0, totalSteps: 12.0, noteText: $vm.funeral.urn_style_note.bound, noteAttachmentIds: $vm.funeral.urn_style_note_attachment, oldAttachedFiles: $vm.funeral.urn_style_note_attachments, choices: vm.choices, selectedChoice: $vm.funeral.urn_style.toUnwrapped(defaultValue: 0), menuTitle: "Choix funéraires", title: "Choisissez un style d’urne", destination: AnyView(FuneralAshPlace(vm: vm)), vm: vm, loading: $vm.loading)
+//            .onDidAppear {
+//                UserDefaults.standard.set(75.0, forKey: wishesPersonal.first!.name)
+//            }
             .onDidAppear {
-                UserDefaults.standard.set(75.0, forKey: wishesPersonal.first!.name)
+                vm.loading.toggle()
+                vm.choices.removeAll()
+                vm.getChoices("urn_style") { success in
+                    vm.loading.toggle()
+                }
             }
     }
 }

@@ -421,6 +421,7 @@ struct FlowChoicesView<VM: CUViewModel>: View {
     var title: String
     var destination: AnyView
     @ObservedObject var vm: VM
+    @Binding var loading: Bool
     
     var body: some View {
         ZStack {
@@ -430,11 +431,20 @@ struct FlowChoicesView<VM: CUViewModel>: View {
                  .background(.black.opacity(0.8))
             }
             WishesFlowBaseView(tab: tab, stepNumber: stepNumber, totalSteps: totalSteps, noteText: $noteText, note: true, showNote: $showNote, menuTitle: menuTitle, title: title, valid: .constant(true), destination: destination, viewModel: vm) {
+                if !loading {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: -70){
+                    HStack(){
                         ForEach(choices, id: \.self) { choice in
                             VStack(spacing: 0) {
-                                Image(choice.name)
+                                Color.white
+                                    .frame(width: 161.0, height: 207.52)
+                                    .clipShape(CustomCorner(corners: [.topLeft, .topRight]))
+                                    .overlay(
+                                        KFImage.url(URL(string: choice.image))
+                                        .placeholder {
+                                            Loader()
+                                        }
+                                    )
                                 Rectangle()
                                     .foregroundColor(selectedChoice == choice.id ? .accentColor : .white)
                                     .frame(width: 161, height: 44)
@@ -443,7 +453,7 @@ struct FlowChoicesView<VM: CUViewModel>: View {
                                         Text(choice.name)
                                             .foregroundColor(selectedChoice == choice.id ? .white : .black)
                                     )
-                                    .padding(.top, -50)
+                                    .padding(.top, -7)
                             }
                             .thinShadow()
                             .onTapGesture {
@@ -451,9 +461,11 @@ struct FlowChoicesView<VM: CUViewModel>: View {
                             }
                         }
                     }
-                    .padding(.leading, -20)
+                    .padding()
                 }
-                .padding(.top, -20)
+                } else {
+                    Loader()
+                }
             }
         }
     }

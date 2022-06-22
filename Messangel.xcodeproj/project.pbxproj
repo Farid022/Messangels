@@ -411,7 +411,8 @@
 		93DBCFFF27B4DFC400E71C0B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 93DBCFFE27B4DFC400E71C0B /* Kingfisher */; };
 		93DC4718285C41ED005CE769 /* MyMessagesIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC4717285C41ED005CE769 /* MyMessagesIntro.swift */; };
 		93DC471A285C4207005CE769 /* MyMessagesSec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC4719285C4207005CE769 /* MyMessagesSec.swift */; };
-		93DC471C285C422B005CE769 /* MyMessagesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC471B285C422B005CE769 /* MyMessagesList.swift */; };
+		93DC471C285C422B005CE769 /* MyMessagesUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC471B285C422B005CE769 /* MyMessagesUsers.swift */; };
+		93DC471E28624A7A005CE769 /* MyMessagesGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DC471D28624A7A005CE769 /* MyMessagesGroups.swift */; };
 		93EFE7CD2695EA3700F50894 /* AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C82695EA3700F50894 /* AttributedText.swift */; };
 		93EFE7CE2695EA3700F50894 /* TextViewStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7C92695EA3700F50894 /* TextViewStore.swift */; };
 		93EFE7CF2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */; };
@@ -845,7 +846,8 @@
 		93DBCFFB27B28BE800E71C0B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		93DC4717285C41ED005CE769 /* MyMessagesIntro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesIntro.swift; sourceTree = "<group>"; };
 		93DC4719285C4207005CE769 /* MyMessagesSec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesSec.swift; sourceTree = "<group>"; };
-		93DC471B285C422B005CE769 /* MyMessagesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesList.swift; sourceTree = "<group>"; };
+		93DC471B285C422B005CE769 /* MyMessagesUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesUsers.swift; sourceTree = "<group>"; };
+		93DC471D28624A7A005CE769 /* MyMessagesGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessagesGroups.swift; sourceTree = "<group>"; };
 		93EFE7C82695EA3700F50894 /* AttributedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedText.swift; sourceTree = "<group>"; };
 		93EFE7C92695EA3700F50894 /* TextViewStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewStore.swift; sourceTree = "<group>"; };
 		93EFE7CA2695EA3700F50894 /* NSLineBreakMode+TruncationMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLineBreakMode+TruncationMode.swift"; sourceTree = "<group>"; };
@@ -1373,7 +1375,8 @@
 				935A5991265BAFDD005B0505 /* SponsorView.swift */,
 				93DC4717285C41ED005CE769 /* MyMessagesIntro.swift */,
 				93DC4719285C4207005CE769 /* MyMessagesSec.swift */,
-				93DC471B285C422B005CE769 /* MyMessagesList.swift */,
+				93DC471B285C422B005CE769 /* MyMessagesUsers.swift */,
+				93DC471D28624A7A005CE769 /* MyMessagesGroups.swift */,
 				935A5993265BAFF4005B0505 /* NotificationsView.swift */,
 				935A5995265BB02B005B0505 /* SuggestionsView.swift */,
 				935A5997265BB040005B0505 /* FAQView.swift */,
@@ -2001,6 +2004,7 @@
 				935A59A3265E536B005B0505 /* UnsubscribeReasonView.swift in Sources */,
 				934B0E0B26AE887B0008DCE5 /* GuardianViewModel.swift in Sources */,
 				939CBDAE276CA5D1004520A3 /* SmartphoneDetailsView.swift in Sources */,
+				93DC471E28624A7A005CE769 /* MyMessagesGroups.swift in Sources */,
 				938C234827D361EF00E509BA /* ImagePane.swift in Sources */,
 				937CA4C12654FC5E004A0227 /* GuardianFormLegalAgeView.swift in Sources */,
 				939CBDBC27730F13004520A3 /* SocialChoiceView.swift in Sources */,
@@ -2234,7 +2238,7 @@
 				93AC01E12716B68000FD7285 /* ModifyMobileView.swift in Sources */,
 				93AC02FB274B9CC300FD7285 /* PracticalCodesMsnglPass.swift in Sources */,
 				93AC0223272679D100FD7285 /* FuneralInviteNewsPaper.swift in Sources */,
-				93DC471C285C422B005CE769 /* MyMessagesList.swift in Sources */,
+				93DC471C285C422B005CE769 /* MyMessagesUsers.swift in Sources */,
 				938C231A27CC84B400E509BA /* CreateFuneralPlaceView.swift in Sources */,
 				93AC029327476C5900FD7285 /* ClothsDonationContact.swift in Sources */,
 				93AC02492727D85900FD7285 /* FuneralConvoyRoute.swift in Sources */,
@@ -2494,7 +2498,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;
@@ -2518,7 +2522,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Messangel/Messangel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "\"Messangel/Preview Content\"";
 				DEVELOPMENT_TEAM = 5Q2T5FM7Q4;
 				ENABLE_PREVIEWS = YES;

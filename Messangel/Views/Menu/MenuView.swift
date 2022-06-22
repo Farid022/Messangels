@@ -29,9 +29,9 @@ struct MenuView: View {
 //                        ZStack {
 //                            Button("") {}
                             Button(action: {
-                                if menuItem.ic == "ic_profile" {
-                                    navigationModel.pushContent("MenuView") {
-                                        ProfileView()
+                                if menuItem.ic == "ic_messages" {
+                                    navigationModel.pushContent(TabBarView.id) {
+                                        MyMessagesIntro()
                                     }
                                 }
                                 else if menuItem.ic == "ic_logout" {
@@ -65,7 +65,7 @@ struct MenuView: View {
     
     private func menuList() -> [MainMenu] {
         return [
-            MainMenu(id: "Profil", ic: "ic_profile", destination: AnyView(EmptyView())),
+            MainMenu(id: "Profil", ic: "ic_profile", destination: AnyView(ProfileView())),
             MainMenu(id: "Accès et sécurité", ic: "ic_lock", destination: AnyView(AccessSecurityView())),
             MainMenu(id: "Abonnement", ic: "ic_card", destination: AnyView(EditSubscriptionView())),
             MainMenu(id: "Liste de contacts", ic: "ic_contacts", destination: AnyView(ContactsListView())),

@@ -14,6 +14,7 @@ struct MessagesGroupView: View {
     @EnvironmentObject var navigationModel: NavigationModel
     @EnvironmentObject var albumVM: AlbumViewModel
     var group: MsgGroupDetail
+    var height = 105.0
     @State private var currentIndex: Int = 0
     private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
     @State private var fadeOut = false
@@ -21,7 +22,7 @@ struct MessagesGroupView: View {
     
     var body: some View {
         NavigationStackView(MessagesGroupView.id) {
-            MenuBaseView(title: group.name) {
+            MenuBaseView(height: height, title: group.name) {
                 if albumVM.albumImages.count > 0 {
                     Image(uiImage: albumVM.albumImages[currentIndex].image)
                         .centerCropped()

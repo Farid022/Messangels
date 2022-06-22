@@ -170,8 +170,10 @@ protocol CUViewModel: ObservableObject {
 class FeneralViewModel: CUViewModel {
     @Published var attachements = [Attachement]()
     @Published var updateRecord = false
+    @Published var loading = false
     @Published var recordId = 0
     @Published var progress = 0
+    @Published var choices = [FuneralChoice]()
     @Published var funeralChoices = [FuneralChoiceDetail]()
     @Published var funeral = Funeral(burial_type: 0, user: getUserId())
     @Published var apiResponse = APIService.APIResponse(message: "")
@@ -227,4 +229,20 @@ class FeneralViewModel: CUViewModel {
             }
         }
     }
+    
+    func getChoices(_ type: String, completion: @escaping (Bool) -> Void) {
+        APIService.shared.getJSON(model: choices, urlString: "choices/\(type)") { result in
+            switch result {
+            case .success(let items):
+                DispatchQueue.main.async {
+                    self.choices = items
+                    completion(true)
+                }
+            case .failure(let error):
+                print(error)
+                completion(false)
+            }
+        }
+    }
+    
 }
