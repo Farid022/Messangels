@@ -12,6 +12,7 @@ struct PracticalCodeText: View {
     @ObservedObject var vm: PracticalCodeViewModel
     @State private var loading = false
     @State private var showNote = false
+    @State private var hide_password: Bool = false
 //    @State private var codeCount = 1
     @EnvironmentObject var navModel: NavigationModel
     var title = "Entrez votre code. Vous pouvez ajouter des codes complémentaires si nécessaires"
@@ -54,8 +55,29 @@ struct PracticalCodeText: View {
                 }
             }, note: true, showNote: $showNote, menuTitle: "Codes pratiques", title: title, valid: .constant(!vm.practicalCode.codes.isEmpty)) {
 //                ForEach(0 ..< codeCount, id: \.self) { item in
-                    SecureField("Code", text: $vm.code.code)
-                        .normalShadow()
+//                    SecureField("Code", text: $vm.code.code)
+//                        .normalShadow()
+                
+                MyTextField(
+                    placeholder: "Code",
+                    text: $vm.code.code,
+                    isSecureTextEntry: $hide_password)
+                    .xTextFieldStyle()
+                    .normalShadow()
+                    .overlay {
+                        HStack{
+                            Spacer()
+                            Image(systemName: hide_password ? "eye" : "eye.slash")
+                                .foregroundColor(.black)
+                                .padding(.trailing, 20)
+                                .animation(.default, value: hide_password)
+                                .onTapGesture {
+                                    hide_password.toggle()
+                                }
+                        }
+                    }
+                
+                    
 //                }
                 Button {
                     if vm.code.code.isEmpty  {
